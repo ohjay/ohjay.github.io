@@ -1,0 +1,59 @@
+@import url(http://fonts.googleapis.com/css?family=Signika);
+
+@font-face {
+    font-family: 'League Gothic';
+    src: url('../fonts/league-gothic/leaguegothic-regular-webfont.eot');
+    src: url('../fonts/league-gothic/leaguegothic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/league-gothic/leaguegothic-regular-webfont.woff') format('woff'),
+         url('../fonts/league-gothic/leaguegothic-regular-webfont.ttf') format('truetype'),
+         url('../fonts/league-gothic/leaguegothic-regular-webfont.svg#league_gothicregular') format('svg');;
+}
+
+body {
+    font-family: 'Signika', sans-serif;
+    font-size: 120%;
+}
+
+.trailer {
+    margin-top: 200px;
+}
+
+.trailer-subtext {
+    font-size: 650%;
+    text-align: center;
+}
+
+.trailer-main {
+    font-family: 'League Gothic';
+    font-size: 1300%;
+    text-align: center;
+}
+
+.zoomTo {
+    background-color: #F8F8F8;
+    border: 1px solid #EAEAEA;
+    width: 137px;
+    height: 120px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+}
+
+.jtron-background {
+    background: url('../images/plane_background.jpg') no-repeat center center;
+    background-size: 132% auto;
+    position: fixed;
+    width: 100%;
+    height: 800px;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.jumbotron {
+    margin-bottom: 0px;
+    height: 800px;
+    background: transparent;
+}
