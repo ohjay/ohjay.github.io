@@ -11,21 +11,23 @@
 
 body {
     font-family: 'Signika', sans-serif;
-    font-size: 0.5em;
+    font-size: 120%;
 }
 
-.trailer {
-    margin-top: 200px;
+.teaser {
+    margin-top: 225px;
 }
 
-.trailer-subtext {
-    font-size: 650%;
+.teaser-subtext {
+    font-size: 7em;
+    width: 100%;
     text-align: center;
 }
 
-.trailer-main {
+.teaser-main {
     font-family: 'League Gothic';
-    font-size: 1300%;
+    font-size: 14em;
+    width: 100%;
     text-align: center;
 }
 
