@@ -11,22 +11,12 @@
 
 body {
     font-family: 'Signika', sans-serif;
-    font-size: 120%;
-}
-
-.teaser {
-    margin-top: 225px;
+    font-size: 130%;
+    padding: 15px;
 }
 
 .teaser-subtext {
-    font-size: 7em;
-    width: 100%;
-    text-align: center;
-}
-
-.teaser-main {
-    font-family: 'League Gothic';
-    font-size: 14em;
+    font-size: 7.5em;
     width: 100%;
     text-align: center;
 }
@@ -43,7 +33,13 @@ body {
     text-align: center;
 }
 
-.jtron-background {
+.jumbotron {
+    margin-bottom: 0px;
+    height: 800px;
+    background: transparent;
+}
+
+#jtron-background {
     background: url('../images/plane_background.jpg') no-repeat center center;
     background-size: 132% auto;
     position: fixed;
@@ -54,8 +50,14 @@ body {
     z-index: -1;
 }
 
-.jumbotron {
-    margin-bottom: 0px;
-    height: 800px;
-    background: transparent;
+#teaser {
+    margin-top: 240px;
+    margin-right: 35px;
+}
+
+#teaser-main {
+    font-family: 'League Gothic';
+    font-size: 15em;
+    width: 100%;
+    text-align: center;
 }
