@@ -13,6 +13,7 @@ body {
     font-family: 'Signika', sans-serif;
     font-size: 130%;
     padding: 15px;
+    padding-top: 50px;
 }
 
 .teaser-subtext {
@@ -51,8 +52,8 @@ body {
 }
 
 #teaser {
-    margin-top: 240px;
-    margin-right: 35px;
+    margin-top: 185px;
+    margin-right: 75px;
 }
 
 #teaser-main {
