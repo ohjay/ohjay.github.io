@@ -51,10 +51,19 @@ body {
     height: 21px;
 }
 
+.info-section {
+    position: relative;
+    text-align: center;
+}
+
 #header {
     top: 0px;
     width: 100%;
     font-size: 130%;
+}
+
+#logo {
+    font-family: 'League Gothic';
 }
 
 #jtron-background {
@@ -70,7 +79,6 @@ body {
 
 #teaser {
     margin-top: 185px;
-    margin-right: 175px;
 }
 
 #teaser-main {
