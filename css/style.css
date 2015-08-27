@@ -12,6 +12,7 @@
 body {
     font-family: 'Signika', sans-serif;
     font-size: 130%;
+    min-height: 2000px;
     padding: 15px;
     padding-top: 50px;
 }
@@ -40,6 +41,22 @@ body {
     background: transparent;
 }
 
+.links {
+    display: inline;
+    opacity: 0.8;
+}
+
+.links img {
+    width: 21px;
+    height: 21px;
+}
+
+#header {
+    top: 0px;
+    width: 100%;
+    font-size: 130%;
+}
+
 #jtron-background {
     background: url('../images/plane_background.jpg') no-repeat center center;
     background-size: 132% auto;
@@ -53,7 +70,7 @@ body {
 
 #teaser {
     margin-top: 185px;
-    margin-right: 75px;
+    margin-right: 175px;
 }
 
 #teaser-main {
