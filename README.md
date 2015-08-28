@@ -6,5 +6,5 @@ This is the personal website of Owen Michael Jow, in which Owen Michael Jow will
 ### Acknowledgments
 Of course, this undertaking would not have been possible without the indefatigable efforts of the countless others who have gone before. Owen would therefore like to publicize his appreciation for the following libraries, frameworks, and plugins (and credit them for their part in his website!):
 
-- [Zoomooz.js](http://jaukia.github.io/zoomooz/)
 - [Bootstrap](http://getbootstrap.com/)
+- [Justin Aguilar's CSS3 Animation Sheet](http://www.justinaguilar.com/animations/index.html)

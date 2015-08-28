@@ -12,7 +12,6 @@
 body {
     font-family: 'Signika', sans-serif;
     font-size: 130%;
-    min-height: 2000px;
     padding: 15px;
     padding-top: 50px;
 }
@@ -60,18 +59,33 @@ body {
 .info-section {
     position: relative;
     text-align: center;
+    color: #ffffff;
 }
 
-.zoomTo {
-    background-color: #F8F8F8;
-    border: 1px solid #EAEAEA;
-    width: 137px;
-    height: 120px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    padding: 20px;
-    margin: auto;
-    text-align: center;
+.info-text {
+    text-size: 130%;
+    visibility: hidden;
+}
+
+/* A transparent box to put behind text
+   in order to increase readability */
+.transp-box {
+    background-color: rgba(5, 4, 2, 0.5);
+    width: 70%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+.transp-box-hidden {
+    background-color: rgba(5, 4, 2, 0.5);
+    width: 70%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 100px;
+    visibility: hidden;
 }
 
 #header {
