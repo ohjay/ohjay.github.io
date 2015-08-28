@@ -67,7 +67,7 @@ body {
 }
 
 #jtron-background {
-    background: url('../images/plane_background.jpg') no-repeat center center;
+    background: url('../images/plane_background_1920x1440.jpg') no-repeat center center;
     background-size: 132% auto;
     position: fixed;
     width: 100%;
@@ -75,6 +75,12 @@ body {
     top: 0;
     left: 0;
     z-index: -1;
+}
+
+@media (max-width: 480px) {
+    #jtron-background {
+        background: url('../images/plane_background_320x480.jpg') center center cover no-repeat;
+    }
 }
 
 #teaser {
