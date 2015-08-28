@@ -9,6 +9,15 @@
          url('../fonts/league-gothic/leaguegothic-regular-webfont.svg#league_gothicregular') format('svg');;
 }
 
+a {
+    color: #ffde00;
+}
+
+/* Berkeley blue (Pantone 282) */
+a:hover {
+    color: #003A70;
+}
+
 body {
     font-family: 'Signika', sans-serif;
     font-size: 130%;
@@ -62,8 +71,13 @@ body {
     color: #ffffff;
 }
 
+.row {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 .info-text {
-    text-size: 130%;
+    font-size: 1.2em;
     visibility: hidden;
 }
 
@@ -139,4 +153,8 @@ body {
     font-size: 15em;
     width: 100%;
     text-align: center;
+}
+
+#coursework {
+    text-align: left;
 }
