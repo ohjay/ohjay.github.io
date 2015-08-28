@@ -17,9 +17,48 @@ body {
     padding-top: 50px;
 }
 
+.navbar-right {
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.navbar-right > li {
+    display: inline-block;
+}
+
+.links {
+    opacity: 0.8;
+}
+
+.links img {
+    width: 21px;
+    height: 21px;
+}
+
+.jumbotron {
+    margin-bottom: 0px;
+    height: 800px;
+    background: transparent;
+}
+
 .teaser-subtext {
     font-size: 7.5em;
     width: 100%;
+    text-align: center;
+}
+
+/* Correctly repositions anchor links */
+.anchor {
+    display: block;
+    height: 50px;
+    margin-top: -50px;
+    visibility: hidden;
+}
+
+.info-section {
+    position: relative;
     text-align: center;
 }
 
@@ -35,27 +74,6 @@ body {
     text-align: center;
 }
 
-.jumbotron {
-    margin-bottom: 0px;
-    height: 800px;
-    background: transparent;
-}
-
-.links {
-    display: inline;
-    opacity: 0.8;
-}
-
-.links img {
-    width: 21px;
-    height: 21px;
-}
-
-.info-section {
-    position: relative;
-    text-align: center;
-}
-
 #header {
     top: 0px;
     width: 100%;
@@ -64,6 +82,7 @@ body {
 
 #logo {
     font-family: 'League Gothic';
+    font-size: 112%;
 }
 
 #jtron-background {
@@ -78,8 +97,22 @@ body {
 }
 
 @media (max-width: 480px) {
+    button {
+        z-index: 9999;
+    }
+    
+    .navbar-right > li {
+        margin-top: 4px;
+    }
+    
+    .links {
+        right: 100px;
+    }
+    
     #jtron-background {
-        background: url('../images/plane_background_320x480.jpg') center center cover no-repeat;
+        background: url('../images/plane_background_480x720.jpg') no-repeat;
+        background-position: center bottom;
+        background-size: cover;
     }
 }
 
