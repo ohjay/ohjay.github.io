@@ -9,7 +9,21 @@
          url('../fonts/league-gothic/leaguegothic-regular-webfont.svg#league_gothicregular') format('svg');;
 }
 
-a {
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: 'Signika', sans-serif;
+    font-size: 130%;
+    padding-top: 50px;
+    margin-bottom: 118px;
+    height: 100%;
+    width: 100%;
+}
+
+a:link, a:visited {
     color: #ffde00;
 }
 
@@ -18,11 +32,10 @@ a:hover {
     color: #003A70;
 }
 
-body {
-    font-family: 'Signika', sans-serif;
-    font-size: 130%;
-    padding: 15px;
-    padding-top: 50px;
+h2 {
+    font-family: 'League Gothic';
+    font-size: 5em;
+    margin-bottom: 13px;
 }
 
 .navbar-right {
@@ -34,13 +47,15 @@ body {
 
 .navbar-right > li {
     display: inline-block;
+    opacity: 0.5;
 }
 
-.links {
-    opacity: 0.8;
+.navbar-right > li:hover {
+    opacity: 1;
+    cursor: pointer;
 }
 
-.links img {
+.navbar-link img {
     width: 21px;
     height: 21px;
 }
@@ -72,8 +87,8 @@ body {
 }
 
 .row {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .info-text {
@@ -81,8 +96,12 @@ body {
     visibility: hidden;
 }
 
-/* A transparent box to put behind text
-   in order to increase readability */
+.info-text img {
+    border: 5px outset #003A70;
+}
+
+/* A transparent box that, when positioned
+   behind text, ought to increase readability */
 .transp-box {
     background-color: rgba(5, 4, 2, 0.5);
     width: 100%;
@@ -90,9 +109,11 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
+    border: 10px groove #003A70;
 }
 
 .transp-box-hidden {
+    border-radius: 7px;
     background-color: rgba(5, 4, 2, 0.5);
     width: 100%;
     height: 100%;
@@ -100,16 +121,26 @@ body {
     margin-right: auto;
     padding: 10px 100px;
     visibility: hidden;
+    border: 5px double #003A70;
 }
 
-.transp-box-proj {
-    background-color: rgba(5, 4, 2, 0.5);
-    width: 100%;
-    height: 100%;
+.transp-box-hidden p {
+    margin-top: 5px;
+}
+
+/* Center project images */
+.img-responsive {
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px 100px;
-    visibility: hidden;
+}
+
+.img-responsive:hover {
+    opacity: 0.85;
+}
+
+#body-wrapper {
+    padding: 0px 15px 15px;
 }
 
 #header {
@@ -145,8 +176,57 @@ body {
     text-align: center;
 }
 
+#teaser-main > a {
+    color: #333333;
+}
+
+#teaser-main > a:link {
+    color: #333333;
+}
+
+#teaser-main > a:visited {
+    color: #333333;
+}
+
+/* Doubly serving as a decoy link */
+#superscript {
+    color: #ffde00;
+    cursor: pointer;
+}
+
+#superscript:hover {
+    color: #003A70;
+}
+
+#hidden-footnote {
+    font-size: 1.5em;
+    text-align: center;
+    visibility: hidden;
+}
+
 #coursework {
     text-align: left;
+}
+
+#footer-wrapper {
+    background: #222222;
+    width: 100%;
+    height: 118px;
+    color: #ffffff;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    overflow: auto;
+    z-index: 1;
+}
+
+#footer-text {
+    width: 990px;
+    margin: 0px auto;
+    font-size: 1.21em;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /* Mobile-specific settings */
@@ -155,25 +235,54 @@ body {
         z-index: 9999;
     }
     
-    .navbar-right > li {
-        margin-top: 4px;
-    }
-    
-    .links {
+    .navbar-right {
         right: 100px;
     }
     
+    .navbar-link {
+        margin-top: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    
+    .jumbotron {
+        height: 460px;
+    }
+    
     .transp-box {
-        padding: 5px;
+        padding: 10px;
     }
     
     .transp-box-hidden {
-        padding: 5px;
+        padding: 10px;
+        visibility: visible; /* oxymoron status */
+    }
+    
+    #links {
+        width: 100%;
+        left: 83px;
+        top: 11px;
     }
     
     #jtron-background {
-        background: url('../images/plane_background_480x720.jpg') no-repeat;
-        background-position: center bottom;
+        background: url('../images/plane_background_480x720.jpg') no-repeat center bottom;
         background-size: cover;
+    }
+    
+    #teaser {
+        margin-top: 70px;
+    }
+    
+    #teaser-main {
+        font-size: 6.5em;
+    }
+    
+    #footer-wrapper {
+        height: 40px;
+        overflow: hidden;
+    }
+    
+    #footer-text {
+        width: 100%;
     }
 }
