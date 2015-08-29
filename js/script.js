@@ -18,4 +18,5 @@ var addAnimation = function() {
 $(window).scroll(function() {
 	$('.info-text').each(addAnimation);
     $('.transp-box-hidden').each(addAnimation);
+    $('.transp-box-proj').each(addAnimation);
 });
