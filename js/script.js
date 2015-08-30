@@ -6,6 +6,9 @@ if ($(window).width() <= 480 || $(window).height() <= 480) {
     // Replace the footer text with a simpler statement
     $('#footer-text p').text('Copyright Owen Jow 2015');
     
+    // Remove some mobile-unnecessary text
+    $('.pull-right').text('');
+    
     // Collapse navbar after a selection is made
     $('.nav a').on('click', function(){
         $(".navbar-toggle").click();
@@ -30,6 +33,14 @@ if ($(window).width() <= 480 || $(window).height() <= 480) {
 
 /* Fun for the whole family */
 // Reveal hidden text upon superscript click
-$('#superscript').click(function() {
+$('#superscript0').click(function() {
     $('#hidden-footnote').addClass('fadeIn');
+});
+
+$('#superscript1').click(function() {
+    $('#replace1').text(' (every once in a while)');
+});
+
+$('#superscript2').click(function() {
+    $('#replace2').text(' (all the time)');
 });

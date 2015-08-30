@@ -128,6 +128,18 @@ h2 {
     margin-top: 5px;
 }
 
+.panel-body {
+    background-color: rgba(5, 4, 2, 0.6);
+}
+
+.align-left {
+    text-align: left;
+}
+
+.col-lg-6 {
+    margin-bottom: 10px;
+}
+
 /* Center project images */
 .img-responsive {
     display: block;
@@ -192,13 +204,17 @@ h2 {
     color: #333333;
 }
 
+#extra-margin {
+    margin-bottom: 3px;
+}
+
 /* Doubly serving as a decoy link */
-#superscript {
+#superscript0, #superscript1, #superscript2 {
     color: #ffde00;
     cursor: pointer;
 }
 
-#superscript:hover {
+#superscript0:hover, #superscript1:hover, #superscript2:hover {
     color: #003A70;
 }
 
