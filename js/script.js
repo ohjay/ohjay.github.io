@@ -15,19 +15,19 @@ if ($(window).width() <= 480 || $(window).height() <= 480) {
     });
 } else {
     /* Non-mobile specific code */
-    var addAnimation = function() {
-    	var imagePos = $(this).offset().top;
-    	var topOfWindow = $(window).scrollTop();
+    var addEntryAnimation = function() {
+    	var pos = $(this).offset().top;
+    	var scrollTop = $(window).scrollTop();
     
-    	if (imagePos < topOfWindow + 400 || $(window).scrollTop() + $(window).height() > $(document).height() - 50) {
-    		$(this).addClass('slideLeft');
+    	if (pos < scrollTop + 400 || scrollTop + $(window).height() > $(document).height() - 50) {
+    		$(this).addClass('fadeIn'); // alternative: slideLeft
     	}
     };
 
     // Trigger CSS animations when the element in question is scrolled to
     $(window).scroll(function() {
-    	$('.info-text').each(addAnimation);
-        $('.transp-box-hidden').each(addAnimation);
+    	$('.info-text').each(addEntryAnimation);
+        $('.transp-box-hidden').each(addEntryAnimation);
     });
 }
 
