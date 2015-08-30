@@ -204,10 +204,6 @@ h2 {
     color: #333333;
 }
 
-#extra-margin {
-    margin-bottom: 3px;
-}
-
 /* Doubly serving as a decoy link */
 #superscript0, #superscript1, #superscript2 {
     color: #ffde00;
