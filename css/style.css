@@ -93,11 +93,11 @@ h2 {
 
 .info-text {
     font-size: 1.21em;
-    visibility: hidden;
 }
 
 .info-text img {
-    border: 5px outset #003A70;
+    /* border: 5px outset #003A70; */
+    border: 1px solid #000000;
 }
 
 /* A transparent box that, when positioned
@@ -110,7 +110,7 @@ h2 {
     margin-right: auto;
     padding: 10px;
     /* border: 10px groove #003A70; */
-    border: 1px solid #000000;
+    border: 5px double #003A70;
 }
 
 .transp-box-hidden {
@@ -121,20 +121,28 @@ h2 {
     margin-left: auto;
     margin-right: auto;
     padding: 10px 100px;
-    visibility: hidden;
-    border: 5px double #003A70;
+    opacity: 0;
+    /* border: 5px double #003A70; */
+    border: 1px solid #000000;
 }
 
 .transp-box-hidden p {
     margin-top: 5px;
 }
 
+.panel-group, .panel, .panel-primary, .panel-collapse, #accordion {
+    opacity: 0.89;
+    border-radius: 0 !important;
+}
+
 .panel-heading {
-    background-color: rgba(0, 58, 112, 0.9) !important;
+    background-color: #003A70 !important;
+    border-radius: 0 !important;
 }
 
 .accordion-link, .accordion-link:link, .accordion-link:visited {
     color: #ffffff;
+    opacity: 1 !important;
 }
 
 .accordion-link:hover {
@@ -142,11 +150,16 @@ h2 {
 }
 
 .panel-body {
-    background-color: rgba(0, 58, 112, 0.8);
+    background-color: rgba(0, 58, 112, 0.95);
 }
 
 .align-left {
     text-align: left;
+    opacity: 1 !important;
+}
+
+.proj-link:hover {
+    color: #FFB600;
 }
 
 .col-lg-6 {
@@ -294,7 +307,7 @@ h2 {
     
     .transp-box-hidden {
         padding: 10px;
-        visibility: visible; /* oxymoron status */
+        opacity: 1;
     }
     
     #links {

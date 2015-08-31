@@ -1,4 +1,4 @@
-if ($(window).width() <= 480 || $(window).height() <= 480) {
+if ($(window).width() <= 480) {
     /* Mobile-specific code */
     // Remove the "nav navbar-nav" classes from the social link icons
     $('#links').removeClass('nav navbar-nav');
@@ -18,15 +18,15 @@ if ($(window).width() <= 480 || $(window).height() <= 480) {
     var addEntryAnimation = function() {
     	var pos = $(this).offset().top;
     	var scrollTop = $(window).scrollTop();
-    
-    	if (pos < scrollTop + 400 || scrollTop + $(window).height() > $(document).height() - 50) {
-    		$(this).addClass('fadeIn'); // alternative: slideLeft
+        
+    	if (pos < scrollTop + 625 || scrollTop + $(window).height() > $(document).height() - 50) {
+    		// $(this).addClass('slideLeft');
+            $(this).fadeTo(750, 1, 'linear'); // 750 ms animation
     	}
     };
 
     // Trigger CSS animations when the element in question is scrolled to
     $(window).scroll(function() {
-    	$('.info-text').each(addEntryAnimation);
         $('.transp-box-hidden').each(addEntryAnimation);
     });
 }
