@@ -158,8 +158,8 @@ h2 {
     opacity: 1 !important;
 }
 
-.proj-link:hover {
-    color: #FFB600;
+.proj-link:hover, .work-link:hover {
+    color: #FF8500;
 }
 
 .col-lg-6 {
