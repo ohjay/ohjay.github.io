@@ -11,12 +11,12 @@ $(document).ready(function() {
         strings: [
             "Don't you miss the quiet of a simpler age?", 
             "I know I do.", 
-            "Here you can take a break from the chaos and clutter of life.", 
+            "Here you can take a break from the chaos and clutter of life.",
             "Just pause for a bit. What's the harm?",
-            "Close your eyes –",
-            "Try to think about something happy.",
-            "And then...",
-            "When you're totally ready... take a deep breath and move on."],
+            "After all, you're the most talented, most interesting...",
+            "...most EXTRAORDINARY person in the universe.", // - Emmet, the Lego Movie
+            "And you can stay here as long as you want, my friend.",
+            "When you're totally ready... buckle up and take off again."],
         typeSpeed: 42,
         backDelay: 500,
         showCursor: false,
@@ -25,7 +25,7 @@ $(document).ready(function() {
     
     $('#skip-button').click(function() {
         $('span.animated-text').replaceWith(
-            "<span>When you're totally ready... take a deep breath and move on.</span>"
+            "<span>When you're totally ready... buckle up and take off again.</span>"
         );
         addLinks();
     });
