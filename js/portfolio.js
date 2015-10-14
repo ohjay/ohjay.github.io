@@ -4,7 +4,7 @@ if ($(window).width() <= 480) {
     $('#links').removeClass('nav navbar-nav');
             
     // Replace the footer text with a simpler statement
-    $('#footer-text p').text('Copyright Owen Jow 2015');
+    $('#footer-text p').text('{ Copyright Owen Jow 2015 }');
     
     // Remove some mobile-unnecessary text
     $('.pull-right').text('');
