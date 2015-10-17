@@ -10,17 +10,17 @@
 
 /* Footer */
 
-	#footer {
-		@include padding(2.25em, 2.25em);
+    #footer {
+        @include padding(2.25em, 2.25em);
 
-		.copyright {
-			list-style: none;
-			padding: 0;
+        .copyright {
+            list-style: none;
+            padding: 0;
 
-			li {
-				display: inline-block;
-				font-size: 0.8em;
-				padding: 0;
-			}
-		}
-	}
+            li {
+                display: inline-block;
+                font-size: 0.8em;
+                padding: 0;
+            }
+        }
+    }
