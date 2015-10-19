@@ -9,3 +9,4 @@ Of course, this undertaking would not have been possible without the indefatigab
 - [Bootstrap](http://getbootstrap.com/)
 - [Justin Aguilar's CSS3 Animation Sheet](http://www.justinaguilar.com/animations/index.html)
 - [HTML5 UP](http://html5up.net/)
+- [Emancipator [producer behind ["Wolf Drawn"](https://github.com/ohjay/ohjay.github.io/blob/master/music/wolf_drawn.mp3)]](http://www.emancipatormusic.com/)
