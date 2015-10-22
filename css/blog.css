@@ -1,1 +1,11 @@
+@font-face {
+    font-family: "Owenfont";
+    src: url('../fonts/owenfont_t2.ttf') format("truetype");
+}
 
+body {
+    background-color: #e4cde0;
+    text-align: center;
+    font-family: "Owenfont", sans-serif;
+    font-size: 400%;
+}
