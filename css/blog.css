@@ -8,4 +8,11 @@ body {
     text-align: center;
     font-family: "Owenfont", sans-serif;
     font-size: 400%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dsq-brlink {
+    font-size: 40%;
 }
