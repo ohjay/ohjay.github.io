@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Welcome!
+title: First Impressions
 ---
 
 <div class="message">

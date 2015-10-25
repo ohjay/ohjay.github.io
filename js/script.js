@@ -15,9 +15,9 @@ var mobileTransform = function() {
                   + "this as a buffer against the gruesome remainder of this site's contents. "
                   + "If you possess any vestige of control over your mental facilities, you'll turn back now.<br><br>"
                   + "That was your final warning.<br><br>"
-                  + '<a href="portfolio.html" id="portfolio">Portfolio</a>&nbsp;&nbsp;|&nbsp;&nbsp;'
-                  + '<a href="blog.html" id="blog">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;'
-                  + '<a href="cs61a.html" id="cs61a">CS 61A</a><br>'
+                  + '<a href="portfolio" id="portfolio">Portfolio</a>&nbsp;&nbsp;|&nbsp;&nbsp;'
+                  + '<a href="blog" id="blog">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;'
+                  + '<a href="cs61a" id="cs61a">CS 61A</a><br>'
                   + '. . . . . . . . . . . . . . . . . . . . . . . . . . . . .');
     }
 };

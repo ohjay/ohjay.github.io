@@ -3,6 +3,8 @@ layout: default
 title: Blog
 ---
 
+<div class="below-mh-subtitle">Welcome to my blog! (Yes, this is my handwriting.)</div>
+
 <div class="posts">
   {% for post in paginator.posts %}
   <article class="post">
@@ -11,10 +13,7 @@ title: Blog
         {{ post.title }}
       </a>
     </h1>
-
     <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
-
-    {{ post.content }}
   </article>
   {% endfor %}
 </div>
