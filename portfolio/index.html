@@ -436,5 +436,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="../js/smoothscroll.js"></script>
     <script src="../js/portfolio.min.js"></script>
+    <script type="text/javascript">
+        // The secret page navigation option
+        $(document).keypress(function(evt) {
+            base = document.location.origin;
+            switch (evt.charCode) {
+                case 'b'.charCodeAt(): // blog
+                    document.location.href = base + '/blog';
+                    break;
+                case 'c'.charCodeAt(): // CS 61A
+                    document.location.href = base + '/cs61a';
+                    break;
+                case 'i'.charCodeAt(): // index
+                    document.location.href = base;
+                    break;
+            }
+        });
+    </script>
 </body>
 </html>

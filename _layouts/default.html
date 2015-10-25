@@ -28,15 +28,18 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script> if (!window.jQuery) { document.write('<script src="js/jquery.min.js"><\/script>'); } </script>
             <script type="text/javascript">
-                // The secret page navigation option
+                // The secret page navigation option (aka hotkeys!)
                 $(document).keypress(function(evt) {
                     base = document.location.origin;
                     switch (evt.charCode) {
-                        case 'b'.charCodeAt():
+                        case 'b'.charCodeAt(): // blog root
                             document.location.href = base + '/blog';
                             break;
                         case 'c'.charCodeAt():
                             document.location.href = base + "/cs61a";
+                            break;
+                        case 'i'.charCodeAt():
+                            document.location.href = base;
                             break;
                         case 'p'.charCodeAt():
                             document.location.href = base + '/portfolio';

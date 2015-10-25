@@ -26,7 +26,7 @@
                 <h1>CS 61A</h1>
                 <p>A collection of supplementary resources for everyone's favorite CS class</a></p>
                 <ul class="icons">
-                    <li><a href="https://github.com/ohjay/ohjay.github.io/blob/master/cs61a.html" class="icon fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="https://github.com/ohjay/ohjay.github.io" class="icon fa-github"><span class="label">Github</span></a></li>
                     <li><a href="mailto:owenjow@berkeley.edu?subject=How%20do%20I%20become%20John%20DeNero?" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
                 </ul>
             </header>
@@ -97,5 +97,22 @@
         <script src="../js/skel.min.js"></script>
         <!--[if lte IE 8]><script src="../js/ie/respond.min.js"></script><![endif]-->
         <script src="../js/cs61a.min.js"></script>
+        <script type="text/javascript">
+            // The secret page navigation option
+            $(document).keypress(function(evt) {
+                base = document.location.origin;
+                switch (evt.charCode) {
+                    case 'b'.charCodeAt(): // blog
+                        document.location.href = base + '/blog';
+                        break;
+                    case 'i'.charCodeAt(): // index
+                        document.location.href = base;
+                        break;
+                    case 'p'.charCodeAt(): // portfolio
+                        document.location.href = base + '/portfolio';
+                        break;
+                }
+            });
+        </script>
     </body>
 </html>

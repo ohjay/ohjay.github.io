@@ -46,5 +46,22 @@
     <script> if (!window.jQuery) { document.write('<script src="js/jquery.min.js"><\/script>'); } </script>
     <script src="js/typed.min.js"></script>
     <script src="js/script.js"></script>
+    <script type="text/javascript">
+        // The secret page navigation option
+        $(document).keypress(function(evt) {
+            base = document.location.origin;
+            switch (evt.charCode) {
+                case 'b'.charCodeAt(): // blog
+                    document.location.href = base + '/blog';
+                    break;
+                case 'c'.charCodeAt(): // CS 61A
+                    document.location.href = base + '/cs61a';
+                    break;
+                case 'p'.charCodeAt(): // portfolio
+                    document.location.href = base + '/portfolio';
+                    break;
+            }
+        });
+    </script>
 </body>
 </html>
