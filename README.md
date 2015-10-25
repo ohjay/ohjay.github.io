@@ -9,3 +9,4 @@ Of course, this undertaking would not have been possible without the indefatigab
 - [Bootstrap](http://getbootstrap.com/)
 - [Justin Aguilar's CSS3 Animation Sheet](http://www.justinaguilar.com/animations/index.html)
 - [HTML5 UP](http://html5up.net/)
+- [Jekyll](https://jekyllrb.com/) (and [Poole](http://getpoole.com/))

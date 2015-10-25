@@ -1,0 +1,21 @@
+# Permalinks
+permalink:           /blog/:title
+
+# Setup
+title:               Owen Jow
+tagline:             Just your everyday writer
+url:                 http://owenjow.xyz
+paginate:            2
+paginate_path:       "/blog/:num"
+baseurl:             ""
+
+# Assets
+sass:
+  sass_dir:          sass
+  style:            :compressed
+
+# About/contact
+author:
+  name:              Owen Jow
+  url:               http://owenjow.xyz
+  email:             owenjow@berkeley.edu
