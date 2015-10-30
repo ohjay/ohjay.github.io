@@ -211,7 +211,7 @@ h2 {
     background-size: 132% auto;
     position: fixed;
     width: 100%;
-    height: 800px;
+    height: 100%;
     top: 0;
     left: 0;
     z-index: -1;
@@ -336,5 +336,16 @@ h2 {
     
     #footer-text {
         width: 100%;
+    }
+}
+
+/* Big monitor settings */
+@media (min-height: 801px) {
+    .jumbotron {
+        height: 1000px;
+    }
+    
+    #teaser {
+        margin-top: 285px;
     }
 }
