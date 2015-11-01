@@ -5,7 +5,11 @@
 
 .page,
 .post {
-  margin-bottom: 1em;
+  margin-bottom: -1.5em;
+}
+
+.post-plus-margin {
+  margin-bottom: 1.5em;
 }
 
 // Blog post or page title

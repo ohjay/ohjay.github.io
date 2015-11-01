@@ -4,7 +4,9 @@ title: Blog
 ---
 
 <div class="posts">
+    {% assign i = 0 %}
     {% for post in paginator.posts %}
+    {% if i == 0 %}
     <article class="post">
         <h1 class="post-title">
             <a href="{{ site.baseurl }}{{ post.url }}">
@@ -13,6 +15,18 @@ title: Blog
         </h1>
         <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
     </article>
+    {% assign i = 1 %}
+    {% else %}
+    <article class="post" style="text-align: right">
+        <h1 class="post-title">
+            <a href="{{ site.baseurl }}{{ post.url }}">
+                {{ post.title }}
+            </a>
+        </h1>
+        <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date" style="text-align: right">{{ post.date | date_to_string }}</time>
+    </article>
+    {% assign i = 0 %}
+    {% endif %}
     {% endfor %}
 </div>
 

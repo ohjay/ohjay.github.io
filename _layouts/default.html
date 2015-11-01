@@ -44,6 +44,17 @@
                             break;
                     }
                 });
+                
+                function addColons() {
+                    var df = parseInt($(".container").css('font-size'), 10) * 0.65;
+                    var width = $('.container').width();
+                    $('.below-mh-subtitle').text(": " + Array(Math.floor(width / df)).join(' :'));
+                }
+                
+                addColons();
+                $(window).resize(function() {
+                    addColons();
+                });
             </script>
         </div>
     </body>
