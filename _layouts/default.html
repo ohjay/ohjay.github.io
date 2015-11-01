@@ -13,7 +13,11 @@
             </header>
 
             <main>
-                <div class="below-mh-subtitle">: : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : :</div>
+                <div class="below-mh-subtitle">: : : : : : : : : : : : : : : : : : : : : : : : : :</div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script type="text/javascript">
+                    function addColons(){var o=.65*parseInt($(".container").css("font-size"),10),e=$(".container").width();$(".below-mh-subtitle").text(": "+Array(Math.floor(e/o)).join(" :"))}addColons(),$(window).resize(function(){addColons()}),$(document).keypress(function(o){switch(base=document.location.origin,o.charCode){case"b".charCodeAt():document.location.href=base+"/blog";break;case"c".charCodeAt():document.location.href=base+"/cs61a";break;case"i".charCodeAt():document.location.href=base;break;case"p".charCodeAt():document.location.href=base+"/portfolio"}});
+                </script>
                 {{ content }}
             </main>
 
@@ -22,40 +26,6 @@
                     <span style="font-size: 105%">&copy; <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>. All rights reserved.</span>
                 </small>
             </footer>
-            
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <script> if (!window.jQuery) { document.write('<script src="js/jquery.min.js"><\/script>'); } </script>
-            <script type="text/javascript">
-                // The secret page navigation option (aka hotkeys!)
-                $(document).keypress(function(evt) {
-                    base = document.location.origin;
-                    switch (evt.charCode) {
-                        case 'b'.charCodeAt(): // blog root
-                            document.location.href = base + '/blog';
-                            break;
-                        case 'c'.charCodeAt():
-                            document.location.href = base + "/cs61a";
-                            break;
-                        case 'i'.charCodeAt():
-                            document.location.href = base;
-                            break;
-                        case 'p'.charCodeAt():
-                            document.location.href = base + '/portfolio';
-                            break;
-                    }
-                });
-                
-                function addColons() {
-                    var df = parseInt($(".container").css('font-size'), 10) * 0.65;
-                    var width = $('.container').width();
-                    $('.below-mh-subtitle').text(": " + Array(Math.floor(width / df)).join(' :'));
-                }
-                
-                addColons();
-                $(window).resize(function() {
-                    addColons();
-                });
-            </script>
         </div>
     </body>
 </html>
