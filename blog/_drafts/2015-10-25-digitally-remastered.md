@@ -3,6 +3,6 @@ layout: post
 title: Digitally Remastered
 ---
 
-<div class="message">
-    To do: "remaster" (as in touch up) Blogger stories and put them on here. ["used to fancy myself as a writer"]
-</div>
+- "Remaster" (as in touch up + repost) old blog stories
+- Maybe mention comedies & other instances of writing as well
+- Discuss previous life, when I was an aspiring writer

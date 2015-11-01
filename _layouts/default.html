@@ -8,16 +8,18 @@
                 <h3 class="masthead-title">
                     <a href="{{ site.baseurl }}/blog" title="Index">{{ site.title }}</a>
                     <small>{{ site.tagline }}</small>
+                    <span style="float: right">// Blog</span>
                 </h3>
             </header>
 
             <main>
+                <div class="below-mh-subtitle">: : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : : :</div>
                 {{ content }}
             </main>
 
             <footer class="footer">
                 <small>
-                    &copy; <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>. All rights reserved.
+                    <span style="font-size: 105%">&copy; <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>. All rights reserved.</span>
                 </small>
             </footer>
             

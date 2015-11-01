@@ -3,4 +3,7 @@ layout: post
 title: Magnified
 ---
 
-Not sure if it happens to everyone, but sometimes everything's all zoomed in (ex. when I'm reading a book and stuff like that).
+- When after reading for a while, everything gets all zoomed in (visually)
+- Also happens when sleeping and I wake up (in the dark)
+- Why? Does it happen to everyone?
+- Most likely transition to some other subject from here
