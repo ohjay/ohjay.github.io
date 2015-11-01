@@ -18,6 +18,11 @@
         vertical-align: baseline;
     }
     
+    h3 {
+        padding-bottom: 20px;
+        border-bottom: double 4px #aaa;
+    }
+    
     .centered {
         text-align: center;
         display: flex;

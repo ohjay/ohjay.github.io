@@ -4,6 +4,11 @@
     Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $('#mobile-scroll-warning').html('[ <i>Hi, mobile user! Just a quick announcement: in order to go up, you must first go down.</i> ]<br><br>');
+    $('#mobile-removal').html('');
+}
+
 var main = (function($) { var _ = {
 
     /**
