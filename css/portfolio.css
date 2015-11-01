@@ -317,6 +317,7 @@ h2 {
     }
     
     #jtron-background {
+        height: 800px;
         background: url('../images/plane_background_480x720.jpg') no-repeat center bottom;
         background-size: cover;
     }
