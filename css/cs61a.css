@@ -23,10 +23,31 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
-        height:100vh;
-        width: 80%;
+        height: 100vh;
+        width: 75%;
         margin-left: auto;
         margin-right: auto;
+        overflow-y: auto;
+    }
+    
+    .scroll {
+        text-align: center;
+        width: 75%;
+        height: 100vh;
+        margin-left: auto;
+        margin-right: auto;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .small-br {
+        content: " ";
+        display: block;
+        margin: 1.5em;
+    }
+    
+    ::-webkit-scrollbar {
+        display: none; 
     }
 
     article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -992,7 +1013,7 @@
         -webkit-transition: opacity 0.75s ease, width 0.75s ease;
         -ms-transition: opacity 0.75s ease, width 0.75s ease;
         transition: opacity 0.75s ease, width 0.75s ease;
-        position: absolute;
+        position: fixed;
         top: 0;
         width: calc(100% - 22.5em);
         height: 100%;
@@ -1004,7 +1025,7 @@
             -webkit-pointer-events: none;
             -ms-pointer-events: none;
             pointer-events: none;
-            position: absolute;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
@@ -1026,7 +1047,7 @@
                 background-image: linear-gradient(left, rgba(16,16,16,0.2), rgba(16,16,16,0) 10em, rgba(16,16,16,0)), linear-gradient(right, rgba(16,16,16,0.2), rgba(16,16,16,0) 10em, rgba(16,16,16,0));
                 content: '';
                 display: block;
-                position: absolute;
+                position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
@@ -1080,7 +1101,7 @@
             -webkit-transition: opacity 0.5s ease-in-out;
             -ms-transition: opacity 0.5s ease-in-out;
             transition: opacity 0.5s ease-in-out;
-            position: absolute;
+            position: static;
             top: 0;
             left: 0;
             width: 100%;
@@ -1112,7 +1133,7 @@
                 -webkit-transition: opacity 0.5s ease-in-out;
                 -ms-transition: opacity 0.5s ease-in-out;
                 transition: opacity 0.5s ease-in-out;
-                position: absolute;
+                position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
@@ -1133,7 +1154,7 @@
                 transition: opacity 0.5s ease-in-out;
                 content: '';
                 display: block;
-                position: absolute;
+                position: fixed;
                 top: 50%;
                 left: 50%;
                 width: 3em;

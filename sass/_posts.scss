@@ -5,21 +5,7 @@
 
 .page,
 .post {
-  margin-bottom: -1.5em;
-}
-
-.align-right {
-  text-align: right;
-}
-
-@media only screen and (max-device-width: 480px) {
-  .post {
-    margin-bottom: 1em;
-  }
-  
-  .align-right {
-    text-align: initial;
-  }
+  margin-bottom: 1em;
 }
 
 .post-plus-margin {
