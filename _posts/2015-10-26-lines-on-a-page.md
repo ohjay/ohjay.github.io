@@ -3,7 +3,7 @@ layout: post
 title: Lines on a Page
 ---
 
-Do you ever think about how words are just lines on a page? Or sounds in the air? Or electrical signals in someone's brain? It's <sup><sub>きょうみぶかい</sub></sup> (that's 'very interesting,' for those of you who don't speak okonomiyaki). Of all the possibilities, we decided to give meaning to <em>these</em> specific lines and <em>these</em> specific sounds. Many times over, in fact, in many different languages. And you know what? I think that from a certain point of view<sup><sub><sup><sub> </sub></sup></sub>1</sup> everyone is at least bilingual. Because in addition to the language(s) they use to communicate with other people, everyone has their own language. Their own set of triggers and meanings.
+Do you ever think about how words are just lines on a page? Or sounds in the air? Or electrical signals in someone's brain? It's <sup><sub>きょうみぶかい</sub></sup> (that's 'very interesting,' for those of you who don't speak <sup><sub>日本語</sub></sup>). Of all the possibilities, we decided to give meaning to <em>these</em> specific lines and <em>these</em> specific sounds. Many times over, in fact, in many different languages. And you know what? I think that from a certain point of view<sup><sub><sup><sub> </sub></sup></sub>1</sup> everyone is at least bilingual. Because in addition to the language(s) they use to communicate with other people, everyone has their own language. Their own set of triggers and meanings.
 
 That's the one they use to communicate with themselves.
 

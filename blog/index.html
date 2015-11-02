@@ -12,6 +12,7 @@ title: Blog
             </a>
         </h1>
         <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+        {{ post.excerpt | truncatewords: 50 | remove: '<p>' | remove: '</p>' | strip_newlines }}<br style="line-height: 200%" /><a href="{{ post.url }}">(Read More)</a>
     </article>
     {% endfor %}
 </div>
