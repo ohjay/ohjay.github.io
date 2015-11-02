@@ -620,9 +620,9 @@
         }
 
     ul {
-        list-style: disc;
+        list-style: square;
         margin: 0 0 1.25em 0;
-        padding-left: 1em;
+        padding-left: 1.07em;
     }
 
         ul li {

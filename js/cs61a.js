@@ -6,7 +6,8 @@
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     $('#mobile-scroll-warning').html('[ <i>Hi, mobile user! Just a quick announcement: in order to go up, you must first go down.</i> ]<br><br>');
-    $('#mobile-removal').html('');
+    $('.mobile-removal').html('');
+    $('.mobile-left-align').css('text-align', 'left');
 }
 
 var main = (function($) { var _ = {
