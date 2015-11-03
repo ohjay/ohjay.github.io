@@ -7,7 +7,7 @@ var addLinks = function() {
 };
 
 $(document).ready(function() {
-   $('.animated-text').typed({
+    $('.animated-text').typed({
         strings: [
             "Don't you miss the quiet of a simpler age?", 
             "I know I do.", 
