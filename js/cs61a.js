@@ -6,8 +6,13 @@
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     $('#mobile-scroll-warning').html('[ <i>Hi, mobile user! Just a quick announcement: in order to go up, you must first go down.</i> ]<br><br>');
-    $('.mobile-removal').html('');
+    $('.ff-mobile-removal').html('');
     $('.mobile-left-align').css('text-align', 'left');
+}
+
+if (navigator.userAgent.search("Firefox") >= 0) {
+    $('.ff-mobile-removal').html('');
+    $('.scroll-child').css('right', '-13px');
 }
 
 var main = (function($) { var _ = {
