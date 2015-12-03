@@ -1,48 +1,34 @@
-var addLinks = function() {
-    $('#skip-button').remove();
-    $('.pipe').text(' | ');
-    $('#portfolio').text('Portfolio');
-    $('#blog').text('Blog');
-    $('#cs61a').text('CS 61A');
-};
+var moveForce = 35; // max popup movement in pixels
+var rotateForce = 25; // max popup rotation in degrees
 
-$(document).ready(function() {
-    $('.animated-text').typed({
-        strings: [
-            "Don't you miss the quiet of a simpler age?", 
-            "I know I do.", 
-            "Here you can take a break from the chaos and clutter of life.",
-            "Just pause for a bit. What's the harm?",
-            "After all, you're the most talented, most interesting...",
-            "...most EXTRAORDINARY person in the universe.", // - Emmet, the Lego Movie
-            "And you can stay here as long as you want, my friend.",
-            "When you're totally ready... buckle up and take off again."],
-        typeSpeed: 42,
-        backDelay: 500,
-        showCursor: false,
-        callback: addLinks
-    });
+$(document).mousemove(function(e) {
+    var docX = $(document).width();
+    var docY = $(document).height();
     
-    $('#skip-button').click(function() {
-        $('span.animated-text').replaceWith(
-            "<span>When you're totally ready... buckle up and take off again.</span>"
-        );
-        addLinks();
-    });
+    var moveX = (e.pageX - docX / 2) / (docX / 2) * -moveForce;
+    var moveY = (e.pageY - docY / 2) / (docY / 2) * -moveForce;
     
-    // The secret page navigation option
-    $(document).keypress(function(evt) {
-        base = document.location.origin;
-        switch (evt.charCode) {
-            case 'b'.charCodeAt(): // blog
-                document.location.href = base + '/blog';
-                break;
-            case 'c'.charCodeAt(): // CS 61A
-                document.location.href = base + '/cs61a';
-                break;
-            case 'p'.charCodeAt(): // portfolio
-                document.location.href = base + '/portfolio';
-                break;
-        }
-    });
+    var rotateY = (e.pageX / docX * rotateForce * 2) - rotateForce;
+    var rotateX = -((e.pageY / docY * rotateForce * 2) - rotateForce);
+    
+    $('.popup')
+        .css('left', moveX + 'px')
+        .css('top', moveY + 'px')
+        .css('transform', 'rotateX('+rotateX + 'deg) rotateY('+rotateY + 'deg)');
+});
+
+// The secret page navigation option
+$(document).keypress(function(evt) {
+    base = document.location.origin;
+    switch (evt.charCode) {
+        case 'b'.charCodeAt(): // blog
+            document.location.href = base + '/blog';
+            break;
+        case 'c'.charCodeAt(): // CS 61A
+            document.location.href = base + '/cs61a';
+            break;
+        case 'p'.charCodeAt(): // portfolio
+            document.location.href = base + '/portfolio';
+            break;
+    }
 });
