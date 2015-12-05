@@ -23,6 +23,22 @@
         border-bottom: double 4px #aaa;
     }
     
+    .scroll-parent {
+        overflow: hidden;
+    }
+    
+    .scroller {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .wisdom-text {
+        text-align: center;
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
     .centered {
         text-align: center;
         display: flex;
@@ -33,33 +49,6 @@
         margin-left: auto;
         margin-right: auto;
         overflow-y: auto;
-    }
-    
-    .scroll-parent {
-        text-align: center;
-        width: 75%;
-        height: 100vh;
-        margin-left: auto;
-        margin-right: auto;
-        overflow-x: hidden;
-        position: relative;
-    }
-    
-    .scroll-child {
-        overflow-x: hidden;
-        overflow-y: scroll !important;
-        -webkit-overflow-scrolling: touch !important;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-    
-    .small-br {
-        content: " ";
-        display: block;
-        margin: 1.5em;
     }
     
     ::-webkit-scrollbar {
@@ -283,18 +272,6 @@
         hr.major {
             margin: 1.875em 0;
         }
-
-    .align-left {
-        text-align: left;
-    }
-
-    .align-center {
-        text-align: center;
-    }
-
-    .align-right {
-        text-align: right;
-    }
 
 /* Button */
 

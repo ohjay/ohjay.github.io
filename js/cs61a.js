@@ -6,13 +6,9 @@
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     $('#mobile-scroll-warning').html('[ <i>Hi, mobile user! Just a quick announcement: in order to go up, you must first go down.</i> ]<br><br>');
-    $('.ff-mobile-removal').html('');
     $('.mobile-left-align').css('text-align', 'left');
-}
-
-if (navigator.userAgent.search("Firefox") >= 0) {
-    $('.ff-mobile-removal').html('');
-    $('.scroll-child').css('right', '-13px');
+    $('.mobile-removal').html('');
+    $('.scroller').on('touchstart', function(evt) {});
 }
 
 var main = (function($) { var _ = {
@@ -498,7 +494,17 @@ var main = (function($) { var _ = {
                 _.settings.layoutDuration = 0;
 
             }
-
+            
+        // Set the height of the window (note: added by Owen 12/04/15)
+            $('.scroller').css('height', window.innerHeight - 32);
+            
+        // Remove the scrollbar from Firefox browsers (note: added by Owen 12/04/15)
+        if (navigator.userAgent.search("Firefox") >= 0) {
+            $('.scroller').css('margin-right', '-19px');
+            $('.wisdom-text').css('width', '70%');
+            $('.scroll-parent').css('margin-right', '11px');
+        }
+            
         // Skel.
             skel.breakpoints({
                 xlarge: '(max-width: 1680px)',
