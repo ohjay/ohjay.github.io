@@ -24,7 +24,7 @@
     }
     
     .scroll-parent {
-        overflow: hidden;
+        overflow-x: hidden;
     }
     
     .scroller {
@@ -750,7 +750,7 @@
         overflow-y: auto;
         text-align: right;
         visibility: visible;
-        z-index: 10000;
+        z-index: 2;
         right: 0;
     }
 
@@ -773,6 +773,7 @@
         body.fullscreen #main {
             visibility: hidden;
             right: -22.5em;
+            overflow: hidden;
         }
 
         body.is-loading-1 #main {

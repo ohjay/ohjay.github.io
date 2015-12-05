@@ -5,10 +5,13 @@
 */
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    $('#mobile-scroll-warning').html('[ <i>Hi, mobile user! Just a quick announcement: in order to go up, you must first go down.</i> ]<br><br>');
+    if (/iPhone/i.test(navigator.userAgent)) {
+        $('#mobile-scroll-warning').html('[ <i>Hi, mobile user! Just a quick announcement: in order to go up, you must first go down. But not too much.</i> ]<br><br>');
+    } else {
+        $('#mobile-scroll-warning').html('[ <i>Hi, mobile user! Just a quick announcement: in order to go up, you must first go down.</i> ]<br><br>');
+    }
     $('.mobile-left-align').css('text-align', 'left');
     $('.mobile-removal').html('');
-    $('.scroller').on('touchstart', function(evt) {});
 }
 
 var main = (function($) { var _ = {
@@ -496,14 +499,18 @@ var main = (function($) { var _ = {
             }
             
         // Set the height of the window (note: added by Owen 12/04/15)
-            $('.scroller').css('height', window.innerHeight - 32);
+            if (/iPhone/i.test(navigator.userAgent)) {
+                $('.scroller').css('height', '600px');
+            } else {
+                $('.scroller').css('height', window.innerHeight - 32);
+            }
             
         // Remove the scrollbar from Firefox browsers (note: added by Owen 12/04/15)
-        if (navigator.userAgent.search("Firefox") >= 0) {
-            $('.scroller').css('margin-right', '-19px');
-            $('.wisdom-text').css('width', '70%');
-            $('.scroll-parent').css('margin-right', '11px');
-        }
+            if (navigator.userAgent.search("Firefox") >= 0) {
+                $('.scroller').css('margin-right', '-19px');
+                $('.wisdom-text').css('width', '70%');
+                $('.scroll-parent').css('margin-right', '11px');
+            }
             
         // Skel.
             skel.breakpoints({
