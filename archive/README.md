@@ -1,4 +1,4 @@
-# outdated
+# archive
 This folder is a record for inactive pages of my website, categorized by the date of (unofficial) retirement. I opted to decommission these for a variety of reasons, most of which are outlined below:
 
 ### 2015-12-03
