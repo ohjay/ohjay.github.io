@@ -217,10 +217,6 @@ h2 {
     z-index: -1;
 }
 
-#teaser {
-    margin-top: 185px;
-}
-
 #teaser-main {
     font-family: 'League Gothic';
     font-size: 15em;
@@ -344,9 +340,5 @@ h2 {
 @media (min-height: 801px) {
     .jumbotron {
         height: 1000px;
-    }
-    
-    #teaser {
-        margin-top: 285px;
     }
 }

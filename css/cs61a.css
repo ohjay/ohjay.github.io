@@ -30,6 +30,7 @@
     .scroller {
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
+        height: 96vh;
     }
     
     .wisdom-text {

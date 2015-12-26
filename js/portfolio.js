@@ -29,6 +29,8 @@ if ($(window).width() <= 480) {
     $(window).scroll(function() {
         $('.transp-box-hidden').each(addEntryAnimation);
     });
+    
+    $('#teaser').css('margin-top', Math.pow(window.innerHeight, 1.75) / 115640.994488 * 185);
 }
 
 /* Fun for the whole family */

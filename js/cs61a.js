@@ -498,12 +498,8 @@ var main = (function($) { var _ = {
 
             }
             
-        // Set the height of the window (note: added by Owen 12/04/15)
-            if (/iPhone/i.test(navigator.userAgent)) {
-                $('.scroller').css('height', '600px');
-            } else {
-                $('.scroller').css('height', window.innerHeight - 32);
-            }
+        // Set the font size (note: added by Owen 12/27/15)
+            $('.scroller').css('font-size', (window.innerHeight / 782).toString() + 'em');
             
         // Remove the scrollbar from Firefox browsers (note: added by Owen 12/04/15)
             if (navigator.userAgent.search("Firefox") >= 0) {
