@@ -3,7 +3,7 @@ This folder is a record for inactive pages of my website, categorized by the dat
 
 ### 2016-01-06
 - **Object of retirement**: The CS 61A page
-- **Rationale**: The template used by the 61A page was originally meant as a photo viewer. To make a long story short, I repurposed said design and it gave me hell. There was _always_ something wrong with the 61A subpage... whether it was the iOS deep freeze or the Firefox scrollbar that wouldn't go away. In the end, I guess I decided that it was more trouble than it was worth and just got rid of it.
+- **Rationale**: The template used by the 61A page was originally meant as a photo viewer. To make a long story short, I repurposed said design and it gave me hell. There was _always_ something wrong with the 61A subpage... whether it was the iOS deep freeze or the Firefox scrollbar that wouldn't go away. In the end, I decided that it was more trouble than it was worth and just got rid of it.
 
 ### 2015-12-03
 - **Object of retirement**: The landing page [ _index.html_, _style.css_, _script.min.js_ ]

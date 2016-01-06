@@ -1,6 +1,7 @@
 ---
 layout: page
 title: General Advice
+permalink: /cs61a/general-advice/
 ---
 
 <p class="message">

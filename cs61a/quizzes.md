@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Quizzes
+permalink: /cs61a/quizzes/
 ---
 
 <p class="message">

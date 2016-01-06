@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Notes
+permalink: /cs61a/notes/
 ---
 
 <p class="message">

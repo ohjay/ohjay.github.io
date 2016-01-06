@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Exam Tips
+permalink: /cs61a/exam-tips/
 ---
 
 <p class="message">

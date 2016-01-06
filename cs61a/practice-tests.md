@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Practice Tests
+permalink: /cs61a/practice-tests/
 ---
 
 <p class="message">

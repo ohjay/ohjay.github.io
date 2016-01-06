@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Real-World Applications
+permalink: /cs61a/real-world-applications/
 ---
 
 <p class="message">
