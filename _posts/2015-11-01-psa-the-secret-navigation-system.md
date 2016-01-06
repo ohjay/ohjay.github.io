@@ -1,5 +1,6 @@
 ---
 layout: post
+category: blog
 title: PSA&#58; The Secret Navigation System
 ---
 

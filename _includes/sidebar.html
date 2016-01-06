@@ -1,0 +1,30 @@
+<div class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about">
+            <h1>
+                <a href="{{ site.baseurl }}/cs61a/">CS 61A</a>
+            </h1>
+            <p class="lead">A collection of supplementary resources for everyone's favorite CS class</p>
+        </div>
+        
+        <ul class="icons">
+            <li><a href="https://github.com/ohjay/ohjay.github.io/tree/master/cs61a" target="_blank" class="icon fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="mailto:owenjow@berkeley.edu?subject=How%20do%20I%20become%20John%20DeNero?" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+        </ul>
+
+        <nav class="sidebar-nav">
+            <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="{{ site.baseurl }}/cs61a/">Home</a>
+
+            {% assign pages_list = site.pages %}
+            {% for node in pages_list %}
+                {% if node.title != null %}
+                    {% if node.layout == "page" %}
+                        <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </nav>
+
+        <p class="lead">&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
+    </div>
+</div>

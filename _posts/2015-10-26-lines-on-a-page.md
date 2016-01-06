@@ -1,5 +1,6 @@
 ---
 layout: post
+category: blog
 title: Lines on a Page
 ---
 
