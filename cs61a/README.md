@@ -1,2 +1,2 @@
 # CS 61A
-Hello! Since the premier incoming link to this page is situated on my 61A website, I'm going to assume you're a CS 61A student.
+Hello! This is the GitHub repository for the CS 61A section of my website. Feel free to poke around. :)

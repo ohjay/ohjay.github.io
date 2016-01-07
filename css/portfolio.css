@@ -217,6 +217,10 @@ h2 {
     z-index: -1;
 }
 
+#teaser {
+    margin-top: 23.657289vh;
+}
+
 #teaser-main {
     font-family: 'League Gothic';
     font-size: 15em;
