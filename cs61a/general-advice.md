@@ -4,11 +4,13 @@ title: General Advice
 permalink: /cs61a/general-advice/
 ---
 
-<p class="message">
+<p>
     Sit down, friend, and let me give you some advice.
 </p>
 
-<ul style="text-align: justify">
+<hr />
+
+<ul class="l-aligned" style="text-align: justify">
     <li>In terms of studying, twenty solid minutes every day is better than 50 hours in the three days before the exam. It's also a lot more comfortable.</li><br>
     <li>Look for opportunities to teach things to your peers. They say you haven't truly mastered the material until you can explain it for somebody else to understand – and we're aiming for mastery here!</li><br>
     <li>Convince yourself that you enjoy this material and that you <i>want</i> to learn it. Once you have that, everything else will come a lot easier.</li><br>

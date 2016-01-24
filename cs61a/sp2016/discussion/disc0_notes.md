@@ -32,7 +32,7 @@ Questions on the board (discuss these in groups):
 
 A computer scientist is someone who studies what computers [can] do. A programmer is someone who actually makes computers do things. The difference between the two is similar to the difference between architecture and construction. Broadly speaking, I would argue that computer science combines theory and practice. To really understand what you CAN do, you also have to be able to do stuff.
 
-Some of the most important skills required: Tenacity, grit, and resistance to failure. Everyone fails. The important thing is that you GET YOURSELF UP. Everyone is expected to struggle at some points in 61A. You **shouldn't feel bad about this**; even the best computer scientists get stuck all the time. The difference: they know how to get unstuck more quickly (hint: Google searches + STACK OVERFLOW + talking to others). This is something that _can be learned_.
+Some of the most important skills required: Tenacity, grit, and resistance to failure. Everyone fails. The important thing is that you GET YOURSELF UP. Everyone is expected to struggle at some points in 61A. You **shouldn't feel bad about this**; even the best computer scientists get stuck all the time. The difference: they know how to get unstuck more quickly (hint: Google searches + Stack Overflow + talking to others). This is something that _can be learned_.
 
 #### Discussion #2: How do you learn in this class? What is _necessary_ for success?
 You learn by reading/hearing, and then **doing**. You'll probably never understand something 100% before starting a project or a problem set.

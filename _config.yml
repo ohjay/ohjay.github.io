@@ -19,3 +19,6 @@ author:
   name:              Owen Jow
   url:               http://owenjow.xyz
   email:             owenjow@berkeley.edu
+  
+# Gems
+gems: [jekyll-paginate]

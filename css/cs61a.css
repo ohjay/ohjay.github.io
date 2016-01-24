@@ -41,4 +41,11 @@ ul.icons li:last-child {
 ul.icons li .icon:before {
     font-size: 1.5rem;
 }
-        
+
+ul.l-aligned {
+    padding-left: 0;
+}
+
+.l-aligned li {
+    list-style-position: inside;
+}

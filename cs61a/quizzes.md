@@ -4,8 +4,10 @@ title: Quizzes
 permalink: /cs61a/quizzes/
 ---
 
-<p class="message">
+<p>
     Y'know, just some mental jumping jacks for you to do.
 </p>
+
+<hr />
 
 Content coming soon.
