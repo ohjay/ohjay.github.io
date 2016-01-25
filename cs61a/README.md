@@ -4,9 +4,9 @@ Hello! This is the GitHub repository for the CS 61A section of my website. Feel 
 #### Section Notes
 <table>
     <tr>
-        <th>Discussion 0</th> <td><a href="sp2016/discussion/disc0_notes.md">Link</a></td>
+        <th>Discussion 0</th> <td><a href="sp16/discussion/disc0_notes.md">Link</a></td>
     </tr>
     <tr>
-        <th>Discussion 1</th> <td><a href="sp2016/discussion/disc1_notes.md">Link</a></td>
+        <th>Discussion 1</th> <td><a href="sp16/discussion/disc1_notes.md">Link</a></td>
     </tr>
 </table>

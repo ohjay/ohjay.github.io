@@ -49,3 +49,57 @@ ul.l-aligned {
 .l-aligned li {
     list-style-position: inside;
 }
+
+input, textarea {
+    font-family: "Roboto", Helvetica, sans-serif;
+    font-size: 0.8em;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.feedback-input {
+    width: 100%;
+    padding: 6px;
+    margin: 12px 0;
+    border: none;
+    border-top: 1px solid gray;
+    border-left: 2px solid gray;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.feedback-input:focus {
+    outline: none;
+}
+
+input[type=submit] {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 100%;
+    
+    background-color: #202020;
+    -o-transition: background-color 0.15s linear;
+    -moz-transition: background-color 0.15s linear;
+    -webkit-transition: background-color 0.15s linear;
+    -ms-transition: background-color 0.15s linear;
+    transition: background-color 0.15s linear;
+}
+
+input[type=submit]:hover {
+    background-color: #4CAF50;
+}
+
+.page {
+    margin-bottom: 0em;
+}
+
+.post {
+    margin: 1em 0;
+}

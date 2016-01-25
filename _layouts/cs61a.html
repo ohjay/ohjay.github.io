@@ -9,24 +9,26 @@
             {{ content }}
         </div>
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script> if (!window.jQuery) { document.write('<script src="../js/jquery.min.js"><\/script>'); } </script>
-        <script type="text/javascript">
-            // The secret page navigation option
-            $(document).keypress(function(evt) {
-                base = document.location.origin;
-                switch (evt.charCode) {
-                    case 'b'.charCodeAt(): // blog
-                        document.location.href = base + '/blog';
-                        break;
-                    case 'i'.charCodeAt(): // index
-                        document.location.href = base;
-                        break;
-                    case 'p'.charCodeAt(): // portfolio
-                        document.location.href = base + '/portfolio';
-                        break;
-                }
-            });
-        </script>
+        {% if page.title != 'Get in Touch' %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script> if (!window.jQuery) { document.write('<script src="../js/jquery.min.js"><\/script>'); } </script>
+            <script type="text/javascript">
+                // The secret page navigation option
+                $(document).keypress(function(evt) {
+                    base = document.location.origin;
+                    switch (evt.charCode) {
+                        case 'b'.charCodeAt(): // blog
+                            document.location.href = base + '/blog';
+                            break;
+                        case 'i'.charCodeAt(): // index
+                            document.location.href = base;
+                            break;
+                        case 'p'.charCodeAt(): // portfolio
+                            document.location.href = base + '/portfolio';
+                            break;
+                    }
+                });
+            </script>
+        {% endif %}
     </body>
 </html>

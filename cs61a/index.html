@@ -5,21 +5,22 @@ title: Home
 
 <h1 class="page-title">Home</h1>
 <p>
-    Welcome! My name is Owen Jow, and I'm a 2014 graduate of CS 61A with a lot of love for the class. I constructed this webpage as an avenue for me to share my knowledge – it's pretty bare right now, but hopefully that will change over time!
+    Welcome! My name is Owen Jow, and I'm the TA for section <strong>25</strong> (Tu 5-6:30p in 271 Soda, Th 5-6:30p in 254 Dwinelle).
 </p>
 
 <hr />
 
-Announcements:
+<audio id="announcements" src="../sounds/announcements.mp3"></audio>
+<h2><a style="cursor: pointer" onclick="document.getElementById('announcements').play()">Announcements</a></h2>
 
 <div class="posts">
-  {% for post in site.posts %}
-      {% if post.categories contains 'cs61a' %}
-      <div class="post">
-        <h1 class="post-title">{{ post.title }}</h1>
-        <span class="post-date">{{ post.date | date_to_string }}</span>
-        {{ post.content }}
-      </div>
-      {% endif %}
-  {% endfor %}
+    {% for post in site.posts %}
+        {% if post.categories contains 'sp16-announcement' %}
+        <div class="post">
+            <h3 class="post-title">{{ post.title }}</h3>
+            <span class="post-date">{{ post.date | date_to_string }}</span>
+            {{ post.content }}
+        </div>
+        {% endif %}
+    {% endfor %}
 </div>
