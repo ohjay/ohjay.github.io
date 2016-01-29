@@ -29,9 +29,8 @@ Wake up every day and look at these rules!
 2. If not found, go and look in the global frame. If it's not there, error.
 
 ## Control (30 minutes)
-Control: deciding (in the program) what to do next, based on some state.
+Control: deciding (in the program) what to do next, based on some state. Note: data in boolean contexts can be thought of as either truthy or falsy values.
 
-Data in boolean contexts: either truthy or falsy values.<br>
 **False-y values**: 0, None, False, and empty stuff.<br>
 **Truthy values**: everything else.
 
@@ -75,7 +74,7 @@ Python Tutor's solution can be found [here](http://pythontutor.com/composingprog
 ## Print vs. Return
 What is a function? It's something that takes input and gives you output. The `return` _is that output_. Printing _is not_. It doesn't signify that the function is complete, and it's used only for displaying stuff. It's actually a function call in itself, one that always returns `None`.
 
-Printing gives the value to the <u>user</u>. Returning gives the value to the <u>program</u>.
+Printing gives the value to the _user_. Returning gives the value to the _program_.
 
 ```python
 def r(x):
@@ -114,6 +113,3 @@ Error
 >>> square(so_slow(5)) # return kicks you out of the fn
 25
 ```
-
-## Quine
-[ Redacted for future semesters. ]

@@ -5,7 +5,7 @@ permalink:           /:categories/:title/
 title:               Owen Jow
 tagline:             Just your everyday writer
 url:                 http://owenjow.xyz
-paginate:            5
+paginate:            10
 paginate_path:       "/blog/:num"
 baseurl:             ""
 
