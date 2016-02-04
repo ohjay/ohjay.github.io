@@ -1,8 +1,7 @@
 ---
 layout: page
-title: Get in Touch
-permalink: /cs61a/get-in-touch/
-category: last
+title: Contact
+permalink: /cs61a/contact/
 ---
 
 Let me know how you're doing! You can email me at <a href="mailto:owenjow@berkeley.edu">owenjow@berkeley.edu</a> or submit a message via the form below.

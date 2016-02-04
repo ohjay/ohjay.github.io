@@ -3,15 +3,13 @@ layout: cs61a
 title: Home
 ---
 
-<h1 class="page-title">Home</h1>
+<audio id="announcements" src="../sounds/announcements.mp3"></audio>
+<h1 class="page-title"><a style="cursor: pointer" onclick="document.getElementById('announcements').play()">Announcements</a></h1>
 <p>
     Welcome! My name is Owen Jow, and I'm the TA for section <strong>25</strong> (Tu 5-6:30p in 271 Soda, Th 5-6:30p in 254 Dwinelle).
 </p>
 
 <hr />
-
-<audio id="announcements" src="../sounds/announcements.mp3"></audio>
-<h2><a style="cursor: pointer" onclick="document.getElementById('announcements').play()">Announcements</a></h2>
 
 <div class="posts">
     {% for post in site.posts %}

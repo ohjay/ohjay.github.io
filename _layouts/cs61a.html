@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
     {% include hyde.html %}
-    <body class="layout-reverse">
+    <body>
       
         {% include sidebar.html %}
     
@@ -9,7 +9,7 @@
             {{ content }}
         </div>
         
-        {% if page.title != 'Get in Touch' %}
+        {% if page.title != 'Contact' %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script> if (!window.jQuery) { document.write('<script src="../js/jquery.min.js"><\/script>'); } </script>
             <script type="text/javascript">

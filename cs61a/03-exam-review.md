@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Exam Tips
-permalink: /cs61a/exam-tips/
+title: Exam Review
+permalink: /cs61a/exam-review/
 ---
 
 <p>

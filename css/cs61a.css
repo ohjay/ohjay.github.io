@@ -23,7 +23,6 @@
 }
 
 ul.icons {
-    text-align: right;
     cursor: default;
     list-style: none;
     padding-left: 0;
@@ -93,7 +92,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: #4CAF50;
+    background-color: #268bd2;
 }
 
 .page {

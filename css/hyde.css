@@ -73,7 +73,6 @@ html {
 /* Sidebar links */
 .sidebar a {
   color: #fff;
-  text-align: right;
   text-decoration: none;
 }
 
@@ -83,7 +82,6 @@ html {
   margin-top: 0;
   font-family: "Roboto", Helvetica, sans-serif;
   font-size: 3rem;
-  text-align: right;
 }
 
 /* Sidebar nav */
@@ -93,13 +91,12 @@ html {
 .sidebar-nav-item {
   display: block;
   line-height: 1.75;
+  transition: all 0.15s ease-in-out;
 }
 a.sidebar-nav-item:hover,
 a.sidebar-nav-item:focus {
   text-decoration: none;
-  -ms-transform: scaleY(-1);
-  -webkit-transform: scaleY(-1);
-  transform: scaleY(-1);
+  color: #268bd2;
 }
 .sidebar-nav-item.active {
   font-weight: bold;
