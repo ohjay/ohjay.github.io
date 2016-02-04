@@ -1,12 +1,15 @@
 # CS 61A
 Hello! This is the GitHub repository for the CS 61A section of my website. Feel free to poke around. :)
 
-#### Section Notes
+#### Links
 <table>
     <tr>
-        <th>Discussion 0</th> <td><a href="sp16/discussion/disc0_notes.md">Link</a></td>
+        <th>Week 0</th> <td><a href="sp16/disc/disc0_notes.md">Discussion</a></td>
     </tr>
     <tr>
-        <th>Discussion 1</th> <td><a href="sp16/discussion/disc1_notes.md">Link</a></td>
+        <th>Week 1</th> <td><a href="sp16/disc/disc1_notes.md">Discussion</a></td>
+    </tr>
+    <tr>
+        <th>Week 2</th> <td><a href="sp16/disc/disc2_notes.md">Discussion</a></td> <td><a href="sp16/quiz/quiz2.pdf">Quiz</a></td>
     </tr>
 </table>
