@@ -9,30 +9,54 @@
 \parindent=0in
 \pagestyle{empty}
 
+\newenvironment{courier}{\fontfamily{pcr}\selectfont}{\par}
+\newenvironment{modern}{\fontfamily{cmr}\selectfont}{\par}
+
 \begin{document}
 
+% Header text %
+\begin{modern}
+61A-125 Spring 2016 \hfill{Name:} {\underline {\hspace{2.5in}}}\newline
+Discussion Quiz 02 \hfill{SID:} {\underline {\hspace{2.5in}}}\newline
 
-%%%(change to appropriate class and semester)
-61A-125 Spring 2016 \hfill{Name:} {\underline {\hspace{2.5in}}}
+This quiz will \textbf{not} affect your grade. It's simply meant to give you a sense of your own understanding. It also serves as a record of your attendance, so make sure to turn it in!\newline
+\end{modern}
 
-%%%(change to appropriate quiz type and date)
-Discussion Quiz 02 \hfill{SID:} {\underline {\hspace{2.5in}}}
-\newline
-\newline
+% Quiz content %
+\begin{modern}
+\textbf{1. Environment Diagrams}
 
-%%%(modify rules, time, points as appropriate)
-This quiz will not affect your grade. It is meant to be an evaluation of your own understanding. It is also your attendance, so make sure to hand it in. Have fun!\newline
+Draw the environment diagram for the following code.
+\end{modern}
 
-I will also (mock) grade and return them to you next week as feedback. Or the next time you show up. If ever. Whatever floats your boat.
-\vspace{2pc}
+\begin{courier}
+\begin{tabbing}
+def \=flip(pancake): \\
+\> if p\=ancake == "cakepan": \\
+\> \> return "pancake" \\
+\> elif heat != 4: \\
+\> \> return "cakepan" \\
+\> return "flipped" \\ \\
 
-1.
-\vfill
+def cook(pancake, heat, flip): \\
+\> if h\=eat // 10: \\
+\> \> return "burnt" \\
+\> heat += 3 \\
+\> pancake = flip(pancake) \\ \\
 
-2.
-\vfill
+\> def cook(pancake, heat, flip): \\
+\> \> if h\=eat >= 5: \\
+\> \> \> return "done" \\
+\> \> heat += 1 \\
+\> \> pancake = flip(pancake) \\
+\> \> return cook(pancake, heat, lambda p:\ flip(p)) \\ \\
 
-3.
-\vfill
+\> return cook(pancake, heat, lambda p:\ flip(p) \textbackslash \\
+\> \> \> if heat \% 2 == 0 else p) \\ \\
+
+pancake, heat = "batter", 1 \\
+cook(pancake, heat, flip) \\
+\end{tabbing}
+\end{courier}
 
 \end{document}
