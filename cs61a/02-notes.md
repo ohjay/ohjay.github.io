@@ -10,6 +10,6 @@ permalink: /cs61a/notes/
 
 <hr />
 
-<ul class="l-aligned">
-    <li><a href="https://docs.google.com/presentation/d/1bILyUkV2OkMIQ6GNKsc56_4-rNZ1TVw0M_bGELtM-3E/edit?usp=sharing">Fall 2015 Final Review Slides</a></li>
-</ul>
+<div>
+    + <a href="https://docs.google.com/presentation/d/1bILyUkV2OkMIQ6GNKsc56_4-rNZ1TVw0M_bGELtM-3E/edit?usp=sharing">Fall 2015 Final Review Slides</a>
+</div>

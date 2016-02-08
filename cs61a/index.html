@@ -5,7 +5,7 @@ title: Home
 
 <audio id="announcements" src="../sounds/announcements.mp3"></audio>
 <h1 class="page-title"><a style="cursor: pointer" onclick="document.getElementById('announcements').play()">Announcements</a></h1>
-<p>
+<p style="text-align: justify">
     Welcome! My name is Owen Jow, and I'm the TA for section <strong>25</strong> (Tu 5-6:30p in 271 Soda, Th 5-6:30p in 254 Dwinelle).
 </p>
 
@@ -14,7 +14,7 @@ title: Home
 <div class="posts">
     {% for post in site.posts %}
         {% if post.categories contains 'sp16-announcement' %}
-        <div class="post">
+        <div class="post" style="text-align: justify; margin: 1.5em 0 0.5em 0;">
             <h3 class="post-title">{{ post.title }}</h3>
             <span class="post-date">{{ post.date | date_to_string }}</span>
             {{ post.content }}
