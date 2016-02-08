@@ -10,14 +10,14 @@ permalink: /cs61a/general-advice/
 
 <hr />
 
-<div style="text-align: justify">
+<div>
     + In terms of studying, thirty solid minutes every day is better than 50 hours in the three days before the exam. It's also a lot more comfortable. I've never managed this myself, but I swear it's true.
     <br><br>
     + Look for opportunities to teach things to your peers. They say you haven't really mastered the material until you're able to explain it for someone else to understand... and we're aiming for mastery here!
     <br><br>
-    + Convince yourself that you enjoy this material and that you <i>want</i> to learn it. Once you have that, everything else will come a lot easier.
-    <br><br>
     + For best results, keep up with the lecture topics. It's not easy to be the hero and make up tons of lost ground. Plus, John DeNero's voice is music to the ears of any sane human being.
+    <br><br>
+    + Convince yourself that you enjoy this material and that you <i>want</i> to learn it. Once you have that, everything else will come a lot easier.
     <br><br>
     + Make friends. This class is a hell of a lot more fun when you have people to <s>suffer alongside</s>&nbsp; <s>complain about CS with</s>&nbsp; help cultivate your love of learning!
     <br><br>
