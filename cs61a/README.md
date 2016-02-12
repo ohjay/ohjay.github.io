@@ -19,6 +19,5 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
     <tr>
         <th>Week 3 [02/11/16]</th>
         <td><a href="sp16/disc/disc3_notes.md">Notes</a></td>
-        <td><a href="sp16/quiz/quiz3.pdf">Quiz</a> (S)</td>
     </tr>
 </table>

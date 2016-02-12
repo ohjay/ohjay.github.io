@@ -1,0 +1,646 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CS 184 | Owen Jow</title>
+
+    <style media="screen" type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;color:#727272;font-weight:400}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}.highlight .cp,.highlight .cs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em;display:block}.wrapper{width:860px;margin:0 auto}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:5px 10px;border-bottom:1px solid #e5e5e5}.centered,header ul a{text-align:center}img{max-width:100%}header{width:270px}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0;width:270px}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;display:block;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:700}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}
+    </style>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Assignment 1: Rasterizester</h1>
+        <h2 align="middle">Owen Jow</h2>
+        <br />
+        
+        <p>
+            In a raster display, images are represented by thousands of colored pixels in a grid. Alone, a pixel occupies only a tiny amount of space. When viewed alongside all of its neighbors, however, the colors can come together to form a surprisingly cohesive picture. The concept is similar to bead art (shown below), but on a greatly amplified scale.<br />
+            
+            <div class="centered">
+                <img src="images/beads.jpg" width="800px" />
+            </div><br />
+            
+            Inevitably, a question must arise: how does the computer decide which color to assign to each pixel? In theory, it should already know what image it wants to draw. The problem, then, is translating that image into pixels with specific colors. This process is known as <strong>rasterization</strong> – the act of turning points, lines, and general shapes into pixels in the framebuffer. We can think of rasterization as a function with geometric primitives as input and a set of "fragments" (i.e. attribute values corresponding to pixels) as output. In the overall graphics pipeline, these fragments undergo a few additional stages of processing before finally being displayed on the screen.
+            
+            <br /><br />
+            
+            Assignment 1, "Rasterizester," involves the implementation of a program that reads SVG files and presents them to the user for viewing. For this to work, the SVG elements (lines, rects, polygons, etc.) must be converted into colored pixels. In other words, the SVG elements must be rasterized. We'll have to account for every pixel that is covered by an element, while also interpolating colors and textures across these locations. Let the fun begin...
+        </p>
+        <br />
+
+
+        <!-- PART 1 -->
+        
+        
+        <h2 align="middle">Part 1: Rasterizing Lines</h2>
+        <p>
+            <strong>Bresenham's integer-only line drawing algorithm</strong> operates on top of a pretty simple foundation. Say the slope of the line is between 0 and 1, inclusive. Then if we have a pixel at (<em>x</em>, <em>y</em>), the pixel to the right should either be drawn at (<em>x</em> + 1, <em>y</em>) or (<em>x</em> + 1, <em>y</em> + 1). There are no other options! We cannot draw a pixel at (<em>x</em> + 1, <em>y</em> + 0.4) – even if the slope is 0.4 – since pixels are integer-valued. And if the slope is between 0 and 1, we will always increment <em>x</em> more frequently than <em>y</em> – hence the <em>x</em> + 1 instead of <em>x</em>.
+            
+            <br /><br />
+            
+            But sometimes the slope <em>will</em> be 0.4. So how do we deal with the error? Well, although we act on integer coordinates, internally we can still keep track of our line positions as a series of floats. Accordingly, we can tell where we "actually" are on the coordinate plane, and decide whether the next point, (<em>x</em> + 1, <em>y</em> + <em>slope</em>), is closer to (<em>x</em> + 1, <em>y</em>) or (<em>x</em> + 1, <em>y</em> + 1). [We'll draw it at the point it's closer to.] This is the fundamental idea behind Bresenham line rasterization. To formalize nearness, we use an epsilon value that records error: here, error is defined as the vertical distance from the rasterized value to the "actual" value. When that error is less than 0.5, we plot at (<em>x</em> + 1, <em>y</em>) since an error amount between 0 and 0.5 must be closer to 0 than 1. Otherwise, the error value is 0.5 or greater and we'll plot the next point at (<em>x</em> + 1, <em>y</em> + 1).
+            
+            <br /><br />
+            
+            The Bresenham algorithm adopts a similar pattern for lines with other slopes. There are four such slope cases – one of which, 0 &lt;= <em>slope</em> &lt;= 1, we have already examined. When -1 &lt;= <em>slope</em> &lt; 0, the point to the right always lies at either (<em>x</em> + 1, <em>y</em>) or (<em>x</em> + 1, <em>y</em> - 1). Meanwhile, if <em>slope</em> &gt; 1 or <em>slope</em> &lt; -1, then we should increment <em>y</em> every time and check if the next point is at (<em>x</em>, <em>y</em> + 1) or (<em>x</em> &#177; 1, <em>y</em> + 1). Pseudocode for the case where <em>slope</em> &gt; 1 is as follows:
+
+<pre>
+eps = 0, x = whichever x goes with the first y
+for every y [increasing]; do
+    plot the point at (x, y)
+    if eps + the slope &lt; 0.5; then
+        eps += the slope
+    else
+        increment x
+        eps += the slope - 1
+    endif
+endfor
+</pre>
+            Here is the integer-only version:
+            
+            <br /><br />
+
+<pre>
+eps' = 0 # let eps' = eps * dy
+x = whichever x goes with the first y
+
+for every y [increasing]; do
+    plot the point at (x, y)
+    if 2 * (eps' + dx) &lt; dy; then
+        eps' += dx
+    else
+        increment x
+        eps' += dx - dy
+    endif
+endfor
+</pre>
+            
+            To simplify the problem, our algorithm always draws the line from left to right if incrementing <em>x</em> (i.e. -1 &lt;= <em>slope</em> &lt;= 1), and from top to bottom if incrementing y (i.e. <em>slope</em> &lt; -1 or <em>slope</em> &gt; 1).
+            
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/part1.png" />
+                    </div>
+                    <figcaption align="middle">Figure 1: Screenshot of <em>svg/basic/test2.svg</em> at sample rate 1</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br />
+        
+        
+        <!-- PART 2 -->
+
+
+        <h2 align="middle">Part 2: Rasterizing single-color triangles</h2>
+        <p>
+            So we can rasterize lines. That's pretty cool, but imagine we wanted to model surfaces. Depending on the resolution, it could take a lot of lines to fill a circle! That's where triangles come in. As one of the simplest polygons, the triangle serves as a "lowest common denominator" for areas. You can decompose any 2D shape into a bunch of triangles, which gives it a niche as graphics' go-to for area primitives. When every polygon is represented by triangles, optimizing <em>only</em> the triangle rasterization process ends up causing an efficiency boost for everything else, too. How nice!
+            
+            <br /><br />
+            
+            It turns out that rasterizing a triangle isn't so different from rasterizing a line. Basically, we want to sample points that <em>might</em> be in the triangle (i.e. every point in the bounding box), and see if they actually are. If a point is contained within the triangle, then it should be plotted at once!
+            
+            <br /><br />
+            
+            Assuming we have its vertices (as <em>a</em>, <em>b</em>, and <em>c</em>), this is how we can convert an input triangle into [framebuffer] pixel values:
+            
+<pre>
+calculate the min x- and y- values among a, b, c
+calculate the max x- and y- values among a, b, c
+
+for every x from min_x to max_x; do
+    for every y from min_y to max_y; do
+        if (x, y) is in the triangle; then
+            plot the point at (x, y)
+        endif
+    endfor
+endfor
+</pre>
+            
+            There's only one thing missing. How do we know if a point is inside the triangle or not? In other words, what is the coverage function? Before answering this question, let's take a look at <strong>barycentric coordinates</strong>.
+            
+            <br /><br />
+            
+            Barycentric coordinates serve as a way to define a separate coordinate system. In that coordinate system, we have an origin (<em>a</em>) and two other points (<em>b</em> and <em>c</em>). We concern ourselves with the two basis vectors (<em>b</em> - <em>a</em> and <em>c</em> - <em>a</em>) shooting out from <em>a</em> in the direction of <em>b</em> and <em>c</em>. Using them, we can define any point as 
+            
+            <br /><br />
+            
+            <pre align="middle">a + &beta;(b - a) + &gamma;(c - a)</pre>
+            
+            Note that &beta; and &gamma; are arbitrary scalars that determine how far along <em>b</em> - <em>a</em> and <em>c</em> - <em>a</em> we travel. If &beta; were 1 and &gamma; were 0, for instance, the point in the barycentric coordinate system would be <em>b</em>. Also, if &beta; &lt; 0 or &gamma; &lt; 0, we are definitely not within the bounds of triangle <em>abc</em>! Why? Because in arriving at our point, we traveled (starting from the origin) <em>away</em> from either <em>b</em> or <em>c</em>... and, in doing so, set ourselves outside of the triangle right off the bat. Since by definition <em>b</em> and <em>c</em> cannot be the same vector, there's no going back – we're outside of the triangle for good.
+            
+            <br /><br />
+            
+            Recall the original question: <em>how do we know if a point is inside the triangle or not</em>? Evidently, we can use barycentric coordinates as a means to conduct this test. By much the same reasoning as before (i.e. don't travel away from <em>b</em> or <em>c</em>), we'll require that 0 &lt;= &beta; &lt;= 1 and 0 &lt;= &gamma; &lt;= 1. Past that, we'll also require that the third barycentric coordinate, &alpha; (calculated as 1 - &beta; - &gamma;), falls within an identical range. To see why, it's helpful to look at barycentric coordinates as proportional distances. In the below image, it's clear that in order for a point (&alpha;, &beta;, &gamma;) to be inside the triangle, each coordinate can be at most 1:
+            
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/barycentric.png" width="300px"/>
+                        </div>
+                        <figcaption align="middle">Figure 2: Barycentric coordinates as proportional distances</figcaption>
+                    </tr>
+                </table>
+            </div>
+            
+            To sum it up, a point is inside the triangle if it passes all three of these tests:
+            
+            <br /><br />
+            
+<pre align="middle">
+0 &lt;= &alpha; &lt;= 1
+0 &lt;= &beta; &lt;= 1
+0 &lt;= &gamma; &lt;= 1
+</pre>
+            
+            So now we'll need to convert global coordinates into barycentric coordinates. Say our triangle has vertices that we'll call 0, 1, and 2, for which each has an <em>x</em>- and a <em>y</em>- coordinate. Additionally, assume that we have a line f02(<em>x</em>, <em>y</em>) = 0 that passes through points 0 and 2. Let's use the fact that &beta; for a point (<em>x</em>, <em>y</em>) is equal to f02(<em>x</em>, <em>y</em>) / f02(<em>x1</em>, <em>y1</em>):
+            
+            <br /><br />
+            
+<pre align="middle">
+f01(x, y) = (y0 - y1) * x + (x1 - x0) * y + x0 * y1 - x1 * y0
+f02(x, y) = (y0 - y2) * x + (x2 - x0) * y + x0 * y2 - x2 * y0
+    
+&beta; = ((y0 - y2) * x + (x2 - x0) * y + x0 * y2 - x2 * y0)
+/ ((y0 - y2) * x1 + (x2 - x0) * y1 + x0 * y2 - x2 * y0)
+
+&gamma; = ((y0 - y1) * x + (x1 - x0) * y + x0 * y1 - x1 * y0)
+/ ((y0 - y1) * x2 + (x1 - x0) * y2 + x0 * y1 - x1 * y0)
+
+&alpha; = 1 - &beta; - &gamma;
+</pre>
+            
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/test4_sr1.png" />
+                        </div>
+                        <figcaption align="middle">Figure 3: Screenshot of <em>svg/basic/test4.svg</em> under default viewing parameters</figcaption>
+                    </tr>
+                </table>
+            </div>
+            
+            These are the timings for triangle rasterization in <em>svg/basic/test4.svg</em> with a sample rate of 1:
+            
+            <br /><br />
+            
+            <table style="width: 100%">
+                <tr>
+                    <td style="text-align: center">Triangle 1: 2.530 ms</td>
+                    <td style="text-align: center">Triangle 2: 1.415 ms</td>
+                    <td style="text-align: center">Triangle 3: 0.961 ms</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">Triangle 4: 2.312 ms</td>
+                    <td style="text-align: center">Triangle 5: 0.239 ms</td>
+                </tr>
+            </table>
+            
+            Meanwhile, rasterizing everything in <em>svg/hardcore/02_degenerate_square2.svg</em> takes about 6.857 seconds.
+        </p>
+        <br />
+        
+        
+        <!-- PART 3 -->
+
+
+        <h2 align="middle">Part 3: Antialiasing triangles</h2>
+        <p>
+            If you look closely at the triangles' edges in Figure 3, you might notice that they're not as well-defined as they ought to be. In other words, there are jaggies – or staircase patterns – on some of the edges. Jaggies are a byproduct of the limitations on our pixel grid. The pixels are not infinitely small, so on edges that are very steep or almost flat (or in images with low resolution), there will almost always be imperfections.
+            
+            <br /><br />
+            
+            Luckily, we can get around this by <strong>supersampling</strong>. In order to smooth out colors [both on edges and in general], we can take a lot of samples, more than we need, within each pixel. We can then find the final color by downsampling, which basically means we average the values for all the samples we take. The intuition is that if a red triangle covers 10 percent of a pixel, then the pixel should be 10 percent red.
+            
+            <br /><br />
+            
+            In the GUI, the user can adjust the sample rate for the rasterizester. This describes the number of samples that we'll use per pixel, and it will always be a perfect square (1, 4, 9, or 16). Thus, if we represent a pixel as a square and call the top left corner (0, 0), we can evenly space the samples throughout the pixel by starting at (1 / (<code>sqrt</code>(<em>sample_rate</em>) + 1), 1 / (<code>sqrt</code>(<em><em>sample_rate</em></em>) + 1)) and moving in chunks of 1 / (<code>sqrt</code>(<em>sample_rate</em>) + 1) toward the right/bottom from there. Again, this means that we will make <em>sample_rate</em> coverage tests per pixel.
+            
+            <br /><br />
+            
+            For the program to keep track of this, we introduce a "superbuffer" vector to store <em>all</em> of the samples. Then when we're done taking samples, we can resolve the superbuffer into the framebuffer by averaging the values per pixel. In our implementation, the superbuffer is structured similarly to the framebuffer. Every sample's colors are stored in a single vector where the values for (<em>x</em>, <em>y</em>) can be found at 4 * <em>sample_rate</em> * (<em>x</em> + <em>y</em> * <em>width</em>). The 4 in the formula stems from the fact that there are four unsigned characters (R, G, B, and A) stored per sample.
+            
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/test4_sr4.png" />
+                        </div>
+                        <figcaption align="middle">Figure 4: <em>svg/basic/test4.svg</em>, now with a sample rate of 4</figcaption>
+                    </tr>
+                </table>
+            </div>
+            
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/test4_sr9.png" />
+                        </div>
+                        <figcaption align="middle">Figure 5: <em>svg/basic/test4.svg</em>, now with a sample rate of 9</figcaption>
+                    </tr>
+                </table>
+            </div>
+            
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/test4_sr16.png" />
+                        </div>
+                        <figcaption align="middle">Figure 6: <em>svg/basic/test4.svg</em>, now with a sample rate of 16</figcaption>
+                    </tr>
+                </table>
+            </div>
+            
+            Check out the improvement over Figure 3! The corners of the red and pink triangles aren't broken up any more, and the edges are a little less jagged overall.
+            
+            <br /><br />
+            
+            The Part 3 implementation process did not go as smoothly as you might imagine. The main issue was that floating point indices for the superbuffer were not being floored. Apparently, storing objects in a vector at a floating point index leads to unpredictable behavior... and images that look like this:
+            
+            <div class="centered">
+                <img src="images/test3_bad.png" />
+            </div>
+            
+            <div class="centered">
+                <img src="images/test7_bad.png" />
+            </div>
+            <br />
+            
+            Cracks in the images were another major bug. In order to fill these in, it was necessary to make sure that I visited edges at least once. Namely, I changed my starting points to ((int) <em>min_x</em>) + <em>delta</em> and ((int) <em>min_y</em>) + <em>delta</em>, where <em>delta</em> was the 1 / (<code>sqrt</code>(<em>sample_rate</em>) + 1) from before. Meanwhile, I changed my ending points to ((int) <em>max_x</em>) + 1 + <em>delta</em> and ((int) <em>max_y</em>) + 1 + <em>delta</em>.
+            
+            <br /><br />
+            
+            Past that, I added a very small epsilon value (1e-20) to my barycentric "point in triangle" tests, so that they looked like this:
+            
+            <br /><br />
+            
+<pre align="middle">
+0 - eps &lt; &alpha; &lt; 1 + eps
+0 - eps &lt; &beta; &lt; 1 + eps
+0 - eps &lt; &gamma; &lt; 1 + eps
+</pre>
+
+            However, I believe that if I had followed the formulas from earlier (and used &lt;= and &gt;= instead of simply &lt; and &gt;), the epsilon values would not have been necessary. By my understanding, they capture points that are almost exactly on a triangle edge.
+            
+            <div class="centered">
+                <img src="images/test3_comparison.png" />
+            </div>
+        </p>
+        
+        
+        <!-- PART 4 -->
+
+
+        <h2 align="middle">Part 4: Transforms</h2>
+        <p>
+            In Part 4, we allow the user to pan and zoom with the cursor by modifying <code>DrawRend::move_view</code>. To facilitate this, we save the the viewing parameters (<em>view_x</em>, <em>view_y</em>, and <em>view_span</em>) every time we set the view. Then, if we want to shift the view by <em>dx</em> and <em>dy</em> and zoom by <em>zoom</em>, all we have to do is call <code>DrawRend::set_view</code> on <em>view_x</em> - <em>dx</em>, <em>view_y</em> - <em>dy</em>, and <em>view_span</em> * <em>zoom</em>.
+            
+            <br /><br />
+            
+            We also implement scaling, translation, and rotation by filling in the associated transform matrices in <code>transforms.cpp</code>. As an example of usage, let's depict these transforms as part of a grouping hierarchy. First, we'll need a model to operate on. How about this guy?
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/frypan.png" width="600px" />
+                    </div>
+                    <figcaption align="middle">Figure 7: Frypan Bot, a 3D model created in Maya</figcaption>
+                </tr>
+            </table>
+            
+            I drew a 2D version of Frypan Bot in Adobe Illustrator and saved it in SVG format. The SVG file contains a lot of &lt;rect&gt; elements, plus two polygons for the circular eyes.
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/robot1.png" width="600px" />
+                    </div>
+                    <figcaption align="middle">Figure 8: The restaurant is closed today, so Frypan Bot has a day off</figcaption>
+                </tr>
+            </table>
+            
+            How to group the SVG elements? Well, the body should all be one group, since we don't want to leave any parts behind while we're moving. We can demonstrate this by adding a 30&deg; rotation transform (around the center of the view) to the body group.
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/robot2.png" width="600px" />
+                    </div>
+                    <figcaption align="middle">Figure 9: Frypan Bot balancing on the tip of one foot... just because he can</figcaption>
+                </tr>
+            </table>
+            
+            What else? Well, Frypan Bot's left arm can be viewed as a single object. Let's make his arm a group, and apply a rotation transform to it as well. In the figure below, <em>only</em> the arm rotates.
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/robot3.png" width="600px" />
+                    </div>
+                    <figcaption align="middle">Figure 10: Frypan Bot trying to scratch an itch on the back of his head. He can't reach!</figcaption>
+                </tr>
+            </table>
+            
+            We can still apply transforms to individual SVG elements, which are situated at the leaves of the grouping hierarchy. Here's an example of a vertical scaling transform applied <em>only</em> to the lower left arm:
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/robot4.png" width="600px" />
+                    </div>
+                    <figcaption align="middle">Figure 11: It's a good thing Frypan Bot has extendable arms. There we go...</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/robot.gif" width="600px" />
+                    </div>
+                    <figcaption align="middle">Figure 12: Quality animation at work!</figcaption>
+                </tr>
+            </table>
+            
+            We'll also implement rotation controls for the keyboard. If the user presses R, we'll rotate by 45&deg; clockwise, and if they push E, we'll rotate by 45&deg; counterclockwise. In <code>DrawRend::keyboard_event</code>, we modiify the actions taken upon an R or E key press: if the user presses R, for example, the view should be reset and <code>DrawRend::redraw</code> should be called.
+            
+            <br /><br />
+            
+            To rotate 45&deg;, we'll change the "SVG to NDC" transformation matrix to be the product of a translation matrix, a rotation matrix, and a translation matrix that reverses the the first translation. Basically, we'll take the product of the corresponding matrices in <code>transforms.cpp</code> and then fill in the arguments with the desired <em>view_x</em>, <em>view_y</em>, <em>view_span</em>, and trigonometric values.
+            
+            <br /><br />
+            
+            For efficiency, this matrix has been precomputed. The calculations look like this:
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/calculations.jpg" width="600px" />
+                    </div>
+                    <figcaption align="middle">Figure 13: Rotation around a point (authentic handwritten edition)</figcaption>
+                </tr>
+            </table>
+            
+            Lastly, here's an example of rotation in action:
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/test5_rotate.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">Figure 14: <em>svg/basic/test5.svg</em> rotated 45&deg; clockwise</figcaption>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- PART 5 -->
+
+
+        <h2 align="middle">Part 5: Barycentric coordinates</h2>
+        <p>
+            Barycentric coordinates have already been introduced in Part 2 (see above). Worth mentioning is the fact that for any point in the triangle, you can interpolate that point's attributes by using the values at the vertices. The math involved is simple:
+            
+<pre align="middle">
+interpolated_value = (&alpha; * vertex 0's value) + (&beta; * vertex 1's value) + (&gamma; * vertex 2's value)
+</pre>
+            
+            We'll use this calculation in Part 5 in order to interpolate color between triangle vertices.
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/test7.png" />
+                    </div>
+                    <figcaption align="middle">Figure 15: Screenshot of <em>svg/basic/test7.svg</em> under default viewing parameters</figcaption>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- PART 6 -->
+
+
+        <h2 align="middle">Part 6: Pixel sampling for texture mapping</h2>
+        <p>
+            Simply put, texture mapping works by taking a pixel in the screen space, grabbing the corresponding color from the texture space, and then using it as the value for that point. How? Well, every point has a texture coordinate (<em>u</em>, <em>v</em>), which can be determined by interpolating between the vertex texture coordinates. We can use this coordinate to obtain a color from the texture space.
+            
+            <br /><br />
+            
+            In doing so, we can either take the color at the nearest texture point to (<em>u</em>, <em>v</em>), or we can perform <strong>bilinear filtering</strong>. Bilinear filtering is a technique in which we interpolate between the four pixels surrounding (<em>u</em>, <em>v</em>) in order to arrive at the final texture color. It's good when we want to smooth out the values, since it essentially returns an average of neighbors' colors. However, if we <em>don't</em> want to smooth out values (i.e. the color or texture is not continuous), it would probably be better to use nearest sampling instead.
+            
+            <br /><br />
+            
+            Here is a quick comparison of nearest versus bilinear sampling, in which bilinear looks markedly better than nearest:
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/nearest.png" />
+                    </div>
+                    <figcaption align="middle">Figure 16: <em>svg/texmap/test1.svg</em>, with <strong>nearest</strong> sampling and default viewing parameters</figcaption>
+                </tr>
+            </table>
+            
+            That was nearest sampling. Here's bilinear...
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/bilinear.png" />
+                    </div>
+                    <figcaption align="middle">Figure 17: <em>svg/texmap/test1.svg</em>, with <strong>bilinear</strong> sampling and default viewing parameters</figcaption>
+                </tr>
+            </table>
+            
+            There should be a noticeable difference between the two sampling methods when the image is magnified or low-resolution, since the texels will be a lot more spread out and nearest sampling could choose a value that is less accurate. On the other hand, if the image is minified and texels are packed right next to each other, the difference between the two will not matter very much.
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/1_nearest.png" />
+                    </div>
+                    <figcaption align="middle">Figure 18: <em>svg/texmap/test6.svg</em>, with <strong>nearest</strong> sampling and <em>sample_rate</em> = 1</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/1_bilinear.png" />
+                    </div>
+                    <figcaption align="middle">Figure 19: <em>svg/texmap/test6.svg</em>, with <strong>bilinear</strong> sampling and <em>sample_rate</em> = 1</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/16_nearest.png" />
+                    </div>
+                    <figcaption align="middle">Figure 20: <em>svg/texmap/test6.svg</em>, with <strong>nearest</strong> sampling and <em>sample_rate</em> = 16</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/16_bilinear.png" />
+                    </div>
+                    <figcaption align="middle">Figure 21: <em>svg/texmap/test6.svg</em>, with <strong>bilinear</strong> sampling and <em>sample_rate</em> = 16</figcaption>
+                </tr>
+            </table>
+            
+            Minor setbacks: not rounding my values in <code>Texture::sample_nearest</code>, and not realizing that <em>u</em> and <em>v</em> were normalized and therefore needed to be multiplied by <em>width</em> and <em>height</em>.
+        </p>
+        <br />
+        
+        
+        <!-- PART 7 -->
+
+
+        <h2 align="middle">Part 7: Level sampling with mipmaps for texture mapping</h2>
+        <p>
+            As a final exercise in texture mapping, we'll take advantage of a mipmap. A mipmap is basically a collection of precomputed textures at different image resolutions. (Level zero is equivalent to full resolution.) This enables us to simultaneously give the appropriate texture to objects that are distant and objects that are close. When an object is closer to the perspective of the viewer, it should be textured with a lower mip level (i.e. a mipmap with a higher resolution). And when the object appears farther away, we'll utilize a low-resolution mipmap to determine its texture. 
+            
+            <br /><br />
+            
+            When we need to know which texels will contribute to the color of a screen pixel, it's more efficient to use a mipmap than to risk having to sample all the texels in the original texture. With mipmaps, we're pretty much caching texture samples at varying resolutions.
+            
+            <br /><br />
+            
+            In determining the mipmap level for a point in screen space, we'll calculate the texture coordinates of the nearest samples to the right and the top (using barycentric interpolation again). Then we'll look at how spread out these coordinates are in texture space, and acquire the mipmap level based on the number of texels in the vicinity. The more spread out the texture coordinates are, the higher the mipmap level we'll need to use.
+            
+            <br /><br />
+            
+            We also implement trilinear filtering in <code>Texture::sample</code>. This is done by linearly interpolating the result of a bilinear sample for the mipmap level <em>lvl</em> with the result of a bilinear sample for <em>lvl</em> + 1.
+            
+            <br /><br />
+            
+            The following is a comparison of all four combinations of (L_ZERO, L_NEAREST) and (P_NEAREST, P_BILINEAR) applied to a zoomed out viewpoint. The texture is a PNG image of two baby ducks.
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/l_zero__p_nearest.png" />
+                    </div>
+                    <figcaption align="middle">Figure 22: L_ZERO and P_NEAREST</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/l_zero__p_bilinear.png" />
+                    </div>
+                    <figcaption align="middle">Figure 23: L_ZERO and P_BILINEAR</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/l_nearest__p_nearest.png" />
+                    </div>
+                    <figcaption align="middle">Figure 24: L_NEAREST and P_NEAREST</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/l_nearest__p_bilinear.png" />
+                    </div>
+                    <figcaption align="middle">Figure 25: L_NEAREST and P_BILINEAR</figcaption>
+                </tr>
+            </table>
+            
+            Setbacks: not ensuring that sampled pixels in <code>Texture::sample_bilinear</code> were within the mipmap's width and height bounds, using <em>kMaxMipLevels</em> instead of <em>mipmap</em>.size() as an upper limit on the number of levels, and segfaulting when sampling on <em>mipmap</em>[<em>lvl</em> + 1].
+        </p>
+        <br />
+        
+        
+        <!-- PART 8 -->
+
+
+        <h2 align="middle">Part 8: My drawing</h2>
+        <p>
+            <div class="centered">
+                <img src="images/part8.png" width="600px" />
+            </div><br />
+            
+            This is a procedurally generated spiral superimposed over a color gradient. The color scheme is designed to transition between my favorite color (#FFDE00) and approximately Berkeley blue (Pantone 282).
+            
+            <br /><br />
+            
+            Since I failed to draw anything remotely decent, I ended up writing a Python script to create the SVG file for me. In the program, I first put together the background (two <code>TexTri</code> elements that together form a yellow/blue gradient). Then I add &lt;line&gt; elements to my SVG file, through 750 recursive calls to my <code>make_pattern</code> function. Every line varies with the arguments to the function: over each recursive call I update position, angle, line length, and color. 
+            
+            <br /><br />
+            
+            Overall, the image is just a bunch of lines that get a little longer and branch out a little more every time. Funnily enough, I arrived at this pattern by somewhat arbitrarily tweaking my function arguments. 
+            
+            <br /><br />
+            
+            Also, the concept is based on previously scrapped work for CS 61A's Scheme Recursive Art Contest.
+        </p>
+        <br />
+        
+        <h2 align="middle">Acknowledgments</h2>
+        <p>
+            Unfortunately, I did not make the Bulbasaur. Nor did I invent the Bresenham algorithm. In fact, Frypan Bot is pretty much my greatest technical and artistic achievement to date. The rest of it – as in, the actually good stuff – was done by the folks below.
+            
+            <br /><br />
+            
+            Thanks to...
+            <ul>
+                <li>...<strong>Spevial101</strong> for the <a href="http://spevial101.deviantart.com/art/Bulbasaur-Perler-Bead-Art-413294336" target="_blank">Bulbasaur bead art</a>.</li>
+                <li>...<strong>sometypeofartist</strong> for the <a href="https://sometypeofartist.wordpress.com/2015/03/12/new-perler-bead-art-5/" target="_blank">Mario bead art</a>.</li>
+                <li>...<strong>Colin Flanagan</strong> for the <a href="http://www.cs.helsinki.fi/group/goa/mallinnus/lines/bresenh.html" target="_blank">Bresenham reference</a>.</li>
+                <li>...<strong>Prof. Ren Ng</strong> for the <a href="http://cs184.eecs.berkeley.edu/cs184_sp16/lecture/texture/slide_029" target="_blank">depiction of barycentric coordinates as proportional distances</a>.</li>
+            </ul>
+        </p>
+    </div>
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+</body>
+</html>
