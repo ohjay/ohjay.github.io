@@ -16,7 +16,7 @@ body {
 a {
     color: #00B7FF;
     text-decoration: none;
-    font-size: 2.1vmax;
+    font-size: 1.875rem;
 }
 
 .outer {
@@ -64,4 +64,28 @@ a {
     -webkit-transform: translateX(0px);
     -moz-transform: translateX(0px);
     transform: translateX(0px);
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    body {
+        font-size: 1.5rem;
+        line-height: 1.6rem;
+    }
+
+    a {
+        font-size: 1.15rem;
+    }
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width: 1824px) {
+    body {
+        font-size: 2.4rem;
+        line-height: 2.5rem;
+    }
+
+    a {
+        font-size: 2.25rem;
+    }
 }
