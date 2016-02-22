@@ -2,7 +2,7 @@
  * Thanks to Chris Buttery for the following fade in/out code!
  * http://www.chrisbuttery.com/articles/fade-in-fade-out-with-javascript/
  */
-function fadeOut(el){
+function fadeOut(el) {
     el.style.opacity = 1;
 
     (function fade() {
@@ -13,7 +13,7 @@ function fadeOut(el){
         }
     })();
 }
-function fadeIn(el, display){
+function fadeIn(el, display) {
     el.style.opacity = 0;
     el.style.display = display || 'block';
 

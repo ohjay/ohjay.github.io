@@ -2,11 +2,11 @@
 
 @font-face {
     font-family: 'League Gothic';
-    src: url('../fonts/league-gothic/leaguegothic-regular-webfont.eot');
-    src: url('../fonts/league-gothic/leaguegothic-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/league-gothic/leaguegothic-regular-webfont.woff') format('woff'),
-         url('../fonts/league-gothic/leaguegothic-regular-webfont.ttf') format('truetype'),
-         url('../fonts/league-gothic/leaguegothic-regular-webfont.svg#league_gothicregular') format('svg');;
+    src: url('/fonts/league-gothic/leaguegothic-regular-webfont.eot');
+    src: url('/fonts/league-gothic/leaguegothic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/league-gothic/leaguegothic-regular-webfont.woff') format('woff'),
+         url('/fonts/league-gothic/leaguegothic-regular-webfont.ttf') format('truetype'),
+         url('/fonts/league-gothic/leaguegothic-regular-webfont.svg#league_gothicregular') format('svg');;
 }
 
 html {
@@ -207,7 +207,7 @@ h2 {
 }
 
 #jtron-background {
-    background: url('../images/plane_background_1920x1440.jpg') no-repeat center center;
+    background: url('/images/plane_background_1920x1440.jpg') no-repeat center center;
     background-size: 132% auto;
     position: fixed;
     width: 100%;
@@ -281,20 +281,54 @@ h2 {
     padding-bottom: 10px;
 }
 
+/* Footer size adjustment */
+@media (max-width: 1000px) {
+    #footer-wrapper {
+        height: 42px;
+        overflow: hidden;
+    }
+    
+    #footer-text {
+        width: 100%;
+    }
+}
+
+@media (max-width: 800px) {
+    #jtron-background {
+        background: url('/images/plane_background_1080x1920.jpg') no-repeat center center;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-link {
+        padding: 15px 8px;
+        line-height: 20px;
+        position: relative;
+        display: block;
+    }
+    
+    #links {
+        padding-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    #teaser {
+        margin-top: 17vh;
+    }
+    
+    #teaser-main {
+        font-size: 12em;
+    }
+}
+
 /* Mobile-specific settings */
 @media (max-width: 480px) {
     button {
         z-index: 9999;
-    }
-    
-    .navbar-right {
-        right: 100px;
-    }
-    
-    .navbar-link {
-        margin-top: 4px;
-        padding-left: 8px;
-        padding-right: 8px;
     }
     
     .jumbotron {
@@ -310,15 +344,9 @@ h2 {
         opacity: 1;
     }
     
-    #links {
-        width: 100%;
-        left: 83px;
-        top: 11px;
-    }
-    
     #jtron-background {
         height: 800px;
-        background: url('../images/plane_background_480x720.jpg') no-repeat center bottom;
+        background: url('/images/plane_background_480x720.jpg') no-repeat center bottom;
         background-size: cover;
     }
     
@@ -328,15 +356,6 @@ h2 {
     
     #teaser-main {
         font-size: 6.5em;
-    }
-    
-    #footer-wrapper {
-        height: 40px;
-        overflow: hidden;
-    }
-    
-    #footer-text {
-        width: 100%;
     }
 }
 

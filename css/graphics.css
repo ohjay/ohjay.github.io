@@ -19,6 +19,10 @@ a {
     font-size: 1.875rem;
 }
 
+.js-fade {
+    display: inline;
+}
+
 .outer {
     width: 100%;
     height: 100%;
