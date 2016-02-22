@@ -1,18 +1,7 @@
 /* 
- * Thanks to Chris Buttery for the following fade in/out code!
+ * Thanks to Chris Buttery for the following fade code!
  * http://www.chrisbuttery.com/articles/fade-in-fade-out-with-javascript/
  */
-function fadeOut(el) {
-    el.style.opacity = 1;
-
-    (function fade() {
-        if ((el.style.opacity -= 0.01) < 0) {
-            el.style.display = 'none';
-        } else {
-            requestAnimationFrame(fade);
-        }
-    })();
-}
 function fadeIn(el, display) {
     el.style.opacity = 0;
     el.style.display = display || 'block';
@@ -27,7 +16,4 @@ function fadeIn(el, display) {
 }
 
 var el = document.querySelector('.js-fade');
-
-fadeOut(el);
-fadeIn(el);
 fadeIn(el, 'inline');

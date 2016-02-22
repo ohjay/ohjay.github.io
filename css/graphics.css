@@ -21,6 +21,7 @@ a {
 
 .js-fade {
     display: inline;
+    opacity: 0;
 }
 
 .outer {

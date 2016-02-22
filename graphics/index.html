@@ -29,5 +29,26 @@
     
     <!-- Scripts -->
     <script src="/js/graphics.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        // The secret page navigation option
+        $(document).keypress(function(evt) {
+            base = document.location.origin;
+            switch (evt.charCode) {
+                case 'b'.charCodeAt(): // blog
+                    document.location.href = base + '/blog';
+                    break;
+                case 'c'.charCodeAt(): // CS 61A
+                    document.location.href = base + '/cs61a';
+                    break;
+                case 'i'.charCodeAt(): // index
+                    document.location.href = base;
+                    break;
+                case 'p'.charCodeAt(): // portfolio
+                    document.location.href = base + '/portfolio';
+                    break;
+            }
+        });
+    </script>
 </body>
 </html>

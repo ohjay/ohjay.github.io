@@ -17,7 +17,10 @@ $(document).keypress(function(evt) {
             document.location.href = base + '/blog';
             break;
         case 'c'.charCodeAt():
-            document.location.href = base + "/cs61a";
+            document.location.href = base + '/cs61a';
+            break;
+        case 'g'.charCodeAt():
+            document.location.href = base + '/graphics';
             break;
         case 'i'.charCodeAt():
             document.location.href = base;

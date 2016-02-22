@@ -27,6 +27,9 @@ $(document).keypress(function(evt) {
         case 'c'.charCodeAt(): // CS 61A
             document.location.href = base + '/cs61a';
             break;
+        case 'g'.charCodeAt(): // graphics
+            document.location.href = base + '/graphics';
+            break;
         case 'p'.charCodeAt(): // portfolio
             document.location.href = base + '/portfolio';
             break;
