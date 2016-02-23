@@ -20,4 +20,9 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <th>Week 3 [02/11/16]</th>
         <td><a href="sp16/disc/disc3_notes.md">Notes</a></td>
     </tr>
+    <tr>
+        <th>Week 5 [02/25/16]</th>
+        <td>Slides</td>
+        <td>Quiz (S)</td>
+    </tr>
 </table>

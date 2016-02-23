@@ -4,7 +4,7 @@ function updateContent(width) {
         $('#footer-text p').text('{ Copyright Owen Jow 2015 }');
     } else {
         $('#footer-text p').html(
-            '<i>Built with the help of Bootstrap grids by... well, you can probably guess. '
+            '<i>Built from scratch by... well, you can probably guess. '
             + 'Who else would make an entire website about Owen Jow?</i><br>&copy; Owen Jow 2016<br><br>'
             + '{ Background starring my good friend <a href="/images/kirby_cap.png" style="text-decoration: none" '
             + 'target="_blank">Kirby</a> }'
@@ -16,7 +16,7 @@ function updateContent(width) {
         $('#links').removeClass('nav navbar-nav');
     
         // Collapse navbar after a selection is made
-        $('.nav a').on('click', function(){
+        $('.nav a').on('click', function() {
             $(".navbar-toggle").click();
         });
     } else {
