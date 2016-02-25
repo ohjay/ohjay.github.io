@@ -1,0 +1,82 @@
+\documentclass[11pt]{article}
+
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{courier}
+
+\lstset{
+    basicstyle=\ttfamily,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    tabsize=2,
+    extendedchars=true,
+    breaklines=true,
+    aboveskip=5mm,
+    belowskip=5mm,
+    frame=tb,
+    stringstyle=\color{white}\ttfamily,
+    showspaces=false,
+    showtabs=false,
+    framextopmargin=4pt,
+    framexbottommargin=4pt,
+    showstringspaces=false
+}
+
+\lstloadlanguages{Python}
+
+\oddsidemargin=0in
+\evensidemargin=0in
+\textwidth=6.3in
+\topmargin=-0.5in
+\textheight=9in
+
+\parindent=0in
+\pagestyle{empty}
+
+\begin{document}
+\textbf{61A-125 Spring 2016}\newline
+\textbf{Discussion Quiz 05}\newline
+
+This quiz will \textbf{not} affect your grade. (You aren't even going to turn it in.)\newline
+It only serves to give you a sense of your own understanding. Have fun!\newline
+
+\textbf{1. Trees}\newline
+Fill in the function according to the following specification. You can assume that the tree ADT has already been implemented (i.e. you can use \lstinline{label}, \lstinline{children}, and \lstinline{is_leaf}).
+
+\begin{lstlisting}
+def tree_path(t, num, directions):
+    """Given a tree T that is filled with numbers, mutates DIRECTIONS
+    so that it contains a path to NUM. DIRECTIONS is given as a
+    list of child indices to follow.
+    
+    Note: If NUM is at the root (or NUM is not in the tree), 
+    DIRECTIONS should be empty.
+    
+    >>> t = tree(1, [tree(2), \
+                     tree(3, [tree(4, [tree(5)]), \
+                              tree(6)]), \
+                     tree(7, [tree(8)])])
+    >>> directions = []
+    >>> tree_path(t, 5, directions)
+    >>> directions
+    [1, 0, 0]
+    >>> tree_path(t, 1, directions)
+    >>> directions
+    []
+    """
+    while directions:
+        directions.pop()
+    def helper(t):
+        if label(t) == num:
+            return True
+        elif is_leaf(t):
+            return False
+        for i in range(len(children(t))):
+            directions.append(i)
+            if helper(children(t)[i]):
+                return True
+            else:
+                directions.pop()
+    helper(t)
+\end{lstlisting}
+\end{document}

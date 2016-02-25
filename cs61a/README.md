@@ -23,6 +23,6 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
     <tr>
         <th>Week 5 [02/25/16]</th>
         <td>Slides</td>
-        <td>Quiz (S)</td>
+        <td><a href="sp16/quiz/quiz5.pdf">Quiz</a> (<a href="sp16/quiz/quiz5_sol.pdf">S</a>)</td>
     </tr>
 </table>

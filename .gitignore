@@ -46,3 +46,4 @@ no-min
 *.aux
 *.synctex.gz
 quiz/*.log
+__pycache__
