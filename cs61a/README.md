@@ -22,7 +22,7 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
     </tr>
     <tr>
         <th>Week 5 [02/25/16]</th>
-        <td>Slides</td>
+        <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%205.pdf">Slides</a></td>
         <td><a href="sp16/quiz/quiz5.pdf">Quiz</a> (<a href="sp16/quiz/quiz5_sol.pdf">S</a>)</td>
     </tr>
 </table>
