@@ -1,0 +1,642 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CS 184 | Owen Jow</title>
+
+    <style media="screen" type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;color:#727272;font-weight:400}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}.highlight .cp,.highlight .cs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em;display:block}.wrapper{width:860px;margin:0 auto}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:5px 10px;border-bottom:1px solid #e5e5e5}.centered,header ul a{text-align:center}img{max-width:100%}header{width:270px}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0;width:270px}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;display:block;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:700}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}.anchor{display:block;height:15px;margin-top:-15px;visibility:hidden}
+    </style>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Assignment 2: GeoMenagerie</h1>
+        <h2 align="middle">Owen Jow</h2>
+        <hr />
+        
+        <p>
+            <div class="centered">
+                <img src="images/cow.png" />
+            </div><br />
+            See this cow? It was brought to you by <strong>MeshEdit</strong>, the triangle mesh viewer (/editor) that CS 184 students implemented over the course of Assignment 2. As one of those students, I'm here to talk about how I've been spending my life recently (i.e. what I worked on in MeshEdit).
+        </p>
+        <p>
+            Here's a brief overview of the assignment. As I mentioned, MeshEdit is an editor for <strong>triangle meshes</strong>, which are basically groups of connected triangles that come together and form shapes. (Notice that the surface of the cow above is composed entirely of triangles!) In Assignment 2, we'll work with the halfedge representation of triangle meshes in order to process and improve 3D models. In particular, we'll average vertex normals for smoothing, subdivide the triangles for mesh refinement, and write shaders for cool lighting effects.
+        </p>
+        <hr />
+        <p style="text-align: center">Navigation: <a href="#pt1">1</a> | <a href="#pt2">2</a> | <a href="#pt3">3</a> | <a href="#pt4">4</a> | <a href="#pt5">5</a> | <a href="#pt6">6</a> | <a href="#pt7">7</a></p>
+        <hr />
+        <br />
+
+
+        <!-- PART 1 -->
+        
+        
+        <span class="anchor" id="pt1"></span>
+        <h2 align="middle" id="pt1">Part 1: Bézier Patches</h2>
+        <p>
+            A Bézier curve is a smooth curve created through repeated interpolation of control points (where interpolation for each curve position is based on the parameter <em>u</em>). A Bézier <em>patch</em> is a surface created via interpolation of a moving Bézier curve (where interpolation for each point is based on the parameter <em>v</em>).
+        </p>
+        <p>
+            The aforementioned <strong>control points</strong> define the curves (and by extension the surface) by collectively indicating an overall shape. Essentially, the points bend ("influence") the surface in a certain way; in theory, this "way" should correspond to a nice cohesive patch. Thus, the final position of each point on the patch is based on linear interpolation between the control points.
+        </p>
+        <p>
+            Here, we tessellate the surface into an 8x8 grid (by spacing our <em>u</em>/<em>v</em> parameters out in increments of 1/8), and then cut every square in the grid along the diagonal. This has the effect of producing two triangles per square, and 128 triangles overall.
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt1_teapot1.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">My mesh is the best mesh</figcaption>
+                </tr>
+            </table>
+        </div>
+        <p>
+            Part 1 actually took me the longest, although in retrospect it really shouldn't have. For some reason I decided to implement matrix multiplication row-by-row and column-by-column instead of using <code>Matrix4x4</code> objects, and I was extremely stubborn about getting <em>my</em> implementation to succeed. Unfortunately, it never did... and when I finally gave in and switched to <code>Matrix4x4</code>s, everything pretty much immediately worked. Lesson learned!
+        </p>
+        <p>As suggested by Ben on Piazza, here are screenshots of the teapot from two other angles:</p>
+        <div class="centered">
+            <img src="images/pt1_teapot2.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/pt1_teapot3.png" width="800px" />
+        </div>
+        <br />
+        
+        
+        <!-- PART 2 -->
+        
+        
+        <span class="anchor" id="pt2"></span>
+        <h2 align="middle">Part 2: Average Normals for Halfedge Meshes</h2>
+        <p>
+            Like supersampling, the idea here is that averaging a vertex's normals tends to smooth out the mesh. In this part, we compute the unit normal at a vertex by averaging the normals of neighboring triangles (specifically by taking the cross product of two edges for each triangle). The brunt of the work here came from using the halfedge data structure to navigate triangle meshes.
+        </p>
+        <p>
+            For reference, <a href="http://cs184.eecs.berkeley.edu/cs184_sp16/lecture/geometry/slide_059">this</a> is how halfedges are set up. Every edge has two halfedges (one on each side, going in each direction). Each halfedge can reference its twin, which is its counterpart on the other side of the edge. A halfedge can also access the <em>next</em> halfedge around the triangle face (following its set direction), along with its source vertex and associated face.
+            <br /><br />
+            Ultimately, traversing a triangle mesh in Assignment 2's format always comes down to traversing halfedges.
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt2_comparison.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">A comparison of <em>dae/teapot.dae</em> with and without smoothed normals</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br />
+        
+        
+        <!-- PART 3 -->
+        
+        
+        <span class="anchor" id="pt3"></span>
+        <h2 align="middle">Part 3: Edge Flip</h2>
+        <p>
+            Edge flipping is an operation best demonstrated visually. Watch the pink edge in the screenshot below:
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_single1.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">That there pink edge? It's about to be flipped...</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_single2.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>dae/teapot.dae</em> with a single flipped edge</figcaption>
+                </tr>
+            </table>
+        </div>
+        <p>
+            With our halfedge setup, edge flipping equates to reassigning lots and lots of pointers. To determine necessary assignments, I went through every <strong>halfedge</strong>, <strong>vertex</strong>, <strong>edge</strong>, and <strong>face</strong> in the model below and decided – on a case-by-case basis – whether any of an element's pointers needed to be modified. Past that, implementation was pretty straightforward.
+            
+            <div class="centered">
+                <img src="images/pt3_model.jpg" width="800px" />
+            </div>
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_many1.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>dae/teapot.dae</em> before the storm</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_many2.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>dae/teapot.dae</em> with a bunch of flipped edges</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br />
+        
+        
+        <!-- PART 4 -->
+        
+        
+        <span class="anchor" id="pt4"></span>
+        <h2 align="middle">Part 4: Edge Split</h2>
+        <p>
+            Edge splitting is another local remeshing operation. Again, in place of a long-winded explanation let's take a look at an example:
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_before.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">Watch the pink edge...</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_after.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">There! It's split!</figcaption>
+                </tr>
+            </table>
+        </div>
+        <p>
+            As in the previous part, I sketched out a model and went through individual elements in order to figure out what needed to change. I then proceeded to make a ridiculous amount of assignments in <code>HalfedgeMesh::splitEdge</code>.
+            <br /><br />
+            To my dismay, faces were disappearing when I initially tried to split. Fortunately, this wasn't too hard to debug; when reading through my code, it turned out I'd copy/pasted a <code>halfEdge1</code> and forgotten to change it to <code>halfEdge2</code>. As a result, <code>vertexA</code> and <code>vertexD</code> in my program were <u>both</u> pointing to vertex A.
+            
+            <div class="centered">
+                <img src="images/pt4_model.png" width="800px" />
+            </div>
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_before2.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">Before flips and splits</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_after2.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>After</em> flips and splits</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_example.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>dae/teapot.dae</em> with a bunch of flipped and split edges. They call it abstract art</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br />
+        
+        
+        <!-- PART 5 -->
+        
+        
+        <span class="anchor" id="pt5"></span>
+        <h2 align="middle">Part 5: Upsampling via Loop Subdivision</h2>
+        <p>
+            Loop subdivision is a technique for smoothing meshes; it works by breaking triangles into smaller triangles. After loop subdivision, sharp corners and edges are no longer as sharp or pronounced:
+            
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/pt5_cube_lvl1.png" width="800px" />
+                        </div>
+                        <figcaption align="middle"><em>dae/cube.dae</em> after one level of subdivision</figcaption>
+                    </tr>
+                </table>
+            </div>
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/pt5_cube_lvl3.png" width="800px" />
+                        </div>
+                        <figcaption align="middle"><em>dae/cube.dae</em> after three levels of subdivision</figcaption>
+                    </tr>
+                </table>
+            </div>
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/pt5_torus1.png" width="800px" />
+                        </div>
+                        <figcaption align="middle">A torus after one level of subdivision</figcaption>
+                    </tr>
+                </table>
+            </div>
+            
+            The smoothing effect can be reduced by pre-splitting edges, as shown below. When edges around a vertex are pre-split, the vertex post-subdivision is pointier than it would have been otherwise:
+            <br /><br />
+            
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/pt5_split_lvl0.png" width="800px" />
+                        </div>
+                        <figcaption align="middle"><em>dae/cube.dae</em> with a bunch of split edges</figcaption>
+                    </tr>
+                </table>
+            </div>
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/pt5_split_lvl1.png" width="800px" />
+                        </div>
+                        <figcaption align="middle">The above model after one level of subdivision</figcaption>
+                    </tr>
+                </table>
+            </div>
+            
+            As noted on the spec, <em>cube.dae</em> becomes slightly asymmetric after repeated subdivision steps:
+            <br /><br />
+            <div class="centered">
+                <img src="images/asymmetric.png" width="800px" />
+            </div>
+            
+            <br />
+            This is due to the fact that the original mesh is not symmetric. When that mesh is made to be symmetric via edge splits, the cube actually does subdivide evenly:
+            <br /><br />
+            
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/symmetric0.png" width="800px" />
+                        </div>
+                        <figcaption align="middle">A symmetric version of <em>dae/cube.dae</em></figcaption>
+                    </tr>
+                </table>
+            </div>
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/symmetric1.png" width="800px" />
+                        </div>
+                        <figcaption align="middle">Symmetric subdivision, level one</figcaption>
+                    </tr>
+                </table>
+            </div>
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/symmetric2.png" width="800px" />
+                        </div>
+                        <figcaption align="middle">Symmetric subdivision, level two</figcaption>
+                    </tr>
+                </table>
+            </div>
+            <div align="left">
+                <table style="width=100%">
+                    <tr>
+                        <td align="middle">
+                        <div class="centered">
+                            <img src="images/symmetric3.png" width="800px" />
+                        </div>
+                        <figcaption align="middle">Symmetric subdivision, level three</figcaption>
+                    </tr>
+                </table>
+            </div>
+        </p>
+        <p>
+            <h3 align="middle">Bugs</h3>
+            <table style="width: 100%">
+                <tr id="bug1">
+                    <th style="text-align: center">#1</th>
+                    <td>I assigned a "twin" to be the halfedge itself.</td>
+                </tr>
+                <tr id="bug2">
+                    <th style="text-align: center">#2</th>
+                    <td>I was flipping sections of original edges.</td>
+                </tr>
+                <tr id="bug3">
+                    <th style="text-align: center">#3</th>
+                    <td>[Major!] In edge splitting, I forgot about face pointers for old halfedges. As a result, faces were disappearing when performing loop subdivision.</td>
+                </tr>
+                <tr id="bug4">
+                    <th style="text-align: center">#4</th>
+                    <td>I forgot to initialize edges' <code>isNew</code> to be <code>false</code>, so higher levels of loop subdivision errored ("higher" as in anything past one). This is because some edges were still marked as "new" when they weren't supposed to be.</td>
+                </tr>
+            </table>
+        </p>
+        <p>
+            In various combination, these bugs resulted in the following meshes:
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_bugs3.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">The faces were disappearing (see <a href="#bug3">Bug #3</a>)</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_bugs5.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">I was flipping edges that had already been there (see <a href="#bug2">Bug #2</a>)</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_bug_collage.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">A collage of bugs (not the kind that are in my apartment, though)</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br />
+        
+        
+        <!-- PART 6 -->
+        
+        
+        <span class="anchor" id="pt6"></span>
+        <h2 align="middle">Part 6: Fun with Shaders</h2>
+        <p>
+            For this part, we implemented a fragment shader in GLSL. This involved two different types of shading: <strong>Phong</strong> (a combination of ambient, diffuse, and specular shading) and <strong>environment map reflection</strong> (which required us to calculate the reflection direction in spherical coordinates and then use those values for lookup into an environment map).
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt6_shader1.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">Utah teapot with Phong shading</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt6_shader2_so_beautiful.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">Utah teapot with environment map reflection shading</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt6_shader2_again.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><code>envmap</code> shading, again (I couldn't help but take multiple screenshots)</figcaption>
+                </tr>
+            </table>
+        </div>
+        <p>
+            <h3 align="middle">Extra</h3>
+            In addition to the above shaders, I implemented 3D texture mapping. For this to work, I computed Phong's <em>L</em> shading value again and used it to weight colors from a texture map. (To extract colors from the texture, I used GLSL's <code>texture2D</code> function.) I also had to edit <em>main.cpp</em>'s <code>loadFile</code> and <code>MeshEdit::update_camera</code> so that they loaded an extra texture for my fragment shader to use.
+        </p>
+        <p>
+            Here are some pictures of 3D texture maps applied to the Utah teapot:
+            <div class="centered">
+                <img src="images/pt6_extra1.png" width="800px" />
+            </div>
+            <div class="centered">
+                <img src="images/pt6_extra2.png" width="800px" />
+            </div>
+            <div class="centered">
+                <img src="images/pt6_extra3.png" width="800px" />
+            </div>
+            <div class="centered">
+                <img src="images/pt6_extra4.png" width="800px" />
+            </div>
+        </p>
+        <br />
+        
+        
+        <!-- PART 7 -->
+        
+        
+        <span class="anchor" id="pt7"></span>
+        <h2 align="middle">Part 7: Design Your Own Mesh!</h2>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/goldbird_comparison.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">An array of goldbirds (<em>Haliaeetus aurocephalus</em>)</figcaption>
+                </tr>
+            </table>
+        </div>
+        <p>
+            These are my goldbirds. (I don't really know why they're called goldbirds, seeing as they're not gold.) Since I was already familiar with Autodesk Maya, I actually modeled this bird in Maya, not Blender, and then exported it as a <code>.dae</code> file.
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/competition.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>competition.png</em></figcaption>
+                </tr>
+            </table>
+        </div>
+        <p>
+            As expected, the model gets smoother over the course of subdivision:
+        </p>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/bird_subdiv0.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>dae/my_mesh.dae</em></figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/bird_subdiv1.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>dae/my_mesh.dae</em> after one level of subdivision</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/bird_subdiv2.png" width="800px" />
+                    </div>
+                    <figcaption align="middle"><em>dae/my_mesh.dae</em> after two levels of subdivision</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt7_subdivided.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">Multiple levels of subdivision</figcaption>
+                </tr>
+            </table>
+        </div>
+        <h3 align="middle">Goldbird Gallery</h3>
+        <p>
+            I couldn't let you go without showing you every screenshot I took, right? Below you can see pictures of goldbirds in various form:
+        </p>
+        <div class="centered">
+            <img src="images/goldbird1.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird23.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird45.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird6.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird7.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird8.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird9.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird10.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird11.png" width="800px" />
+        </div>
+        <div class="centered">
+            <img src="images/goldbird13.png" width="800px" />
+        </div>
+        <br />
+        
+        
+        <!-- EXTRA STUFF -->
+        
+        
+        <hr />
+        <h2 align="middle">Miscellaneous Images</h2>
+        <div align="left">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/story_of_my_life.png" width="800px" />
+                    </div>
+                    <figcaption align="middle">Story of my life (for the last few days)</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div class="centered">
+            <img src="images/beastrock.png" width="800px" />
+        </div><br />
+        <hr />
+        
+        <h2 align="middle">References & Helpful Readings</h2>
+        <p>These resources helped me understand certain concepts throughout the assignment. Also useful (but not listed) were the official course readings, specifically the lecture slides and <em>Fundamentals of Computer Graphics</em>.</p>
+        <p>
+            Part 1: Bézier Patches
+            <ul>
+                <li>Ken Joy, <a href="http://idav.ucdavis.edu/education/CAGDNotes/Matrix-Cubic-Bezier-Patch/Matrix-Cubic-Bezier-Patch.html">A MATRIX REPRESENTATION OF A CUBIC BÉZIER PATCH</a></li>
+                <li>D. Donavanik, <a href="http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/AV0405/DONAVANIK/bezier.html">Bézier Surfaces</a></li>
+            </ul>
+        </p>
+        <p>
+            Part 6: Fun with Shaders
+            <ul>
+                <li><a href="https://www.opengl.org/wiki/Data_Type_(GLSL)">Data Type (GLSL) – OpenGL Wiki</a></li>
+                <li>Christian Miller, <a href="https://www.cs.utexas.edu/~fussell/courses/cs384g/lectures/texture_mapping.pdf">Texture Mapping</a></li>
+            </ul>
+        </p>
+    </div>
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+</body>
+</html>
