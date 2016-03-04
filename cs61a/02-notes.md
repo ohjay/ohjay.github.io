@@ -11,6 +11,18 @@ permalink: /cs61a/notes/
 <hr />
 
 <div>
-    + <a href="https://docs.google.com/presentation/d/1bILyUkV2OkMIQ6GNKsc56_4-rNZ1TVw0M_bGELtM-3E/edit?usp=sharing">Fall 2015 Final Review Slides</a><br>
-    + <a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%205.pdf">Discussion 5 Slides</a>
+    <table class="nt">
+        <tr><th>Fall 2015</th></tr>
+        <tr>
+            <td><a href="https://docs.google.com/presentation/d/1bILyUkV2OkMIQ6GNKsc56_4-rNZ1TVw0M_bGELtM-3E/edit?usp=sharing">Fall 2015 Final Review Slides</a></td>
+        </tr>
+    </table>
+    
+    <table class="nt">
+        <tr><th colspan="2">Spring 2016 Discussion Slides</th></tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%205.pdf">Discussion 5</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%206.pdf">Discussion 6</a></td>
+        </tr>
+    </table>
 </div>

@@ -1,0 +1,65 @@
+\documentclass[11pt]{article}
+
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{courier}
+
+\lstset{
+    basicstyle=\footnotesize\ttfamily,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    tabsize=2,
+    extendedchars=true,
+    breaklines=true,
+    aboveskip=5mm,
+    belowskip=5mm,
+    frame=tb,
+    stringstyle=\color{white}\ttfamily,
+    showspaces=false,
+    showtabs=false,
+    framextopmargin=4pt,
+    framexbottommargin=4pt,
+    showstringspaces=false
+}
+
+\lstloadlanguages{Python}
+
+\oddsidemargin=0in
+\evensidemargin=0in
+\textwidth=6.3in
+\topmargin=-0.5in
+\textheight=9in
+
+\parindent=0in
+\pagestyle{empty}
+
+\begin{document}
+\textbf{61A-125 Spring 2016}\newline
+\textbf{Discussion Quiz 06}\newline
+
+This quiz will \textbf{not} affect your grade. (You aren't even going to turn it in.)\newline
+It only serves to give you a sense of your own understanding. Have fun!\newline
+
+\textbf{1. Are you local?}\newline
+Draw the environment diagram for the following code.
+
+\begin{lstlisting}
+def red(orange, yellow, green):
+    def blue():
+        if 1 > 2:
+            nonlocal orange # this does get executed
+        else:
+            nonlocal yellow # so does this!
+        
+        orange, yellow = orange + yellow * 3, orange * 4
+        green = lambda indigo: int(orange ** 0.5)
+        
+        if yellow < orange:
+            green = lambda violet: int(orange ** 2)
+        
+        return green(orange)
+    return blue
+
+gatsby = red(3, 2, 1)()
+\end{lstlisting}
+\end{document}
