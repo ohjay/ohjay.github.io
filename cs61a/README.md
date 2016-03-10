@@ -30,4 +30,9 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%206.pdf">Slides</a></td>
         <td><a href="sp16/quiz/quiz6.pdf">Quiz</a> (<a href="http://pythontutor.com/composingprograms.html#code=def+red(orange,+yellow,+green%29%3A%0A++++def+blue(%29%3A%0A++++++++if+1+%3E+2%3A%0A++++++++++++nonlocal+orange+%23+this+does+get+executed%0A++++++++else%3A%0A++++++++++++nonlocal+yellow+%23+so+does+this!%0A++++++++%0A++++++++orange,+yellow+%3D+orange+%2B+yellow+*+3,+orange+*+4%0A++++++++green+%3D+lambda+indigo%3A+int(orange+**+0.5%29%0A++++++++%0A++++++++if+yellow+%3C+orange%3A%0A++++++++++++green+%3D+lambda+violet%3A+int(orange+**+2%29%0A++++++++%0A++++++++return+green(orange%29%0A++++return+blue%0A%0Agatsby+%3D+red(3,+2,+1%29(%29&mode=display&origin=composingprograms.js&cumulative=true&py=3&rawInputLstJSON=%5B%5D&curInstr=16">S</a>)</td>
     </tr>
+    <tr>
+        <th>Week 7 [03/10/16]</th>
+        <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%207.pdf">Slides</a></td>
+        <td><a href="sp16/quiz/quiz7.pdf">Quiz</a> (<a href="sp16/quiz/quiz7_sol.pdf">S</a>)</td>
+    </tr>
 </table>

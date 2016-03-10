@@ -108,6 +108,6 @@ sup {
     font-size: 0.6em;
 }
 
-.nt * {
+.nt *, .qz * {
     text-align: left;
 }
