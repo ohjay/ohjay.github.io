@@ -16,6 +16,6 @@ I also hold office hours every Wednesday from 4-5:00pm in <a href="http://www.be
     
     <input class="feedback-input" type="text" name="name" placeholder="Your name (leave blank for anonymity)" autocomplete="off" /><br>
     <input class="feedback-input" type="email" name="_replyto" placeholder="Your email (leave blank for anonymity)" /><br>
-    <textarea class="feedback-input" rows="8" name="message" placeholder="Your message" required></textarea><br>
+    <textarea class="feedback-input" rows="12" name="message" placeholder="Your message" required></textarea><br>
     <input type="submit" value="Send" />
 </form>
