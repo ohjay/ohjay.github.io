@@ -35,4 +35,9 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%207.pdf">Slides</a></td>
         <td><a href="sp16/quiz/quiz7.pdf">Quiz</a> (<a href="sp16/quiz/quiz7_sol.pdf">S</a>)</td>
     </tr>
+    <tr>
+        <th>Week 8 [03/17/16]</th>
+        <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%208.pdf">Slides</a></td>
+        <td><a href="sp16/quiz/quiz8.pdf">Quiz</a> (<a href="sp16/quiz/quiz8_sol.pdf">S</a>)</td>
+    </tr>
 </table>

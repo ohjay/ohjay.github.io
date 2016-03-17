@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+
+\usepackage{textcomp, listings, enumitem}
+\usepackage[a4paper, total={6in, 10in}]{geometry}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage[english]{babel}
+
+\lstset{
+    basicstyle=\fontsize{10}{13}\ttfamily,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    tabsize=2,
+    extendedchars=true,
+    breaklines=true,
+    aboveskip=5mm,
+    belowskip=5mm,
+    frame=tb,
+    showspaces=false,
+    showtabs=false,
+    framextopmargin=4pt,
+    framexbottommargin=4pt,
+    showstringspaces=false,
+    language=Lisp,
+    upquote=true,
+    escapeinside={\%*}{*)}
+}
+
+\oddsidemargin=0in
+\evensidemargin=0in
+\textwidth=6.3in
+
+\parindent=0in
+\pagestyle{empty}
+
+\begin{document}
+\textbf{61A-125 Spring 2016}\newline
+\textbf{Discussion Quiz 08}\newline
+
+%%% Q1: A Scheme Primer %%%
+\textbf{1. A Scheme Primer}\newline
+Please answer the following questions about Scheme.
+
+\begin{enumerate}[leftmargin=0.63cm,itemindent=0cm,labelwidth=\itemindent,label=(\alph*)]
+\item What is Scheme? \textcolor{red}{A functional programming language with symbolic expression syntax.}
+
+\item Do you enjoy counting parentheses? Circle one: \textcolor{red}{Yes}
+
+\item In Scheme, how would I define the value of \texttt{a} to be 5? \textcolor{red}{\texttt{(define a 5)}}
+
+\item Define a Scheme procedure, \texttt{remainder}, that takes in two integers \texttt{m} and \texttt{n} and returns the remainder of \texttt{m} divided by \texttt{n}. Assume that both \texttt{m} and \texttt{n} are positive.\newline
+
+\textcolor{red}{\texttt{(define (remainder m n)}}\newline
+\textcolor{red}{\texttt{\enspace\enspace(if (> n m) m (remainder (- m n) n)))}}\newline
+
+\end{enumerate}
+
+%%% Q2: WWSP? %%%
+\textbf{2. WWSP?}
+\begin{lstlisting}
+(+ (and 0 (or #f 1)) 2)
+%*\textcolor{red}{3}*)
+
+(cons 5 6)
+%*\textcolor{red}{(5\,.\,6)}*)
+
+(define x (+))
+(define y +)
+(x 3 4)
+%*\textcolor{red}{Error: Cannot call 0}*)
+
+(y 3 4)
+%*\textcolor{red}{7}*)
+
+(define (mystery lst)
+  (cond ((null? lst) nil)
+    ((= (modulo (car lst) 2) 1) (cons (car lst) (mystery (cdr lst))))
+    (else (mystery (cdr lst)))))
+(mystery (list 1 2 3 4))
+%*\textcolor{red}{(1 3)}*)
+\end{lstlisting}
+\end{document}

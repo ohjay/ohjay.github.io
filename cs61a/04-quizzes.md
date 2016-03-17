@@ -37,5 +37,11 @@ permalink: /cs61a/quizzes/
             <td><a href="http://owenjow.xyz/cs61a/sp16/quiz/quiz7.py">Python Script</a></td>
             <td>OOP / OO Trees</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/quiz/quiz8.pdf">Quiz &#35;8</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/quiz/quiz8_sol.pdf">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/quiz/quiz8.scm">Scheme File</a></td>
+            <td>Scheme</td>
+        </tr>
     </table>
 </div>
