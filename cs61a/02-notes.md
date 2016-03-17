@@ -32,5 +32,9 @@ permalink: /cs61a/notes/
             <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%207.pdf">Discussion 7</a> (3/10)</td>
             <td>Orders of Growth</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%208.pdf">Discussion 8</a> (3/17)</td>
+            <td>Scheme</td>
+        </tr>
     </table>
 </div>
