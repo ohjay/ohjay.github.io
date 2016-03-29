@@ -1,0 +1,774 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CS 184 | Owen Jow</title>
+
+    <style media="screen" type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;color:#727272;font-weight:400}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}.highlight .cp,.highlight .cs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em;display:block}.wrapper{width:860px;margin:0 auto}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:5px 10px;border-bottom:1px solid #e5e5e5}.centered,header ul a{text-align:center}img{max-width:100%}header{width:270px}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0;width:270px}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;display:block;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:700}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}.anchor{display:block;height:15px;margin-top:-15px;visibility:hidden}.full-underline{width:100%;border-bottom:1px solid;padding-bottom:1px;margin-bottom:5px}
+    </style>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Assignment 3: PathTracer</h1>
+        <h2 align="middle">Owen Jow</h2>
+        <hr />
+        <p style="text-align: center">Navigation: <a href="#pt1">1</a> | <a href="#pt2">2</a> | <a href="#pt3">3</a> | <a href="#pt4">4</a> | <a href="#pt5">5</a></p>
+        <hr />
+        <br />
+        
+        
+        <!-- PART 1 -->
+        
+        
+        <span class="anchor" id="pt1"></span>
+        <h2 align="middle">Part 1: Ray Generation and Intersection</h2>
+        <p>
+            At a high level, "ray generation and intersection" suggests that we'll be generating camera rays (rays originating at the position of the camera, aka the "viewpoint" in the below figure) and tracing these rays through the scene. By this, I mean that we'll cast a number of rays through every pixel on the image plane and see what they hit on the other side. The colors we display on the screen (we can think of the screen as the image plane itself) are actually going to be the colors associated with each of those intersected objects! Since those colors can fluctuate based on the scene lighting, we'll also have to bounce the rays off of the objects and see what kind of lighting we've got. However, that's a task for later parts. For now, all we're doing is creating these rays and sending them through the scene, checking for object intersections.
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/figure1.jpg" width="600px" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 1</strong>: A visual depiction of ray tracing. Rays start at an eye or a camera, travel through every pixel in the image plane, and collide with objects in the scene</figcaption>
+                </tr>
+            </table>
+            
+            For this assignment, we take <code>ns_aa</code> samples at every pixel, which is to say we pass <code>ns_aa</code> rays through slightly different positions within each pixel. The rays are actually created in <code>Camera::generate_ray()</code>, where, given a point on the sensor plane, we construct a ray with its origin at the camera's position and its direction oriented toward the passed-in point.
+            
+            <br /><br />
+            
+            After we've created our ray, we have to implement intersection methods (otherwise we'd never know what the ray hit on the other side of the sensor plane). In other words, we have to look at every primitive in the scene and see which one (if any) the ray intersects first. Note that our primitive types include triangles and spheres.
+            
+            <br /><br />
+            
+            Where triangles are concerned, my program uses the <strong>Möller-Trumbore algorithm</strong> to test for intersections. What the heck is that, you may ask? Well, it really boils down to a bit of algebra and geometry:
+            
+            <br /><br />
+            
+            Using barycentric coordinates, we know that any point (inside or out of a triangle) can be expressed as follows: <pre align="middle">P = &alpha;A + &beta;B + &gamma;C, where &alpha; = 1 - &beta; - &gamma;</pre>
+            
+            This is equivalent to saying
+
+<pre align="middle">
+P = (1 - &beta; - &gamma;) * A + &beta; * B + &gamma; * C
+P = A + (B - A) * &beta; + (C - A) * &gamma;
+</pre>
+
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/figure2.jpg" width="400px" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 2</strong>: (<em>B</em> - <em>A</em>) and (<em>C</em> - <em>A</em>) are actually triangle edges</figcaption>
+                </tr>
+            </table>
+            
+            Meanwhile, we have another way of denoting any point along a ray: <pre align="middle">P = O + tD</pre>
+            In the above equation, <em>O</em> is the origin, <em>D</em> is the direction, and <em>t</em> is a parameter representing the distance from the ray's origin to point <em>P</em> (or, alternatively, the time to reach point <em>P</em>).
+            
+            <br /><br/ >
+            
+            Substituting one equation into the other, we have
+            
+<pre align="middle">
+O + tD = A + (B - A) * &beta; + (C - A) * &gamma;
+O - A = -tD + (B - A) * &beta; + (C - A) * &gamma;
+</pre>
+
+            Note that the triangle vertices (<em>A</em>, <em>B</em>, <em>C</em>), <em>O</em>, and <em>D</em> are known quantities. The only things we're solving for are <em>t</em>, &beta;, and &gamma;. So we have three unknowns. And since our vectors are in three dimensions, we actually have three equations! (It blew my mind when I first realized this.)
+            
+            <br /><br />
+            
+            Using <code>.x</code>, <code>.y</code>, and <code>.z</code> as the <em>x</em>-, <em>y</em>-, and <em>z</em>- coordinates respectively, we can rewrite our equation as
+
+<pre align="middle">
+[(-D).x] * t + [(B - A).x] * &beta; + [(C - A).x] * &gamma; = (O - A).x
+[(-D).y] * t + [(B - A).y] * &beta; + [(C - A).y] * &gamma; = (O - A).y
+[(-D).z] * t + [(B - A).z] * &beta; + [(C - A).z] * &gamma; = (O - A).z
+</pre>
+
+            Again, we're solving for <em>t</em>, &beta;, and &gamma;. We can write the above equations in matrix form and use Cramer's Rule in order to derive the actual values for our three scalar quantities. Through this, we arrive at
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/figure3.jpg" width="600px" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 3</strong>: Using Cramer's Rule to derive the actual values</figcaption>
+                </tr>
+            </table>
+            
+            Because of the way barycentric coordinates work, we know that the ray intersects triangle ABC (that is, point <em>O</em> + <em>tD</em> is inside the triangle) if and only if the following conditions hold:
+            
+<pre align="middle">
+0 &lt;= &beta; &lt;= 1
+0 &lt;= &gamma; &lt;= 1
+&beta; + &gamma; &lt;= 1
+</pre>
+            
+            If we find an intersection, we just have to make sure it's the <em>closest</em> intersection (by checking that the intersection's <em>t</em> is between the ray's <em>min_t</em> and <em>max_t</em> values). If it is, that's it! If it isn't, that's also it.
+        </p>
+        <p>
+            <h3 align="middle">Part 1 Images</h3>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt1_spheres.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 4</strong>: <em>dae/sky/CBspheres_lambertian.dae</em> with normal shading</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt1_bench.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 5</strong>: <em>dae/sky/bench.dae</em> with normal shading</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt1_gems.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 6</strong>: <em>dae/sky/CBgems.dae</em> with normal shading</figcaption>
+                </tr>
+            </table>
+        </p>
+        <p>
+            <h3 align="middle">Part 1 Setbacks</h3>
+            <table style="width: 100%">
+                <tr id="pt1-bug1">
+                    <th style="text-align: center">#1</th>
+                    <td>I thought that if the determinant was negative, we would automatically return false. Apparently, this is not the case.</td>
+                </tr>
+                <tr id="pt1-bug2">
+                    <th style="text-align: center">#2</th>
+                    <td>My <code>r.d</code> was always (0, 0, 0) and I wasn't sure why. After an embarrassingly long amount of time, I realized it was because I'd been editing the <code>camera.cpp</code> file in my Assignment 2 folder.</td>
+                </tr>
+            </table>
+        </p>
+        <br />
+
+        
+        <!-- PART 2 -->
+        
+        
+        <span class="anchor" id="pt2"></span>
+        <h2 align="middle">Part 2: Bounding Volume Hierarchy</h2>
+        <p>
+            All right. As of Part 1, we've got our intersection code set up. However, also as of Part 1 we're collision-testing EVERY ray against EVERY primitive. That seems a little inefficient, doesn't it? It turns out we can do better, using an acceleration structure called a <strong>bounding volume hierarchy</strong>. By spatially partitioning our primitives into different portions of the scene (we'll call these "portions" <code>BVHNode</code>s), we can compare each ray against a single <code>BVHNode</code> at a time... meaning that we can quickly test our rays for intersection against <em>groups</em> of primitives, instead of having to go through each primitive individually.
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/bvh.png" width="600px" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 7</strong>: The BVH for <em>dae/meshedit/maxplanck.dae</em></figcaption>
+                </tr>
+            </table>
+            
+            Our <code>BVHNode</code>s are made up of smaller <code>BVHNode</code>s that occupy space within the first <code>BVHNode</code>. This relationship forms a kind of tree (a bounding volume <em>hierarchy</em>). Indeed, every node that isn't a leaf has a left child and a right child. Primitives are split between the two based on where they are in the scene.
+            
+            <br /><br />
+            
+            If our ray hits a <code>BVHNode</code>'s left or right child, we'll look inside of that child (possibly both, if the ray hits both) and recurse, checking for intersections with that child's children. When we get to a leaf node, we'll see whether the ray intersects any of the primitives contained within that leaf node's space (technically its <em>bounding box</em>). In this way, we avoid running intersection tests against a lot of primitives that aren't anywhere near the ray.
+            
+            <br /><br />
+            
+            <div class="full-underline">BVH construction</div>
+            To construct the BVH, we'll use the recursive algorithm outlined in the spec. The construction function takes in a vector of primitives (<code>prims</code>) and a <code>max_leaf_size</code>. No matter what, we start off by making a <code>BVHNode</code> whose bounding box contains all of the given primitives.
+            
+            <br /><br />
+            
+            Our base case is when there are <code>max_leaf_size</code> primitives (or less) in the <code>prims</code> vector. When this happens, the newly constructed node is a leaf node – accordingly, we add all of the primitives to the node's primitive list and return that node.
+            
+            <br /><br />
+            
+            If there are more than <code>max_leaf_size</code> primitives in the passed-in list, we'll have to recurse... which means we'll need to choose a splitting point. In my algorithm, the split axis is always the extent's largest dimension, which I find by taking the maximum of <code>bbox.extent.x, bbox.extent.y, and bbox.extent.z</code>. The split <em>point</em> is the center of the bounding box (<code>(bbox.min + bbox.max) / 2</code>).
+            
+            <br /><br />
+            
+            Finally, we'll actually do the splitting. This means that we'll break <code>prims</code> up into left and right vectors, based on which side of the split axis their bounding box's centroid lies on. When we have our left and right child vectors, we make our <code>construct_bvh()</code> recursive calls on each of them (setting the left and right children of our node to be the result of these calls). Once's that's done, we can return our node. The node from the original call will be the <code>BVHNode</code> <em>root</em> – the node at the top of the hierarchy, which contains all other nodes.
+            
+            <br /><br />
+            
+            <div class="full-underline">The BVH intersection algorithm</div>
+            So we have our BVH (and, offscreen, our code to test whether a ray intersects a bounding box). At this point, we can speed up our program by implementing <code>BVHAccel</code>'s intersection method. Like construction, this involves a recursive traversal. We have two base cases. If the ray misses the <code>BVHNode</code>'s bounding box entirely, we can return safely (because if a ray misses the bounding box, it definitely misses all of the primitives <em>inside</em> of the bounding box). Also, if the node is a leaf node, there's nothing for us to recurse on... so at this point we'll test for intersection with every object in the node's primitive list (and return the closest intersection).
+            
+            <br /><br />
+            
+            If the ray intersects the bounding box and the node isn't a leaf, there's nothing left to do but recurse. Thus, we call the <code>intersect</code> method on the node's left and right children. Then, from the <code>Intersection</code> data we get back, we update our intersection struct, <code>i</code>, with the closer intersection (i.e. the one with the lower <em>t</em> value).
+        </p>
+        <p>
+            <h3 align="middle">Part 2 Images</h3>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt2_maxplanck.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 8</strong>: <em>dae/meshedit/maxplanck.dae</em> with normal shading</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt2_lucy.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 9</strong>: <em>dae/sky/CBlucy.dae</em>, rendered in 11s</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt2_blob.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 10</strong>: <em>dae/sky/blob.dae</em>, rendered in 30s</figcaption>
+                </tr>
+            </table>
+        </p>
+        <p>
+            <h3 align="middle">Part 2 Setbacks</h3>
+            <table style="width: 100%">
+                <tr id="pt2-bug1">
+                    <th style="text-align: center">#1</th>
+                    <td>I was getting a segfault since the size of my left child vector was 0. This was because I was recursing on leaf nodes – I forgot to return <code>false</code> in base cases for which no primitive intersections occurred at all.</td>
+                </tr>
+                <tr id="pt2-bug2">
+                    <th style="text-align: center">#2</th>
+                    <td>I wasn't always using the intersection with the lowest <em>t</em> value, due to the fact that I wasn't checking whether sphere intersections were between <code>min_t</code> and <code>max_t</code>.</td>
+                </tr>
+                <tr id="pt2-bug3">
+                    <th style="text-align: center">#3</th>
+                    <td>In my <code>BBox::intersect()</code> method, my <code>tmin</code> was sometimes greater than my <code>tmax</code> for each of <em>x</em>, <em>y</em>, and <em>z</em>. This was easily solved by switching the two when they were out of order.</td>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt2_bug1.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 11</strong>: A buggy version of <em>dae/meshedit/maxplanck.dae</em></figcaption>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- PART 3 -->
+        
+        
+        <span class="anchor" id="pt3"></span>
+        <h2 align="middle">Part 3: Direct Illumination</h2>
+        <p>
+            <div class="centered">
+                <img src="images/direct.jpg" width="600px" />
+            </div>
+            
+            As I mentioned before, lighting has an effect on object color, since objects are made of materials that scatter light in different (and often specific) ways. Therefore, once we hit an object, we need to send rays from the intersection point to each of the scene lights, taking into account the incoming radiance from each of those directions. In other words, we'll send a "shadow ray" from the intersection point <em>directly</em> toward every light source in turn.
+            
+            <br /><br />
+            
+            If the ray hits another object before it hits a light, it means that our original object is in the shadow of the second object, and there's no need to add any radiance to our output. If the ray <em>doesn't</em> hit any other object, though, we'll add the BSDF value at <code>w_out</code> (the direction from the hit point to the ray source) and <code>w_in</code> (the direction from the hit point to the light source) to our output radiance. After all is said and done (as in we've cast <code>ns_area_light</code> rays to every scene light), that radiance value will become our direct lighting estimate.
+            
+            <br /><br />
+            
+            <div class="full-underline"><code>PathTracer::estimate_direct_lighting()</code> implementation</div>
+            To reiterate: we have our ray and our intersection information. As setup, we'll make a coordinate system with the intersection normal pointing up (in the <em>z</em> direction). Then we calculate the hit point by plugging the intersection's <em>t</em> value into the ray equation, and the vector <code>w_out</code> by reversing the direction of the ray. We'll also create an empty output radiance variable; we'll be adding to this later.
+            
+            <br /><br />
+            
+            Then, for every scene light, we calculate the incoming radiance using the <code>sample_L()</code> subroutine. This also returns the direction from the hit point to the light, which we'll convert into object space and store into <code>wi</code>. We'll use this direction (<code>wi</code>) to construct a shadow ray heading toward the light... and if it doesn't intersect anything before it gets there, we'll accumulate the light's radiance value into our output radiance (i.e. our direct illumination value).
+            
+            <br /><br />
+            
+            This happens (# of scene lights) * <code>ns_area_light</code> times, and then we return our (now complete) output radiance.
+        </p>
+        <p>
+            <h3 align="middle">Part 3 Images</h3>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/dragon_64_32.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 12</strong>: <em>dae/sky/dragon.dae</em> with direct illumination</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_banana.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 13</strong>: <em>dae/keenan/banana.dae</em> with direct illumination</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_rabbit1.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 14</strong>: <em>dae/sky/CBbunny.dae</em> with 1 sample per area light</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_rabbit4.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 15</strong>: <em>dae/sky/CBbunny.dae</em> with 4 samples per area light. If you look at the shadows underneath the rabbit, you'll notice that soft shadows are a little less noisy than before</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_rabbit16.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 16</strong>: <em>dae/sky/CBbunny.dae</em> with 16 samples per area light. The shadows aren't getting any noisier</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/bunny_64_32.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 17</strong>: <em>dae/sky/CBbunny.dae</em> with 32 samples per area light. At this point, we've eliminated most of the shadow noise</figcaption>
+                </tr>
+            </table>
+        </p>
+        <p>
+            <h3 align="middle">Part 3 Setbacks</h3>
+            <table style="width: 100%">
+                <tr id="pt3-bug1">
+                    <th style="text-align: center">#1</th>
+                    <td>I didn't realize I was supposed to remove the <code>return normal_shading(isect.n);</code> line in <code>trace_ray()</code>, so all of my images still had normal shading and I wasn't sure why.</td>
+                </tr>
+                <tr id="pt3-bug2">
+                    <th style="text-align: center">#2</th>
+                    <td>I was averaging with only <em>n</em> samples (where <em>n</em> was incremented only if I actually <em>took</em> a sample). To achieve the pictures in the spec, I needed to average over <code>ns_area_light</code> samples instead.</td>
+                </tr>
+                <tr id="pt3-bug3">
+                    <th style="text-align: center">#3</th>
+                    <td>Another averaging issue: I was dividing out over all of the samples at the end, but I should have been adding to <code>L_out</code> <u>for every scene light</u> with each scene light's <code>Spectrum</code> aggregate (divided by <code>ns_area_light</code> samples).</td>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- PART 4 -->
+        
+        
+        <span class="anchor" id="pt4"></span>
+        <h2 align="middle">Part 4: Indirect Illumination</h2>
+        <p>
+            Of course, our rays wouldn't <em>always</em> travel directly between the light and our scene objects. Light is actually bounced around and transmitted by nearby objects, which of course contributes to the final irradiance for each pixel. This is what we compute in Part 4: an <strong>indirect</strong> lighting estimate.
+            
+            <div class="full-underline"><code>PathTracer::estimate_indirect_lighting()</code> implementation</div>
+            Like before, we have a ray, we have intersection data, and we're going to construct a secondary ray and send it off in some direction. This time, however, we won't cast our ray directly toward the light. Instead, we'll <u>sample</u> the BSDF at the intersection point (with the <code>isect.bsdf->sample_f()</code> function) and ultimately use the sample direction for our secondary ray. Once we've called <code>sample_f()</code>, we'll be in possession of a BSDF value, <code>sample</code>, as a <code>Spectrum</code>. We'll also have <code>w_in</code>, the incoming radiance direction.
+            
+            <br /><br />
+            
+            For efficiency's sake, we don't want secondary rays to travel for their full <code>max_ray_depth</code> every time. As a result, we'll assign each ray a termination probability that is inversely proportional to the <code>sample</code>'s reflectance. Then we'll <code>coin_flip()</code> with that probability: if the coin flip comes up <code>true</code>, the ray will be "terminated" and we'll simply return an empty <code>Spectrum</code>.
+            
+            <br /><br />
+            
+            But if we don't terminate, we'll generate a ray that travels in an <code>o2w * w_in</code> direction and has a depth of <code>r.depth - 1</code>. (Incidentally, when that depth reaches 0 the ray is terminated!) Then we'll make a recursive call to <code>trace_ray()</code> with our newly created ray, thus grabbing a value for its incoming radiance. Finally, we'll turn this into an outgoing radiance, multiplying it by <code>sample * abs_cos_theta(w_in)</code> and dividing by <code>(pdf * (1 - termination_prob))</code>. That outgoing radiance will serve as our indirect lighting estimate.
+        </p>
+        <p>
+            <h3 align="middle">Part 4 Images</h3>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_blob.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 18</strong>: <em>dae/sky/blob.dae</em> with global (direct and indirect) illumination</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/dragon.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 19</strong>: A globally illuminated dragon</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_banana.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 20</strong>: <em>dae/keenan/banana.dae</em> with global illumination</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt3_spheres.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 21</strong>: <em>dae/sky/CBspheres_lambertian.dae</em> with direct illumination only</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_spheres.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 22</strong>: <em>dae/sky/CBspheres_lambertian.dae</em> with indirect illumination only</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt34_spheres.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 23</strong>: Lambertian spheres with global illumination (everything is brighter now!)</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_depth1.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 24</strong>: Lambertian spheres with <code>max_ray_depth = 1</code></figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_depth3.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 25</strong>: Lambertian spheres with <code>max_ray_depth = 3.</code> Notice the difference in the shadows</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_depth10.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 26</strong>: Lambertian spheres with <code>max_ray_depth = 10</code></figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_depth100.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 27</strong>: Lambertian spheres with <code>max_ray_depth = 100</code></figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_r1.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 28</strong>: <em>dae/sky/CBbunny.dae</em>, rendered with 1 sample per pixel</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_r4.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 29</strong>: <em>dae/sky/CBbunny.dae</em>, rendered with 4 samples per pixel</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_r16.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 30</strong>: <em>dae/sky/CBbunny.dae</em>, rendered with 16 samples per pixel</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_r64.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 31</strong>: <em>dae/sky/CBbunny.dae</em>, rendered with 64 samples per pixel</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt4_r1024.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 32</strong>: <em>dae/sky/CBbunny.dae</em>, rendered with 1024 samples per pixel</figcaption>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- PART 5 -->
+        
+        
+        <span class="anchor" id="pt5"></span>
+        <h2 align="middle">Part 5: Materials</h2>
+        <p>
+            <div class="full-underline"><code>BSDF::reflect() / MirrorBSDF::sample_f()</code></div>
+            For <code>reflect()</code>, we follow the following process in order to compute the reflection of <code>wo</code> about the normal</code>:
+            
+            <div class="centered">
+                <img src="images/reflect.jpg" width="480px" />
+            </div>
+            
+            Once we have our <code>reflect()</code> function implemented, <code>MirrorBSDF::sample_f()</code> just needs to reflect the <code>wo</code> vector across the <code>Vector3D(0, 0, 1)</code> normal, 100% of the time. As our reflectance value, we return <code>reflectance / abs_cos_theta(*wi)</code>, where <code>*wi</code> is the reflected vector that we just computed. The cosine term cancels out the one that we multiply by during our lighting estimations.
+            <br /><br />
+            
+            <div class="full-underline"><code>BSDF::refract() / GlassBSDF::sample_f()</code></div>
+            Refraction occurs when light in one refractive medium hits the boundary of another refractive medium, and transmits through the second medium at some deflected, oblique angle. In <code>refract()</code>, we're given an outgoing radiance direction, and we want to calculate the incoming radiance direction. This is how we do that (<code>wi</code> is the direction we want):
+            
+            <br /><br />
+            
+            <div class="centered">
+                <img src="images/refract.jpg" width="480px" />
+            </div>
+            
+            Note that if <code>dot(wo, N) > 0</code>, <code>ni = ior</code> and <code>no = 1.f</code>. If <code>dot(wo, N) &lt;= 0</code>, it's the other way around.
+            
+            <br /><br />
+            
+            To implement <code>GlassBSDF::sample_f()</code>, we first check for total internal reflection by calling <code>refract()</code>. If total internal reflection does occur, then we'll reflect the vector (just like we did in <code>MirrorBSDF::sample_f()</code>) and be done.
+            
+            <br /><br />
+            
+            Otherwise, we calculate the reflection coefficient, <em>R</em>, via Schlick's approximation:
+            
+<pre align="middle">
+R = Ro + (1 - Ro) * (1 - cos&theta;)<sup>5</sup>
+Ro = ((ni - no) / (ni + no))<sup>2</sup>
+</pre>
+
+            Similar to Part 4's Russian roulette test, we'll flip a coin (using <em>R</em> as the probability) to determine whether to reflect or to refract. If the coin comes up <code>true</code>, we reflect. Otherwise, we refract – returning <code>(1.f - R) * transmittance * n2_n1_ratio * n2_n1_ratio / abs_cos_theta(*wi)</code> as our BSDF <code>Spectrum</code> output. And just like that, we have refraction.
+        </p>
+        <p>
+            <h3 align="middle">Part 5 Images</h3>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_spheres1.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 33</strong>: <em>dae/sky/CBspheres.dae</em> with a <code>max_ray_depth</code> of 1</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_spheres2.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 34</strong>: <em>dae/sky/CBspheres.dae</em> with a <code>max_ray_depth</code> of 2</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_spheres3.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 35</strong>: <em>dae/sky/CBspheres.dae</em> with a <code>max_ray_depth</code> of 3</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_spheres4.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 36</strong>: <em>dae/sky/CBspheres.dae</em> with a <code>max_ray_depth</code> of 4</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_spheres5.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 37</strong>: <em>dae/sky/CBspheres.dae</em> with a <code>max_ray_depth</code> of 5</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_spheres10.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 38</strong>: <em>dae/sky/CBspheres.dae</em> with a <code>max_ray_depth</code> of 10</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_s1024.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 39</strong>: <em>dae/sky/CBspheres.dae</em> with a <code>max_ray_depth</code> of 100</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_s1.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 40</strong>: <em>dae/sky/CBspheres.dae</em> with 1 sample per pixel (along with 1 sample per light and <code>max_ray_depth = 100</code>)</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_s4.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 41</strong>: <em>dae/sky/CBspheres.dae</em> with 4 samples per pixel</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_s16.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 42</strong>: <em>dae/sky/CBspheres.dae</em> with 16 samples per pixel</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_s64.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 43</strong>: <em>dae/sky/CBspheres.dae</em> with 64 samples per pixel</figcaption>
+                </tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/pt5_s1024.png" />
+                    </div>
+                    <figcaption align="middle"><strong>Figure 44</strong>: <em>dae/sky/CBspheres.dae</em> with 1024 samples per pixel</figcaption>
+                </tr>
+            </table>
+        </p>
+        <p>
+            <h3 align="middle">Part 5 Setbacks</h3>
+            <div class="centered">
+                <img src="images/fml.png" />
+            </div>
+        </p>
+        <br />
+
+
+        <!-- EXTRA -->
+        
+        
+        <h2 align="middle">The best moment of my recent life</h2>
+        <div class="centered">
+            <img src="images/best_moment.png" />
+        </div>
+        <br />
+
+        <h2 align="middle">"References" that I didn't explicitly reference</h2>
+        <p>
+            I have survived so long in this world solely as a result of the educational benevolence of others. A huge thank-you to the following online resources – alongside Prof. Ren Ng, the GSIs (Ben and Weilun), and a bunch of my classmates – for providing knowledge and guidance across every waking moment of the day.
+            <ul>
+                <li><a href="http://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/moller-trumbore-ray-triangle-intersection">Scratchapixel's Möller-Trumbore reference</a></li>
+                <li><a href="https://www.siggraph.org/education/materials/HyperGraph/raytrace/rtrace1.htm">Overview of Ray Tracing</a></li>
+                <li><a href="https://knowledge.autodesk.com/support/maya-lt/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/MayaLT/files/BoL-Indirect-global-vs-direct-illumination-htm.html">Direct vs. Indirect Illumination</a></li>
+                <li><a href="http://tutorial.math.lamar.edu/Classes/CalcIII/SphericalCoords.aspx">Spherical to Cartesian Coordinates</a></li>
+            </ul>
+            
+            Wikipedia: glorious treasure trove of information, or questionably accurate heap of obfuscation? After this project (and a lifetime of reading Wikipedia, to be honest), I would probably pick a fight with anyone who champions the latter.<br /><br />
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Specular_reflection">Specular reflection</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Ray_(optics)#Interaction_with_surfaces">Ray (optics) [#Interaction with surfaces]</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Angle_of_incidence_(optics)">Angle of incidence (optics)</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Total_internal_reflection#Critical_angle">Total internal reflection [#Critical angle]</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Schlick%27s_approximation">Schlick's approximation</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Snell%27s_law">Snell's law</a></li>
+            </ul>
+        </p>
+    </div>
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+</body>
+</html>
