@@ -40,4 +40,9 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%208.pdf">Slides</a></td>
         <td><a href="sp16/quiz/quiz8.pdf">Quiz</a> (<a href="sp16/quiz/quiz8_sol.pdf">S</a>)</td>
     </tr>
+    <tr>
+        <th>Week 9 [04/07/16]</th>
+        <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%209.pdf">Slides</a></td>
+        <td><a href="sp16/quiz/quiz9.pdf">Quiz</a> (<a href="sp16/quiz/quiz9_sol.pdf">S</a>)</td>
+    </tr>
 </table>

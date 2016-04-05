@@ -47,5 +47,6 @@ no-min
 *.synctex.gz
 quiz/*.log
 __pycache__
+*.out
 
 timeline.htm
