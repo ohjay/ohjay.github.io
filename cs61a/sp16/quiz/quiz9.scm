@@ -1,0 +1,35 @@
+; 1(a)
+(define (copy lst result)
+  (if (null? lst)
+      result
+      ((lambda (copy) copy)
+        (copy (cdr lst)
+              (append result (list (car lst)))
+        )
+      )
+  )
+)
+
+; 1(b)
+(define (broken lst) (broken (broken lst)))
+
+; 1(c)
+(define (is-ascending lst last-num)
+  (if (null? lst)
+      #t
+      (and (is-ascending (cdr lst)
+                         (car lst))
+           (> (car lst) last-num)
+      )
+  )
+)
+
+; 2
+(define (hailstone n lst)
+  (cond ((= n 1) (append lst (list 1)))
+        ((even? n) (hailstone (/ n 2)
+                              (append lst (list n))))
+        (else (hailstone (+ 1 (* 3 n))
+                         (append lst (list n))))
+  )
+)
