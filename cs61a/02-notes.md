@@ -36,5 +36,9 @@ permalink: /cs61a/notes/
             <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%208.pdf">Discussion 8</a> (3/17)</td>
             <td>Scheme</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%209.pdf">Discussion 9</a> (4/07)</td>
+            <td>Tail Calls / Interpreters</td>
+        </tr>
     </table>
 </div>
