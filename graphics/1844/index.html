@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Lens Simulator | Owen Jow</title>
+
+    <style media="screen" type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;color:#727272;font-weight:400}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}.highlight .cp,.highlight .cs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em;display:block}.wrapper{width:860px;margin:0 auto}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:5px 10px;border-bottom:1px solid #e5e5e5}.centered,header ul a{text-align:center}img{max-width:100%}header{width:270px}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0;width:270px}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;display:block;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:700}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}.anchor{display:block;height:15px;margin-top:-15px;visibility:hidden}.full-underline{width:100%;border-bottom:1px solid;padding-bottom:1px;margin-bottom:5px}@media screen and (max-width:480px){.tbl1-header{font-size:2vw}.tbl1-data{font-size:2vw}}
+    </style>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Assignment 4: Lens Simulator</h1>
+        <h2 align="middle">Owen Jow</h2>
+        <hr />
+        
+        All right. We have lights. Reflecting on PathTracer, we've traced millions of light rays around millions of Cornell boxes. But where is our camera (and our action)? It's time to augment our path tracer with such things, specifically by adding lenses to the equation. By sticking some lenses in between the scene and the sensor plane (and forcing rays to refract their way through the lenses in order to hit the sensor), we can extend our path tracer to simulate a full camera system. As such, we enable our program to render photorealistic effects like defocus blur and fisheye distortion. Exciting, huh? Let's get started...
+        
+        <br /><br />
+        <hr />
+        <p style="text-align: center">
+            Navigation:
+            <a href="#pt1" onmouseover="document.getElementById('nav-info').innerHTML = '&quot;Tracing Rays through Lenses&quot;';" onmouseleave="document.getElementById('nav-info').innerHTML = '. . .'">1</a> | 
+            <a href="#pt2" onmouseover="document.getElementById('nav-info').innerHTML = '&quot;Contrast-based autofocus&quot;';" onmouseleave="document.getElementById('nav-info').innerHTML = '. . .'">2</a> | 
+            <a href="#pt3" onmouseover="document.getElementById('nav-info').innerHTML = '&quot;Faster contrast-based autofocus&quot;';" onmouseleave="document.getElementById('nav-info').innerHTML = '. . .'">3</a> | 
+            <a href="#ack" onmouseover="document.getElementById('nav-info').innerHTML = '&quot;Acknowledgments&quot;';" onmouseleave="document.getElementById('nav-info').innerHTML = '. . .'">4</a>
+            
+            <br />
+            <span id="nav-info">. . .</span>
+        </p>
+        <hr />
+        <br />
+        
+        
+        <!-- PART 1 -->
+        
+        
+        <span class="anchor" id="pt1"></span>
+        <h2 align="middle">Part 1: Tracing Rays through Lenses</h2>
+        <p>
+            As I just mentioned, the difference between our previous assignment's setup (a pinhole camera) and a full-on lens system is that there's now a series of lenses stationed between object space and image space. These lenses serve as a gateway for rays to enter and leave image space; if a ray doesn't pass through the lenses, it doesn't "count." In a pinhole system, meanwhile, rays just pass through a little hole and project onto the sensor plane. There is no focusing mechanism, which really underlines the difference between pinhole and lens cameras.
+            
+            <br /><br />
+            
+            With lenses, there's a lot more customization potential. Images can be focused onto specific objects in a scene; aperture sizes can be adjusted so that more light passes through and illuminates the picture; lenses can be modeled and modified to create any field of view you please. For example, using a fisheye lens yields an image with an extremely wide, hemispherical view space.
+            
+            <br /><br />
+            
+            The following is a table that shows (for each of the four lenses) the calculated focal length, infinity focus sensor depth, close focus distance, and close focus sensor depth:
+            
+            <table style="width: 100%">
+                <tr>
+                    <th class="tbl1-header">Lens No.</th>
+                    <th class="tbl1-header">Focal Length (mm)</th>
+                    <th class="tbl1-header">Infinity Focus Depth (mm)</th>
+                    <th class="tbl1-header">Close Focus Distance (mm)</th>
+                    <th class="tbl1-header">Close Focus Depth (mm)</th>
+                </tr>
+                <tr>
+                    <td class="tbl1-data">1</td>
+                    <td class="tbl1-data">50.358</td>
+                    <td class="tbl1-data">51.2609</td>
+                    <td class="tbl1-data">232.564</td>
+                    <td class="tbl1-data">64.7098</td>
+                </tr>
+                <tr>
+                    <td class="tbl1-data">2</td>
+                    <td class="tbl1-data">22.023</td>
+                    <td class="tbl1-data">28.7632</td>
+                    <td class="tbl1-data">75.675</td>
+                    <td class="tbl1-data">38.4578</td>
+                </tr>
+                <tr>
+                    <td class="tbl1-data">3</td>
+                    <td class="tbl1-data">249.567</td>
+                    <td class="tbl1-data">188.758</td>
+                    <td class="tbl1-data">1543.42</td>
+                    <td class="tbl1-data">241.024</td>
+                </tr>
+                <tr>
+                    <td class="tbl1-data">4</td>
+                    <td class="tbl1-data">9.98933</td>
+                    <td class="tbl1-data">28.7399</td>
+                    <td class="tbl1-data">27.3962</td>
+                    <td class="tbl1-data">42.0427</td>
+                </tr>
+            </table>
+        </p>
+        <p>
+            <h3 align="middle">Part 1 Images</h3>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens1f.png" />
+                    </div>
+                    <figcaption align="middle">Forward tracing through D-GAUSS 22&deg; lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens1b.png" />
+                    </div>
+                    <figcaption align="middle">Backward tracing through D-GAUSS 22&deg; lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens2f.png" />
+                    </div>
+                    <figcaption align="middle">Forward tracing through Nakamura wide-angle (38&deg;) lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens2b.png" />
+                    </div>
+                    <figcaption align="middle">Backward tracing through Nakamura wide-angle (38&deg;) lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens3f.png" />
+                    </div>
+                    <figcaption align="middle">Forward tracing through SIGLER Super achromate telephoto lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens3b.png" />
+                    </div>
+                    <figcaption align="middle">Backward tracing through SIGLER Super achromate telephoto lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens4f.png" />
+                    </div>
+                    <figcaption align="middle">Forward tracing through Muller fisheye lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens4b.png" />
+                    </div>
+                    <figcaption align="middle">Backward tracing through Muller fisheye lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens1_conj.png" />
+                    </div>
+                    <figcaption align="middle">A plot of the approximate inverse relationship between sensor depth and conjugate</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens2_conj.png" />
+                    </div>
+                    <figcaption align="middle">Lens #2 world-side conjugates for 100 evenly spaced sensor depths</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens3_conj.png" />
+                    </div>
+                    <figcaption align="middle">Lens #3 world-side conjugates for 100 evenly spaced sensor depths</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/lens4_conj.png" />
+                    </div>
+                    <figcaption align="middle">Lens #4 world-side conjugates for 100 evenly spaced sensor depths</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/dragon1.png" />
+                    </div>
+                    <figcaption align="middle">Manually focusing on the rear of the image. Lots of defocus blur over the dragon's head!</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/dragon2.png" />
+                    </div>
+                    <figcaption align="middle">A second manually-focused rendition of the Stanford dragon</figcaption>
+                </tr>
+            </table>
+        </p>
+        <p>
+            <h3 align="middle">Part 1 Setbacks</h3>
+            <table style="width: 100%">
+                <tr id="pt1-bug1">
+                    <th style="text-align: center">#1</th>
+                    <td>I didn't check for <code>radius == 0</code> in my refract code, meaning that refraction kept failing whenever it hit the aperture (planar element) in the middle of the lens system.</td>
+                </tr>
+                <tr id="pt1-bug2">
+                    <th style="text-align: center">#2</th>
+                    <td>In <code>LensElement::intersect</code>, I failed to realize that <code>center</code> was a double. Accordingly, while checking for sphere intersection I was subtracting a double from a vector (specifically I was performing <code>r.o - center</code>). For some reason, the <code>Vector3D</code> class allows this to happen without complaint.</td>
+                </tr>
+                <tr id="pt1-bug3">
+                    <th style="text-align: center">#3</th>
+                    <td>The glass ball in <em>dae/sky/CBspheres.dae</em> was all black, so I thought my BSDF <code>refract</code> function was wrong. In reality, my bounce limit was only 1.</td>
+                </tr>
+                <tr id="pt1-bug4">
+                    <th style="text-align: center">#4</th>
+                    <td>When calculating <code>near_focus</code>, I copy/pasted the process for calculating <code>infinity_focus</code> and neglected to change <code>t</code> to <code>t2</code> (in other words, I was using the infinity ray's <code>t</code> value). For this reason, <code>near_focus</code> was always the same as my <code>infinity_focus</code> and I wasn't sure why.</td>
+                </tr>
+            </table>
+            <div class="centered">
+                <img src="images/pt1_bugs.png" />
+            </div>
+        </p>
+        <br />
+        
+        
+        <!-- PART 2 -->
+        
+        
+        <span class="anchor" id="pt2"></span>
+        <h2 align="middle">Part 2: Contrast-based autofocus</h2>
+        <p>
+            Speaking on a high level, our autofocus algorithm works by trying out different sensor depths and selecting the one that yields the most "in focus" image. But how do we figure out which image has the sharpest focus? For this assignment, we use a contrast-based heuristic (henceforce referred to as the <strong>focus metric</strong>) that analyzes color contrast in order to judge how "in-focus" an image is. A blurrier image ought to have lower contrast (because colors would all be blurred together and would therefore be mostly similar), while a more focused image should have a higher contrast (in that colors would be more distinct and well-defined).
+            
+            <br /><br />
+            
+            Here, we'll interpret contrast as RGB variance across an image patch. That means we'll find the average red, green, and blue value across whatever image patch we're given (by iterating through the <code>ImageBuffer</code> data members and extracting individual color channels from each of them). Then we'll iterate over the image buffer again, calculating for each data member the squared difference in red, green, and blue from their overall means. We accumulate these values in RGB variance variables. Finally, in order to normalize our heuristic across different image resolutions, we divide by the total number of samples taken and return the sum of red, green, and blue variance. This is used as our focus metric for image patches. Again, the higher the value (aka the higher the variance), the more "in focus" we consider the image to be.
+            
+            <br /><br />
+            
+            Once we have our heuristic, all that remains is to compute it with different sensor depths and see which depth yields the highest metric value. To do this, we execute a kind of global search for the best sensor depth: specifically, our autofocus algorithm utilizes a coarse-grained search followed by a finer-grained search.
+            
+            <br /><br />
+            
+            This means that we'll step over sensor depths in increments of 1, calling our focus metric evaluator for the image buffer associated with each depth. At this point, we would have our <em>approximate</em> "in focus" depth – it'd be the depth corresponding to the best metric value seen so far. To execute the fine-grained search, we'd iterate over sensor depths from (that depth minus 1.0) to (that depth plus 1.0) with a step size of <code>2 * sqrt(36 * 36 + 24 * 24) / sqrt(screenW * screenW + screenH * screenH)</code>. [This step value is less than one.] For each of these sensor depths, we would again run our focus metric... and of course track the depth with the best result. As fate would have it, that depth is what we'd call our final, autofocused sensor position. Hooray!
+        </p>
+        <p>
+            <h3 align="middle">Part 2 Images</h3>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/sphere_focus1.png" />
+                    </div>
+                    <figcaption align="middle">An autofocused render cell for <i>CBspheres_lambertian.dae</i></figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/sphere_focus2.png" />
+                    </div>
+                    <figcaption align="middle">(A bigger autofocused render cell)</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/metric_dragon.png" />
+                    </div>
+                    <figcaption align="middle">Stanford dragon with a single autofocused render cell</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/metric_focus.png" />
+                    </div>
+                    <figcaption align="middle">Image patches considered in the fine-grained search (centered around a depth of 54.2609 mm)</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/metric_plot.png" />
+                    </div>
+                    <figcaption align="middle">Focus metric vs. sensor depth for all depths tested in the autofocus function</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/focus.png" />
+                    </div>
+                    <figcaption align="middle">Image patches considered by one run of the autofocus algorithm (unrelated to the previous images)</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/dragon_l1.png" />
+                    </div>
+                    <figcaption align="middle">High-quality view of the Stanford dragon through the D-GAUSS lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/dragon_l2.png" />
+                    </div>
+                    <figcaption align="middle">High-quality view of the Stanford dragon through the Nakamura wide-angle lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/dragon_l3.png" />
+                    </div>
+                    <figcaption align="middle">High-quality view of the Stanford dragon through the SIGLER telephoto lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/dragon_l4.png" />
+                    </div>
+                    <figcaption align="middle">High-quality view of the Stanford dragon through the Muller fisheye lens</figcaption>
+                </tr>
+            </table>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <div class="centered">
+                        <img src="images/coil1.png" />
+                    </div>
+                    <figcaption align="middle">An "autofocused" coil at 1024 spp</figcaption>
+                </tr>
+            </table>
+        </p>
+        <p>
+            <h3 align="middle">Part 2 Setbacks</h3>
+            <table style="width: 100%">
+                <tr id="pt2-bug1">
+                    <th style="text-align: center">#1</th>
+                    <td>My BVH really wasn't giving me an acceptable speedup for certain images. To fix this, I had to change my BVH construction function – specifically the case in which all the primitives ended up on one side of the split axis. In my revised implementation, all I do is switch the splitting dimension (naturally to either <em>x</em>, <em>y</em>, or <em>z</em>). To make a long story short, this resulted in a huge speedup and I spent a lifetime feeling bad about all the time I'd wasted.</td>
+                </tr>
+                <tr id="pt2-bug2">
+                    <th style="text-align: center">#2</th>
+                    <td>In my autofocus search, I wasn't actually changing the sensor depth when I re-raytraced. In other words, I was rendering the same image every time and repeatedly computing exactly the same focus metric. My autofocus algorithm, thus, routinely decided that an atrociously blurry version of each image was the "best."</td>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- PART 3 -->
+        
+        
+        <span class="anchor" id="pt3"></span>
+        <h2 align="middle">Part 3: Faster contrast-based autofocus</h2>
+        <p>
+            As you may have noticed from the "Autofocus metric values" plot earlier, my autofocus search doesn't sample sensor depths with even spacing. It actually spends most of its time checking metrics around [what it perceives as] the global maximum for metrics. This is made possible by the fact that the focus metric increases as we approach the most "in focus" image depth, and then degrades as we move away. (The point is, there IS a global maximum – a spot where the focus is the best.) As I alluded to before, I take advantage of this fact by first running a general search (step size 1) for the best focus metric. Then, once I've found the "general" location of the ideal sensor depth, I run a localized search with a smaller step size (i.e. maximum tolerance for the sensor depth in order to keep the object in focus). This search, in theory, should end up being concentrated around the global maximum, and should be able to discover the "best" focus metric while searching a lot more sparsely within irrelevant depth ranges.
+            
+            <br /><br />
+            
+            Time-wise, the speedup from this algorithm becomes more and more pronounced as the difference between infinity focus and near focus increases. With a naïve autofocus search, we would be forced to check <code>(near_focus - infinity_focus + 1) / step</code> sensor depths, where <code>step = 2 * sqrt(36 * 36 + 24 * 24) / sqrt(screenW * screenW + screenH * screenH)</code>. With the faster autofocus search that was just described, we only have to check <code>(near_focus - infinity_focus + 1) + (2 / step)</code> such depths!
+            
+            <br /><br />
+            
+            Put another way, every extra millimeter between the near focus and the infinity focus only means one more sensor depth to check... where before it would have meant <code>(1 / step)</code> more sensor depths. [<code>(1 / step)</code> is about 13.3333 on default settings for my computer.] In my opinion, that's a perfectly respectable speedup... especially when the time for each check – as in each focus metric evaluation – is directly proportional to the size of the image buffer.
+        </p>
+        <br />
+        
+        
+        <!-- ACKNOWLEDGMENTS -->
+        
+        
+        <span class="anchor" id="ack"></span>
+        <h2 align="middle">Acknowledgments</h2>
+        <p>
+            As always, I have a bunch of people (/websites) to thank for helping me learn stuff. This time, my acknowledgments will be organized by the question that they answer:
+            <ul>
+                <li><a href="http://photo.stackexchange.com/a/6614">What is an aperture?</a></li>
+                <li><a href="http://www.cambridgeincolour.com/tutorials/depth-of-field.htm">What is "depth of field" in photography?</a></li>
+                <li><a href="http://imaging.nikon.com/lineup/dslr/basics/19/01.htm">What is focal length?</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Infinity_focus">What is infinity focus?</a></li>
+                <li><a href="http://hyperphysics.phy-astr.gsu.edu/hbase/geoopt/conjug.html">Why do people keep talking about conjugates?</a></li>
+                <li><a href="http://hyperphysics.phy-astr.gsu.edu/hbase/geoopt/priplan.html">What's a principal plane?</a></li>
+                <li><a href="http://www.cs.virginia.edu/~gfx/courses/2003/ImageSynthesis/papers/Cameras/Realistic%20Camera%20Model.pdf">How is all this stuff set up again?</a></li>
+                <li><a href="https://arts.stanford.edu/wp-content/uploads/2015/05/49417-2.jpg">Who provided tons of helpful hints on Piazza?</a></li>
+            </ul>
+        </p>
+    </div>
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+</body>
+</html>
