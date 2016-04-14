@@ -49,5 +49,11 @@ permalink: /cs61a/quizzes/
             <td><a href="http://owenjow.xyz/cs61a/sp16/quiz/quiz9.scm">Scheme File</a></td>
             <td>Tail Calls / Interpreters</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/quiz/quiz10.pdf">Quiz &#35;10</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/quiz/quiz10_sol.pdf">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp16/quiz/quiz10.py">Python Script</a></td>
+            <td>Generators</td>
+        </tr>
     </table>
 </div>

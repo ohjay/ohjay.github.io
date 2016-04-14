@@ -6,10 +6,12 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
     <tr>
         <th>Week 0 [01/21/16]</th>
         <td><a href="sp16/disc/disc0_notes.md">Notes</a></td>
+        <td>—</td>
     </tr>
     <tr>
         <th>Week 1 [01/28/16]</th>
         <td><a href="sp16/disc/disc1_notes.md">Notes</a></td>
+        <td>—</td>
     </tr>
     <tr>
         <th>Week 2 [02/04/16]</th>
@@ -19,6 +21,7 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
     <tr>
         <th>Week 3 [02/11/16]</th>
         <td><a href="sp16/disc/disc3_notes.md">Notes</a></td>
+        <td>—</td>
     </tr>
     <tr>
         <th>Week 5 [02/25/16]</th>
@@ -44,5 +47,10 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <th>Week 9 [04/07/16]</th>
         <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%209.pdf">Slides</a></td>
         <td><a href="sp16/quiz/quiz9.pdf">Quiz</a> (<a href="sp16/quiz/quiz9_sol.pdf">S</a>)</td>
+    </tr>
+    <tr>
+        <th>Week 10 [04/14/16]</th>
+        <td>—</td>
+        <td><a href="sp16/quiz/quiz10.pdf">Quiz</a> (<a href="sp16/quiz/quiz10_sol.pdf">S</a>)</td>
     </tr>
 </table>
