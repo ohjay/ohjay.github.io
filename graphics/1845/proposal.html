@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CS 184 | Final Project Proposal</title>
+
+    <style media="screen" type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;color:#727272;font-weight:400}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}.highlight .cp,.highlight .cs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em;display:block}.wrapper{width:860px;margin:0 auto}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:5px 10px;border-bottom:1px solid #e5e5e5}.centered,header ul a{text-align:center}img{max-width:100%}header{width:270px}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0;width:270px}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;display:block;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:700}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}.anchor{display:block;height:15px;margin-top:-15px;visibility:hidden}.full-underline{width:100%;border-bottom:1px solid;padding-bottom:1px;margin-bottom:5px}ol{list-style-position:inside;padding-left:0em}.intrinsic{position:relative;height:0;overflow:hidden;padding-bottom:56.25%}.intrinsic iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+    </style>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Final Project Proposal</h1>
+        <h2>Minnie Wongpanich & Owen Jow</h2>
+        <hr />
+        
+        <!-- Title; summary -->
+        
+        We intend to create an interactive scene that the user can virtually "walk" through, set within the MPI Informatics building in Saarbrücken, Germany. The primary focus of our project is to create a realistic real-time experience for the user, which will require us to render scenes at an acceptable framerate. (Judging by the general speed of our AS3/4 renderers, this poses a significant technical challenge in itself!) As a secondary component of our project, we will add multiple effects to our scene, such as crepuscular lighting, advanced texture mapping, and perhaps a lens to simulate photorealistic effects.
+        
+        <br /><br />
+        <hr />
+        <p>
+            <a href="#backgr" onmouseover="document.getElementById('ni1').innerHTML = '&nbsp;>> The context behind our idea';" onmouseleave="document.getElementById('ni1').innerHTML = ''">+ Background</a>
+            <span id="ni1"></span><br />
+            
+            <a href="#resou" onmouseover="document.getElementById('ni2').innerHTML = '&nbsp;>> Computing platform, hardware, and software';" onmouseleave="document.getElementById('ni2').innerHTML = ''">+ Resources</a>
+            <span id="ni2"></span><br />
+            
+            <a href="#goals" onmouseover="document.getElementById('ni3').innerHTML = '&nbsp;>> Intended results and such';" onmouseleave="document.getElementById('ni3').innerHTML = ''">+ Goals and Deliverables</a>
+            <span id="ni3"></span><br />
+            
+            <a href="#sched" onmouseover="document.getElementById('ni4').innerHTML = '&nbsp;>> Tasks and subtasks for the next few weeks';" onmouseleave="document.getElementById('ni4').innerHTML = ''">+ Schedule</a>
+            <span id="ni4"></span><br />
+        </p>
+        <hr />
+        <br />
+        
+        
+        <!-- Background -->
+        
+        
+        <span class="anchor" id="backgr"></span>
+        <h2 class="full-underline">Background</h2>
+        <p>
+            As has already been mentioned, real-time rendering (RTR) is the main problem we want to solve. Formally, "real-time" is characterized by a framerate of <a href="http://www.wisegeek.com/what-is-real-time-rendering.htm">15 fps or faster</a>. This serves as a challenge because normally for realistic, globally illuminated scenes we're forced to trace millions of rays around (and, by extension, check millions of intersections), just to render a <em>single</em> image. For our project, we want to render 15 of these images per second. When your name isn't Ren Ng, that's not easy.
+            
+            <br /><br />
+            
+            We think that RTR is important because we view rendering speed as a critical measure of interactivity for many applications. For example, imagine watching a visualization of some car's test drive. If it ran in real-time, it could be really immersive – but if it froze before re-rendering every frame, it would quickly become frustrating.
+            
+            <br /><br />
+            
+            To facilitate real-time rendering, we'll aim to implement <a href="http://visual.cs.ucl.ac.uk/pubs/smcir/">sequential Monte Carlo instant radiosity</a> alongside <a href="https://graphics.stanford.edu/~boulos/papers/cook_gi07.pdf">ray packets</a>. To add real-time shadow effects, meanwhile, we'll look to follow some of the algorithms in <a href="http://research.michael-schwarz.com/publ/files/shadowcourse-eg10.pdf">Michael Schwarz's research paper</a>.
+            
+            <br /><br />
+            
+            In addition to the "real-time" thing, we'll strive to make our environments as photorealistic as we can over the next few weeks. This offers the potential for an endless number of extensions. For example, we might (especially if it makes rendering faster) adopt night as our time of day, and include <a href="http://graphics.berkeley.edu/papers/Kirk-PBT-2011-08/Kirk-PBT-2011-08.pdf">perceptually-based tone mapping for low-light conditions</a>. Alternatively, we could set our scene at twilight and add crepuscular rays coming in through a window. As a stretch (if we had nothing else to do, which is ludicrously unlikely), we could even add a fish tank, complete with some fluid simulation.
+            
+            <br /><br />
+            
+            Incidentally, the scene is set in the Max Planck Institute for the simple reason that its building model is <a href="http://resources.mpi-inf.mpg.de/mpimodel/v1.0/">already available to us</a>, complete with materials and light source data.
+        </p>
+        <br />
+        
+        
+        <!-- Resources -->
+        
+        
+        <span class="anchor" id="resou"></span>
+        <h2 class="full-underline">Resources</h2>
+        <ol>
+            <li><strong>Hardware</strong></li>
+            <p>Generally, real-time rendering requires a powerful video card. Between the two of us, we have a 2013 MacBook Pro and an old Acer laptop with (probably) a weak graphics card. Fortunately, we also have access to UC Berkeley's instructional machines. The 349 machines have "Single 2GB GDDR5 Nvidia GTX680" GPUs.
+            
+            <br /><br />
+            
+            Owen's younger brother, who lives an hour away, also has a desktop computer with a reasonably powerful graphics card.</p>
+            
+            <li><strong>Software</strong></li>
+            <p>Given our limited temporal resources, it would probably be overwhelming to try and build this entire project from the ground up. Thus, we're currently planning to use our AS3/4 renderers as a basis, and go from there. We will most likely utilize OpenGL as a library.</p>
+        </ol>
+        <br />
+        
+        
+        <!-- Goals and Deliverables -->
+        
+        
+        <span class="anchor" id="goals"></span>
+        <h2 class="full-underline">Goals and Deliverables</h2>
+        <ol>
+            <li><strong>What we plan to deliver</strong></li>
+            <p>In order to have a project we deem "successful", we hope to have completed a real-time renderer which is interactive and achieves significant speedup in comparison to the renderers from assignments 3 and 4. Specifically, our deliverables include:</p>
+            <ul style="padding-left: 2%">
+                <li>
+                    Videos of real-time walkthroughs of the scene at varying sample rates. The following "Unreal Paris" demo is an example of a walkthrough that we can strive to emulate (although maybe not at the same level of complexity):
+                    <figure style="margin-left: 0"><div class="intrinsic"><iframe src="https://www.youtube.com/embed/DRqMbHgBIyY" frameborder="0" allowfullscreen></iframe></div></figure>
+                </li>
+                <li>Graphs comparing the speed of our AS3/4 renderers and our real-time renderer. We will measure the quality of our renderer by framerate (for which the sample rate is necessarily above some threshold).</li>
+                <li>Graphs comparing the speed of earlier and later versions of our real-time renderer.</li>
+            </ul>
+            
+            <li><strong>What we hope to deliver</strong></li>
+            <p>If we finish the real-time rendering portion of our project with time to spare, we also hope to add multiple effects to our program in order to make it appear more realistic. Deliverables to follow.</p>
+            <ul style="padding-left: 2%">
+                <li>Zoomed-in renders of effects that we choose to implement, which tentatively include:
+                    <ul style="padding-left: 2%">
+                        <li>Crepuscular rays</li>
+                        <li>Texture mapping</li>
+                    </ul>
+                </li>
+            </ul>
+        </ol>
+        <br />
+       
+
+        <!-- Schedule -->
+        
+        
+        <span class="anchor" id="sched"></span>
+        <h2 class="full-underline">Schedule</h2>
+        <p>
+            <table style="width: 100%">
+                <tr>
+                    <th style="padding-left: 0">By 4/20 @ 11:59pm</th>
+                    <td>Create a program that can render the MPI scene</td>
+                </tr>
+                <tr>
+                    <th style="padding-left: 0">By 4/23 @ 11:59pm</th>
+                    <td>Implement movement with a rendering speed of at least 1 fps</td>
+                </tr>
+                <tr>
+                    <th style="padding-left: 0">By 4/27 @ 11:59pm</th>
+                    <td>Implement movement with a rendering speed of at least 15 fps</td>
+                </tr>
+                <tr>
+                    <th style="padding-left: 0">By 4/30 @ 11:59pm</th>
+                    <td>Add at least one extra technical effect (ex. crepuscular rays)</td>
+                </tr>
+                <tr>
+                    <th style="padding-left: 0">By 5/04 @ 10:00am</th>
+                    <td>Record a video of a rendered walkthrough</td>
+                </tr>
+            </table>
+        </p>
+    </div>
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+</body>
+</html>
