@@ -1,0 +1,60 @@
+\documentclass[twoside]{article}
+\usepackage{quiz}
+\usepackage{textcomp}
+
+\pagestyle{myheadings}
+\textheight 9.5in
+
+\def\semester{Spring 2016}
+
+% \newcommand{\solution}[1]{{\color{red}#1}}
+\newcommand\solution[1]{}
+
+%%% Actual content begins here %%%
+\title{\sc Discussion Quiz 11 \solution{Solutions}}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\begin{enumerate}
+%%% Question 1: Kristin's Question (Again) %%%
+\q{10}{Kristin's Question (Again)}
+
+For each row below, write the output displayed by the interactive SQL
+interpreter when the query is executed. If the line would cause an error, write {\sc Error}.
+Assume that you have started SQLite and executed the following:
+
+\begin{verbatim}
+CREATE TABLE tblA AS
+  SELECT 1 AS col1, "A" AS col2 UNION
+  SELECT 2, "B";
+
+CREATE TABLE tblB AS
+  SELECT 1 AS col1, "Z" AS col2 UNION
+  SELECT 2, "Y" UNION
+  SELECT 3, "Y";
+\end{verbatim}
+
+\begin{table}[h!]\large
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\begin{tabular}{cc}\begin{tabular}[t]{|l|M{2.18in}|}
+\hline
+{\bf \,\,Expression} & {\bf Output} \\
+\hline
+\begin{tabular}{l} \tt SELECT col2 FROM tblB; \end{tabular} &
+\solution{\begin{tabular}{l} \\ \tt Z \\ \tt Y \\ \tt Y \end{tabular}} \\ [9ex]
+\hline
+\begin{tabular}{l} \tt SELECT col1 FROM tblA, tblB; \end{tabular} &
+\solution{\begin{tabular}{l} \\ \tt Error \end{tabular}} \\ [9ex]
+\hline
+\begin{tabular}{l} \tt SELECT tblA.col1, tblA.col2, tblB.col1, tblB.col2 \\ \tt \:\:FROM tblA, tblB; \end{tabular} &\solution{\begin{tabular}{l} \\ \tt 1|A|1|Z \\ \tt 1|A|2|Y \\ \tt 1|A|3|Y \\ \tt 2|B|1|Z \\ \tt 2|B|2|Y \\ \tt 2|B|3|Y \end{tabular}} \\ [18ex]
+\hline
+\begin{tabular}{l} \tt SELECT tblA.col1, tblA.col2, tblB.col2 \\ \tt \:\:FROM tblA, tblB \\ \tt \:\:WHERE tblA.col1 = tblB.col1; \end{tabular} &
+\solution{\begin{tabular}{l} \\ \tt 1|A|Z \\ \tt 2|B|Y \end{tabular}} \\ [13.5ex]
+\hline
+\end{tabular}\end{tabular}
+\end{table}
+
+\end{enumerate}
+\end{document}
