@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CS 184 | Position-Based Fluid Simulation</title>
+
+    <style media="screen" type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;color:#727272;font-weight:400}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}.highlight .cp,.highlight .cs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em;display:block}.wrapper{width:860px;margin:0 auto}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:5px 10px;border-bottom:1px solid #e5e5e5}.centered,header ul a{text-align:center}img{max-width:100%}header{width:270px}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0;width:270px}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;display:block;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:700}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}.anchor{display:block;height:15px;margin-top:-15px;visibility:hidden}.full-underline{width:100%;border-bottom:1px solid;padding-bottom:1px;margin-bottom:5px}ol{list-style-position:inside;padding-left:0em}.intrinsic{position:relative;height:0;overflow:hidden;padding-bottom:56.25%}.intrinsic iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+    </style>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Position-Based Fluid Simulation</h1>
+        <h2 align="middle">Arissa Wongpanich & Owen Jow</h2>
+        <hr />
+        
+        <!-- Abstract -->
+        
+        Fluids constitute a tremendous portion of the natural world. One of the most ubiquitous fluids, water, is a necessity for all known forms of life and covers 71 percent of the Earth's surface. Gases, also fluids, make up the air we breathe and the atmosphere in general. For this reason, any form of graphical media that wishes to accurately (and comprehensively) model reality will inevitably be forced to incorporate some form of fluid simulation. Fluid modeling finds uses in weather modeling, current simulation, and every form of artistic expression, and for that reason it is an incredibly important thing to get right (imagine <em>Finding Nemo</em> with a fake-looking ocean!). This, then, is what we shall attempt in our project: accurate simulation of incompressible fluids (i.e. liquids and not gases).
+        
+        <br /><br />
+        
+        To accomplish this, we will model our system as a collection of particles and implement the mathematics described in <em>Position-Based Fluids.</em><sup><a href="#pbf">1</a></sup> Accordingly, we enforce incompressibility constraints in order to compute per-time step updates for position and velocity. We will also store our particles in a grid-based data structure designed to efficiently implement neighbor interactions, and conduct collision tests on the basis of this grid. Our overall implementation will be wrapped up in an OpenGL rendering loop, and achieves – from our perspective – acceptably realistic simulation of a particle fluid. 
+        <br /><br />
+        <hr />
+        <p>
+            <a href="#technical" onmouseover="document.getElementById('ni1').innerHTML = '&nbsp;>> Implementation details; challenges';" onmouseleave="document.getElementById('ni1').innerHTML = ''">+ Technical approach</a>
+            <span id="ni1"></span><br />
+            
+            <a href="#results" onmouseover="document.getElementById('ni2').innerHTML = '&nbsp;>> Final images and animations';" onmouseleave="document.getElementById('ni2').innerHTML = ''">+ Results</a>
+            <span id="ni2"></span><br />
+            
+            <a href="#ref">+ References</a><br />
+            <a href="#contrib">+ Contributions from each team member</a>
+        </p>
+        <hr />
+        <br />
+        
+        
+        <!-- Technical approach -->
+        
+        
+        <span class="anchor" id="technical"></span>
+        <h2>Technical approach</h2>
+        <h3>The overall simulation loop (as described in PBF)</h3>
+        <p>
+            Since our particles ought to move, we'll need to periodically calculate a new position for each particle. To do this, we follow the simulation loop depicted in Macklin & Müller.<sup><a href="#pbf">1</a></sup> As a high level overview, the loop undergoes the following procedure during every time step:
+            
+            <ol>
+                <li>Apply various forces to each particle.</li>
+                <li>Compute the total position update for each particle, using the mathematics of incompressibility.</li>
+                <li>Perform collision detection (and reaction).</li>
+                <li>Update velocity for each particle.</li>
+                <li>Update the position for each particle, using the total position update.</li>
+            </ol>
+            
+            The inner workings of the loop are a little more complex, however. We will discuss the implementation in detail over the course of the sections below.
+        </p>
+        
+        <h3>Modeling particle interactions</h3>
+        <p>
+            As with any fluid-based system, we want our particles to interact. For example, we might ask our particles to repel each other when they collide; this, in fact, is what we want to do in our program. However, this raises a question: how will we know which particles actually collide? A naïve algorithm would need to test each particle against <em>every other particle</em> for collisions. If we define the input to be the number of particles in the simulation, that's an O(n<sup>2</sup>) operation!
+            
+            <br /><br />
+            
+            Unfortunately, modeling accuracy demands that real systems include millions of particles. With our naïve O(n<sup>2</sup>) algorithm, that would equate to <em>millions</em> times <em>millions</em> of collision tests (i.e. <em>trillions</em> of tests). Even with modern computing power, it's quite the stretch to make this happen every quarter-second or so.
+            
+            <br /><br />
+            
+            And so, in pursuit of acceleration, we turn to a grid-based data structure as storage for our particles.
+        </p>
+        
+        <h3>A grid-based acceleration structure</h3>
+        <p>
+            To circumvent the problem that was just described, we'll organize our particles into a uniform grid, taking advantage of the fact that particles will only actually interact with their neighbors. Our 3D grid will spatially subdivide the world into equally-sized cells, with each having a size equal to that of a single particle. Then, every individual particle is assigned to a grid cell based on the location of its center.
+            
+            <br /><br />
+            
+            There are several implications here. First of all, our grid is going to change every time step, since its composition is based on the locations of particles that move around. Accordingly, we'll have to reconstruct the grid during every iteration of the simulation loop.
+            
+            <br /><br />
+            
+            On the other hand, when we test a particle for collisions, we'll now only have to test it against particles that are actually potential neighbors – or, in other words, particles tied to the 27 cells surrounding the original particle's cell. That's a lot less collision tests to make, especially when you consider that any given cell can have at most four particles tied to it.
+        </p>
+        
+        <h3>Building the grid: a CUDA sorting-based approach</h3>
+        <p>
+            Constructing the grid involves several steps (several kernels). In our code, we follow the process outlined in Simon Green's paper<sup><a href="#grid">2</a></sup> on particle simulation.
+            
+            <ol>
+                <li>
+                    Calculate a cell hash for each particle, based on its location. The cell hash is the index of the cell in a linear grid array:
+                    
+<pre>
+(particle_x + box_side_length) / particle_diameter * cells_per_side<sup>2</sup> +
+(particle_y + box_side_length) / particle_diameter * cells_per_side +
+(particle_z + box_side_length) / particle_diameter
+</pre>
+
+                    We increment by <code>box_side_length</code> because by nature the coordinates range from <code>-box_side_length</code> to <code>box_side_length</code>. Since we can't have negative indices in an array, we add this step so that our coordinates range from 0 to <code>2 * box_side_length</code> instead.
+                    
+                    <br /><br />
+                    
+                    After that, we divide by <code>particle_diameter</code> because that's the side length of a cell (by definition). If all of the cell lengths were mapped out over a line, then performing this division would give us a value that was 0 for a coordinate in the first cell length, 1 for a coordinate in the second cell length, and so on so forth.
+                    
+                    <br /><br />
+                    
+                    However, since we're not actually working in one dimension – we're actually working in three – we need to weight one coordinate's index by the number of cells and another coordinate by the number of cells squared. This effectively separates out each coordinate's contribution to the final value. It's similar to how a three-digit number has its first digit weighted by 10<sup>2</sup> and its second digit weighted by 10.
+                    
+                    <br /><br />
+                </li>
+                <li>
+                    Store the (particle ID, cell hash) pair to a <code>particleHash</code> array. This array will serve as a persistent record of all the particles and their associated cells.
+                
+                    <br /><br />
+                </li>
+                <li>
+                    Sort the pairs based on cell hash, using the fast radix sort in CUDA's <code>thrust</code> library. At this point, we have a collection of particle IDs ordered by cell.
+                
+                    <br /><br />
+                </li>
+                <li>
+                    Fill in the grid array. For each grid cell index, store the index of its first occurrence in a <code>particleHash</code> array pair, or -1 if no particles exist in that cell. This is effectively our grid; it's a 2D array with a size equal to the total number of cells. At each cell index (which is equivalent to one of the cell hashes we calculated earlier), we keep track of the first <code>particleHash</code> index of its associated cell.
+                </li>
+            </ol>
+            
+            <table style="width=100%">
+                <tr><td align="middle">
+                        <div class="centered"><img src="images/grid_depiction.png" width="600px" /></div>
+                        <figcaption align="middle">A 2D representation of our uniform grid (figure borrowed from Simon Green)</figcaption>
+                </td></tr>
+            </table>
+        </p>
+        
+        <span class="anchor" id="neighbors"></span>
+        <h3>Neighbor computation and collision handling</h3>
+        <p>
+            With a grid, neighbor determination becomes a lot easier. If we define neighbors to be any particles occupying any of the 27 grid cells surrounding an original particle (this includes particles occupying the particle's cell itself), then we can write a triple nested loop (+1 for triple nested loops!) taking each coordinate from the <u>center of the current cell <em>minus</em> a cell length</u> to the <u>center of the current cell <em>plus</em> a cell length</u>. Then, in the innermost part of the loop (the portion that will happen once for all 27 cells), we compute the cell hash of our proposed (<em>x</em>, <em>y</em>, <em>z</em>) tuple, grab the start of that cell in the <code>particleHash</code> array, and loop through that array for as long as the cell in <code>particleHash</code> is equal to the cell we're interested in.
+            
+            <br /><br />
+            
+            Via this process, we can go through all the neighboring particles and run collision tests (or run any kind of interaction code, actually) on them. We assume that two sphere-based particles collide if the distance between their centers is less than the sum of their radii.
+            
+            <br /><br />
+            
+            If they <em>do</em> collide, we force the particles apart by modifying their velocity attributes. Basically, we switch the components of the colliding particles' velocities that are normal to the collision, which causes the particles to bounce away from each other. (Note: in retrospect, particle repulsion can be taken care of entirely by the "near pressure" component of the artificial pressure term, which pushes away particles that are within half of the smoothing kernel width. However, artificial pressure was not fully implemented by the time we wrote our collision code, so at the time we didn't realize this.)
+        </p>
+        
+        <h3>Enforcing incompressibility</h3>
+        <p>We enforced incompressibility by setting density constraints on each particle, using smoothed particle hydrodynamics (SPH) in order to compute the density. The equation of density constraint for each particle is</p>
+        <div class="centered"><img src="images/density.png" width="200px" /></div>
+        <p>where p<sub>1</sub> through p<sub>n</sub> are the positions of particle <em>i</em> and its neighbors. (We find the neighbors of a particle according to the method described in <a href="#neighbors">the previous section</a>.) This particle's estimated density, &#961;<sub>i</sub>, and its ratio to the resting density &#961;<sub>0</sub>, a known constant, are also used in this constraint equation.</p>
+        
+        <p>To solve for &#961;<sub>i</sub>, we use the standard SPH density estimator (introduced by Monaghan's <a href="http://www.astro.lu.se/~david/teaching/SPH/notes/annurev.aa.30.090192.pdf"><em>Smoothed Particle Hydrodynamics</em></a> paper):</p>
+        <div class="centered"><img src="images/sph.png" width="200px" /></div>
+        <p>In the equation above, <em>m</em><sub>j</sub> refers to the <em>j</em>th neighbor's mass, <em>W</em> refers to the smoothing function, and <em>h</em> refers to the smoothing radius. The SPH density estimator therefore takes a weighted sum over the masses of all of particle <em>i</em>'s neighbors, where the weights are the values of the Poly6 smoothing kernel relative to the <em>j</em>th neighbor's position (which is indicated by the fact that <b>p</b><sub>i</sub> - <b>p</b><sub>j</sub>, or the distance of the <em>j</em>th particle from the <em>i</em>th particle, is passed into W.)</p>
+        
+        <p>The equation for the smoothing kernel is as follows:</p>
+        <div class="centered"><img src="images/poly6.png" width="600px" /></div>
+        <p>We can see that the smoothing kernel function is dependent on <em>r</em>, the distance or "radius" between a particle and its neighbor, and <em>h</em>, the kernel's radius. Notice that the gradient of the smoothing kernel approaches 0 at the center. This introduces some clumping, which can be solved by the introduction of the Spiky kernel and artificial pressure forces.</p>
+        
+        <p>Now that we've figured out the density of the particle using smoothed particle hydrodynamics, we must solve for the particle position correction (known as &#916;p) which satisfies the following constraint:</p>
+        <div class="centered"><img src="images/pbf_constraint.png" width="170px" /></div>
+        
+        <p>We solve this constraint using Newton's method, stepping along the constraint gradient. The constraint gradient can be found using the equation</p>
+        <div class="centered"><img src="images/gradient.png" width="300px" /></div>
+        <p>where &#961;<sub>0</sub> is the resting density as before, and the gradient of W is found by taking the partial derivative of the Spiky kernel function (given below):</p>
+        <div class="centered"><img src="images/spiky.png" width="600px" /></div>
+        
+        <p>We sum over the neighbors <b>p</b><sub><em>j</em></sub> of the particle, and for non-neighbor particles we subtract the gradients. Plugging this into the particle position correction equation above, we end up with a solution of:</p>
+        <div class="centered"><img src="images/lambda.png" width="230px" /></div>
+        <p>This is a Lagrange multiplier which we can use to satisfy our above constraint. The symbol &epsilon; in this case is a relaxation parameter, which we can adjust to produce the best results.</p>
+
+        <h3>Tensile instability (artificial pressure)</h3>
+        <p>As mentioned before, a common problem that arises from SPH simulation occurs when particles clump together in order to satisfy the resting density constraints. This can be solved by adding an artificial pressure term to the position update:</p>
+        <div class="centered"><img src="images/scorr.png" width="250px" /></div>
+        <p>We see this is defined in terms of the smoothing kernel itself and is simply the ratio of the kernel's output of the given particle to the kernel's output of a fixed point. This ratio is then raised to a power <em>n</em> and multiplied by a constant <em>k</em> (for our simulation, we found that <em>n</em> = 4 and <em>k</em> = 0.1 worked well). The resulting particle position update thus became:</p>
+        <div class="centered"><img src="images/pdelta_scorr.png" width="350px" /></div>
+        <p>The addition of this simple artificial pressure term improved our results greatly.</p>
+        
+        <h3>Challenges</h3>
+        <p>
+            One of our issues involved particles escaping the box. As velocity increased and position updates were made, they would bypass our boundary constraints that were originally made only at the beginning of the simulation loop. Meanwhile, there were a lot of edge cases, such as when the particle was outside of the box but its velocity was directed toward the inside of the box.
+            
+            <br /><br />
+            
+            To resolve this error, we had to enforce border constraints in several places. Aside from the beginning of the simulation loop, we essentially enforced extra constraints anytime the particle's estimated position was being updated.
+            
+            <table style="width=100%">
+                <tr><td align="middle">
+                    <div class="centered"><img src="images/particle_escape.png" width="600px" /></div>
+                    <figcaption align="middle">Particles were bouncing up and out of the wireframe</figcaption>
+                </td></tr>
+            </table>
+            
+            Another issue had the particles shoot up toward the ceiling/walls and then bounce all over the place like gas molecules. Our (somewhat hacky) solution to this error was to add a damping force to the rebound physics. The bouncing was happening because particles were colliding with walls and/or other particles and then changing velocity... which was still increasing, magnitude-wise. These days, whenever the particle switches directions we apply a damping force to the velocity (i.e. we reduce it in magnitude). [We played around with the damping factor and decided that the most realistic-looking simulation was achieved with a damping factor of about 0.4.]
+            
+            <br /><br />
+            
+            In addition to this,  also apply a "per time step" damping force to the vertical velocity component if the particle is traveling upward. This is done in order to simulate deceleration due to gravity.
+        </p>
+        
+        <h3>Lessons learned</h3>
+        <p>
+            One of the most important things we learned from this project was how to digest technical scholarly papers and actually implement the methods described in them. Neither of us had had much experience with research papers, so it was interesting to be able to read and understand a paper that would normally only be read by other esteemed members of academia (and not measly undergrads). 
+        </p>
+        <p>We also gained a new perspective on how multivariable calculus and physics can have applications in computer science, as shown by the heavy usage of gradients, Lagrange multipliers, and kernel functions. </p>
+            
+        <p>Overall, this project was a challenging yet fun way to get our feet wet in the world of fluid dynamics. Position-based fluids is just one of many techniques that can be used to simulate realistic fluid dynamics. This project has only whetted our appetites to go out and explore more awesome applications of graphics!</p>
+        <br />
+        
+        
+        <!-- Final results -->
+        
+        
+        <span class="anchor" id="results"></span>
+        <h2>Results</h2>
+        <p>
+            Below is a brief rendering of our fluid simulation. Imagine what it might look like if the particles were all smoothed out and textured as water:
+            <figure style="margin-left: 0"><div class="intrinsic"><iframe src="https://www.youtube.com/embed/USFaIgOkBpw" frameborder="0" allowfullscreen></iframe></div></figure>
+        </p>
+        <p>One parameter that had a considerable impact on the quality of our simulation was the number of iterations of Newton's method. As we increased the number of iterations performed, our results converged more towards realistic behavior. However, we did have to make major trade-offs in time in exchange for a large number of iterations. We found that ten iterations was close enough to reality, as there was no significant visible improvement as we increased the iteration count after that. Below are some clips comparing the varying numbers of iterations.</p>
+        
+        One iteration of Newton's method:
+        <figure style="margin-left: 0"><div class="intrinsic"><iframe src="https://www.youtube.com/embed/g1VoWFvN4eA" frameborder="0" allowfullscreen></iframe></div></figure>
+        <p>Notice how the landing of the cube does not have any splashes at all, and the fluid seems to clump exclusively around the center. The motion is almost purely two-dimensional and very simplistic.</p>
+        
+        Two iterations of Newton's method:
+        <figure style="margin-left: 0"><div class="intrinsic"><iframe src="https://www.youtube.com/embed/vzHXbZm0ZBs" frameborder="0" allowfullscreen></iframe></div></figure>
+        <p>With two iterations, the behavior of the particles becomes a bit more complex, but we can see that they are still lacking dimension and are not splashing around much.</p>
+        
+        Five iterations of Newton's method:
+        <figure style="margin-left: 0"><div class="intrinsic"><iframe src="https://www.youtube.com/embed/WfO9rPBbG1c" frameborder="0" allowfullscreen></iframe></div></figure>
+        <p>With five iterations, splashing becomes visible at the landing of the cube, and the behavior of the particles is much more chaotic. The fluid continues to splash and ripple long after the cube has landed, which is similar to real-life behavior.</p>
+        
+        Ten iterations of Newton's method:
+        <figure style="margin-left: 0"><div class="intrinsic"><iframe src="https://www.youtube.com/embed/Q97fXh9mw7E" frameborder="0" allowfullscreen></iframe></div></figure>
+        <p>As with the previous clip, we can see some significant splashing here.</p>
+        
+        One hundred iterations of Newton's method:
+        <figure style="margin-left: 0"><div class="intrinsic"><iframe src="https://www.youtube.com/embed/ZMS93Mfzpmo" frameborder="0" allowfullscreen></iframe></div></figure>
+        <p>100 iterations of Newton's method allows us to see that there is no significant difference once we pass 10 iterations. The result has nearly converged.</p> 
+        
+        <p>Below is a clip of a cube landing without the artificial pressure term, to compare with the above videos (which do include the artificial pressure term).</p>
+        Ten iterations of Newton's method, no artificial pressure:
+        <figure style="margin-left: 0"><div class="intrinsic"><iframe src="https://www.youtube.com/embed/w2Uwjts1H8s" frameborder="0" allowfullscreen></iframe></div></figure>
+        <p>We can see that without the artificial pressure term, our fluid behaves pretty erratically and clumps together quite a bit.</p>
+        
+        <h3>Landing frame progression</h3>
+        <p>
+            Below are some still frames from our simulation, focusing specifically on the landing of the fluid cube.
+            <table style="width=100%">
+                <tr><td align="middle">
+                    <div class="centered"><img src="images/landing1.png" width="600px" /></div>
+                    <figcaption align="middle">One of the initial landing frames</figcaption>
+                </td></tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr><td align="middle">
+                    <div class="centered"><img src="images/landing2.png" width="600px" /></div>
+                    <figcaption align="middle">Watch the progression...</figcaption>
+                </td></tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr><td align="middle">
+                    <div class="centered"><img src="images/landing3.png" width="600px" /></div>
+                    <figcaption align="middle">Can you kind of see where the particles are heading?</figcaption>
+                </td></tr>
+            </table>
+            
+            <table style="width=100%">
+                <tr><td align="middle">
+                    <div class="centered"><img src="images/landing4.png" width="600px" /></div>
+                    <figcaption align="middle">The particles are really starting to spread out more</figcaption>
+                </td></tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- References -->
+        
+        
+        <span class="anchor" id="ref"></span>
+        <h2>References</h2>
+        <p>
+            <sup id="pbf">1</sup> <a href="http://mmacklin.com/pbf_sig_preprint.pdf">Position-Based Fluids (Macklin and Müller)</a><br />
+            <sup id="grid">2</sup> <a href="http://docs.nvidia.com/cuda/samples/5_Simulations/particles/doc/particles.pdf">Particle Simulation using CUDA (Simon Green)</a><br />
+            <sup id="sph">3</sup> <a href="http://www.astro.lu.se/~david/teaching/SPH/notes/annurev.aa.30.090192.pdf">Smoothing Particle Hydrodynamics (Monaghan)</a><br />
+            <sup>4</sup> <a href="http://mmacklin.com/pbf_slides.pdf">Slides of Position-Based Fluids (Macklin and Müller)</a><br />
+            <sup>5</sup> <a href="http://www.gamasutra.com/view/feature/3015/pool_hall_lessons_fast_accurate_.php">Accurate Collision Detection Between Circles or Spheres</a><br />
+            <sup>6</sup> <a href="http://www.cse.chalmers.se/edu/year/2015/course/TDA361/Advanced%20Computer%20Graphics/Position%20Based%20Fluids.pdf">Slides describing Position-Based Fluids from Chalmers University of Technology</a>
+        </p>
+        <br />
+       
+
+        <!-- Contributions -->
+        
+        
+        <span class="anchor" id="contrib"></span>
+        <h2>Contributions from each team member</h2>
+        <p>
+            Arissa implemented the mathematics for density constraints, meaning that she researched and instituted the Poly6 kernel for density estimation, the Spiky kernel for gradient calculation, and calculations for the scaling factor λ. She also added the code to compute the change in particle position for every time step and to calculate the artificial pressure term.
+        </p>
+        <p>
+            Owen worked on the grid structure, meaning that he wrote the code for its representation and for its sorting-based generation. He also implemented neighbor computation in the simulation loop, alongside collision detection/response behavior. Finally, he added a damping factor to rebound cases, so that particles didn't accelerate so much (especially when heading upward).
+        </p>
+        <p>
+            In the spirit of teamwork, both members of the group worked on several bugs; for example, the glitch in which particles ended up escaping the box. In this case, Arissa wrote a function to check whether particles were inside the cube; Owen generalized it and added extra boundary constraints to the beginning of the rendering loop. Arissa added more constraints to the end of the rendering loop, and Owen added the rest to the middle.
+        </p>
+        <p>
+            Overall, both team members spent a generally similar amount of time on the project and gained a good deal of knowledge from reading the other's code.
+        </p>
+    </div>
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+</body>
+</html>
