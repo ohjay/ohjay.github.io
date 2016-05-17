@@ -1,0 +1,66 @@
+#navdots ul li {
+    cursor: pointer;
+    background-image: url('../images/dots.png');
+    background-position: 0 -8px;
+    -webkit-background-size: 8px auto;
+    -moz-background-size: 8px auto;
+    -o-background-size: 8px auto;
+    background-size: 8px auto;
+    background-color: transparent !important;
+    margin: 16px 0px;
+    height: 8px;
+    width: 8px;
+    background-repeat: no-repeat;
+    list-style: none;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+#navdots ul li:hover {
+    background-position: 0 -16px;
+}
+
+#navdots ul li.active {
+    background-position: 0 0px;
+}
+
+#navdots {
+    display: block;
+    opacity: 1;
+}
+
+#navdots ul {
+    position: fixed;
+    top: 4.55%;
+    right: 24px;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    font-weight: 500;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.overline {
+    text-decoration: overline;
+    margin-top: 0;
+}
+
+@media (max-width: 675px) {
+    #navdots {
+        display: none;
+    }
+}
