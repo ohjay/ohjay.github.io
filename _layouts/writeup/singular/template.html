@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CSS 184 | Owen Jow</title>
+    
+    <style media="screen" type="text/css">
+        #navdots,#navdots ul,a small,header ul a{display:block}#navdots ul li{cursor:pointer;background-image:url(images/dots.png);background-position:0 -8px;-webkit-background-size:8px auto;-moz-background-size:8px auto;-o-background-size:8px auto;background-size:8px auto;background-color:transparent!important;margin:16px 0;height:8px;width:8px;background-repeat:no-repeat;list-style:none;display:list-item;text-align:-webkit-match-parent}#navdots ul li:hover{background-position:0 -16px}#navdots ul li.active{background-position:0 0}#navdots{opacity:1}#navdots ul{position:fixed;top:4.55%;right:24px;z-index:2;margin:0;padding:0;list-style-type:disc;-webkit-margin-before:1em;-webkit-margin-after:1em;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:40px}*{-webkit-font-smoothing:antialiased;font-weight:500}::-webkit-scrollbar{display:none}.overline{text-decoration:overline;margin-top:0}@media (max-width:675px){#navdots{display:none}}@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;color:#666;font-weight:400}.highlight .cp,.highlight .cs,.highlight .gs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em}.wrapper{width:860px;margin:0 auto}header,header ul{width:270px}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:5px 10px;border-bottom:1px solid #e5e5e5}.centered,header ul a{text-align:center}img{max-width:100%}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}.anchor{display:block;height:15px;margin-top:-15px;visibility:hidden}.full-underline{width:100%;border-bottom:1px solid;padding-bottom:1px;margin-bottom:5px}ol{list-style-position:inside;padding-left:0}.intrinsic{position:relative;height:0;overflow:hidden;padding-bottom:56.25%}.intrinsic iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+    </style>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Star Wars: Return of the CSS</h1>
+        <h3 align="middle">Coming soon to computers near you</h3>
+        <hr />
+        
+        <!-- Introduction / overview -->
+        
+        The galaxy is in turmoil. Plasma cannonfire blossoms across the skies of 306 Soda as an age-old battle rages on. On one side, the Stylactic Republic. Champion to centuries of carefully written, stylesheet-heavy webpages, the Republic stands for peace, prosperity, and <code>&lt;link rel="stylesheet"&gt;</code> tags. Its opponent: the Confederacy of HTML-Only Systems, which has openly renounced the "causeless" temptresses known to the people as CSS and JavaScript. Sadly, more and more are swayed to the Confederacy's will each day. In desperation, the Republic has created many templates (such as the one you're looking at right now) in hopes of bringing its enemies back to the light. Will the plan succeed? The rest of the story is yet to be written...
+        
+        <br /><br />
+        <hr />
+        <br />
+        
+        
+        <!-- Episode 1 -->
+        
+        
+        <span class="anchor" id="ep1"></span>
+        <h2>The Phantom Template</h2>
+        <p>Lorem ipsum and all that. The quick brown fox jumps over the lazy dog! But what, my dear Theodosia, does it say as it's jumping? Who run it? <i>I</i>, Mr. Odacnelov, say there is mischief going on here!</p>
+        <br />
+        
+        
+        <!-- Episode 2 -->
+        
+        
+        <span class="anchor" id="ep2"></span>
+        <h2 style="margin-bottom: 0.1em">Attack of the Subtext</h2>
+        <div class="overline">Hello! I am subtext. You can put <a href="/graphics/1844">links</a> in me if you want.</div><br />
+        <p>Lorem ipsum and all that. The quick brown fox jumps over the lazy dog! But what, my dear Theodosia, does it say as it's jumping? Who run it? <i>I</i>, Mr. Odacnelov, say there is mischief going on here!</p>
+        <br />
+        
+        
+        <!-- Episode 3 -->
+        
+        
+        <span class="anchor" id="ep3"></span>
+        <h2>Revenge of the Style</h2>
+        <p>Lorem ipsum and all that. The quick brown fox jumps over the lazy dog! But what, my dear Theodosia, does it say as it's jumping? Who run it? <i>I</i>, Mr. Odacnelov, say there is mischief going on here!</p>
+        <br />
+        
+        
+        <!-- Episode 4 -->
+        
+        
+        <span class="anchor" id="ep4"></span>
+        <h2>A New Hope</h2>
+        <p>Lorem ipsum and all that. The quick brown fox jumps over the lazy dog! But what, my dear Theodosia, does it say as it's jumping? Who run it? <i>I</i>, Mr. Odacnelov, say there is mischief going on here!</p>
+        <br />
+       
+
+        <!-- Episode 5 -->
+        
+        
+        <span class="anchor" id="ep5"></span>
+        <h2>The Empire Strikes Back</h2>
+        <p>Lorem ipsum and all that. The quick brown fox jumps over the lazy dog! But what, my dear Theodosia, does it say as it's jumping? Who run it? <i>I</i>, Mr. Odacnelov, say there is mischief going on here!</p>
+        <br />
+        
+        
+        <!-- Episode 6 -->
+        
+        
+        <span class="anchor" id="ep6"></span>
+        <h2>Return of the Jedi</h2>
+        <p>Lorem ipsum and all that. The quick brown fox jumps over the lazy dog! But what, my dear Theodosia, does it say as it's jumping? Who run it? <i>I</i>, Mr. Odacnelov, say there is mischief going on here!</p>
+        <br />
+        
+        
+        <!-- Episode 7 -->
+        
+        
+        <span class="anchor" id="ep7"></span>
+        <h2>The JS Awakens</h2>
+        <p>Lorem ipsum and all that. The quick brown fox jumps over the lazy dog! But what, my dear Theodosia, does it say as it's jumping? Who run it? <i>I</i>, Mr. Odacnelov, say there is mischief going on here!</p>
+        <br />
+    </div>
+    
+    <!-- Navigation -->
+    <section id="navdots"><ul>
+        <a href="#ep1"><li class title="Episode 1"></li></a>
+        <a href="#ep2"><li class title="Episode 2"></li></a>
+        <a href="#ep3"><li class title="Episode 3"></li></a>
+        <a href="#ep4"><li class title="Episode 4"></li></a>
+        <a href="#ep5"><li class title="Episode 5"></li></a>
+        <a href="#ep6"><li class title="Episode 6"></li></a>
+        <a href="#ep7"><li class title="Episode 7"></li></a>
+    </ul></section>
+    
+    <!-- Scripts -->
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        !function(t,r,e,l){t.fn.extend({scrollspy:function(){var l=function(r){for(var l=[],o=[],a=0;a<r.length;a++){var h=t(t(r[a]).attr("href"));h.length>0&&o.push(Math.floor(h.offset().top))}for(var n=0,a=0;a<r.length;a++){var i=t(r[a]).attr("href"),h=t(i);if(h.length>0){var f=0==n?0:o[n],s=o.length==n+1?t(e).height():o[n+1]-1;n++;for(var v=null,a=0;a<r.length;a++){var c=t(r[a]);if(c.attr("href")===i){v=c.children(":first");break}}l.push({element:h,hash:i,top:f,bottom:s,child:v})}}return l};return this.each(function(){for(var e=this,o=0,a=t(e).find("a[href*=\\#]"),h=0;h<a.length;h++){var n=a[h];t(n).on("click",function(r){var e=t(this).attr("href"),l=t(e);if(l.length>0){var o=l.offset().top;t("html, body").animate({scrollTop:o},1e3),r.preventDefault()}})}var i=l(a);t(r).bind("scroll.scrollspy",function(){o=t(this).scrollTop();for(var r,e=0;e<i.length;e++){var l=i[e];if(o>=l.top&&o<l.bottom){l.hash;if(r=l.child,null!=r){for(var a=0;a<i.length;a++)i[a].child.removeClass("active");r.addClass("active");break}}}}),o=t(this).scrollTop();for(var f,h=0;h<i.length;h++){var s=i[h];if(o>=s.top&&o<s.bottom){s.hash;if(f=s.child,null!=f){for(var v=0;v<i.length;v++)i[v].child.removeClass("active");f.addClass("active");break}}}})}})}(jQuery,window,document,void 0),$("#navdots").scrollspy();
+    </script>
+</body>
+</html>
