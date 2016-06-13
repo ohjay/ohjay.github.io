@@ -10,10 +10,10 @@ layout: secret
     For example, if the answers were {{ content }}
     
     <h3><u>Decryption</u></h3>
-    <input type="password" name="passphrase" id="pp_input" size="41" maxlength="40" /><br>
+    <input type="password" name="passphrase" id="pp_input" size="35" maxlength="40" /><br>
     <b>Current passphrase</b>: <span id="passphrase"></span><br><br>
-    <b>Encrypted text</b>: <span id="encrypted"></span><br>
+    <b>Encrypted text</b>: <span id="encrypted"></span><br><br>
     <b>Decrypted text</b>: <span id="decrypted">N/A</span>
 </p>
 
-<script type="text/javascript">var prevPassphrase = "", autoselect = true;</script>
+<script type="text/javascript">var prevPassphrase = "", autoselect = true; timeoutDelay = 2999;</script>

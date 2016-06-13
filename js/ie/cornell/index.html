@@ -21,7 +21,7 @@ title: Sincerely,
     </ul>
         
     <h2>Decryption example</h2>
-    <input type="text" name="passphrase" placeholder="Go ahead and type the word 'igloo' in here..." id="pp_input" size="41" maxlength="40" /><br>
+    <input type="text" name="passphrase" placeholder="Go on, type the word 'igloo' in here..." id="pp_input" size="35" maxlength="40" /><br>
     <b>Current passphrase</b>: <span id="passphrase"></span><br><br>
     <b>Encrypted text</b>: <span id="encrypted"></span><br>
     <b>Decrypted text</b>: <span id="decrypted">N/A</span>
@@ -41,4 +41,5 @@ title: Sincerely,
     ];
     var prevPassphrase = "Type the word 'igloo'...";
     var autoselect = false;
+    var timeoutDelay = 1;
 </script>

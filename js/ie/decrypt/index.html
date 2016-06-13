@@ -23,7 +23,7 @@
     <div id="textarea-div" style="width: 100%">
         <textarea id="msg-input" rows="10" placeholder="Give me some text to eat! Nom nom nom..."></textarea>
     </div>
-    <b>Decryption key</b>&nbsp;&nbsp;&nbsp;<input type="text" name="passphrase" placeholder="I hope you wrote that password down" id="pp_input" size="41" maxlength="40" /><br>
+    <b>Decryption key</b>&nbsp;&nbsp;&nbsp;<input type="text" name="passphrase" placeholder="I hope you wrote that password down" id="pp_input" size="35" maxlength="40" /><br>
 
     <h3><u>Your decrypted text</u></h3>
     <div id="decrypted">N/A</div>
@@ -47,6 +47,15 @@
         var msgInput = document.getElementById('msg-input');
         var ppInput = document.getElementById('pp_input');
         var numDecryptions = randomDecryptions.length;
+        var asleep = false; // to prevent lag
+        
+        var wake = function() {
+            if (msg !== prevMsg) { prevMsg = msg; }
+            else if (passphrase !== prevPassphrase) { prevPassphrase = passphrase; }
+            else { asleep = false; return; }
+            
+            decrypt(msg, passphrase);
+        }
         
         function decrypt(msg, passphrase) {
             var cipherParams = CryptoJS.lib.CipherParams.create({
@@ -59,6 +68,9 @@
             } else {
                 $('#decrypted').text(randomDecryptions[Math.floor(Math.random() * numDecryptions)]);
             }
+            
+            asleep = true;
+            setTimeout(wake, 250);
         }
         
         msgInput.onkeyup = function() {
@@ -66,17 +78,20 @@
             
             if (!passphrase) {
                 $('#decrypted').text("Well, what's the password?");
-            } else if (msg != prevMsg) {
+            } else if (msg !== prevMsg) {
+                if (asleep) { return; }
                 prevMsg = msg;
                 decrypt(msg, passphrase);
             }
         };
+        
         ppInput.onkeyup = function() {
             passphrase = ppInput.value;
             
             if (!msg) {
                 $('#decrypted').text("Well, what's the message?");
-            } else if (passphrase != prevPassphrase) {
+            } else if (passphrase !== prevPassphrase) {
+                if (asleep) { return; }
                 prevPassphrase = passphrase;
                 decrypt(msg, passphrase);
             }

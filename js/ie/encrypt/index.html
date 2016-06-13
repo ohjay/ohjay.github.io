@@ -20,7 +20,7 @@
     To decrypt the output, you'll want to check out the aptly-named <a href="/js/ie/decrypt">Decrypt</a> page.
     
     <h3><u>Encryption</u></h3>
-    <b>Decryption key</b>&nbsp;&nbsp;&nbsp;<input type="text" name="passphrase" id="pp_input" size="41" maxlength="40" /><br>
+    <b>Decryption key</b>&nbsp;&nbsp;&nbsp;<input type="text" name="passphrase" id="pp_input" size="35" maxlength="40" /><br>
     <div id="textarea-div" style="width: 100%">
         <textarea id="msg-input" rows="10" placeholder="Your message goes here! Start typing, you lazy human being."></textarea>
     </div>
@@ -36,25 +36,42 @@
         var prevPassphrase = "", passphrase = "";
         var ppInput = document.getElementById('pp_input');
         var msgInput = document.getElementById('msg-input');
+        var TIMEOUT_DELAY = 350; // in ms, of course
+        var asleep = false; // to prevent lag
+        var wake = function() {
+            if (passphrase !== prevPassphrase) { prevPassphrase = passphrase; }
+            else if (msg !== prevMsg) { prevMsg = msg; }
+            else { asleep = false; return; }
+            
+            $('#encrypted').text(CryptoJS.AES.encrypt(msg, passphrase));
+            setTimeout(wake, TIMEOUT_DELAY);
+        }
         
         ppInput.onkeyup = function() {
             passphrase = ppInput.value;
             
+            if (asleep) { return; }
             if (!msg) {
                 $('#encrypted').text("Look bro, you hafta enter a message before we can encrypt anything.");
-            } else if (passphrase != prevPassphrase) {
+            } else if (passphrase !== prevPassphrase) {
                 prevPassphrase = passphrase;
                 $('#encrypted').text(CryptoJS.AES.encrypt(msg, passphrase));
+                asleep = true;
+                setTimeout(wake, TIMEOUT_DELAY);
             }
         };
+        
         msgInput.onkeyup = function() {
             msg = msgInput.value;
             
+            if (asleep) { return; }
             if (!passphrase) {
                 $('#encrypted').text("Look bro, you hafta enter a decryption key before we can encrypt anything.");
-            } else if (msg != prevMsg) {
+            } else if (msg !== prevMsg) {
                 prevMsg = msg;
                 $('#encrypted').text(CryptoJS.AES.encrypt(msg, passphrase));
+                asleep = true;
+                setTimeout(wake, TIMEOUT_DELAY);
             }
         };
     
