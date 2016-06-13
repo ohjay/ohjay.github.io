@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    
+    <title>Decrypt | Owen Jow</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/crypt.css" />
+</head>
+<body>
+    <h1>Decrypt</h1>
+    <h2>They call her Encrypt's other half</h2>
+    
+    <h3><u>Usage instructions</u></h3>
+    Enter the message you want to decrypt, along with the (correct) passphrase.<br>
+    If you're looking for text to use this on, try encrypting something <a href="/js/ie/encrypt">here</a>.
+    
+    <h3><u>Decryption</u></h3>
+    <div id="textarea-div" style="width: 100%">
+        <textarea id="msg-input" rows="10" placeholder="Give me some text to eat! Nom nom nom..."></textarea>
+    </div>
+    <b>Decryption key</b>&nbsp;&nbsp;&nbsp;<input type="text" name="passphrase" placeholder="I hope you wrote that password down" id="pp_input" size="41" maxlength="40" /><br>
+
+    <h3><u>Your decrypted text</u></h3>
+    <div id="decrypted">N/A</div>
+    
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/crypto/rollups/aes.js"></script>
+    <script>$(document).ready(function() {
+        var randomDecryptions = [
+            "jûÜ_Hã¥qÊu µ¶D\eF2[",
+            "Ù10ÜÙtegÈçeZæÚ#=ÛbÁ ÖÇdûñðÎy²4¼(\2q`¬M«B$Ñ",
+            "k9¥J^õÐÊb¸Õu¿>#åCqÇ,ÓðK",
+            "I{rC",
+            ",¼Ôô¾èÄó0ÜI®&aÔþIId£$5È/ÿÔ¦a¢³¥Ï",
+            "Ñ±Á4zO½ÎüZCL¾Ö«^à§©7d(CM!<oFK<",
+            "öîûùÆGr}8àæ{I¿q$sù@TÉ5¹0",
+            "ñ7Öî«áö0ûN¯ Nô EC	Èû7VæómuÊ*ºÁ» û>"
+        ];
+        var prevMsg = "", msg = "";
+        var prevPassphrase = "", passphrase = "";
+        var msgInput = document.getElementById('msg-input');
+        var ppInput = document.getElementById('pp_input');
+        var numDecryptions = randomDecryptions.length;
+        
+        function decrypt(msg, passphrase) {
+            var cipherParams = CryptoJS.lib.CipherParams.create({
+                ciphertext: CryptoJS.enc.Hex.parse(msg)
+            });
+            
+            var decrypted = CryptoJS.AES.decrypt(msg, passphrase).toString(CryptoJS.enc.Latin1);
+            if (decrypted) {
+                $('#decrypted').text(decrypted);
+            } else {
+                $('#decrypted').text(randomDecryptions[Math.floor(Math.random() * numDecryptions)]);
+            }
+        }
+        
+        msgInput.onkeyup = function() {
+            msg = msgInput.value;
+            
+            if (!passphrase) {
+                $('#decrypted').text("Well, what's the password?");
+            } else if (msg != prevMsg) {
+                prevMsg = msg;
+                decrypt(msg, passphrase);
+            }
+        };
+        ppInput.onkeyup = function() {
+            passphrase = ppInput.value;
+            
+            if (!msg) {
+                $('#decrypted').text("Well, what's the message?");
+            } else if (passphrase != prevPassphrase) {
+                prevPassphrase = passphrase;
+                decrypt(msg, passphrase);
+            }
+        };
+    });</script>
+</body>
+</html>

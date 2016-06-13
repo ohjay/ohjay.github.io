@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    
+    <title>Encrypt | Owen Jow</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/crypt.css" />
+</head>
+<body>
+    <h1>Encrypt</h1>
+    <h2>Holding out until quantum computing becomes a thing</h2>
+    
+    <h3><u>Usage instructions</u></h3>
+    Specify a decryption key and put some text in the box. You can also add water if you'd like.<br>
+    To decrypt the output, you'll want to check out the aptly-named <a href="/js/ie/decrypt">Decrypt</a> page.
+    
+    <h3><u>Encryption</u></h3>
+    <b>Decryption key</b>&nbsp;&nbsp;&nbsp;<input type="text" name="passphrase" id="pp_input" size="41" maxlength="40" /><br>
+    <div id="textarea-div" style="width: 100%">
+        <textarea id="msg-input" rows="10" placeholder="Your message goes here! Start typing, you lazy human being."></textarea>
+    </div>
+
+    <h3><u>Your encrypted text</u></h3>
+    <div id="encrypted">N/A</div>
+    
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/crypto/rollups/aes.js"></script>
+    <script>$(document).ready(function() {
+        var prevMsg = "", msg = "";
+        var prevPassphrase = "", passphrase = "";
+        var ppInput = document.getElementById('pp_input');
+        var msgInput = document.getElementById('msg-input');
+        
+        ppInput.onkeyup = function() {
+            passphrase = ppInput.value;
+            
+            if (!msg) {
+                $('#encrypted').text("Look bro, you hafta enter a message before we can encrypt anything.");
+            } else if (passphrase != prevPassphrase) {
+                prevPassphrase = passphrase;
+                $('#encrypted').text(CryptoJS.AES.encrypt(msg, passphrase));
+            }
+        };
+        msgInput.onkeyup = function() {
+            msg = msgInput.value;
+            
+            if (!passphrase) {
+                $('#encrypted').text("Look bro, you hafta enter a decryption key before we can encrypt anything.");
+            } else if (msg != prevMsg) {
+                prevMsg = msg;
+                $('#encrypted').text(CryptoJS.AES.encrypt(msg, passphrase));
+            }
+        };
+    
+        // Generate an example decryption key
+        var first = ["pippi", "maquo", "mani", "folda", "mizo", "sta", "steno", "tribi", "komi", "deni"];
+        var second = ["splatter", "longstocking", "lino", "chalada", "muffin", "gadro", "skidazzle"];
+        var placeholder = 'Might I suggest... '
+                + first[Math.floor(Math.random() * first.length)]
+                + second[Math.floor(Math.random() * second.length)]
+                + Math.floor(Math.random() * 5000, 10).toString() + '?';
+    
+        $('#pp_input').attr('placeholder', placeholder);
+    });</script>
+</body>
+</html>
