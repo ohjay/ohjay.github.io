@@ -26,7 +26,7 @@
     </div>
 
     <h3><u>Your encrypted text</u></h3>
-    <div id="encrypted">N/A</div>
+    <div id="encrypted" class="wrap">N/A</div>
     
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -77,12 +77,12 @@
     
         // Generate an example decryption key
         var first = ["pippi", "maquo", "mani", "folda", "mizo", "sta", "steno", "tribi", "komi", "deni"];
-        var second = ["splatter", "longstocking", "lino", "chalada", "muffin", "gadro", "skidazzle"];
-        var placeholder = 'Might I suggest... '
-                + first[Math.floor(Math.random() * first.length)]
-                + second[Math.floor(Math.random() * second.length)]
-                + Math.floor(Math.random() * 5000, 10).toString() + '?';
-    
+        var second = ["skidazzle", "longstocking", "lino", "chalada", "muffin", "gadro", "splatter"];
+        var rand1 = Math.floor(Math.random() * first.length);
+        var rand2 = Math.floor(Math.random() * second.length);
+        var rand3 = (rand2 < 2) ? '' : Math.floor(Math.random() * 5000, 10).toString();
+        
+        var placeholder = 'Might I suggest... ' + first[rand1] + second[rand2] + rand3 + '?';
         $('#pp_input').attr('placeholder', placeholder);
     });</script>
 </body>
