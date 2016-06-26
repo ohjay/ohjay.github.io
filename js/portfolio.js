@@ -1,7 +1,7 @@
 function updateContent(width) {
     if (width <= 1000) {
         // Replace the footer text with a simpler statement
-        $('#footer-text p').text('{ Copyright Owen Jow 2015 }');
+        $('#footer-text p').text('{ Copyright Owen Jow 2016 }');
     } else {
         $('#footer-text p').html(
             '<i>Built from scratch by... well, you can probably guess. '
