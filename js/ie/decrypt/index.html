@@ -64,7 +64,7 @@
             
             var decrypted = CryptoJS.AES.decrypt(msg, passphrase).toString(CryptoJS.enc.Latin1);
             if (decrypted) {
-                $('#decrypted').text(decrypted);
+                $('#decrypted').html(decrypted.replace(/(?:\r\n|\r|\n)/g, '<br />'));
             } else {
                 $('#decrypted').text(randomDecryptions[Math.floor(Math.random() * numDecryptions)]);
             }
