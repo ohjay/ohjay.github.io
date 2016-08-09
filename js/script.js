@@ -1,21 +1,23 @@
-var moveForce = 35; // max popup movement in pixels
-var rotateForce = 25; // max popup rotation in degrees
+if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+    var moveForce = 35; // max popup movement in pixels
+    var rotateForce = 25; // max popup rotation in degrees
 
-$(document).mousemove(function(e) {
-    var docX = $(document).width();
-    var docY = $(document).height();
+    $(document).mousemove(function(e) {
+        var docX = $(document).width();
+        var docY = $(document).height();
     
-    var moveX = (e.pageX - docX / 2) / (docX / 2) * -moveForce;
-    var moveY = (e.pageY - docY / 2) / (docY / 2) * -moveForce;
+        var moveX = (e.pageX - docX / 2) / (docX / 2) * -moveForce;
+        var moveY = (e.pageY - docY / 2) / (docY / 2) * -moveForce;
     
-    var rotateY = (e.pageX / docX * rotateForce * 2) - rotateForce;
-    var rotateX = -((e.pageY / docY * rotateForce * 2) - rotateForce);
+        var rotateY = (e.pageX / docX * rotateForce * 2) - rotateForce;
+        var rotateX = -((e.pageY / docY * rotateForce * 2) - rotateForce);
     
-    $('.popup')
-        .css('left', moveX + 'px')
-        .css('top', moveY + 'px')
-        .css('transform', 'rotateX('+rotateX + 'deg) rotateY('+rotateY + 'deg)');
-});
+        $('.popup')
+            .css('left', moveX + 'px')
+            .css('top', moveY + 'px')
+            .css('transform', 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)');
+    });
+}
 
 // The secret page navigation option
 $(document).keypress(function(evt) {

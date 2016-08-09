@@ -10,6 +10,13 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/css/crypt.css" />
+    <style type="text/css">
+    textarea {
+        box-sizing: border-box;
+        min-height: 186px;
+        overflow-x: hidden;
+    }
+    </style>
 </head>
 <body>
     <h1>Encrypt</h1>
@@ -22,7 +29,7 @@
     <h3><u>Encryption</u></h3>
     <b>Decryption key</b>&nbsp;&nbsp;&nbsp;<input type="text" name="passphrase" id="pp_input" size="35" maxlength="55" /><br>
     <div id="textarea-div" style="width: 100%">
-        <textarea id="msg-input" rows="10" placeholder="Your message goes here! Start typing, you lazy human being."></textarea>
+        <textarea id="msg-input" class="js-auto-size" rows="10" placeholder="Your message goes here! Start typing, you lazy human being."></textarea>
     </div>
 
     <h3><u>Your encrypted text</u></h3>
@@ -30,6 +37,8 @@
     
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/textarea_autosize.min.js"></script>
+    <script>$('textarea.js-auto-size').textareaAutoSize();</script>
     <script src="/js/crypto/rollups/aes.js"></script>
     <script>$(document).ready(function() {
         var prevMsg = "", msg = "";
