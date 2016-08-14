@@ -62,4 +62,8 @@ permalink: /cs61a/quizzes/
             <td>SQL</td>
         </tr>
     </table>
+    
+    <table class="qz">
+        <tr><th colspan="4">Fall 2016</th></tr>
+    </table>
 </div>

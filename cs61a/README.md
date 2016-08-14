@@ -1,7 +1,7 @@
 # CS 61A
 Hello! This is the GitHub repository for the [CS 61A section of my website](http://owenjow.xyz/cs61a/). Feel free to poke around. :)
 
-#### Discussion References
+#### Discussion References (Spring 2016)
 <table>
     <tr>
         <th>Week 00 [01/21/16]</th>
@@ -57,5 +57,14 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <th>Week 11 [04/21/16]</th>
         <td>—</td>
         <td><a href="sp16/quiz/quiz11.pdf">Quiz</a> (<a href="sp16/quiz/quiz11_sol.pdf">S</a>)</td>
+    </tr>
+</table>
+
+#### Discussion References (Fall 2016)
+<table>
+    <tr>
+        <th>Week 00 [08/25/16]</th>
+        <td><a href="#">Slides</a></td>
+        <td><a href="#">Quiz</a> (<a href="#">S</a>)</td>
     </tr>
 </table>

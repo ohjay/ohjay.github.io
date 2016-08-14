@@ -41,4 +41,8 @@ permalink: /cs61a/notes/
             <td>Tail Calls / Interpreters</td>
         </tr>
     </table>
+    
+    <table class="nt">
+        <tr><th colspan="2">Fall 2016 Discussion Slides</th></tr>
+    </table>
 </div>
