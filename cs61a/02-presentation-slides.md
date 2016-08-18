@@ -1,14 +1,14 @@
 ---
 layout: page
-title: Notes
-permalink: /cs61a/notes/
+title: Presentation Slides
+permalink: /cs61a/presentation-slides/
 ---
 
 <p>
-    Even at the low, low price of $25,000 USD, nobody wanted to buy them.
+    Consider yourself lucky if you missed the actual presentation!
 </p>
 
-<hr />
+<hr class="overarching" />
 
 <div>
     <table class="nt">
@@ -19,7 +19,7 @@ permalink: /cs61a/notes/
     </table>
     
     <table class="nt">
-        <tr><th colspan="2">Spring 2016 Discussion Slides</th></tr>
+        <tr><th colspan="2">Spring 2016</th></tr>
         <tr>
             <td><a href="http://owenjow.xyz/cs61a/sp16/disc/CS%2061A%20Discussion%205.pdf">Discussion 5</a> (2/25)</td>
             <td>Trees and Mutation</td>
@@ -43,6 +43,10 @@ permalink: /cs61a/notes/
     </table>
     
     <table class="nt">
-        <tr><th colspan="2">Fall 2016 Discussion Slides</th></tr>
+        <tr><th colspan="2">Fall 2016</th></tr>
+        <tr>
+            <td><a href="#">Discussion 0</a> (8/25)</td>
+            <td>Introduction</td>
+        </tr>
     </table>
 </div>

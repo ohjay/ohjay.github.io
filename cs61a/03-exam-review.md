@@ -8,6 +8,6 @@ permalink: /cs61a/exam-review/
     Because we all love to be tested.
 </p>
 
-<hr />
+<hr class="overarching" />
 
-Content coming soon.
+Content coming soon. And by soon, I mean probably not soon.

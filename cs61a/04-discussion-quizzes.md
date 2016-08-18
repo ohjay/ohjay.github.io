@@ -1,14 +1,14 @@
 ---
 layout: page
-title: Quizzes
-permalink: /cs61a/quizzes/
+title: Discussion Quizzes
+permalink: /cs61a/discussion-quizzes/
 ---
 
 <p>
     Y'know, just some mental jumping jacks for you to do.
 </p>
 
-<hr />
+<hr class="overarching" />
 
 <div>
     <table class="qz">
@@ -65,5 +65,11 @@ permalink: /cs61a/quizzes/
     
     <table class="qz">
         <tr><th colspan="4">Fall 2016</th></tr>
+        <tr>
+            <td><a href="#">Quiz 00</a></td>
+            <td><a href="#">Solution</a></td>
+            <td>–</td>
+            <td>Introduction</td>
+        </tr>
     </table>
 </div>

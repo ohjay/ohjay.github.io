@@ -6,9 +6,9 @@ permalink: /cs61a/contact/
 
 Let me know how you're doing! You can email me at <a href="mailto:owenjow@berkeley.edu">owenjow@berkeley.edu</a> or submit a message via the form below.
 
-I also hold office hours every ????????? from ?-?:???? in <a href="http://www.berkeley.edu/map?evans" target="_blank">B6 Evans</a>.
+I also hold office hours every Friday from 12-1:00pm in <a href="http://www.berkeley.edu/map?morgan" target="_blank">109 Morgan</a>.
 
-<hr />
+<hr class="overarching" />
 
 <form action="//formspree.io/owenjow@berkeley.edu" method="POST">
     <input type="hidden" name="_subject" value="New submission from your 61A page" />
