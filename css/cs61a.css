@@ -52,11 +52,10 @@ textarea {
 
 .feedback-input {
     width: 100%;
-    padding: 6px;
+    padding: 6px 6px 6px 0px;
     margin: 12px 0;
     border: none;
     border-top: 1px solid gray;
-    border-left: 2px solid gray;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
