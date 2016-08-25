@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Discussion Quizzes
-permalink: /cs61a/discussion-quizzes/
+title: Section Quizzes
+permalink: /cs61a/section-quizzes/
 ---
 
 <p>
@@ -66,8 +66,8 @@ permalink: /cs61a/discussion-quizzes/
     <table class="qz">
         <tr><th colspan="4">Fall 2016</th></tr>
         <tr>
-            <td><a href="#">Quiz 00</a></td>
-            <td><a href="#">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz0.pdf">Quiz 00</a></td>
+            <td>–</td>
             <td>–</td>
             <td>Introduction</td>
         </tr>

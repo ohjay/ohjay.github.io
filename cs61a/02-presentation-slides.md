@@ -45,7 +45,7 @@ permalink: /cs61a/presentation-slides/
     <table class="nt">
         <tr><th colspan="2">Fall 2016</th></tr>
         <tr>
-            <td><a href="#">Discussion 0</a> (8/25)</td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%200.pdf">Discussion 0</a> (8/25)</td>
             <td>Introduction</td>
         </tr>
     </table>
