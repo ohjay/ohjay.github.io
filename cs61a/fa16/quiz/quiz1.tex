@@ -1,0 +1,49 @@
+\documentclass[twoside]{article}
+\usepackage{quiz}
+
+\pagestyle{myheadings}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+}
+
+\def\semester{Fall 2016}
+
+%%% Actual content begins here %%%
+\title{\sc Midterm 1}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\begin{enumerate}
+%%% Q1 %%%
+\q{10}{I'm Hungry}
+
+Draw the environment diagram that results from executing the code below (until the entire program is finished, or an error occurs).
+\vspace{0.1in}
+
+\begin{lstlisting}
+def cook(pancake, time_left):
+    def cook():
+        if not time_left:
+            return "golden-brown pancake"
+        if -time_left > 0:
+            return "burnt pancake"
+        return "still batter" # than cereal
+
+    while time_left > 0:
+        time_left -= 2
+        pancake = cook()
+    return pancake
+
+cook("batter", 3)
+\end{lstlisting}
+
+\end{enumerate}
+\end{document}

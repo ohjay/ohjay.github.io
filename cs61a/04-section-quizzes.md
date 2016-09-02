@@ -71,5 +71,11 @@ permalink: /cs61a/section-quizzes/
             <td>–</td>
             <td>Introduction</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz1.pdf">Quiz 01</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz1_sol.png">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz1.py">Python Script</a></td>
+            <td>Environment Diagrams</td>
+        </tr>
     </table>
 </div>

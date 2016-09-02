@@ -65,6 +65,11 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
     <tr>
         <th>Week 00 [08/25/16]</th>
         <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%200.pdf">Slides</a></td>
-        <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz0.pdf">Quiz</a></td>
+        <td><a href="fa16/quiz/quiz0.pdf">Quiz</a></td>
+    </tr>
+    <tr>
+        <th>Week 01 [09/01/16]</th>
+        <td>—</td>
+        <td><a href="fa16/quiz/quiz1.pdf">Quiz</a> (<a href="fa16/quiz/quiz1_sol.png">S</a>)</td>
     </tr>
 </table>
