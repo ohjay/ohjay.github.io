@@ -8,15 +8,19 @@ html, body {
 
 body {
     font-family: 'Lato', sans-serif;
-    font-size: 2rem;
     color: #124091;
-    line-height: 2.1rem;
+    line-height: 1.8rem;
+    font-size: 1.2rem;
 }
 
 a {
     color: #00B7FF;
     text-decoration: none;
-    font-size: 1.875rem;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
 .js-fade {
@@ -24,19 +28,6 @@ a {
     opacity: 0;
 }
 
-.outer {
-    width: 100%;
-    height: 100%;
-    display: table;
-    text-align: center;
-}
-
-.outer > .inner {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.cl-effect-1 a::before,
 .cl-effect-1 a::after {
     display: inline-block;
     opacity: 0;
@@ -45,25 +36,15 @@ a {
     transition: transform 0.3s, opacity 0.2s;
 }
 
-.cl-effect-1 a::before {
-    margin-right: 10px;
-    content: '[';
-    -webkit-transform: translateX(10px);
-    -moz-transform: translateX(10px);
-    transform: translateX(10px);
-}
-
 .cl-effect-1 a::after {
     margin-left: 10px;
-    content: ']';
+    content: ' >';
     -webkit-transform: translateX(-10px);
     -moz-transform: translateX(-10px);
     transform: translateX(-10px);
 }
 
-.cl-effect-1 a:hover::before,
 .cl-effect-1 a:hover::after,
-.cl-effect-1 a:focus::before,
 .cl-effect-1 a:focus::after {
     opacity: 1;
     -webkit-transform: translateX(0px);
@@ -71,15 +52,54 @@ a {
     transform: translateX(0px);
 }
 
+.row {
+    display: table;
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    border-spacing: 5px 5px; /* horizontal, vertical */
+}
+
+.col {
+    display: table-cell;
+}
+
+.unpublished {
+    color: #124091;
+}
+
+#right-line {
+    height: 100%;
+    width: 1%;
+    border-right: 8px ridge #124091;
+}
+
+#main {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 40%;
+}
+
+@media (max-width: 675px) {
+    #main {
+        padding-right: 10%;
+    }
+}
+
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-    body {
-        font-size: 1.5rem;
+    body, h3 {
+        font-size: 1.3rem;
         line-height: 1.6rem;
     }
 
-    a {
+    a, span {
         font-size: 1.15rem;
+    }
+    
+    #main {
+        padding-left: 5px;
+        padding-right: 10px;
     }
 }
 
@@ -90,7 +110,7 @@ a {
         line-height: 2.5rem;
     }
 
-    a {
+    a, span {
         font-size: 2.25rem;
     }
 }
