@@ -48,5 +48,9 @@ permalink: /cs61a/presentation-slides/
             <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%200.pdf">Discussion 0</a> (8/25)</td>
             <td>Introduction</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%203.pdf">Discussion 3</a> (9/22)</td>
+            <td>Trees and Sequences</td>
+        </tr>
     </table>
 </div>
