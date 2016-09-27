@@ -1,0 +1,728 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Fun with Frequencies | Owen Jow</title>
+    
+    <style media="screen" type="text/css">
+        .justify-snippet{padding-right:2%;text-align:justify}figcaption{text-align:center}#navdots,#navdots ul,a small,header ul a{display:block}#navdots ul li{cursor:pointer;background-image:url(images/dots.png);background-position:0 -8px;-webkit-background-size:8px auto;-moz-background-size:8px auto;-o-background-size:8px auto;background-size:8px auto;background-color:transparent!important;margin:16px 0;height:8px;width:8px;background-repeat:no-repeat;list-style:none;display:list-item;text-align:-webkit-match-parent}#navdots ul li:hover{background-position:0 -16px}#navdots ul li.active{background-position:0 0}#navdots{opacity:1}#navdots ul{position:fixed;top:4.55%;right:24px;z-index:2;margin:0;padding:0;list-style-type:disc;-webkit-margin-before:1em;-webkit-margin-after:1em;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:40px}*{-webkit-font-smoothing:antialiased;font-weight:500}::-webkit-scrollbar{display:none}.overline{border-top:solid 1px #666;margin-top:3px}.mobile-exclusive{display:none}@media (max-width:675px){#navdots{display:none}.justify-snippet{display:none}.mobile-exclusive{display:initial}.overline{border:0;font-style:italic}}@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans",sans-serif;color:#666;font-weight:400}.highlight .cp,.highlight .cs,.highlight .gs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em}.wrapper{width:860px;margin:0 auto}header,header ul{width:270px}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:1px 1px}.centered,header ul a{text-align:center}img{max-width:100%}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}.anchor{display:block;height:15px;margin-top:-15px;visibility:hidden}.full-underline{width:100%;border-bottom:1px solid;padding-bottom:1px;margin-bottom:5px}ol{list-style-position:inside;padding-left:0}.intrinsic{position:relative;height:0;overflow:hidden;padding-bottom:56.25%}.intrinsic iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+    </style>
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Fun with Frequencies</h1>
+        <h3 align="middle">CS 194-26 Project #3 &nbsp;&middot;&nbsp; Owen Jow &nbsp;&middot;&nbsp; September 2016</h3>
+        <hr />
+        <br />
+        
+        
+        <!-- Part 0 -->
+        
+        
+        <span class="anchor" id="part0"></span>
+        <h2 style="margin-bottom: 0.3em">Part 0: Image Sharpening</h2>
+        <p>
+            Here, we will sharpen a few images by making use of the unsharp mask filter. At a high level, this means creating an edge representation of an image and adding a scaled version of it to the original. The idea is that blurring takes away detail (i.e. what we think of as edges, mostly) from an image – so to sharpen, all we have to do is add that detail back. Mathematically, we have the following relationship:
+            
+            <pre>original + &alpha;(detail) = sharpened</pre>
+            
+            where &alpha; is a scaling factor.
+            
+            <br /><br />
+            
+            How do we get the edge representation? That's where unsharp masking comes in. We'll first obtain a low-passed ("unsharp") version of the image by convolving it with a 2D Gaussian filter. Then, to retain only the components in the image with higher frequencies, we'll subtract our unsharp version of the image from the original. Finally, once we have the high-frequency image, we can scale it and add it to the OG image in order to arrive at our sharpened result.
+            
+            <br /><br />
+            
+            If <code>f</code> is the input image, <code>g</code> is our 2D Gaussian kernel, and <code>e</code> is the unit impulse, then
+            
+            <br /><br />
+            
+            <pre>sharpened = f + &alpha;(f - f * g) = f * ((1 + &alpha;)e - &alpha;g)</pre>
+            
+            Note that <code>*</code> is the convolution operator. Also note that we have some choice in how we construct the Gaussian filter; we're able to select both the kernel width and the standard deviation (&sigma;) of the curve. In all of the following cases, I use a 20x20 kernel and a &sigma; of 5, as these values seemed to give the best results.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="50%">
+                        <img src="images/turtle.jpg" width="100%" />
+                        <figcaption align="middle"><code>Turtle (before)</code></figcaption>
+                    </td>
+                    <td align="right" width="50%">
+                        <img src="images/turtle_sharp.jpg" width="100%" />
+                        <figcaption align="middle"><code>Turtle (after)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td align="left" width="50%">
+                        <img src="images/campanile.jpg" width="100%" />
+                        <figcaption align="middle"><code>Campanile (before)</code></figcaption>
+                    </td>
+                    <td align="right" width="50%">
+                        <img src="images/campanile_sharp.jpg" width="100%" />
+                        <figcaption align="middle"><code>Campanile (after)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td align="left" width="50%">
+                        <img src="images/dennis.jpg" width="100%" />
+                        <figcaption align="middle"><code>Dennis (before)</code></figcaption>
+                    </td>
+                    <td align="right" width="50%">
+                        <img src="images/dennis_sharp.jpg" width="100%" />
+                        <figcaption align="middle"><code>Dennis (after)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- Part 1 -->
+        
+        
+        <span class="anchor" id="part1"></span>
+        <h2 style="margin-bottom: 0.3em">Part 1: Hybrid Images</h2>
+        <p>
+            A hybrid image is defined as a static image that changes in interpretation as a function of the viewing distance. It is created by combining the low-frequency version of one image with the high-frequency version of another. From up close, the high frequencies dominate the image, but when viewed from afar, the low frequencies take over because they're the only thing a person can see. Below is an example of Derek hybridized with his cat Nutmeg. In it, we retain the low-passed version of Derek and the high-passed version of Nutmeg.
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/derek.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/nutmeg.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/derekcat.png" width="100%" />
+                    </td>
+                </tr>
+            </table>
+            
+            Put another way, we apply a 25x25 Gaussian filter to one image to keep only the low frequencies, and a Laplacian filter to the other to keep only the high frequencies. Added together, we have our hybrid image.
+            
+            <br /><br />
+            
+            Here, we will create a hybrid of Trump and Clinton. Trump will be used as the low-frequency image, which means that Clinton will be used as his high-frequency counterpart. To the right of the images are the log magnitudes of the images' Fourier transforms, so that we can observe what happens in the frequency domain as we go. The low frequency cutoff for Trump is 0.02 Hz, while the high frequency cutoff for Clinton is 0.03 Hz.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="25%">
+                        <img src="images/trump.jpg" width="100%" />
+                        <figcaption align="middle"><code>Trump (spatial domain)</code></figcaption>
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/trump_ft.jpg" width="100%" />
+                        <figcaption align="middle"><code>Trump (frequency domain)</code></figcaption>
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/clinton.jpg" width="100%" />
+                        <figcaption align="middle"><code>Clinton (spatial domain)</code></figcaption>
+                    </td>
+                    <td align="right" width="25%">
+                        <img src="images/clinton_ft.jpg" width="100%" />
+                        <figcaption align="middle"><code>Clinton (frequency domain)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="left" width="25%">
+                        <img src="images/clump_low.jpg" width="100%" />
+                        <figcaption align="middle"><code>Low-pass (spatial domain)</code></figcaption>
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/clump_low_ft.jpg" width="100%" />
+                        <figcaption align="middle"><code>Low-pass (frequency domain)</code></figcaption>
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/clump_high.jpg" width="100%" />
+                        <figcaption align="middle"><code>High-pass (spatial domain)</code></figcaption>
+                    </td>
+                    <td align="right" width="25%">
+                        <img src="images/clump_high_ft.jpg" width="100%" />
+                        <figcaption align="middle"><code>High-pass (frequency domain)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            
+            At this point, it is evident from the Fourier transform images that most of the high-frequency components of Trump's image have been removed. Likewise, most of the low-frequency components of Clinton's image are now gone, leaving only a frightening-looking edge image.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/clump_gray.jpg" width="100%" />
+                        <figcaption><code>Hybrid image (gray)</code></figcaption>
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/clump_ft.jpg" width="100%" />
+                        <figcaption><code>FT of hybrid image</code></figcaption>
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/clump_color.jpg" width="100%" />
+                        <figcaption><code>Hybrid image (color)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            
+            And at last we arrive at our hybrid image (both in grayscale and color). It's not perfect; Clinton's high-frequency image seems to overwhelm Trump's low frequencies a bit, even at a distance (specifically the eyes, which are much wider and clearer than Trump's in these pictures). In theory, it should be possible to alleviate this by selecting better frequency cutoffs and maybe retaining a different range of Clinton's features.
+            
+            <br /><br />
+            
+            Below we have another example, which merges a dog and a wolf. This time, the low- and high-frequency cutoffs are both 0.05 Hz. The Gaussian filter is still 25x25.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="50%">
+                        <img src="images/dog_with_ft.jpg" width="100%" />
+                        <figcaption align="middle"><code>Dog + Fourier transform</code></figcaption>
+                    </td>
+                    <td align="right" width="50%">
+                        <img src="images/wolf_with_ft.jpg" width="100%" />
+                        <figcaption align="middle"><code>Wolf + Fourier transform</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="left" width="25%">
+                        <img src="images/dogwolf_low.jpg" width="100%" />
+                        <figcaption align="middle"><code>Low-pass (spatial domain)</code></figcaption>
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/dogwolf_low_ft.jpg" width="100%" />
+                        <figcaption align="middle"><code>Low-pass (frequency domain)</code></figcaption>
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/dogwolf_high.jpg" width="100%" />
+                        <figcaption align="middle"><code>High-pass (spatial domain)</code></figcaption>
+                    </td>
+                    <td align="right" width="25%">
+                        <img src="images/dogwolf_high_ft.jpg" width="100%" />
+                        <figcaption align="middle"><code>High-pass (frequency domain)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/dogwolf_gray.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/dogwolf_ft.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/dogwolf.jpg" width="100%" />
+                    </td>
+                </tr>
+            </table>
+            
+            Next are a few other results of varying quality. In both of the Lotad/Lombre fusion images, the high-frequency Lotad seems to dominate a little more than would be ideal.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="25%">
+                        <img src="images/lomtad1_lotad.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/lomtad1_lombre.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/lomtad1_gray.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="25%">
+                        <img src="images/lomtad1.jpg" width="100%" />
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/lomtad2_lotad.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/lomtad2_lombre.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/lomtad2.jpg" width="100%" />
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/pikachu.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/raichu.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/pikarai.jpg" width="100%" />
+                    </td>
+                </tr>
+            </table>
+            
+            And as an example of a hybrid image that didn't work at all, we will consider the attempt to combine these two images of my roommate Sagang. Unfortunately, they ended up being too dissonant in content, and in every case it was especially difficult to distinguish the low frequencies underneath all of the high-frequency components.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="50%">
+                        <img src="images/sagang1.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="50%">
+                        <img src="images/sagang2.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="50%">
+                        <img src="images/sagang_hybrid1.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="50%">
+                        <img src="images/sagang_hybrid2.jpg" width="100%" />
+                    </td>
+                </tr>
+            </table>
+            
+            <h3>Bells and Whistles</h3>
+            
+            As has probably been noted, the hybrid images have also been implemented in color. This basically came down to applying the hybrid generation process on each of the color channels separately, and then stacking them together at the end. I decided to colorize both the low and high frequencies, although since color is hardly apparent in the high-passed images I don't think the high frequency colors contribute as much to the final image.
+        </p>
+        <br />
+        
+        
+        <!-- Part 2 -->
+        
+        
+        <span class="anchor" id="part2"></span>
+        <h2 style="margin-bottom: 0.3em">Part 2: Gaussian and Laplacian Stacks</h2>
+        <p>
+            A Gaussian stack is simply the original image convolved with a bunch of Gaussian filters of increasing &sigma;. Meanwhile, the Laplacian stack is the difference between successive levels of the Gaussian stack. Both of these, applied to Salvador Dalí's <em>Lincoln in Dalivision</em> lithograph, are shown below.
+            
+            <br /><br />
+            
+            (All Laplacian stacks displayed in this writeup have had their images' pixel intensities normalized for easier viewing, such that the minimum value is always 0 and the maximum value is always 1.)
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="20%">
+                        <img src="images/lincoln_g1.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/lincoln_g2.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/lincoln_g3.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/lincoln_g4.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="20%">
+                        <img src="images/lincoln_g5.jpg" width="100%" />
+                    </td>
+                    <figcaption><code>Gaussian stack (σ = 1, 2, 4, 8, 16)</code></figcaption>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="left" width="20%">
+                        <img src="images/lincoln_l1.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/lincoln_l2.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/lincoln_l3.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/lincoln_l4.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="20%">
+                        <img src="images/lincoln_l5.jpg" width="100%" />
+                    </td>
+                    <figcaption><code>Laplacian stack, normalized</code></figcaption>
+                </tr>
+            </table>
+            
+            We also construct the Gaussian and Laplacian stacks for the hybrid image of Clinton and Trump. After successive blurring (i.e. the Gaussian stack), we end up getting only the lower-frequency components of Trump (which simulates what we see when we stand really far away). For the Laplacian stack, meanwhile, note that the earlier images involve higher frequencies than the later images. This allows us to isolate an edge image that's almost all Clinton.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="20%">
+                        <img src="images/ct_gaussian1.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/ct_gaussian2.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/ct_gaussian3.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/ct_gaussian4.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="20%">
+                        <img src="images/ct_gaussian5.jpg" width="100%" />
+                    </td>
+                    <figcaption><code>Gaussian stack (σ = 1, 2, 4, 8, 16)</code></figcaption>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="left" width="20%">
+                        <img src="images/ct_laplacian1.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/ct_laplacian2.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/ct_laplacian3.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/ct_laplacian4.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="20%">
+                        <img src="images/ct_laplacian5.jpg" width="100%" />
+                    </td>
+                    <figcaption><code>Laplacian stack, normalized</code></figcaption>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- Part 3 -->
+        
+        
+        <span class="anchor" id="part3"></span>
+        <h2 style="margin-bottom: 0.3em">Part 3: Multiresolution Blending</h2>
+        <p>
+            As the final part of the project, we blend together two images by constructing a Laplacian stack for each of the images to be blended, and a Gaussian stack for a mask. Then each of the layers in the two Laplacian stacks are linearly combined using the corresponding layer in the Gaussian mask stack, and results from every layer are collapsed (summed together) in order to arrive at the final, blended image. This has the effect of creating a very gentle seam between each of the two images.
+            
+            <br /><br />
+            
+            Parameter-wise, I used a Gaussian kernel size of 25x25, a &sigma; of 1, and ten levels in each of the Gaussian and Laplacian stacks.
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="25%">
+                        <img src="images/orange.jpeg" width="100%" />
+                        <figcaption><code>Orange</code></figcaption>
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/apple.jpeg" width="100%" />
+                        <figcaption><code>Apple</code></figcaption>
+                    </td>
+                    <td align="middle" width="25%">
+                        <img src="images/oraple_mask.jpg" width="100%" />
+                        <figcaption><code>Mask</code></figcaption>
+                    </td>
+                    <td align="right" width="25%">
+                        <img src="images/oraple.jpg" width="100%" />
+                        <figcaption><code>Oraple</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            
+            In order to obtain the following results: we take our two images, resize and align them so that they are the same resolution, and create a mask for one of them in Photoshop. The Laplacian stack for the two images and the Gaussian stack for the mask are generated... and finally we form the overall multiresolution blend by going through the process described earlier (combining stack levels and collapsing).
+            
+            <br ><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/speed_mask.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian2.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian2.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian2.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian3.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian3.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian3.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian4.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian4.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian4.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian5.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian5.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian5.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian6.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian6.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian6.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian7.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian7.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian7.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian8.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian8.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian8.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian9.jpg" width="100%" />
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian9.jpg" width="100%" />
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian9.jpg" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/space_laplacian10.jpg" width="100%" />
+                        <figcaption><code>Laplacian stack (space)</code></figcaption>
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/spade_mask_gaussian10.jpg" width="100%" />
+                        <figcaption><code>Gaussian stack (mask)</code></figcaption>
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/speed_laplacian10.jpg" width="100%" />
+                        <figcaption><code>Laplacian stack (biker)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="middle" width="100%">
+                        <img src="images/speed_laplacian2.jpg" width="100%" />
+                        <figcaption><code>This Laplacian image was one of the highlights of the project</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="middle" width="100%">
+                        <img src="images/spade_gray.jpg" width="100%" />
+                        <figcaption><code>The blended image (biking in space!), grayscale</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="middle" width="100%">
+                        <img src="images/spade.jpg" width="100%" />
+                        <figcaption><code>Multiresolution blending... in color!</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="33.33%">
+                        <img src="images/wall_e.jpg" width="100%" />
+                        <figcaption><code>Wall-E</code></figcaption>
+                    </td>
+                    <td align="middle" width="33.33%">
+                        <img src="images/wall2d2_mask.jpg" width="100%" />
+                        <figcaption><code>Mask for R2-D2's head</code></figcaption>
+                    </td>
+                    <td align="right" width="33.33%">
+                        <img src="images/r2d2.jpg" width="100%" />
+                        <figcaption><code>R2-D2</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="middle" width="100%">
+                        <img src="images/wall2d2_gray.jpg" width="100%" />
+                        <figcaption><code>Wall-2D2 (gray)</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="middle" width="100%">
+                        <img src="images/wall2d2.jpg" width="100%" />
+                        <figcaption><code>Wall-2D2</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            
+            Failure: Mixing the pawn and the queen (below) didn't work very well because the two objects were very different in height and "seamless blending" can only do so much. The top of the queen ended up getting merged with the chessboard instead of the pawn, which did not really have the desired effect.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <tr>
+                    <td align="left" width="20%">
+                        <img src="images/pawn.jpg" width="100%" />
+                        <figcaption><code>Pawn</code></figcaption>
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/qawn_mask.jpg" width="100%" />
+                        <figcaption><code>+</code></figcaption>
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/queen.jpg" width="100%" />
+                        <figcaption><code>Queen</code></figcaption>
+                    </td>
+                    <td align="middle" width="20%">
+                        <img src="images/qawn_gray.jpg" width="100%" />
+                        <figcaption><code>=</code></figcaption>
+                    </td>
+                    <td align="right" width="20%">
+                        <img src="images/qawn.jpg" width="100%" />
+                        <figcaption><code>Qawn</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            
+            <h3>Bells and Whistles</h3>
+            
+            As shown in pretty much all of the pictures above, multiresolution blending has also been implemented in color. This means that when forming an image in the Gaussian stack (a requirement for building the Laplacian stack, of course!), each of the color channels is convolved with the Gaussian individually, and then all three of the filtered channels are accumulated in order to create a color image for the stack.
+        </p>
+        <br />
+        
+        
+        <!-- Image and Information References -->
+        
+        
+        <span class="anchor" id="image-and-information-references"></span>
+        <h2 style="margin-bottom: 0.3em">Image and Information References [+ Reflection]</h2>
+        <p>
+            Sadly, I have never swum with turtles or (perhaps not as sadly?) met Donald Trump or Hillary Clinton face-to-face. So a huge shout-out to the following sources for the images used in this project! In order of appearance:
+            <ul>
+                <li>The slightly blurry turtle photograph was obtained from <a href="http://william-john-holly.deviantart.com/art/Slightly-Blurry-Turtle-322983135" target="_blank">William John Holly on DeviantArt</a>.</li>
+                <li>Derek and Nutmeg were downloaded from <a href="http://inst.eecs.berkeley.edu/~cs194-26/fa16/hw/proj3-frequencies/index.html" target="_blank">the assignment page</a>.</li>
+                <li>Part 1's Donald Trump image was acquired <a href="http://www.foxsports.com/college-football/story/donald-trump-iowa-state-cyclones-iowa-hawkeyes-jack-trice-stadium-091215" target="_blank">here</a>.</li>
+                <li>The Hillary Clinton image was acquired from her official <a href="https://twitter.com/hillaryclinton" target="_blank">Twitter</a>.</li>
+                <li>The photograph of the German Shepherd is from <a href="https://en.wikipedia.org/wiki/German_Shepherd" target="_blank">the Wikipedia article on German Shepherds</a>.</li>
+                <li>The wolf image comes from the website for <a href="http://animals.sandiegozoo.org/animals/wolf" target="_blank">the San Diego Zoo</a>.</li>
+                <li>The illustrated version of Lotad is from <a href="http://imgur.com/gallery/C342RSN" target="_blank">this Imgur page</a>, and originally from the anime I think.</li>
+                <li>The illustrated version of Lombre is from <a href="http://www.deviantart.com/art/271-Lombre-389001126" target="_blank">PkLucario on DeviantArt</a>.</li>
+                <li>The sprite-ified Lotad is from <a href="http://www.ign.com/pokedex/pokemon/lotad" target="_blank">IGN</a>.</li>
+                <li>The sprite version of Lombre is also from <a href="http://www.ign.com/pokedex/pokemon/lombre" target="_blank">IGN</a>.</li>
+                <li>Pikachu showed up on <a href="http://jadensadventures.wikia.com/wiki/Pikachu" target="_blank">"Jaden's Adventures Wiki,"</a> which I of course visit regularly to stay updated on Jaden's adventures.</li>
+                <li>Raichu comes from the <a href="http://pokemondb.net/pokedex/raichu" target="_blank">Pokémon Database</a>.</li>
+                <li>Lincoln was snatched from <a href="http://inst.eecs.berkeley.edu/~cs194-26/fa16/hw/proj3-frequencies/index.html" target="_blank">the assignment page</a>.</li>
+                <li>The apple and the orange were – like Derek, Nutmeg, and Lincoln before them – swiped from <a href="http://inst.eecs.berkeley.edu/~cs194-26/fa16/hw/proj3-frequencies/index.html" target="_blank">the assignment page</a>.</li>
+                <li>The space picture originally appeared on <a href="http://wallpaperwarrior.com/space-wallpaper/" target="_blank">wallpaperwarrior.com</a>.</li>
+                <li>The cycling picture comes from – where else? – <a href="http://www.bicycling.com/sites/bicycling.com/files/Speed.jpg" target="_blank">bicycling.com</a>.</li>
+                <li>The reversed Wall-E image hails from <a href="http://hdwallpaperbackgrounds.net/wall-e-hd-wallpaper/" target="_blank">an HD wallpapers website</a>.</li>
+                <li>R2-D2's likeness was retrieved from <a href="http://starwars.wikia.com/wiki/R2-D2" target="_blank">Wookieepedia</a>.</li>
+                <li>The pawn comes from <a href="https://en.wikipedia.org/wiki/Pawn_(chess)" target="_blank">Wikipedia</a>.</li>
+                <li>Strangely enough, the queen also comes from <a href="https://en.wikipedia.org/wiki/Queen_(chess)" target="_blank">Wikipedia</a>.</li>
+            </ul>
+            
+            I also owe a big thanks to the University of Edinburgh for getting me up to speed on this stuff... after I missed most of the frequency lectures, that is. Praise Edinburgh!
+            
+            <br /><br />
+            
+            <ul>
+                <li>An explanation of the <a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/log.htm" target="_blank">Laplacian of Gaussian</a></li>
+                <li>An explanation of the <a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/spatdom.htm" target="_blank">Spatial Domain</a> and <a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/freqdom.htm" target="_blank">Frequency Domain</a></li>
+                <li>An explanation of the <a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/unsharp.htm" target="_blank">Unsharp Filter</a></li>
+                <li>An explanation of <a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/convolve.htm" target="_blank">Convolution</a></li>
+                <li>An explanation of <a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/gsmooth.htm" target="_blank">Gaussian Smoothing</a></li>
+            </ul>
+            
+            <h3>Reflection</h3>
+            
+            And to close this project off, I just want to say that it was incredible to be able to bypass Photoshop and perform sharpening and blending operations through Python code. I always thought of analogous Photoshop effects as being kind of esoteric and magical, but this project has definitely helped me understand how they work beneath the surface. It was pretty mind-blowing (especially for someone without much of a prior background in signal processing) to get a glimpse into that magic, and to see how such simple frequency manipulations can affect images so smoothly and comprehensively! (My favorite part of the assignment, incidentally, was the multiresolution blending. Given more time, I would have liked to try and use the technique to composite multiple images in succession.)
+        </p>
+    </div>
+    
+    <!-- Navigation -->
+    <section id="navdots"><ul>
+        <a href="#part0"><li class title="Part 0: Image Sharpening"></li></a>
+        <a href="#part1"><li class title="Part 1: Hybrid Images"></li></a>
+        <a href="#part2"><li class title="Part 2: Gaussian and Laplacian Stacks"></li></a>
+        <a href="#part3"><li class title="Part 3: Multiresolution Blending"></li></a>
+        <a href="#image-and-information-references"><li class title="Image and Information References"></li></a>
+    </ul></section>
+    
+    <!-- Scripts -->
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(window).on("load",function(){!function(t,r,o,l){t.fn.extend({scrollspy:function(){var l=function(r){for(var l=[],a=[],e=0;e<r.length;e++){var n=t(t(r[e]).attr("href"));n.length>0&&a.push(Math.floor(n.offset().top))}for(var h=0,e=0;e<r.length;e++){var i=t(r[e]).attr("href"),n=t(i);if(n.length>0){var f=0==h?0:a[h],s=a.length==h+1?t(o).height():a[h+1]-1;h++;for(var c=null,e=0;e<r.length;e++){var v=t(r[e]);if(v.attr("href")===i){c=v.children(":first");break}}l.push({element:n,hash:i,top:f,bottom:s,child:c})}}return l};return this.each(function(){for(var o=this,a=0,e=t(o).find("a[href*=\\#]"),n=0;n<e.length;n++){var h=e[n];t(h).on("click",function(r){var o=t(this).attr("href"),l=t(o);if(l.length>0){var a=l.offset().top;t("html, body").animate({scrollTop:a},1e3),r.preventDefault()}})}var i=l(e);t(r).bind("scroll.scrollspy",function(){a=t(this).scrollTop();for(var r,o=0;o<i.length;o++){var l=i[o];if(a>=l.top&&a<l.bottom&&(l.hash,r=l.child,null!=r)){for(var e=0;e<i.length;e++)i[e].child.removeClass("active");r.addClass("active");break}}}),a=t(this).scrollTop();for(var f,n=0;n<i.length;n++){var s=i[n];if(a>=s.top&&a<s.bottom&&(s.hash,f=s.child,null!=f)){for(var c=0;c<i.length;c++)i[c].child.removeClass("active");f.addClass("active");break}}})}})}(jQuery,window,document,void 0),$("#navdots").scrollspy()});
+    </script>
+</body>
+</html>
