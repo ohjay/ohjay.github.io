@@ -52,5 +52,9 @@ permalink: /cs61a/presentation-slides/
             <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%203.pdf">Discussion 3</a> (9/22)</td>
             <td>Trees and Sequences</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%204.pdf">Discussion 4</a> (9/29)</td>
+            <td>Growth and Nonlocals</td>
+        </tr>
     </table>
 </div>
