@@ -82,4 +82,9 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%204.pdf">Slides</a></td>
         <td>—</td>
     </tr>
+    <tr>
+        <th>Week 05 [10/06/16]</th>
+        <td><a href="fa16/disc/disc5_notes.md">Notes</a></td>
+        <td><a href="fa16/quiz/quiz5.pdf">Quiz</a></td>
+    </tr>
 </table>

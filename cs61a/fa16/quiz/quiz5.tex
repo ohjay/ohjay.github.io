@@ -1,0 +1,127 @@
+\documentclass[twoside]{article}
+\usepackage{quiz}
+
+\pagestyle{myheadings}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+}
+
+\def\semester{Fall 2016}
+
+%%% Actual content begins here %%%
+\title{\sc Midterm 2}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\begin{enumerate}
+%%% Q1: Route Cipher %%%
+\q{2}{Route Cipher}
+
+Fill in the \texttt{encrypt} and \texttt{decrypt} methods of the \texttt{RouteCipher} class, making sure to utilize inheritance whenever possible. The functionality of a route cipher is defined in its docstring. Note that these methods must both record their argument history and assert that their inputs are strings.
+
+Unfortunately, \texttt{RouteCipher} happens to be ridiculously difficult (well, for a quiz question at least) and generally requires tricky edge case coverage for total robustness. Furthermore, if anyone manages to fit a correct implementation into the space I allotted, then they are probably not actually of this Earth. Therefore, feel free to ignore \texttt{RouteCipher} and just do the ``true/false" question on the back instead.
+\vspace{0.1in}
+
+\begin{lstlisting}
+class Cipher:
+
+    def __init__(self):
+        self.plainhist = {} # {plaintext: # times encrypted}
+        self.cipherhist = {} # {ciphertext: # times "decrypted"}
+        
+    def encrypt(self, plaintext):
+        assert type(plaintext) == str, 'input must be a string'
+        self.plainhist[plaintext] = self.plainhist.get(plaintext, 0) + 1
+        if self.plainhist.get(plaintext, 0) > 10:
+            print("...you've encrypted this %d times"
+                    % self.plainhist[plaintext])
+        return plaintext
+    
+    def decrypt(self, ciphertext):
+        assert type(ciphertext) == str, 'input must be a string'
+        self.cipherhist[ciphertext] = self.cipherhist.get(ciphertext, 0) + 1
+        if self.cipherhist.get(ciphertext, 0) > 10:
+            print('dude get a life')
+        return ciphertext
+
+class RouteCipher(Cipher):
+    """Standard route cipher. For encryption, writes plaintext out
+    as characters in a rectangular grid, then reads off elements
+    a spiraling inward, clockwise fashion (starting at the top left).
+    
+    For example, HELLO WORLD would be displayed in a two-row grid as
+    
+    H L O W R D
+    E L   O L _
+    
+    and would be encrypted as HLOWRD_LO LE.
+    """
+    def __init__(self, num_rows):
+        assert num_rows > 0, 'row count must be positive'
+        Cipher.__init__(self)
+        self.num_rows = num_rows
+    
+    def encrypt(self, plaintext):
+    # BEGIN SOLUTION -->
+
+
+
+
+
+
+
+
+
+
+    # <-- END SOLUTION   
+    
+    def decrypt(self, ciphertext):
+    # BEGIN SOLUTION -->
+    
+    
+    
+    
+    
+    
+    
+
+
+
+    # <-- END SOLUTION
+\end{lstlisting}
+
+%%% Q2: True or False %%%
+\q{8}{True or False}
+
+Is it \texttt{True}? Or is it \texttt{False}? You decide!
+\vspace{0.1in}
+
+\begin{enumerate}
+\item If you want to call a bound method, then you must explicitly pass in an argument as the \texttt{self} parameter.\\
+
+\item You can define a normal function (i.e. the kind we've been using all year) within a class, and access it without the use of dot notation.\\
+
+\item You can access instance attributes from within a \textit{non}-bound method if you call it from the body of a bound method.\\
+
+\item All user-defined classes are technically subclasses.\\
+
+\item If a function defined in a class takes \texttt{self} as its first argument, then it must always be called using dot notation with an \textit{instance} on the left side of the dot.\\
+
+\item \texttt{self} is a special name in Python. If you were to use, say, \texttt{myself} as a method's first parameter name, then things would break.\\
+
+\item If you change something in a subclass, then that change will propagate to all instances of the base class.\\
+
+\item In general, it's fine to replace an instance on the left side of a dot expression with \texttt{self}.
+
+\end{enumerate}
+
+\end{enumerate}
+\end{document}
