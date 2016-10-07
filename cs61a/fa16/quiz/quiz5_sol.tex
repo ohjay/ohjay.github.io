@@ -1,0 +1,74 @@
+\documentclass[twoside]{article}
+\usepackage{quiz}
+
+\pagestyle{myheadings}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+}
+
+\def\semester{Fall 2016}
+
+\newcommand{\solution}[1]{{\color{red}#1}}
+
+%%% Actual content begins here %%%
+\title{\sc Midterm 2 \solution{Solutions}}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\begin{enumerate}
+%%% Q1: Route Cipher %%%
+\q{2}{Route Cipher}
+
+\solution{A full implementation for \texttt{RouteCipher} can be found in \textbf{\href{http://owenjow.xyz/cs61a/fa16/quiz/quiz5.py}{this Python script}.} Don't worry too much about understanding all the details.}
+
+%%% Q2: True or False %%%
+\q{8}{True or False}
+
+Is it \texttt{True}? Or is it \texttt{False}? You decide!
+\vspace{0.1in}
+
+\begin{enumerate}
+\item If you want to call a bound method, then you must explicitly pass in an argument as the \texttt{self} parameter.\\
+
+\solution{\textbf{False}. By definition, a bound method already has an instance passed in as its first parameter.}\\
+
+\item You can define a normal function (i.e. the kind we've been using all year) within a class, and access it without the use of dot notation.\\
+
+\solution{\textbf{False}. A function defined within a class must be accessed using dot notation -- even from other functions within the class!}\\
+
+\item A name defined within a bound method will stick around for as long as the associated instance exists.\\
+
+\solution{\textbf{False}. This isn't always true. For example, a local variable (i.e. a non-``dot expression" variable defined inside a function) will only stick around for the lifespan of its frame.}\\
+
+\item All user-defined classes are technically subclasses.\\
+
+\solution{\textbf{True}. Everything inherits from \texttt{object}, either directly or through a chain of base classes.}\\
+
+\item If a function defined in a class takes \texttt{self} as its first argument, then it must always be called using dot notation with an \textit{instance} on the left side of the dot.\\
+
+\solution{\textbf{False}. You can call such a function with a \textit{class} on the left side of the dot, although you will then be forced to pass in a specific instance as \texttt{self}.}\\
+
+\item \texttt{self} is a special name in Python. If you were to use, say, \texttt{myself} as a method's first parameter name, then things would break.\\
+
+\solution{\textbf{False}. You can technically call this parameter something else. By convention, however, we use \texttt{self}.}\\
+
+\item If you change something in a subclass, then that change will propagate to all instances of the base class.\\
+
+\solution{\textbf{False}. It's kind of the other way around; changes to a \textit{base class} can affect all \textit{subclasses}.}\\
+
+\item In general, it's fine to replace an instance on the left side of a dot expression with \texttt{self}.\\
+
+\solution{\textbf{False}. You can only use \texttt{self} if it's actually been defined (inside a constructor or method, probably).}
+
+\end{enumerate}
+
+\end{enumerate}
+\end{document}

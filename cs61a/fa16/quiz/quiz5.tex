@@ -54,7 +54,7 @@ class Cipher:
 
 class RouteCipher(Cipher):
     """Standard route cipher. For encryption, writes plaintext out
-    as characters in a rectangular grid, then reads off elements
+    as characters in a rectangular grid, then reads off elements in
     a spiraling inward, clockwise fashion (starting at the top left).
     
     For example, HELLO WORLD would be displayed in a two-row grid as
@@ -109,7 +109,7 @@ Is it \texttt{True}? Or is it \texttt{False}? You decide!
 
 \item You can define a normal function (i.e. the kind we've been using all year) within a class, and access it without the use of dot notation.\\
 
-\item You can access instance attributes from within a \textit{non}-bound method if you call it from the body of a bound method.\\
+\item A name defined within a bound method will stick around for as long as the associated instance exists.\\
 
 \item All user-defined classes are technically subclasses.\\
 

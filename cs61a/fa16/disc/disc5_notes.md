@@ -2,22 +2,22 @@
 Section 111 | Thursday, October 6 2016
 
 ## Announcements
-Outstanding assignments: HW6, Lab 6, HW7, Ants<br>
 Guerrilla section on order of growth, OOP, and inheritance this Saturday (12-3pm)<br>
+Outstanding assignments: HW6, Lab 6, HW7, Ants<br>
 Extra (past exam) problems are online. My thoughts are...<br>
 Discussion attendance: http://tiny.cc/denero
 
-## Quiz
+## Quiz (Route Ciphers and T/F)
 There is indeed a quiz today.
 
-## OOP I: Basics
-**Object-oriented programming** = a formalization of data abstraction; a more structured system for treating our data as objects. Translation: constructors --> constructors, selectors --> attributes<br>
-**Class** = implementation-wise, it is the blueprint for your objects. Intuitively, it is the "type" of your objects. But it's still an abstraction (ex. "pizza" as in "what is a pizza?", or "student"). It's like seeing a word in a dictionary<br>
-**Instance** = a specific manifestation of a class. Suddenly, your class is actually a thing (ex. "pizza" as in "check out my slice of pizza", or "Kavi, a student"). It's like finding an example of a dictionary definition in real life<br>
-**Instance attribute** = a property that pertains to an INSTANCE (ex. "Kavi's age is 12"). Note that methods are attributes too; they're just attributes that are functions<br>
-**Class attribute** = a property that pertains to a CLASS, i.e. something that applies to the type in general (ex. "pizza: contains_dough = True")<br>
-**Method** = a function tied to (i.e. one that is called by) an instance of a class
-**Bound method** = a method that has already had an instance passed in as its first argument. Methods are only bound if the thing before the dot is an instance
+## OOP I: Basics / Terminology
+- **Object-oriented programming** = a formalization of data abstraction; a more structured system for treating our data as objects. Translation: constructors --> constructors, selectors --> attributes
+- **Class** = implementation-wise, it is the blueprint for your objects. Intuitively, it is the "type" of your objects. But it's still an abstraction (ex. "pizza" as in "what is a pizza?", or "student"). It's like seeing a word in a dictionary
+- **Instance** = a specific manifestation of a class. Suddenly, your class is actually a thing (ex. "pizza" as in "check out my slice of pizza", or "Kavi, a student"). It's like finding an example of a dictionary definition in real life
+- **Instance attribute** = a property that pertains to an INSTANCE (ex. "Kavi's age is 12"). Note that methods are attributes too; they're just attributes that are functions
+- **Class attribute** = a property that pertains to a CLASS, i.e. something that applies to the type in general (ex. "pizza: `contains_dough = True`")
+- **Method** = a function tied to (i.e. one that is called by) an instance of a class
+- **Bound method** = a method that has already had an instance passed in as its first argument. Methods are only (/always) bound if the thing before the dot is an instance
 
 ---
 

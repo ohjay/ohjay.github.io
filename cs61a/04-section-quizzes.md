@@ -79,7 +79,7 @@ permalink: /cs61a/section-quizzes/
         </tr>
         <tr>
             <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz5.pdf">Quiz 05</a></td>
-            <td>–</td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz5_sol.pdf">Solution</a></td>
             <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz5.py">Python Script</a></td>
             <td>OOP</td>
         </tr>

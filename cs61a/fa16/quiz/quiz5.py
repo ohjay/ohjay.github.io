@@ -27,7 +27,7 @@ class Cipher:
 
 class RouteCipher(Cipher):
     """Standard route cipher. For encryption, writes plaintext out
-    as characters in a rectangular grid, then reads off elements
+    as characters in a rectangular grid, then reads off elements in
     a spiraling inward, clockwise fashion (starting at the top left).
     
     For example, HELLO WORLD would be displayed in a two-row grid as
@@ -43,7 +43,12 @@ class RouteCipher(Cipher):
         self.num_rows = num_rows
     
     def spiral_read(grid):
-        """Takes a grid and (spirally) reads it into text."""
+        """Takes a grid and (spirally) reads it into text.
+        
+        This function is defined recursively by separating the grid into two things:
+        a border, read spirally, and an inner "subgrid" (which is also read spirally,
+        starting from the top left).
+        """
         num_rows = len(grid)
         if not num_rows: return ''
         num_cols = len(grid[0])
@@ -59,10 +64,12 @@ class RouteCipher(Cipher):
             for r in reversed(range(1, num_rows - 1)):
                 result += grid[r][0] # left column, bottom to top
         subgrid = [grid[r][1:(num_cols - 1)] for r in range(1, num_rows - 1)]
-        return result + RouteCipher.spiral_read(subgrid) # is RouteCipher. necessary?
+        return result + RouteCipher.spiral_read(subgrid) # q: is RouteCipher. necessary?
     
     def spiral_grid(text, num_rows):
-        """Takes text and (spirally) reads it into a grid."""
+        """Takes text and (spirally) reads it into a grid. This function is the
+        inverse of `spiral_read`.
+        """
         if num_rows <= 0: return [[]]
         num_cols = math.ceil(len(text) / num_rows)
         if num_cols <= 0: return [[]]
@@ -99,13 +106,13 @@ class RouteCipher(Cipher):
             grid[r][c] = char
             r = (r + 1) % self.num_rows
             if r == 0: c += 1
-        return RouteCipher.spiral_read(grid) # why not self.?
+        return RouteCipher.spiral_read(grid) # q: why not self.?
     
     def decrypt(self, ciphertext):
         Cipher.decrypt(self, ciphertext)
         grid = RouteCipher.spiral_grid(ciphertext, self.num_rows)
         
-        # Read... in the order by which the grid was originally constructed
+        # Traverse, in the order by which the grid was originally constructed
         plaintext = ''
         for c in range(len(grid[0])):
             for r in range(len(grid)):
