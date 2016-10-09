@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Seam Carving | Owen Jow</title>
+    
+    <style media="screen" type="text/css">
+        .justify-snippet{padding-right:2%;text-align:justify}figcaption{text-align:center}#navdots,#navdots ul,a small,header ul a{display:block}#navdots ul li{cursor:pointer;background-image:url(images/dots.png);background-position:0 -8px;-webkit-background-size:8px auto;-moz-background-size:8px auto;-o-background-size:8px auto;background-size:8px auto;background-color:transparent!important;margin:16px 0;height:8px;width:8px;background-repeat:no-repeat;list-style:none;display:list-item;text-align:-webkit-match-parent}#navdots ul li:hover{background-position:0 -16px}#navdots ul li.active{background-position:0 0}#navdots{opacity:1}#navdots ul{position:fixed;top:4.55%;right:24px;z-index:2;margin:0;padding:0;list-style-type:disc;-webkit-margin-before:1em;-webkit-margin-after:1em;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:40px}*{-webkit-font-smoothing:antialiased;font-weight:500}::-webkit-scrollbar{display:none}.overline{border-top:solid 1px #666;margin-top:3px}.mobile-exclusive{display:none}@media (max-width:675px){#navdots{display:none}.justify-snippet{display:none}.mobile-exclusive{display:initial}.overline{border:0;font-style:italic}}@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700italic,700);a small,a:hover small{color:#777}dt,th{color:#444}body{background-color:#fff;padding:50px;font:14px/1.5 "Noto Sans",sans-serif;color:#666;font-weight:400}.highlight .cp,.highlight .cs,.highlight .gs,.highlight .gu,.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .nc,.highlight .ne,.highlight .nf,.highlight .o,.highlight .ow,dt,strong{font-weight:700}footer,header{float:left;position:fixed;-webkit-font-smoothing:subpixel-antialiased}.highlight .c,.highlight .c1,.highlight .cm,.highlight .cs,.highlight .ge,blockquote{font-style:italic}h1,h2,h3,h4,h5,h6{color:#222;margin:0 0 20px}dl,ol,p,pre,table,ul{margin:0 0 20px}h1,h2,h3{line-height:1.1}h1{font-size:28px}h2{color:#393939}h3,h4,h5,h6{color:#494949}a{color:#39c;text-decoration:none}a:hover{color:#069}a small{font-size:11px;margin-top:-.3em}.wrapper{width:860px;margin:0 auto}header,header ul{width:270px}blockquote{border-left:1px solid #e5e5e5;margin:0;padding:0 0 0 20px}code,pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-radius:5px;border:1px solid #e5e5e5;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:1px 1px}.centered,header ul a{text-align:center}img{max-width:100%}header ul{list-style:none;height:40px;padding:0;background:#f4f4f4;border-radius:5px;border:1px solid #e0e0e0}header li{width:89px;float:left;border-right:1px solid #e0e0e0;height:40px}header li:first-child a{border-radius:5px 0 0 5px}header li:last-child a{border-radius:0 5px 5px 0}header ul a{line-height:1;font-size:11px;color:#999;padding-top:6px;height:34px}header ul a:hover{color:#999}header ul a:active{background-color:#f0f0f0}strong{color:#222}header ul li+li+li{border-right:none;width:89px}header ul a strong{font-size:14px;display:block;color:#222}section{width:500px;float:right;padding-bottom:50px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:0 0 20px}footer{width:270px;bottom:50px}@media print,screen and (max-width:960px){div.wrapper{width:auto;margin:0}footer,header,section{float:none;position:static;width:auto}header{padding-right:320px}section{border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}header a small{display:inline}header ul{position:absolute;right:50px;top:52px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}header{padding:0}header p.view,header ul{position:static}code,pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}header ul{width:99%}header li,header ul li+li+li{width:33%}}@media print{body{padding:.4in;font-size:12pt;color:#444}}.highlight{background:#fff}.highlight .c{color:#998}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .cm{color:#998}.highlight .cp{color:#999}.highlight .c1{color:#998}.highlight .cs{color:#999}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gu{color:purple}.highlight .gt{color:#a00}.highlight .kt{color:#458}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:teal}.highlight .nb{color:#0086B3}.highlight .nc{color:#458}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .s2,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}.anchor{display:block;height:15px;margin-top:-15px;visibility:hidden}.full-underline{width:100%;border-bottom:1px solid;padding-bottom:1px;margin-bottom:5px}ol{list-style-position:inside;padding-left:0}.intrinsic{position:relative;height:0;overflow:hidden;padding-bottom:56.25%}.intrinsic iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+    </style>
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Seam Carving</h1>
+        <h3 align="middle">CS 194-26 Project #4 &nbsp;&middot;&nbsp; Owen Jow &nbsp;&middot;&nbsp; October 2016</h3>
+        <hr />
+        <br />
+        
+        
+        <!-- Overview / Algorithm Description -->
+        
+        
+        <span class="anchor" id="overview-algdesc"></span>
+        <h2 style="margin-bottom: 0.3em">Overview / Algorithm Description</h2>
+        <p>
+            As described in <a href="https://inst.eecs.berkeley.edu/~cs194-26/fa16/hw/proj4-seamcarving/imret.pdf" target="_blank"><em>Seam Carving for Content-Aware Image Resizing</em></a> (Avidan and Shamir), seam carving is a method for image resizing based on actual scene content. In other words, we modify the aspect ratio of an image <em>and</em> protect its contents by choosing to remove or duplicate only its most unimportant regions. (Incidentally, over the course of this project we will focus on image <em>shrinking</em>, i.e. removal only.) In theory, this allows us to avoid messing with salient features / strong contours, and play merely with the proportions of smooth (again, "unimportant") areas instead.
+            
+            <br /><br />
+            
+            To preserve the rectangular shape of the image, we make sure to only modify one <em>seam</em> at a time. For our purposes, a seam is an "optimal 8-connected path of pixels on a single image from top to bottom." Note that by "optimal", we refer to the seam with the minimal cost – where our cost is said to be the total <em>energy</em> of all the pixels along the seam. Here, energy is defined as the gradient magnitude at each pixel:
+            
+            <pre>E(I) = |dI / dx| + |dI / dy|</pre>
+            
+            (We convolve our image with the 3x3 <a href="https://en.wikipedia.org/wiki/Sobel_operator#Formulation" target="_blank">Sobel kernels</a> in order to approximate pixelwise gradients in each direction.)
+            
+            <br /><br />
+            
+            Anyway... algorithmically speaking, how do we find the optimal vertical seam? Well, we first determine the energy at each pixel in the image and store the values in an identically-sized array. Then we turn everything into the dynamic programming problem of computing the cumulative minimum energy <code>M</code> at each pixel <code>(i, j)</code>. The minimal cost of a seam going through any given pixel is based on that of the three pixels above:
+            
+            <br /><br />
+            
+            <pre>M(i, j) = E(i, j) + min[M(i - 1, j - 1), M(i - 1, j), M(i - 1, j + 1)]</pre>
+            
+            As a base case, <code>M(i, j)</code> for each top-row image pixel is simply the value of the energy function for that pixel.
+            
+            <br /><br />
+            
+            After we've computed the cumulative minimum energy for every position in the image, we can find the optimal vertical seam by taking the smallest result from the bottommost row and backtracking upward from there. (Of course we want the seam with the least cumulative energy!) If we make sure to grab only one pixel per row, then we can cut out the seam, maintain image rectangularity, and be assured that we've only removed a vertical sliver of pixels that nobody even noticed in the first place!
+            
+            <br /><br />
+            
+            <hr />
+            
+            For vertical carving (meaning the removal of <em>horizontal</em> seams), we simply transpose the image, run the horizontal carving algorithm as before, and then transpose everything back upon completion.
+        </p>
+        <br />
+        
+        
+        <!-- Successful Results -->
+        
+        
+        <span class="anchor" id="successful"></span>
+        <h2 style="margin-bottom: 0.3em">Successful Results</h2>
+        <p>
+            The connotations associated with that first word are obvious, but hey – we'll start with the good stuff. Below, you can find a collection of arguably successful seam carvings in the horizontal and vertical dimensions (one, the other, and sometimes both!).
+            
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/house.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="https://inst.eecs.berkeley.edu/~cs194-26/fa16/hw/proj4-seamcarving/house_by_jim_mccann.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/house_carved100.jpg" />
+                    <figcaption align="middle"><code>-100 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/house_carved200.jpg" />
+                    <figcaption align="middle"><code>-200 vertical seams</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/auntie_rae.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="https://s-media-cache-ak0.pinimg.com/236x/00/0a/a2/000aa2cbdaefcc639a270e25ba3942cb.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/auntie_rae_carved80.jpg" />
+                    <figcaption align="middle"><code>-80 horizontal seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/ducks.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://www.freedigitalphotos.net/images/img/homepage/87357.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/ducks_carved.jpg" />
+                    <figcaption align="middle"><code>-150 vertical seams, gradient refresh</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/brett.jpg" />
+                    <figcaption align="middle"><code>BRETT, original</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/brett_carved.jpg" />
+                    <figcaption align="middle"><code>-400 horizontal seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/buildings.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://assets.barcroftmedia.com.s3-website-eu-west-1.amazonaws.com/assets/images/recent-images-11.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/buildings_carved.jpg" />
+                    <figcaption align="middle"><code>-200 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/cat.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="https://pixabay.com/static/uploads/photo/2016/03/28/12/35/cat-1285634_960_720.png" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/cat_carved.jpg" />
+                    <figcaption align="middle"><code>-200 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/dubai1.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://7606-presscdn-0-74.pagely.netdna-cdn.com/wp-content/uploads/2016/03/Dubai-Photos-Images-Oicture-Dubai-Landmarks-800x600.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/dubai1_carved.jpg" />
+                    <figcaption align="middle"><code>-200 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/dubai2.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://7606-presscdn-0-74.pagely.netdna-cdn.com/wp-content/uploads/2016/03/Dubai-Photos-Images-Travel-Tourist-Images-Pictures-800x600.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/dubai2_carved.jpg" />
+                    <figcaption align="middle"><code>-400 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/jellyfish.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/jellyfish_hvcarved.jpg" />
+                    <figcaption align="middle"><code>-400 vertical, -100 horizontal</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/jellyfish_vcarved.jpg" />
+                    <figcaption align="middle"><code>-400 vertical seams</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/jellyfish_hcarved.jpg" />
+                    <figcaption align="middle"><code>-100 horizontal seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/berkeley.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="https://static1.squarespace.com/static/5232a6b8e4b07e97b451fe9e/t/570ec725356fb09659f74a3e/1460586280852/ucb.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/berkeley_carved160.jpg" />
+                    <figcaption align="middle"><code>-160 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/trolltunga.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://www.w3schools.com/css/trolltunga.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/trolltunga_carved.jpg" />
+                    <figcaption align="middle"><code>-300 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/water_lilies.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="https://pixabay.com/static/uploads/photo/2016/05/12/20/58/water-lilies-1388690_960_720.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/water_lilies_carved.jpg" />
+                    <figcaption align="middle"><code>-200 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/wilma_piano.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://1.bp.blogspot.com/-Rdajljk97lY/T3SDPs48gjI/AAAAAAAADbo/p-CO7FKlaE4/s1600/wilma%2Bpiano.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/wilma_piano_carved.jpg" />
+                    <figcaption align="middle"><code>-200 horizontal seams</code></figcaption>
+                </td>
+            </tr></table>
+        </p>
+        <br />
+        
+        
+        <!-- Unsuccessful Results -->
+        
+        
+        <span class="anchor" id="unsuccessful"></span>
+        <h2 style="margin-bottom: 0.3em">Unsuccessful Results</h2>
+        <p>
+            And here we have the other side of the coin. A few of the images didn't work, whether due to the inability of the energy function to predict important parts of the image or due to our pushing of seam carving to its limit – specifically to the point where removing more seams wouldn't really be possible without noticeable shape distortions.
+            
+            <br /><br />
+            
+            In the following image, for example, the algorithm mostly attempts to remove paths traveling down the middle of Jerry's face. This is probably because there is only one major color disparity there (i.e. the black bridge of the glasses). In truth, though, we would prefer to eliminate seams running through the window, couch, and Jerry's shoulders. Anything but the face!
+            
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/jerry.jpg" />
+                    <figcaption align="middle"><code>Flattering, unedited picture of a man named Jerry</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/jerry_carved.jpg" />
+                    <figcaption align="middle"><code>-80 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            
+            Other failures:
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/peanuts.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://dailyfreepress.com/wp-content/uploads/peanuts_courtesy.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/peanuts_carved.jpg" />
+                    <figcaption align="middle"><code>-200 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/kingfishers.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/kingfishers_carved.jpg" />
+                    <figcaption align="middle"><code>-250 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/socal.jpg" />
+                    <figcaption align="middle"><code>Original image (<a href="http://a1.espncdn.com/combiner/i?img=%2Fphoto%2F2016%2F1008%2Fr137632_1296x518_5-2.jpg&w=1006&h=402&scale=crop&cquality=80&location=origin" target="_blank">source</a>)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/socal_carved.jpg" />
+                    <figcaption align="middle"><code>-100 vertical seams</code></figcaption>
+                </td>
+            </tr></table>
+        </p>
+        <br />
+        
+        
+        <!-- Reflection -->
+        
+        
+        <span class="anchor" id="reflection"></span>
+        <h2 style="margin-bottom: 0.3em">Reflection</h2>
+        <p>
+            Once again, I learned that gradients are a very powerful tool for image processing. Since humans tend to focus on high frequency components, I guess we don't notice as much when the rest of an image is modified (as is the case in seam carving). At the very least, things don't seem as off as one might expect.
+            
+            <br /><br />
+            
+            I also discovered that (a) as suggested in my algorithms class, dynamic programming is not designed around efficiency, and (b) Python for-loops are bad. As my algorithm contains no performance adjustments, every large (> 1000 x 1000) image requires a decent chunk of time (on the order of tens of minutes, in the worst case!) to process. The midnight deadline approaches, so I will most likely be forced to cast aside my beautiful high-res images and turn them into 360 x ? miniatures. In the future, this problem could be solved by starting earlier and vectorizing my operations. It's probably also possible to discover multiple minimum-cost seams upon a single image iteration.
+            
+            <br /><br />
+            
+            Finally, since I have the time, I'll mention that it was very cool to be able to resize images using a technique more sophisticated than that of regular old scaling and cropping!
+        </p>
+    </div>
+    
+    <!-- Navigation -->
+    <section id="navdots"><ul>
+        <a href="#overview-algdesc"><li class title="Overview / Algorithm Description"></li></a>
+        <a href="#successful"><li class title="Successful Results"></li></a>
+        <a href="#unsuccessful"><li class title="Unsuccessful Results"></li></a>
+        <a href="#reflection"><li class title="Reflection"></li></a>
+    </ul></section>
+    
+    <!-- Scripts -->
+    <script type="text/javascript">
+        function gestureStart(){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=0.25, maximum-scale=1.6")}var metas=document.getElementsByTagName("meta"),i;if(navigator.userAgent.match(/iPhone/i)){for(i=0;i<metas.length;i++)"viewport"==metas[i].name&&(metas[i].content="width=device-width, minimum-scale=1.0, maximum-scale=1.0");document.addEventListener("gesturestart",gestureStart,!1)}
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(window).on("load",function(){!function(t,r,o,l){t.fn.extend({scrollspy:function(){var l=function(r){for(var l=[],a=[],e=0;e<r.length;e++){var n=t(t(r[e]).attr("href"));n.length>0&&a.push(Math.floor(n.offset().top))}for(var h=0,e=0;e<r.length;e++){var i=t(r[e]).attr("href"),n=t(i);if(n.length>0){var f=0==h?0:a[h],s=a.length==h+1?t(o).height():a[h+1]-1;h++;for(var c=null,e=0;e<r.length;e++){var v=t(r[e]);if(v.attr("href")===i){c=v.children(":first");break}}l.push({element:n,hash:i,top:f,bottom:s,child:c})}}return l};return this.each(function(){for(var o=this,a=0,e=t(o).find("a[href*=\\#]"),n=0;n<e.length;n++){var h=e[n];t(h).on("click",function(r){var o=t(this).attr("href"),l=t(o);if(l.length>0){var a=l.offset().top;t("html, body").animate({scrollTop:a},1e3),r.preventDefault()}})}var i=l(e);t(r).bind("scroll.scrollspy",function(){a=t(this).scrollTop();for(var r,o=0;o<i.length;o++){var l=i[o];if(a>=l.top&&a<l.bottom&&(l.hash,r=l.child,null!=r)){for(var e=0;e<i.length;e++)i[e].child.removeClass("active");r.addClass("active");break}}}),a=t(this).scrollTop();for(var f,n=0;n<i.length;n++){var s=i[n];if(a>=s.top&&a<s.bottom&&(s.hash,f=s.child,null!=f)){for(var c=0;c<i.length;c++)i[c].child.removeClass("active");f.addClass("active");break}}})}})}(jQuery,window,document,void 0),$("#navdots").scrollspy()});
+    </script>
+</body>
+</html>
