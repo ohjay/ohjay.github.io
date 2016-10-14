@@ -87,4 +87,9 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <td><a href="fa16/disc/disc5_notes.md">Notes</a></td>
         <td><a href="fa16/quiz/quiz5.pdf">Quiz</a> (<a href="fa16/quiz/quiz5_sol.pdf">S</a>)</td>
     </tr>
+    <tr>
+        <th>Week 06 [10/13/16]</th>
+        <td>—</td>
+        <td><a href="fa16/quiz/quiz6/quiz6.pdf">Quiz</a></td>
+    </tr>
 </table>

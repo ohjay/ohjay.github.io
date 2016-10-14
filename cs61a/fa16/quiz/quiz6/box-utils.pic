@@ -1,0 +1,14 @@
+sz = 0.3
+sep = 1.5 * sz
+
+# Put in 'right' mode before using.
+
+define var { [ box "$2" ht sz wid sz; "$1:~~" rjust at last box.w ] }
+
+define lstcell { [ right; F: box "$1" ht sz wid sz; R: box same ] }
+
+define space { move right sz }
+
+define link { arrow wid 0.05 ht 0.1 thick 1 from $1 to $2 }
+
+define null { line from $1.nw to $1.se }

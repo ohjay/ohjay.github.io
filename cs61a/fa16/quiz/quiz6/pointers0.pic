@@ -1,0 +1,26 @@
+\begin{minipage}{2.65in}
+\begin{verbatim}
+C = Link(1, Link(6))
+C.rest.rest = Link(C.first, \
+        Link(C.rest.first))
+S = C.rest.rest
+C.rest.rest = C.rest.rest.rest
+C.rest.rest.first = C.rest
+C, C.rest.rest = S.rest.first, C
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{5in}
+.PS
+copy "box-utils.pic"
+
+C: var(C)
+S: var(S) at C + (0, -sep)
+
+move to C + (sep, 0); right
+lstcell(); space(); lstcell(); space(); lstcell(); space(); lstcell()
+move to S + (sep, 0); right
+lstcell(); space(); lstcell(); space(); lstcell(); space(); lstcell()
+
+.PE
+\box\graph
+\end{minipage}

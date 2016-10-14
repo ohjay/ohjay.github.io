@@ -1,0 +1,22 @@
+\newcount\progline@
+\def\countto@#1{\hfill\the\progline@\par\ifnum\progline@<#1\advance\progline@ by1\countto@{#1}\fi}
+\def\countto#1#2{\progline@=#1\countto@{#2}}
+
+\newenvironment{numberedprog}[2]{%
+\begin{tabular}[t]{r | c |}
+\cline{2-2}
+\begin{minipage}{0.135in}
+\noindent\tt
+\countto{1}{#1}
+\end{minipage} &
+\begin{minipage}{#2}
+\smallskip
+}{\end{minipage}\\
+\cline{2-2}
+\end{tabular}}
+
+\catcode`@=11
+\newcommand{\bl}[2][]{\underline{\hbox to #2{\hfill #1 \hfill}}}
+\newcommand{\prg}{\bgroup\catcode`_=12\tt\prg@}
+\newcommand{\prg@}[1]{#1\egroup}
+\catcode`@=12
