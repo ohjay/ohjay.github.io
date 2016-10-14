@@ -17,9 +17,17 @@ C: var(C)
 S: var(S) at C + (0, -sep)
 
 move to C + (sep, 0); right
-lstcell(); space(); lstcell(); space(); lstcell(); space(); lstcell()
+C0: lstcell(6); space(); C1: lstcell(1); space(); C2: lstcell(1); space(); C3: lstcell()
 move to S + (sep, 0); right
-lstcell(); space(); lstcell(); space(); lstcell(); space(); lstcell()
+S0: lstcell(); space(); S1: lstcell(); space(); S2: lstcell(); space(); S3: lstcell()
+
+link(C, C0.w)
+link(C0.R, C1.w)
+link(C1.R, C1.R - (0.25, -0.25) then to C0.nw - (0.1, -0.1) then to C0.w)
+link(S, C2.w)
+link(C2.R, C3.w)
+link(C3.F, C3.sw - (0.1, 0.1) then to C0.sw - (0.1, 0.1) then to C0.w)
+null(C3.R)
 
 .PE
 \box\graph

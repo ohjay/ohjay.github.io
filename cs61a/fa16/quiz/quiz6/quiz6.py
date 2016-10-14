@@ -46,7 +46,7 @@ class Link:
         if i == 0:
             return self.first
         else:
-            return self.rest[i-1]
+            return self.rest[i - 1]
 
     def __setitem__(self, index, element):
         """Assigns ELEMENT to the value at the given index.

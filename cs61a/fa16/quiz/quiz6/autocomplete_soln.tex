@@ -1,0 +1,90 @@
+\q{6}{There Is No Trie}
+
+Say we had a tree that stored English words character-by-character. The first level of the tree would contain the first character of a word, the second level the second character... and so on so forth. At the end of a complete word in the tree, we would store the full word (using all the characters up to that point) as the node value. If the string of characters leading up to some node was NOT a word, we would store \lstinline/None/ as its value.
+
+Let's make this tree a reality. To facilitate such an undertaking, we edit our \lstinline/Tree/ class so that branches are stored as a dictionary from characters to \lstinline/Trees/.
+
+We include on the next page an example of a tree containing the strings {\tt\{body, be, boo, ate, ask, at, as, a\}}, along with the modified \lstinline/Tree/ definition. Here, edges are marked with the key in the \lstinline/branches/ dictionary that they correspond to.
+
+\begin{minipage}{2.35in}
+\begin{forest}
+for tree={circle, draw, l sep=15pt}
+[\lstinline/None/
+    [\lstinline/`a'/, edge label={node[midway,left] {a}}
+      [\lstinline/`at'/, edge label={node[midway,left] {t}}
+        [\lstinline/`ate'/, edge label={node[midway,left] {e}}]
+      ]
+      [\lstinline/`as'/, edge label={node[midway,left] {s}}
+        [\lstinline/`ask'/, edge label={node[midway,left] {k}}]
+      ]
+    ]
+    [\lstinline/None/, edge label={node[midway,left] {b}}
+      [\lstinline/None/, edge label={node[midway,left] {o}}
+        [\lstinline/`boo'/, edge label={node[midway,left] {o}}]
+        [\lstinline/None/, edge label={node[midway,left] {d}}
+          [\lstinline/`body'/, edge label={node[midway,left] {y}}]
+        ]
+      ]
+      [\lstinline/`be'/, edge label={node[midway,left] {e}}]
+    ]
+  ] 
+]
+\end{forest}
+\end{minipage}
+\begin{minipage}{5in}
+\begin{lstlisting}
+class Tree:
+    def __init__(self, root=None, branches={}):
+        self.root = root
+        self.branches = branches
+    
+    def insert(self, chars, word):
+        if len(chars) == 0:
+            self.root = word
+            return
+        if chars[0] not in self.branches:
+            self.branches[chars[0]] = Tree(None, {})
+        self.branches[chars[0]].insert(chars[1:], \
+                word)
+    
+    def autocomplete(self, prefix):
+        ...
+    
+    def get_all_words(self):
+        ...
+\end{lstlisting}
+\end{minipage}
+
+\medskip
+
+To create the tree on the left, for instance, you could execute {\tt tree = Tree(); [tree.insert(list(word), word) for word in [`ate', `ask', `boo', `body', `be', `a', `at', `as']]}. (Obligatory note: you normally shouldn't use list comprehensions for stuff like this. I just didn't want the quiz to be three pages.)
+
+We can process our word tree in many interesting -- and efficient -- ways. One example is autocompletion. \textit{Fill in the blanks below so that} \lstinline/autocomplete/ \textit{(a method of our} \lstinline/Tree/ \textit{class!) returns a list of full words pertaining to the given prefix. For example,} \lstinline/tree.autocomplete(`bo')/ \textit{would return} \lstinline/[`boo', `body']/ \textit{if} \lstinline/tree/ \textit{were the tree from above. You will probably need to implement and use the} \lstinline/get_all_words/ \textit{method, which returns a list of all of the words in a tree.}
+
+\begin{lstlisting}
+def autocomplete(self, prefix):
+    """Returns a list of full-word completions for the given prefix."""
+    if len(prefix) == 0:
+        
+        <*\solution{return self.get\_all\_words()}*>
+        
+    if prefix[0] not in self.branches:
+        
+        <*\solution{return []}*>
+        
+    <*\solution{return self.branches[prefix[0]].autocomplete(prefix[1:])}*>
+
+def get_all_words(self):
+    """Returns all words contained within the current tree."""
+    words = []
+    
+    <*\solution{if self.root is not None:}*>
+    
+        words.append(self.root)
+    
+    for branch in self.branches.values():
+        
+        <*\solution{words += branch.get\_all\_words()}*>
+    
+    return <*\solution{words}*>
+\end{lstlisting}

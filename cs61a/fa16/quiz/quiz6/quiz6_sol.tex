@@ -1,0 +1,80 @@
+\def\showsolution{1}
+\documentclass[twoside]{article}
+\usepackage{../quiz}
+\usepackage{forest}
+
+\pagestyle{myheadings}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+    escapeinside={<*}{*>},
+}
+
+\def\semester{Fall 2016}
+
+%%% Showing solutions %%%
+
+\def\doshow{1}
+\ifx\doshow\showsolution
+\newcommand{\solution}[1]{{\color{red}#1}}
+\newcommand{\solutioncircle}[1]{{\color{red}#1}}
+\newcommand{\solutionimage}[2]{#2} % first arg is question, second is solution
+\newcommand{\solutionblank}[2]{\hbox to #2{\color{red}#1}}
+\else
+\newcommand\solution[1]{} % excludes
+\newcommand{\solutioncircle}[1]{#1} % don't color text but still display it
+\newcommand{\solutionimage}[2]{#1} % first arg is question, second is solution
+\newcommand{\solutionblank}[2]{{\rule{0pt}{2em}\underline{\hbox to #2{}}}}
+\fi
+\usepackage{multicol}
+
+%%% Actual content begins here %%%
+\title{\sc Midterm 2 \solution{Solutions}}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\leavevmode\\
+\textbf{Post-MT1 topics that you'll want to have down cold (not necessarily a comprehensive list, but you better know all about these!)}: nonlocality, OOP, data abstraction, trees, linked lists, order of growth, mutation
+
+\begin{enumerate}
+%%% Q1: Linked List Basics %%%
+\q{4}{Linked List Basics}
+
+For each of the following code fragments, add arrows and values to the object skeletons to the right to show the final state of the program.  Single boxes are variables that contain pointers.  Double boxes are \lstinline/Links/. Not all boxes will necessarily be used. (Note: I suggest doing it on scratch paper before filling in the boxes.)
+
+\vspace{0.2in}
+
+\solutionimage{\input{pointers0}}{\input{pointers0_soln}}
+
+\vspace{0.2in}
+
+Fill in the code to create the linked lists below. No multiple assignment allowed. Incidentally, as a general rule (i.e. in real life) try not to set \texttt{first} elements to other linked lists.
+
+\vspace{0.2in}
+
+\input{pointers1}
+
+\vspace{0.2in}
+
+\begin{lstlisting}
+A = Link(0, Link(1, Link(2, Link(3))))
+
+B = <*\solution{Link(A, Link(4, Link(6, Link(5))))}*>
+
+B.<*\solution{rest.rest.rest.rest}*> = <*\solution{B.rest.rest}*>
+
+B.<*\solution{first.rest.rest.rest.rest}*> = <*\solution{B.rest.rest}*>
+\end{lstlisting}
+
+%%% Q2: There Is No Trie %%%
+\solutionimage{\input{autocomplete}}{\input{autocomplete_soln}}
+
+\end{enumerate}
+\end{document}
