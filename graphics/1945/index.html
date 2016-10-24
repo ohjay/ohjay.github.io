@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Face Morphing | Owen Jow</title>
+    
+    <!-- Stylesheets and... stuff -->
+    <link href="css/style.min.css" rel="stylesheet">
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link href="css/zoom.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Face Morphing</h1>
+        <h3 align="middle">CS 194-26 Project #5 &nbsp;&middot;&nbsp; Owen Jow &nbsp;&middot;&nbsp; October 2016</h3>
+        <hr />
+        <br />
+        
+        
+        <!-- Overview / Algorithm Description -->
+        
+        
+        <span class="anchor" id="overview-algdesc"></span>
+        <h2 style="margin-bottom: 0.3em">Overview / Algorithm Description</h2>
+        <p>
+            In this assignment, we explore non-parametric warps and cross-dissolution as an approach to face morphing. For those unfamiliar with the concept, we define a "face morph" to be a transformation between two faces that transitions seamlessly over some period of time. As an overview, we accomplish such a task by
+            
+            <ul>
+                <li>selecting matching sets of feature points on two input images,</li>
+                <li>creating a triangulation across the mean of those feature points,</li>
+                <li>interpolating between the feature points in each image to create our output shape, i.e. some (non-uniformly?) averaged set of points,</li>
+                <li>computing a local warp (affine transformation) between each triangle in our output shape and the corresponding triangle in each of our input shapes,</li>
+                <li>bilinearly interpolating over input colors in order to arrive at final values for the pixels in every output triangle,</li>
+                <li>and finally celebrating with poorly cooked food.</li>
+            </ul>
+            
+            Simple!
+            
+            <br /><br />
+            
+            Let's walk through the algorithm (and maybe go into a bit more detail), so that you can be even more convinced. Say we have the following two images – one of me and one of my friend Tony. In the interest of higher quality results, I've standardized the image size at a not-at-all arbitrary <code>476</code> x <code>543</code>px and "polygonal lasso tool"ed away most of the background. The edges of the remaining content have been blurred so as to smooth out the difference a bit:
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/owen.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Me (photo credits: me)</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/tony.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Tony</code></figcaption>
+                </td>
+            </tr></table>
+            
+            To start, we select a number of corresponding points in each image (the <em>same</em> number, in the same order, such that a point in one image corresponds to the same "feature" in the other image), and define a triangular mesh over those points. We want this triangulation to be identical across both images – so in order to avoid bias toward either of the sets of feature points, we compute an averaged set of points and generate a Delaunay triangulation over the midway correspondences.
+            
+            <br /><br />
+            
+            In this case, the points and mesh might end up looking like this (note that the triangulation was computed over the averaged points, although it is shown below as being applied to each image's individual set of points):
+            
+            <table width="100%"><tr>
+                <td>
+                    <img src="images/owentri.png" data-action="zoom" />
+                    <figcaption align="middle"><code>Triangulation over feature points</code></figcaption>
+                </td>
+                <td>
+                    <img src="images/tonytri.png" data-action="zoom" />
+                    <figcaption align="middle"><code>Corresponding triangulation for Tony's photograph</code></figcaption>
+                </td>
+            </tr></table>
+            
+            As it stands, we have a triangulation that can be applied to the first image's points, the second image's points, and even a set of points averaged over that of both images. Importantly, a triangle in one set of points has a corresponding triangle in every one of the other sets of points. What this means is that we can now warp the image on a triangle-by-triangle basis! 
+            
+            <br /><br />
+            
+            But how do we do that? Well, we're going to need a bit of math. It turns out that by the same principle as barycentric interpolation, we can define an affine transformation on the vertices of a triangle and it will correctly apply to all of the coordinates within the triangle. In other words, the transformation that turns one triangle's vertices into another triangle's vertices will also map each of the points within the first triangle into the associated point within the second triangle. So when we've defined this warp, we can bring a triangle from one image to the location of the corresponding triangle in another image. (By "corresponding triangle", we refer to the identical triangle in the Delaunay collection, just set up across a different set of points.)
+            
+            <br /><br />
+            
+            We define \(X\) to be the \(3\) x \(3\) matrix whose columns are the source triangle's vertices (in homogeneous coordinates!) and \(Y\) to be the same matrix for the destination triangle. We'll refer to the transformation we're looking for as \(A\), which will also be a \(3\) x \(3\) matrix such that 
+            
+            $$AX = Y$$
+            
+            ...which, when expanded, might be shown as 
+            
+            $$
+            A
+            \begin{bmatrix}
+            (x_1)_{x} & (x_2)_{x} & (x_3)_{x} \\
+            (x_1)_{y} & (x_2)_{y} & (x_3)_{y} \\
+            1 & 1 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            (y_1)_{x} & (y_2)_{x} & (y_3)_{x} \\
+            (y_1)_{y} & (y_2)_{y} & (y_3)_{y} \\
+            1 & 1 & 1
+            \end{bmatrix}
+            $$
+            
+            (where \(x_i\) is the \(i^{th}\) vertex of the source triangle and \((x_i)_{x}\) would be its \(x\)-coordinate. \(y_i\) and its coordinates would be defined similarly, of course, except that it would be part of the destination triangle instead).
+            
+            <br /><br />
+            
+            Representations aside, we can solve for our affine transformation (/warp) very easily:
+            
+            $$
+            AX = Y \\
+            AXX^{-1} = YX^{-1} \\
+            A = YX^{-1}
+            $$
+            
+            Then we can vectorize our operations by warping every triangle point at once, which is nice:
+            
+            $$
+            A
+            \begin{bmatrix}
+            (x_1)_{x} & (x_2)_{x} & \dots & (x_n)_{x} \\
+            (x_1)_{y} & (x_2)_{y} & \dots & (x_n)_{y} \\
+            1 & 1 & \dots & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            (y_1)_{x} & (y_2)_{x} & \dots & (y_n)_{x} \\
+            (y_1)_{y} & (y_2)_{y} & \dots & (y_n)_{y} \\
+            1 & 1 & \dots & 1
+            \end{bmatrix}
+            $$
+            
+            (Programmatically speaking, we obtain all of the triangle points through the use of <code>scikit-image</code>'s <a href="http://scikit-image.org/docs/dev/api/skimage.draw.html#polygon" target="_blank">polygon function</a>.)
+            
+            <br /><br />
+            
+            Anyway, we now have a means for computing affine transformations between arbitrary triangles... but which triangles are we warping <em>to</em>? Or perhaps <em>from</em>? Since we have two images we want to morph between, we'll need to figure out exactly how <em>much</em> between the images we want to warp. We parameterize this interpolation with \(t\), where \(t \in [0, 1]\); if \(t\) is \(0.4\) it means we want our resulting image to be composed of \(40\%\) the first image and \(60\%\) the second image. We can use \(t\) to create the destination set of feature points, which will be a weighted average of the feature points in the two input images. Specifically, every destination point should be \(t\) times a point from the first image and \((1 - t)\) times the associated point from the second image. By following this process for every pair of feature points in the input images, we obtain our destination image's feature points and, by extension, the destination triangles we'll want to warp from.
+            
+            <br /><br />
+            
+            <blockquote>You may be wondering: why "from?" Answer: we want to carry out an inverse warp in order to avoid having holes in our morphed image – if we do it this way, and compute the warp from every pixel in the final image, then we <em>know</em> that every pixel will end up with some color value. There's no such guarantee with a forward warp.</blockquote>
+            
+            <br />
+            
+            So to answer our earlier question, we're warping <b>from</b> the triangles in our destination image (which hasn't been colored yet and exists only as a set of feature points on a set canvas size) <b>to</b> the triangles in each of our input images. Thus, for each coordinate in the destination image we end up with two corresponding coordinates in the two input images – and to arrive at a pixel value for the destination image we simply evaluate a \(t\)-weighted average of the source pixel values for each of those coordinates. One probable issue is that the warped coordinates might not be integers. To get around this, we'll just always (bi)linearly interpolate between the pixel values at the warped coordinates' 4-neighbors – which looks like this:
+            
+            $$
+            \text{hdiff} := x - \lfloor x \rfloor \\
+            \text{vdiff} := y - \lfloor y \rfloor \\
+            \text{top} := \text{hdiff} \cdot f(x_1, y_1) + (1 - \text{hdiff}) \cdot f(x_2, y_1) \\
+            \text{bottom} := \text{hdiff} \cdot f(x_1, y_2) + (1 - \text{hdiff}) \cdot f(x_2, y_2) \\
+            \text{source color} = \text{vdiff} \cdot \text{top} + (1 - \text{vdiff}) \cdot \text{bottom}
+            $$
+            
+            if our warped point in the source image is \((x, y)\) and the pixel values of its 4-neighbors are \(f(x_1, y_1)\), \(f(x_2, y_1)\), \(f(x_2, y_2)\), \(f(x_1, y_2)\) starting from the top left and reading clockwise.
+            
+            <br /><br />
+            
+            Finally, to obtain the overall color for each pixel in the destination image, we would cross-dissolve (i.e. linearly interpolate) between the colors from the two source images.
+            
+            $$
+            \text{final color} := t \cdot \text{color1} + (1 - t) \cdot \text{color2}
+            $$
+            
+            Aaand after doing this for every point in the destination image, we'd end up with our morphed image (again, parameterized by \(t\)). For instance, the below image has \(t = 0.5\) and is therefore exactly in the middle:
+            
+            <table width="100%"><tr>
+                <td style="text-align: center">
+                    <img src="images/tonyowen.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>50% Tony, 50% Owen</code></figcaption>
+                </td>
+            </tr></table>
+            
+            In order to construct a nice morphing animation, we run the entire process for \(t = 0, t = 0.022, t = 0.044, \dots, t = 0.978, t = 1\) (where \(t = 0\) would be entirely the first image, and \(t = 1\) would be entirely the second image) and string the morphed results into a GIF.
+            
+            <table width="100%"><tr>
+                <td style="text-align: center">
+                    <img src="images/tonyowen.gif" data-action="zoom" />
+                    <figcaption align="middle"><code>They say the whole is greater than the sum of its parts</code></figcaption>
+                </td>
+            </tr></table>
+            
+            Fantastic. As another example, I ran this process on myself and my brother:
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td width="50%">
+                    <img src="images/william.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>William</code></figcaption>
+                </td>
+                <td width="50%">
+                    <img src="images/owenwilliam.gif" data-action="zoom" />
+                    <figcaption align="middle"><code>Combined GIF</code></figcaption>
+                </td>
+            </tr></table>
+        </p>
+        <br />
+        
+        
+        <!-- "Mean Face" of a Population -->
+        
+        
+        <span class="anchor" id="meanface"></span>
+        <h2 style="margin-bottom: 0.3em">"Mean Face" of a Population</h2>
+        <p>
+            The <a href="http://www2.imm.dtu.dk/~aam/datasets/datasets.html" target="_blank">IMM Face Database</a> is a freely available dataset of annotated Danish faces. (By "annotated", I mean that the feature points have already been selected.) The dataset contains the various poses and expressions of forty people (of which 33 are men; we choose to focus only on the men since there are a lot more of them). Each person has been photographed in six different settings, for example "front-facing neutral expression", "left-facing neutral expression", "front-facing smile"... you get the idea. During this part of the assignment, we compute the average of the 33 male faces for a single image type at a time.
+            
+            <br /><br />
+            
+            This means averaging over the feature points for each face in order to discover the average face <em>shape</em>, and then morphing each of the faces into this average shape. These gentlemen have been morphed into the average face shape of a smiling male Dane:
+            
+            <table width="100%"><tr>
+                <td width="33.33%">
+                    <img src="images/imm_avgex2_10.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Guy #10</code></figcaption>
+                </td>
+                <td width="33.33%">
+                    <img src="images/imm_avgex2_20.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Guy #20</code></figcaption>
+                </td>
+                <td width="33.33%">
+                    <img src="images/imm_avgex2_40.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Guy #40</code></figcaption>
+                </td>
+            </tr></table>
+            
+            For reference, here are the originals.
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td width="33.33%">
+                    <img src="images/10-2m.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Original #10</code></figcaption>
+                </td>
+                <td width="33.33%">
+                    <img src="images/20-2m.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Original #20</code></figcaption>
+                </td>
+                <td width="33.33%">
+                    <img src="images/40-2m.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Original #40</code></figcaption>
+                </td>
+            </tr></table>
+            
+            From all of our warped faces, we compute the average by summing out and dividing by 33.
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td style="text-align: center">
+                    <img src="images/imm_avg_face2.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Just your average smiling Danish male</code></figcaption>
+                </td>
+            </tr></table>
+            
+            Below are the same results except for front- and left-facing neutral expressions.
+            
+            <br /><br />
+            
+            <table width="100%">
+                <figcaption align="middle"><code>&#9650; Front-facing / &#9660; Left-facing</code></figcaption>
+                <tr>
+                    <td width="25%">
+                        <img src="images/imm_avgex1_10.jpg" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/imm_avgex1_20.jpg" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/imm_avgex1_40.jpg" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/imm_avg_face1.jpg" data-action="zoom" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25%">
+                        <img src="images/imm_avgex3_10.jpg" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/imm_avgex3_20.jpg" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/imm_avgex3_40.jpg" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/imm_avg_face3.jpg" data-action="zoom" />
+                    </td>
+                </tr>
+            </table>
+            
+            We can also warp a non-Danish face into the average geometry of the Danish face, and warp the average Danish face into the geometry of a non-Danish face. Both of these results were computed using image type 1 in the IMM dataset (front-facing neutral):
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td width="50%" style="text-align: center">
+                    <img src="images/me_as_dane1.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>This cracked me up</code></figcaption>
+                </td>
+                <td width="50%" style="text-align: center">
+                    <img src="images/dane1_as_me.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>My tilted Danish face</code></figcaption>
+                </td>
+            </tr></table>
+        </p>
+        <br />
+        
+        
+        <!-- Caricatures -->
+        
+        
+        <span class="anchor" id="caricatures"></span>
+        <h2 style="margin-bottom: 0.3em">Caricatures</h2>
+        <p>
+            How else can we mess with people's faces? Well, we could create a caricature (def. "comically or grotesquely exaggerated representation") by extrapolating from the population mean of the previous section. In other words, we can calculate the difference of our image shape from the mean shape and scale it before adding it back to our original mean shape. This allows us to take a parametrically defined step in the direction of that difference (which is to say we can take as large of a step as we want), creating with luck a nicely exaggerated image. Mathematically:
+            
+            $$\text{caricature shape} = \text{mean shape} + \alpha (\text{image shape} - \text{mean shape})$$
+            
+            <blockquote>Note that for this to be a true extrapolation, \(\alpha\) should be \(< 0\) or \(> 1\).</blockquote>
+            
+            <br />
+            
+            Then we can warp an arbitrary face to the caricature shape as normal, and produce images like this (which was created using the front-facing neutral mean and an \(\alpha\) of 2)
+            
+            <table width="100%"><tr>
+                <td style="text-align: center">
+                    <img width="50%" src="images/caricature1_multiplier2.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Nice</code></figcaption>
+                </td>
+            </tr></table>
+            
+            ...or these, "caricaturized" using the front-facing smile and the lit front-facing neutral as bases:
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td width="50%" style="text-align: center">
+                    <img src="images/caricature2_multiplier-05.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Image type 2,</code> \(\alpha = -0.5\)</figcaption>
+                </td>
+                <td width="50%" style="text-align: center">
+                    <img src="images/caricature5_multiplier15.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Image type 5,</code> \(\alpha = 1.5\)</figcaption>
+                </td>
+            </tr></table>
+        </p>
+        <br />
+        
+        
+        <!-- Ethnicity Alteration -->
+        
+        
+        <span class="anchor" id="ethnicity-alteration"></span>
+        <h2 style="margin-bottom: 0.3em">Ethnicity Alteration (Japanese Oliver)</h2>
+        <p>
+            Let's take my white roommate, Oliver, and make him a little less white by morphing his face with that of the average Japanese actor. Original images and their correspondence point triangulations are as follows; for reference, I obtained the Japanese average from <a href="https://pmsol3.wordpress.com/2009/10/10/world-of-facial-averages-east-southeast-asia-pacific-islander/" target="_blank">this website</a>.
+            
+            <table width="100%">
+                <tr>
+                    <td width="25%">
+                        <img src="images/oliver.jpg" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/japaneseactor.jpg" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/olivertri.png" data-action="zoom" />
+                    </td>
+                    <td width="25%">
+                        <img src="images/japaneseactortri.png" data-action="zoom" />
+                    </td>
+                </tr>
+            </table>
+            
+            We try three types of morphs: shape <em>and</em> appearance, shape only, and appearance only. Below are some examples:
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td width="33.33%">
+                    <img src="images/japanese_oliver.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Midpoint image</code></figcaption>
+                </td>
+                <td width="33.33%">
+                    <img src="images/japanese_oliver_doubleblend21.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>t = 21</code></figcaption>
+                </td>
+                <td width="33.33%">
+                    <img src="images/japanese_oliver_appearance30.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>warp_frac = 1.0, t = 30</code></figcaption>
+                </td>
+            </tr></table>
+            
+            A more convincing result than I expected, to be honest! Meanwhile, here are the GIFs for each type of morph:
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td width="33.33%">
+                    <img src="images/shapeonly.gif" data-action="zoom" />
+                    <figcaption align="middle"><code>Shape only</code></figcaption>
+                </td>
+                <td width="33.33%">
+                    <img src="images/appearanceonly.gif" data-action="zoom" />
+                    <figcaption align="middle"><code>Appearance only</code></figcaption>
+                </td>
+                <td width="33.33%">
+                    <img src="images/japanese_oliver.gif" data-action="zoom" />
+                    <figcaption align="middle"><code>Both</code></figcaption>
+                </td>
+            </tr></table>
+        </p>
+        <br />
+        
+        
+        <!-- dOwen / dt -->
+        
+        
+        <span class="anchor" id="dowendt"></span>
+        <h2 style="margin-bottom: 0.3em">dOwen / dt</h2>
+        <p>
+            Finally, I made a morphing video in order to highlight temporal variations in my facial attributes. The video has been composed of ten photographs across chronologically increasing points in time.
+            
+            <br /><br />
+            
+            Original photographs (subject age ranging from about 0 y/o to 19 y/o):
+            
+            <table width="100%"><tr>
+                <td width="10%">
+                    <img src="images/owen-4.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen-3.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen-2.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen-1.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen3.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen5.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen8.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen10.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen12.jpg" data-action="zoom" />
+                </td>
+                <td width="10%">
+                    <img src="images/owen13.jpg" data-action="zoom" />
+                </td>
+            </tr></table>
+            
+            So to conclude this writeup, we have the morphing video constructed from those photos:
+            
+            <figure style="margin-left: 0">
+                <div class="intrinsic"><iframe src="https://www.youtube.com/embed/KFvInoQS4UY" frameborder="0" allowfullscreen></iframe></div>
+            </figure>
+            
+            <br />
+            
+            <blockquote>Ideally the images would be more evenly spaced, but I was hard-pressed to find pictures of myself from the middle of my childhood. As a result, I ended up with a denser sampling of photographs from my most early and most recent years. (I suppose it could be worse.)</blockquote>
+        </p>
+        <br />
+    </div>
+    
+    <!-- Navigation -->
+    <section id="navdots"><ul>
+        <a href="#overview-algdesc"><li class title="Overview / Algorithm Description"></li></a>
+        <a href="#meanface"><li class title="&quot;Mean Face&quot; of a Population"></li></a>
+        <a href="#caricatures"><li class title="Caricatures"></li></a>
+        <a href="#ethnicity-alteration"><li class title="Ethnicity Alteration"></li></a>
+        <a href="#dowendt"><li class title="dOwen / dt"></li></a>
+    </ul></section>
+    
+    <!-- Scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/zoom.min.js"></script>
+    <script src="js/transition.min.js"></script>
+    <script src="js/script.min.js"></script>
+</body>
+</html>
