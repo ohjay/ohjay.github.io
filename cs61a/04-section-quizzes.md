@@ -89,5 +89,11 @@ permalink: /cs61a/section-quizzes/
             <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz6/quiz6.py">Python Script</a></td>
             <td>Linked Lists / Trees</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz7/quiz7.pdf">Quiz 07</a></td>
+            <td>–</td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz7/quiz7.scm">Scheme File</a></td>
+            <td>Scheme</td>
+        </tr>
     </table>
 </div>

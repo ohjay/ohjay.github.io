@@ -1,0 +1,162 @@
+\documentclass[twoside]{article}
+\usepackage{../quiz}
+
+\pagestyle{myheadings}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+    escapeinside={<*}{*>},
+}
+
+\def\semester{Fall 2016}
+
+%%% Showing solutions %%%
+
+\def\doshow{1}
+\ifx\doshow\showsolution
+\newcommand{\solution}[1]{{\color{red}#1}}
+\newcommand{\solutioncircle}[1]{{\color{red}#1}}
+\newcommand{\solutionimage}[2]{#2} % first arg is question, second is solution
+\newcommand{\solutionblank}[2]{\hbox to #2{\color{red}#1}}
+\else
+\newcommand\solution[1]{} % excludes
+\newcommand{\solutioncircle}[1]{#1} % don't color text but still display it
+\newcommand{\solutionimage}[2]{#1} % first arg is question, second is solution
+\newcommand{\solutionblank}[2]{{\rule{0pt}{2em}\underline{\hbox to #2{}}}}
+\fi
+\usepackage{multicol}
+
+%%% Actual content begins here %%%
+\title{\sc Discussion Quiz 7}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\begin{enumerate}
+%%% Q1: Scheme Primer (Conceptual) %%%
+\q{1.5}{Scheme Primer (Conceptual)}
+
+\begin{enumerate}
+\item Describe all interpretations of Scheme parentheses that you can think of (in other words, say you see some parentheses... what could their meaning be?).
+
+\vspace{0.5in}
+
+\item On a scale from 1 to 10, where 1 is ``not at all" and 10 is ``more than anything in the world," how much do you like counting parentheses? Select one:
+
+\begin{itemize}
+\item 10
+\end{itemize}
+
+\vspace{0.02in}
+
+\item What is a symbol in Scheme?
+
+\vspace{0.5in}
+
+\end{enumerate}
+
+%%% Q2: WWSP? %%%
+\q{2}{WWSP?}
+
+\begin{lstlisting}
+scm> '((list 2 3))
+
+
+scm> (list '(2 3))
+
+
+scm> (define x (+))
+x
+scm> (define y +)
+y
+scm> (x 3 4)
+
+
+scm> (y 3 4)
+\end{lstlisting}
+
+\vspace{0.3in}
+
+%%% Q3: Box and Pointers %%%
+\q{2.5}{Box and Pointers}
+
+Draw box-and-pointer diagrams for each of the following Scheme lists.
+
+\begin{lstlisting}
+scm> '(2 . 3 4)
+
+
+
+
+scm> (cons (list '(two) '((3)) nil) 4)
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+scm> (cons 2 '(list nil))
+
+
+
+
+scm> (list (append '(2) '(3) nil) 4)
+
+
+
+
+
+
+scm> '(2 . (3 . (4)))
+\end{lstlisting}
+
+\vspace{0.6in}
+
+%%% Q4: Last One %%%
+\q{4}{Last One}
+
+Implement the procedure \texttt{finish-sort}, which takes in a well-formed list \texttt{lst} (of distinct real numbers) and returns its sorted form. You can assume that \texttt{lst} is almost sorted already, such that exactly one number is somewhere to the \textbf{right} of where it belongs and everything else is in its relatively proper place. Thus it is possible to sort the list by shifting a \textbf{single} element to the left. To balance out this relaxation, \texttt{finish-sort} is only allowed to make one pass over the data, i.e. at most one recursive call per position in the list.
+
+\textit{Hint: you may find both the} \texttt{append} \textit{procedure and the} \texttt{let} \textit{special form helpful.}
+
+\begin{lstlisting}
+(define (finish-sort lst)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+)
+\end{lstlisting}
+
+Example usage:
+
+\begin{lstlisting}
+scm> (finish-sort '(2 3 4 5 6 7 1))
+(1 2 3 4 5 6 7)
+scm> (finish-sort '(2 1))
+(1 2)
+scm> (finish-sort '(2 9 3 11))
+(2 3 9 11)
+\end{lstlisting}
+
+\end{enumerate}
+\end{document}
