@@ -56,5 +56,9 @@ permalink: /cs61a/presentation-slides/
             <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%204.pdf">Discussion 4</a> (9/29)</td>
             <td>Growth and Nonlocals</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%207.pdf">Discussion 7</a> (10/27)</td>
+            <td>Scheme</td>
+        </tr>
     </table>
 </div>

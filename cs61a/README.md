@@ -94,7 +94,7 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
     </tr>
     <tr>
         <th>Week 07 [10/27/16]</th>
-        <td>—</td>
+        <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%207.pdf">Slides</a></td>
         <td><a href="fa16/quiz/quiz7/quiz7.pdf">Quiz</a></td>
     </tr>
 </table>
