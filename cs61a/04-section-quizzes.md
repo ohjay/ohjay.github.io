@@ -91,7 +91,7 @@ permalink: /cs61a/section-quizzes/
         </tr>
         <tr>
             <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz7/quiz7.pdf">Quiz 07</a></td>
-            <td>–</td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz7/quiz7_sol.pdf">Solution</a></td>
             <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz7/quiz7.scm">Scheme File</a></td>
             <td>Scheme</td>
         </tr>
