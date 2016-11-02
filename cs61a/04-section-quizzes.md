@@ -95,5 +95,11 @@ permalink: /cs61a/section-quizzes/
             <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz7/quiz7.scm">Scheme File</a></td>
             <td>Scheme</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz8.pdf">Quiz 08</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz8_sol.pdf">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz8.scm">Scheme File</a></td>
+            <td>Tail Calls / Interpreters</td>
+        </tr>
     </table>
 </div>
