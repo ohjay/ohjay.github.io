@@ -38,7 +38,7 @@ Identify whether or not each of the following procedures uses a constant amount 
                                     (append result (list (car lst)))))))
 \end{lstlisting}
 
-(As a reminder, {\tt append} takes zero or more lists and constructs a new list with all of the lists' elements.)
+(Remember that {\tt append} takes zero or more lists and constructs a new list with all of the lists' elements.)
 \begin{lstlisting}
 
 __________________________________________________________________________
@@ -48,8 +48,8 @@ __________________________________________________________________________
 \begin{lstlisting}
 (define (broken lst) (broken (broken lst)))
 \end{lstlisting}
+\vspace{0.21cm}
 \begin{lstlisting}
-
 __________________________________________________________________________
 \end{lstlisting}
 
@@ -69,24 +69,26 @@ __________________________________________________________________________
 %%% Question 2: Hail Recursion %%%
 \q{4}{Hail Recursion}
 
-Write a \emph{tail-recursive} version of {\tt hailstone}. This procedure accepts a positive integer {\tt n} and an empty list {\tt lst}, and returns a list containing the hailstone sequence that starts at {\tt n}.
-
-As an example, {\tt (hailstone 5 '())} would return {\tt (5 16 8 4 2 1)}.
+Write a \emph{tail-recursive} version of {\tt hailstone}. This procedure accepts a positive integer {\tt n} and returns a list that contains the hailstone sequence starting at {\tt n}. For instance, {\tt (hailstone 5)} would return {\tt (5 16 8 4 2 1)}.
 
 \begin{lstlisting}
-(define (hailstone n lst)
+(define (hailstone n)
 
-    ______________________________________________________________________
-
-    ______________________________________________________________________
+  ________________________________________________________________________
+  
+  ________________________________________________________________________
+  
+  ________________________________________________________________________
     
-    ______________________________________________________________________)
+  ________________________________________________________________________
+  
+  ________________________________________________________________________)
 \end{lstlisting}
 
 %%% Question 3: Humans Need Not Apply %%%
 \q{3}{Humans Need Not Apply}
 
-What does {\tt eval} do (in the context of an interpreter)? What does {\tt apply} do?
+What does {\tt eval} do, in the context of an interpreter? What does {\tt apply} do?
 
 \end{enumerate}
 \end{document}
