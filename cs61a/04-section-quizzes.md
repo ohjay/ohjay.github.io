@@ -101,5 +101,11 @@ permalink: /cs61a/section-quizzes/
             <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz8.scm">Scheme File</a></td>
             <td>Tail Calls / Interpreters</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz9.pdf">Quiz 09</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz9_sol.pdf">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz9.py">Python Script</a></td>
+            <td>Generators</td>
+        </tr>
     </table>
 </div>
