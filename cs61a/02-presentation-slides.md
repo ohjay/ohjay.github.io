@@ -64,5 +64,9 @@ permalink: /cs61a/presentation-slides/
             <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%208.pdf">Discussion 8</a> (11/03)</td>
             <td>Tail Calls / Interpreters</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/disc/CS%2061A%20Discussion%209.pdf">Discussion 9</a> (11/10)</td>
+            <td>Delayed Expressions</td>
+        </tr>
     </table>
 </div>
