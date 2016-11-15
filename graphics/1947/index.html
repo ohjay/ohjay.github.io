@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>[Auto]Stitching Photo Mosaics | Owen Jow</title>
+    
+    <!-- Stylesheets and... stuff -->
+    <link href="css/style.min.css" rel="stylesheet">
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          CommonHTML: { linebreaks: { automatic: true } },
+          "HTML-CSS": { linebreaks: { automatic: true } },
+                 SVG: { linebreaks: { automatic: true } }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <style type="text/css">
+        @media (max-width: 675px) { .mathjax-resize { font-size: 0.8em !important; }}
+    </style>
+    <link href="css/zoom.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">[Auto]Stitching Photo Mosaics</h1>
+        <h3 align="middle">CS 194-26 Project #7A &nbsp;&middot;&nbsp; Owen Jow &nbsp;&middot;&nbsp; November 2016</h3>
+        <hr />
+        <br />
+        
+        
+        <!-- Setting the Scene -->
+        
+        
+        <span class="anchor" id="setting-the-scene"></span>
+        <h2 style="margin-bottom: 0.3em">[0] Setting the Scene</h2>
+        <p>
+            For this project, we produce seamlessly stitched mosaics by shooting overlapped photographs with an identical center of projection, computing projective transformations between those photographs, warping them toward whichever is selected as a base image, and finally blending all of the processed photographs into one big panorama.
+            
+            <br /><br />
+            
+            To begin, we shoot pictures that are related by a projective transformation (by taking pictures from the same point of view but with different view directions). We are also careful to ensure that consecutive photographs have some common content, because in order to recover the transform between two images we have to select corresponding points in the images' overlapping scenes.
+        </p>
+        <br />
+        
+        
+        <!-- Solving for the Homography Matrix -->
+        
+        
+        <span class="anchor" id="solving-for-the-homography-matrix"></span>
+        <h2 style="margin-bottom: 0.3em">[1] Solving for the Homography Matrix</h2>
+        <p>
+            In order to identify the transformation between any two of our images, we need to compute the homography matrix \(H\). We can relate a pair of corresponding points through the equation \(\textbf{p}' = H\textbf{p}\), where \(\textbf{p}\) is an \(\begin{bmatrix}x & y & 1\end{bmatrix}^T\) vector representing a point in the first image and \(\textbf{p}'\) is a \(\begin{bmatrix}wx' & wy' & w\end{bmatrix}^T\) representing a scaled point in the second image. \(H\), incidentally, is what we're solving for and exists as a 3 x 3 matrix with eight degrees of freedom.
+            
+            <div class="mathjax-resize">
+                $$
+                \begin{bmatrix}
+                wx' \\
+                wy' \\
+                w
+                \end{bmatrix}
+                \begin{bmatrix}
+                a & b & c \\
+                d & e & f \\
+                g & h & 1
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                x \\
+                y \\
+                1
+                \end{bmatrix}
+                $$
+            </div>
+            
+            In other words, we need to obtain values for \(a, b, ..., h\) given a set of \((x, y)\) and \((x', y')\) points. To do this, we flatten \(H\) into a vector \(\textbf{h}\) containing the eight unknowns and attempt to set up the matrix equation \(A\textbf{h} = \textbf{b}\). After setting \(b\) to be the vector of all the \((x', y')\) points, we are left to derive only the entries of \(A\). Accordingly, we focus on relating our givens – the \((x, y)\) and \((x', y')\) coordinates – using \(a, b, ..., h\).
+            
+            <br /><br />
+            
+            It follows from the original homography equation that
+            
+            <div class="mathjax-resize">
+                $$
+                ax + by + c = wx' \\
+                dx + ey + f = wy' \\
+                gx + hy + 1 = w
+                $$
+            </div>
+            
+            We can easily rearrange these equations into equalities for \(x'\) and \(y'\):
+            
+            <div class="mathjax-resize">
+                $$
+                \rightarrow \: ax + by + c = (gx + hy + 1)x' \\
+                ax + by + c - gxx' - hx'y = x' \\~\\
+            
+                \rightarrow \: dx + ey + f = (gx + hy + 1)y' \\
+                dx + ey + f - gxy' - hyy' = y'
+                $$
+            </div>
+            
+            At this point, we can rewrite our equalities as a matrix equation that's more or less in the \(A\textbf{h} = \textbf{b}\) form we're looking for.
+            
+            <div class="mathjax-resize">
+                $$
+                \begin{bmatrix}
+                x & y & 1 & 0 & 0 & 0 & -xx' & -x'y \\
+                0 & 0 & 0 & x & y & 1 & -xy' & -yy'
+                \end{bmatrix}
+                \begin{bmatrix}
+                a \\
+                b \\
+                c \\
+                d \\
+                e \\
+                f \\
+                g \\
+                h
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                x' \\
+                y'
+                \end{bmatrix}
+                $$
+            </div>
+            
+            Then, through inspection of the above relationship, we are able to reach our final system of \(2n\) equations. (\(n\) is the number of point correspondences between the two images). Since we have eight unknowns, we need \(n \geq 4\) in order to successfully solve for \(\textbf{h}\). Meanwhile, for stability's sake we will ideally have more than four correspondences (i.e. an overdetermined linear system of equations), so we solve for \(\textbf{h}\) using least-squares.
+            
+            <div class="mathjax-resize">
+                $$
+                \begin{bmatrix}
+                x_1 & y_1 & 1 & 0 & 0 & 0 & -x_1x_1' & -x_1'y_1 \\
+                0 & 0 & 0 & x_1 & y_1 & 1 & -x_1y_1' & -y_1y_1' \\
+                x_2 & y_2 & 1 & 0 & 0 & 0 & -x_2x_2' & -x_2'y_2 \\
+                0 & 0 & 0 & x_2 & y_2 & 1 & -x_2y_2' & -y_2y_2' \\
+                \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+                x_n & y_n & 1 & 0 & 0 & 0 & -x_nx_n' & -x_n'y_n \\
+                0 & 0 & 0 & x_n & y_n & 1 & -x_ny_n' & -y_ny_n'
+                \end{bmatrix}
+                \begin{bmatrix}
+                a \\
+                b \\
+                c \\
+                d \\
+                e \\
+                f \\
+                g \\
+                h
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                x_1' \\
+                y_1' \\
+                x_2' \\
+                y_2' \\
+                \vdots \\
+                x_n' \\
+                y_n'
+                \end{bmatrix}
+                $$
+            </div>
+            
+            Dimensionally speaking, we have (a \(2n\) x 8 matrix) \(\cdot\) (an 8 x 1 vector) = (a \(2n\) x 1 vector). After we've solved for \(\textbf{h}\), we can turn it into a 9 x 1 vector by appending a 1 (that being the scaling factor) and reshape it into a 3 x 3 matrix to serve as our final homography transformation. To reiterate, this matrix can be used to warp points in the first image into the second image's coordinate system.
+        </p>
+        <br />
+        
+        
+        <!-- Applying Our Homography -->
+        
+        
+        <span class="anchor" id="applying-our-homography"></span>
+        <h2 style="margin-bottom: 0.3em">[2] Applying Our Homography</h2>
+        <p>
+            Let's go into a little more detail on that front. We're <em>warping</em> an image, which means we're taking the colors that were already in the image and moving them to different places.
+            
+            <br /><br />
+            
+            However, in our case we actually want to make use of an <em>inverse</em> warp. An inverse warp asks, for every pixel location in the output shape, "which color from the input image should go here?" The answer to that is usually a <em>combination</em> of input colors, so we bilinearly interpolate across these in order to make sure we don't miss anything.
+            
+            <br /><br />
+            
+            Mathematically, of course, it's our homography that tells us the locations of the input colors to use. To derive the inverse warp, we begin again from our initial equation (but en masse): \(P' = HP\). This time, \(P\) is a 3 x \(n\) matrix containing all of the points from the input image (the one we're warping; the one whose colors we're moving around) in homogeneous coordinates. Likewise, \(P'\) is a 3 x \(n\) matrix containing scaled points from the image whose coordinate system we're warping to. \(H\), as before, is the homography matrix that converts \(P\)'s spatial domain into \(P'\)'s spatial domain.
+            
+            <div class="mathjax-resize">
+                $$
+                P' = HP \\
+                \begin{bmatrix}
+                w_1x_1' & w_2x_2' & \cdots & w_nx_n' \\
+                w_1y_1' & w_2y_2' & \cdots & w_ny_n' \\
+                w_1 & w_2 & \cdots & w_n
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                a & b & c \\
+                d & e & f \\
+                g & h & 1
+                \end{bmatrix}
+                \begin{bmatrix}
+                x_1 & x_2 & \cdots & x_n \\
+                y_1 & y_2 & \cdots & y_n \\
+                1 & 1 & \cdots & 1
+                \end{bmatrix}
+                $$
+            </div>
+            
+            We want the inverse warp, though, so we look for \(P\) in terms of \(P'\) – the input location corresponding to every output location. Once we have these, we can look up the colors around each of these input locations ("around" because the locations might be between pixels) and interpolate.
+            
+            <div class="mathjax-resize">
+                $$
+                P = H^{-1}P' \\
+                \begin{bmatrix}
+                x_1 & x_2 & \cdots & x_n \\
+                y_1 & y_2 & \cdots & y_n \\
+                1 & 1 & \cdots & 1
+                \end{bmatrix}
+                =
+                H^{-1}
+                \begin{bmatrix}
+                w_1x_1' & w_2x_2' & \cdots & w_nx_n' \\
+                w_1y_1' & w_2y_2' & \cdots & w_ny_n' \\
+                w_1 & w_2 & \cdots & w_n
+                \end{bmatrix}
+                $$
+            </div>
+            
+            Equivalently (if, for example, a certain SciPy function requires that the image points be row vectors), we can use transpose properties to define
+            
+            <div class="mathjax-resize">
+                $$
+                \begin{bmatrix}
+                x_1 & y_1 & 1 \\
+                x_2 & y_2 & 1 \\
+                \vdots & \vdots & \vdots \\
+                x_n & y_n & 1
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                w_1x_1' & w_1y_1' & w_1 \\
+                w_2x_2' & w_2y_2' & w_2 \\
+                \vdots & \vdots & \vdots \\
+                w_nx_n' & w_ny_n' & w_n
+                \end{bmatrix}
+                (H^{-1})^T
+                $$
+            </div>
+            
+            Realistically, however, we won't know the \(w_i\) values ahead of time (for \(i \in [1 ... n]\)). What we'll actually compute is:
+            
+            <div class="mathjax-resize">
+                $$
+                \begin{bmatrix}
+                v_1x_1 & v_1y_1 & v_1 \\
+                v_2x_2 & v_2y_2 & v_2 \\
+                \vdots & \vdots & \vdots \\
+                v_nx_n & v_ny_n & v_n
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                x_1' & y_1' & 1 \\
+                x_2' & y_2' & 1 \\
+                \vdots & \vdots & \vdots \\
+                x_n' & y_n' & 1
+                \end{bmatrix}
+                (H^{-1})^T
+                $$
+            </div>
+            
+            This isn't a problem, since we can simply renormalize each of the row vectors until the third coordinate is always 1. Anyway (as mentioned like three times), we can use the input image locations to complete our inverse warp via color interpolation! At this juncture, we're fully able to warp an image based on a pointwise projective transformation.
+        </p>
+        <br />
+        
+        
+        <!-- Rectifying Images -->
+        
+        
+        <span class="anchor" id="rectifying-images"></span>
+        <h2 style="margin-bottom: 0.3em">[3] Rectifying Images</h2>
+        <p>
+            Enough math. Let's take what we've done so far and produce something visual! As a test of projective warp correctness, we attempt to rectify a couple of images. Specifically, we'll try to set up our warps so that planar surfaces are frontal-parallel in the output image.
+            
+            <br /><br />
+            
+            In the examples below, we select four input points over the corners of some planar surface, and then use the rectified version of those points as the corresponding \(P'\) coordinates.
+            
+            <table width="100%"><tr>
+                <td style="text-align: center" width="50%">
+                    <img src="images/sunset.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Sunset view from my apartment (11/11/16)</code></figcaption>
+                </td>
+                <td style="text-align: center" width="50%">
+                    <img src="images/sunset_rectified.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Rectified using sq. window as a basis</code></figcaption>
+                </td>
+            </tr></table>
+            
+            <table width="100%"><tr>
+                <td style="text-align: center" width="50%">
+                    <img src="images/familylife.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Assortment of rectangular objects</code></figcaption>
+                </td>
+                <td style="text-align: center" width="50%">
+                    <img src="images/familylife_rectified.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Rectified over <em>Family Life</em></code></figcaption>
+                </td>
+            </tr></table>
+        </p>
+        <br />
+        
+        
+        <!-- Producing Panoramic Mosaics -->
+        
+        
+        <span class="anchor" id="producing-panoramic-mosaics"></span>
+        <h2 style="margin-bottom: 0.3em">[4] Producing Panoramic Mosaics</h2>
+        <p>
+            Here, we warp and blend a sequence of overlapping images together – creating, in expectation, a nicely stitched panorama. Given a set of photographs that don't span more than 180 degrees (faraway scenes work well, since we can then project everything onto a plane at infinity), we start by selecting a centrally positioned photograph to serve as the base panorama image. We then project and blend all other images one-by-one into this photograph's coordinate system, amassing a holistic panorama as we go.
+            
+            <br /><br />
+            
+            That's pretty much it!
+            
+            <br /><br />
+            
+            Since individual images are projected directly onto their correct coordinates in the overall panorama, we don't need to align anything after a warp. All we need to do is blend, which we handle through weighted averaging at every pixel. To facilitate this weighting, we maintain alpha values for each image's pixels that represent how far every pixel is from the unwarped image's center column, i.e. how important the pixel is to its source. We assign the alpha value for the center column to 1, and let this value fall off linearly as it approaches the sides (such that it is 0 at the edges).
+            
+            <br /><br />
+            
+            So... after warping, we compute the output pixels specific to the individual image, the output pixels specific to the growing panorama image, and the output pixels at which there is overlap. For the non-overlap pixels, we use the unmodified RGB values from their source images. For the overlap pixels, we normalize the alpha values so that they sum to 1 and then linearly interpolate between the color values of each image (using the normalized alphas as weights). Finally, we set the entire alpha channel to 1 in the output panorama at each stage in order to get rid of any residual fading effects.
+            
+            <br /><br />
+            
+            Yeah... below we have some results. The photographs are from me biking up to Indian Rock and taking a bunch of pictures of the distance; they yielded some decent mosaics in my opinion (especially after cropping!).
+            
+            <table width="100%"><tr>
+                <td style="text-align: center" width="100%">
+                    <img src="images/indian_panorama_cropped.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Cropped view from a rock, pt. 1</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td style="text-align: center" width="100%">
+                    <img src="images/indian_panorama.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>View from a rock, pt. 1</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/indian1.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Left image</code></figcaption>
+                </td>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/indian2.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Center image</code></figcaption>
+                </td>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/indian3.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Right image</code></figcaption>
+                </td>
+            </tr></table>
+            
+            The second panorama also turned out all right. However, success was tempered by the fact that I – being an unprofessional panorama photographer – managed to capture a bunch of pesky and ephemerally present humans across the bottom of my photographs. Even after being blended into the final image, their ghosts can still be observed.
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td style="text-align: center" width="100%">
+                    <img src="images/rock_panorama_cropped.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Cropped view from a rock, pt. 2</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td style="text-align: center" width="100%">
+                    <img src="images/rock_panorama.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>View from a rock, pt. 2</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/rock1.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Left image</code></figcaption>
+                </td>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/rock2.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Center image</code></figcaption>
+                </td>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/rock3.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Right image</code></figcaption>
+                </td>
+            </tr></table>
+            
+            Technically speaking, my third panorama was the least successful because it contained a lot of moving elements (in the form of automobiles) and also spanned more than 180 degrees of view. You can see from the top right corner that the third image's projection is beginning to warp out of control! You might also notice a car without its shadow, and a shadow without its car.
+            
+            <br /><br />
+            
+            I think I also messed up somewhat on keeping my center of projection constant.
+            
+            <br /><br />
+            
+            <table width="100%"><tr>
+                <td style="text-align: center" width="100%">
+                    <img src="images/fountain_panorama_cropped.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>"The Circle", cropped</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td style="text-align: center" width="100%">
+                    <img src="images/fountain_panorama.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>It's up north somewhere</code></figcaption>
+                </td>
+            </tr></table>
+            <table width="100%"><tr>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/fountain1.png" data-action="zoom" />
+                    <figcaption align="middle"><code>Left image</code></figcaption>
+                </td>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/fountain2.png" data-action="zoom" />
+                    <figcaption align="middle"><code>Center image</code></figcaption>
+                </td>
+                <td style="text-align: center" width="33.33%">
+                    <img src="images/fountain3.png" data-action="zoom" />
+                    <figcaption align="middle"><code>Right image</code></figcaption>
+                </td>
+            </tr></table>
+        </p>
+        <br />
+        
+        
+        <!-- Looking Back -->
+        
+        
+        <span class="anchor" id="looking-back"></span>
+        <h2 style="margin-bottom: 0.3em">[5] Looking Back</h2>
+        <p>
+            First of all, I learned that planar mappings don't really work for > 180&deg; mosaics, as I spent an embarrassing amount of time trying to warp and merge two images that spanned an excessive view space.
+            
+            <br /><br />
+            
+            However, I'm glad I got to experience the power of homographies / projective transformations. It was very exciting to be able to modify the perspective of my images in a specific way, and to be able to stitch multiple photographs into one! I never realized that it was possible to achieve these effects with just a 3 x 3 matrix and some blending.
+            
+            <br /><br />
+            
+            Anyhow, I leave you with a rectified image of my lunch.<br />
+            Thanks for reading! :)
+            
+            <table width="100%"><tr>
+                <td style="text-align: center" width="50%">
+                    <img src="images/sliver.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Lunchtime carnage</code></figcaption>
+                </td>
+                <td style="text-align: center" width="50%">
+                    <img src="images/sliver_rectified.jpg" data-action="zoom" />
+                    <figcaption align="middle"><code>Rectified carnage</code></figcaption>
+                </td>
+            </tr></table>
+        </p>
+    </div>
+    
+    <!-- Navigation -->
+    <section id="navdots"><ul>
+        <a href="#setting-the-scene"><li class title="Setting the Scene"></li></a>
+        <a href="#solving-for-the-homography-matrix"><li class title="Solving for the Homography Matrix"></li></a>
+        <a href="#applying-our-homography"><li class title="Applying Our Homography"></li></a>
+        <a href="#rectifying-images"><li class title="Rectifying Images"></li></a>
+        <a href="#producing-panoramic-mosaics"><li class title="Producing Panoramic Mosaics"></li></a>
+        <a href="#looking-back"><li class title="Looking Back"></li></a>
+    </ul></section>
+    
+    <!-- Scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/zoom.min.js"></script>
+    <script src="js/transition.min.js"></script>
+    <script src="js/script.min.js"></script>
+</body>
+</html>
