@@ -1,0 +1,77 @@
+\documentclass[twoside]{article}
+\usepackage{quiz}
+\usepackage{textcomp}
+
+\pagestyle{myheadings}
+\textheight 9.5in
+
+\def\semester{Fall 2016}
+
+% \newcommand{\solution}[1]{{\color{red}#1}}
+\newcommand\solution[1]{}
+
+%%% Actual content begins here %%%
+\title{\sc Discussion Quiz 10 \solution{Solutions}}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\hfill Static PSA: Solutions to these quizzes are posted on \textbf{\href{http://owenjow.xyz/cs61a/section-quizzes}{owenjow.xyz/cs61a/section-quizzes}}.
+
+\begin{enumerate}
+%%% Q1 %%%
+\q{2}{Stay Positive {\small ...but as always not HIV positive}}
+
+Schema: \texttt{numbers (idx, n)} (translation: a table called \texttt{numbers} with column names \texttt{idx} and \texttt{n})
+
+Given the above schema and the knowledge that \texttt{n} represents numerical values, select all \textbf{unique} positive values of \texttt{n} in the table. For example, if there was only one row containing the value 3, we would include 3 in the output. If there were two rows containing 4, however, we would \textit{not} include 4 in the output. You can disregard \texttt{idx}; it exists only to ensure that we can have duplicate entries of \texttt{n} in the first place.
+
+As an example, \texttt{select count(*) from numbers} would select the number of rows in the table.
+
+\begin{verbatim}
+___________________________________________________________________________________________
+\end{verbatim}
+
+%%% Q2 %%%
+\q{4}{Fibonacci Round 333}
+
+Select all odd Fibonacci numbers less than 333, ordered from high to low. You can use as many or as few of these lines as you'd like. Remember that the Fibonacci sequence begins with 0 and 1.
+
+\begin{verbatim}
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+\end{verbatim}
+
+%%% Q3 %%%
+\q{4}{Sing, Sing, Sing}
+
+Schema: \texttt{good\_songs (song, artist, album, year\_released)}
+
+Select the names of all artists who have released more than two good songs in a single year. (Assume for the sake of the question that a ``good song" is any song contained within the table. You may further assume that each of a certain artist's songs has a different name, but do not assume that \textit{all} of the song names are distinct.)
+
+\begin{verbatim}
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+
+___________________________________________________________________________________________
+\end{verbatim}
+
+\end{enumerate}
+\end{document}

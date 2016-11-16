@@ -107,5 +107,11 @@ permalink: /cs61a/section-quizzes/
             <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz9.py">Python Script</a></td>
             <td>Generators</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz10.pdf">Quiz 10</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz10_sol.pdf">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/fa16/quiz/quiz10.sql">SQL File</a></td>
+            <td>SQL</td>
+        </tr>
     </table>
 </div>
