@@ -50,6 +50,9 @@ create table good_songs as
   select 'dummy_song1', 'The Beatles', 'dummy_album1', 1964 union
   select 'dummy_song2', 'The Beatles', 'dummy_album2', 1964 union
   select 'dummy_song3', 'The Beatles', 'dummy_album3', 1964 union -- this should count
+  select 'dummy_song4', 'The Beatles', 'dummy_album4', 1965 union
+  select 'dummy_song5', 'The Beatles', 'dummy_album5', 1965 union
+  select 'dummy_song6', 'The Beatles', 'dummy_album6', 1965 union
   select 'My Stupid Mouth', 'John Mayer', 'Room for Squares', 2001 union
   select 'Breakable', 'Ingrid Michaelson', 'Girls and Boys', 2006 union
   select 'Mr. Jones', 'Counting Crows', 'August and Everything After', 1993 union
@@ -69,7 +72,7 @@ create table good_songs as
   select 'Remember the Name', 'Fort Minor', 'The Rising Tied', 2005;
 
 -- Q3 solution
--- Expected output: The Beatles and Vagabond Maurice
+-- Expected output: The Beatles and Vagabond Maurice (no duplicates)
 -- By SO: "group by X, Y means put all those with the same values for both X and Y in one group"
 select ''; select 'Q3'; select '---';
-select artist from good_songs group by artist, year_released having count(*) > 2;
+select distinct artist from good_songs group by artist, year_released having count(*) > 2;

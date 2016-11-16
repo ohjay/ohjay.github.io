@@ -67,8 +67,17 @@ Schema: \texttt{good\_songs (song, artist, album, year\_released)}
 Select the names of all artists who have released more than two good songs in a single year. (Assume for the sake of the question that a ``good song" is any song contained within the table. You may further assume that each of a certain artist's songs has a different name, but do not assume that \textit{all} of the song names are distinct.)\\
 
 \begin{lstlisting}
-select artist from good_songs
+select distinct artist from good_songs
   group by artist, year_released having count(*) > 2;
+\end{lstlisting}
+
+Alternative solution:
+
+\begin{lstlisting}
+select artist from (
+  select artist from good_songs
+    group by artist, year_released having count(*) > 2
+) group by artist;
 \end{lstlisting}
 
 \end{enumerate}
