@@ -20,8 +20,20 @@
     <style type="text/css">
         @media (max-width: 675px) { .mathjax-resize { font-size: 0.8em !important; }}
     </style>
+    <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css" />
+    <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script>
+    <style>
+        #almond-panorama { width: 99.5%; height: 300px; }
+        pre {
+            overflow-x: auto;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap !important;
+            word-wrap: break-word;
+            white-space : normal;
+        }
+    </style>
     <link href="css/zoom.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -29,7 +41,7 @@
 <body>
     <div class="wrapper">
         <h1 align="middle">[Auto]Stitching Photo Mosaics</h1>
-        <h3 align="middle">CS 194-26 Project #7A &nbsp;&middot;&nbsp; Owen Jow &nbsp;&middot;&nbsp; November 2016</h3>
+        <h3 align="middle">CS 194-26 Project #7 &nbsp;&middot;&nbsp; Owen Jow &nbsp;&middot;&nbsp; November 2016</h3>
         <hr />
         <br />
         
@@ -38,14 +50,211 @@
         
         
         <span class="anchor" id="setting-the-scene"></span>
-        <h2 style="margin-bottom: 0.3em">[0] Setting the Scene</h2>
-        <p>
-            For this project, we produce seamlessly stitched mosaics by shooting overlapped photographs with an identical center of projection, computing projective transformations between those photographs, warping them toward whichever is selected as a base image, and finally blending all of the processed photographs into one big panorama.
+        <fieldset>
+            <legend><h2>&nbsp;[00] Setting the Scene&nbsp;</h2></legend>
+            <p>
+                For this project, we produce seamlessly stitched mosaics by shooting overlapped photographs with an identical center of projection, computing projective transformations between those photographs, warping them toward whichever is selected as a base image, and finally blending all of the processed photographs into one big panorama.
             
-            <br /><br />
+                <br /><br />
             
-            To begin, we shoot pictures that are related by a projective transformation (by taking pictures from the same point of view but with different view directions). We are also careful to ensure that consecutive photographs have some common content, because in order to recover the transform between two images we have to select corresponding points in the images' overlapping scenes.
-        </p>
+                To begin, we shoot pictures that are related by a projective transformation (by taking pictures from the same point of view but with different view directions). We are also careful to ensure that consecutive photographs have some common content, because in order to recover the transform between two images we have to select corresponding points in the images' overlapping scenes.
+            </p>
+        </fieldset>
+        <br />
+        
+        
+        <!-- Feature Detection -->
+        
+        
+        <span class="anchor" id="feature-detection"></span>
+        <fieldset>
+            <legend><h2>&nbsp;[01] Feature Detection&nbsp;</h2></legend>
+            <p>
+                In selecting corresponding points, we have two options: manually click on high-profile feature points within the overlap across each of the two images, or let the computer find all the features itself. The first option is a <code>ginput</code> call – we have to do all the thinking, so it's easy for the computer and hard for us. On the other hand, the second option is hard for the computer and easy for us. We obviously invented computers so we could enslave them and make them do all the difficult things in life, so everyone's preference here should be a no-brainer.
+                
+                <br /><br />
+                
+                Unfortunately, we still have to give it some orders. How should our feature points be selected? In this case, we'll use the Harris interest point detector to identify decent features (i.e. Harris points) in an image. A Harris point is a fancy name for a corner, a location in the image with a large spatial gradient in all directions, found via <a href="https://en.wikipedia.org/wiki/Corner_detection#The_Harris_.26_Stephens_.2F_Plessey_.2F_Shi.E2.80.93Tomasi_corner_detection_algorithms" target="_blank">Harris's algorithm</a>. Several reduced-size sets of Harris points can be seen below.
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/indian_harrisr.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>5000 / 235746 Harris points (randomly selected)</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/clouds1_harrisr.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>1000 / 238458 Harris points</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center">
+                        <img src="images/clouds2_harrisr.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>1000 / 159983 Harris points</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                Note that the above points are only random <em>subsets</em> of all of the Harris points. The corner detector is coming up with ~200k points per image! That's just excessive. In order to trim the size, we'll <strong>(a)</strong> filter the Harris points by using <a href="http://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.corner_peaks" target="_blank"><code>corner_peaks</code></a> instead of <a href="http://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.peak_local_max" target="_blank"><code>peak_local_max</code></a> and <strong>(b)</strong> utilize adaptive non-maximal suppression, or ANMS, as described in <a href="https://inst.eecs.berkeley.edu/~cs194-26/fa16/Papers/MOPS.pdf" target="_blank">"Multi-Image Matching using Multi-Scale Oriented Patches" by Brown et al</a>. ANMS aims to select some number of points across the image that are both spaced out and locally maximized in terms of "corner strength."
+                
+                It does so by first sorting points according to their minimum suppression radius \(r_i\), where
+                
+                <div class="mathjax-resize">
+                    $$r_i = \min_{j}|\textbf{x}_i - \textbf{x}_j|, \text{ s.t. } \, h(\textbf{x}_i) < c_{robust}h(\textbf{x}_j), \textbf{x}_j \in I$$
+                </div>
+                
+                (\(\textbf{x}_i\) is the Harris point in question, \(I\) is the set of all Harris points, \(c_{robust} = 0.9\) is a constant determining the level of suppression, and \(h(\textbf{x})\) is the corner strength of point \(\textbf{x}\).)
+                
+                <br /><br />
+                
+                After the points are sorted, we take the maximum ~500 points and use those as our ANM-suppressed selection. Intuitively, this gives us the strongest point in each region because it maximizes the minimum spatial distance from every point to a stronger point.
+                
+                <br /><br />
+                
+                <blockquote>From this moment onward, we mostly use <code>corner_peaks</code> to compute Harris points.</blockquote>
+                
+                <br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/indian_harris.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>corner_peaks output (17767 points)</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/indian_anms.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>500 ANMS-filtered</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/indian_harrish.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>500 highest strength</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/indian_harrisl.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>500 lowest from all ~200k</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/clouds1_harris.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>corner_peaks output (3944 points)</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/clouds1_anms.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>500 ANMS-filtered</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/clouds1_harrish.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>500 highest strength</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/clouds1_harrisl.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>500 lowest from all ~200k</code></figcaption>
+                    </td>
+                </tr></table>
+            </p>
+        </fieldset>
+        <br />
+        
+        
+        <!-- Descriptor Extraction and Point Matching -->
+        
+        
+        <span class="anchor" id="descriptor-extraction-and-point-matching"></span>
+        <fieldset>
+            <legend><h2>&nbsp;[02] Descriptor Extraction and Point Matching&nbsp;</h2></legend>
+            <p>
+                After we obtain our feature points, we have to match them. Our plan of attack: extract feature descriptors for each point and then match those instead. Said descriptors characterize the immediate region around every feature point. Accordingly, every such descriptor will be represented for us as a normalized local patch of size 8 x 8 – downsampled, that is, from 40 x 40. We make our descriptors invariant under rotation in order to increase robustness.
+                
+                <br /><br />
+                
+                To reiterate, these are the steps we take to generate our feature descriptors:
+                
+                <pre>
+                    for every ANMS point:<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;grab the ~60 x ~60 grayscale window around the point<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;compute the avg gradient at the point in the x- and y- directions<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;rotate the window by the negative atan of y-gradient / x-gradient<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;extract the central 40 x 40 window from the rotated patch<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;blur it with a Gaussian filter<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;downsize the patch so that it's 8 x 8<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;bias/gain-normalize the patch using I' = (I - &mu;) / &sigma;
+                </pre>
+
+                We rotate in order to standardize the direction of the gradients, making the descriptors invariant under rotation. If two descriptors contain the same content, but one is rotated, this transform should cause both of them to face the same way.
+                
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/descriptor1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>ANMS points (500 in total)</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/descriptor3.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Descriptors upscaled to 80 x 80</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                Once we have the descriptors for each image – maybe it hasn't been said, but we're only stitching together <em>two</em> images at any given time – we can match them. We can match them by finding, for every descriptor in the first image, the most similar descriptor in the second image (aka the "nearest neighbor" / NN). Similarity is defined by a sum of squared differences (SSD) function, over which we minimize while seeking resemblance.
+                
+                <br /><br />
+                
+                Since not every pair of features will fit the model – and since in our case, having no match is much better than having a bad match! – we'll only pair the points we're sufficiently confident about. This is accomplished by following Lowe, or in other words imposing a threshold on the ratio between the error for the 1-NN match and the error for the 2-NN match. We want this ratio to be minimal, such that the error for the 1-NN is small and the error for the 2-NN is large (indicating, as it should be, that one match is clearly correct and everything else is clearly <em>not</em>). Based on the plot below (screenshotted from the MOPS paper linked previously) we shouldn't be using matches for which \((error_{1-NN}) / (error_{2-NN}) > 0.66\) at the very least. However, wanting to be really confident in our pairings, we set the threshold at 0.3 for safety's sake. When we get bad matches anyway, we set it to 0.1.
+                
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center">
+                        <img src="images/lowe_threshold.jpg" width="50%" data-action="zoom" />
+                        <figcaption align="middle"><code>If the ratio exceeds 0.66, a match is more likely to be incorrect than correct</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                <blockquote>This was the only thing in the project that worked on the first try. I was hyped.</blockquote>
+                
+                <br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/hype1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>im1 (30 matches)</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/hype2.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>im2 (30 matches)</code></figcaption>
+                    </td>
+                </tr></table>
+            </p>
+        </fieldset>
+        <br />
+        
+        
+        <!-- RANSAC for Homography Estimation -->
+        
+        
+        <span class="anchor" id="ransac-for-homography-estimation"></span>
+        <fieldset>
+            <legend><h2>&nbsp;[03] RANSAC for Homography Estimation&nbsp;</h2></legend>
+            <p>
+                It looks good, but we're not necessarily out of the tunnel yet. We need to be <em>dead sure</em> that there are no homography-ruining outliers in our set of feature matches. (By "dead sure," I actually mean "almost" dead sure because nothing in life is certain.)
+                
+                <br /><br />
+                
+                So we use RANSAC. RANSAC, or RANdom SAmple Consensus, is a technique for estimating the homography matrix (math for that below) while avoiding feature-space outliers. How does it do this? The steps are as follows (all of these actions are performed within a loop that runs for 5000 iterations):
+                
+                <ul>
+                    <li>Select four pairs of matching features at random</li>
+                    <li>Calculate the homography matrix \(H\) for the chosen points</li>
+                    <li>Apply the homography to all of the feature points in one image</li>
+                    <li>Count the total number of inliers, i.e. points where \(SSD(\textbf{p}_i', H\textbf{p}_i) < \epsilon\)</li>
+                    <li>Track the largest set of inliers yielded by any homography, and treat those as THE inliers</li>
+                </ul>
+                
+                At this point, we compute the homography over all of the inliers and that's it! That's our homography.
+            </p>
+        </fieldset>
         <br />
         
         
@@ -53,121 +262,123 @@
         
         
         <span class="anchor" id="solving-for-the-homography-matrix"></span>
-        <h2 style="margin-bottom: 0.3em">[1] Solving for the Homography Matrix</h2>
-        <p>
-            In order to identify the transformation between any two of our images, we need to compute the homography matrix \(H\). We can relate a pair of corresponding points through the equation \(\textbf{p}' = H\textbf{p}\), where \(\textbf{p}\) is an \(\begin{bmatrix}x & y & 1\end{bmatrix}^T\) vector representing a point in the first image and \(\textbf{p}'\) is a \(\begin{bmatrix}wx' & wy' & w\end{bmatrix}^T\) representing a scaled point in the second image. \(H\), incidentally, is what we're solving for and exists as a 3 x 3 matrix with eight degrees of freedom.
+        <fieldset>
+            <legend><h2>&nbsp;[04] Solving for the Homography Matrix&nbsp;</h2></legend>
+            <p>
+                In order to identify the transformation between any two of our images, we need to compute the homography matrix \(H\). We can relate a pair of corresponding points through the equation \(\textbf{p}' = H\textbf{p}\), where \(\textbf{p}\) is an \(\begin{bmatrix}x & y & 1\end{bmatrix}^T\) vector representing a point in the first image and \(\textbf{p}'\) is a \(\begin{bmatrix}wx' & wy' & w\end{bmatrix}^T\) representing a scaled point in the second image. \(H\), incidentally, is what we're solving for and exists as a 3 x 3 matrix with eight degrees of freedom.
             
-            <div class="mathjax-resize">
-                $$
-                \begin{bmatrix}
-                wx' \\
-                wy' \\
-                w
-                \end{bmatrix}
-                \begin{bmatrix}
-                a & b & c \\
-                d & e & f \\
-                g & h & 1
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                x \\
-                y \\
-                1
-                \end{bmatrix}
-                $$
-            </div>
+                <div class="mathjax-resize">
+                    $$
+                    \begin{bmatrix}
+                    wx' \\
+                    wy' \\
+                    w
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    a & b & c \\
+                    d & e & f \\
+                    g & h & 1
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                    x \\
+                    y \\
+                    1
+                    \end{bmatrix}
+                    $$
+                </div>
             
-            In other words, we need to obtain values for \(a, b, ..., h\) given a set of \((x, y)\) and \((x', y')\) points. To do this, we flatten \(H\) into a vector \(\textbf{h}\) containing the eight unknowns and attempt to set up the matrix equation \(A\textbf{h} = \textbf{b}\). After setting \(b\) to be the vector of all the \((x', y')\) points, we are left to derive only the entries of \(A\). Accordingly, we focus on relating our givens – the \((x, y)\) and \((x', y')\) coordinates – using \(a, b, ..., h\).
+                In other words, we need to obtain values for \(a, b, ..., h\) given a set of \((x, y)\) and \((x', y')\) points. To do this, we flatten \(H\) into a vector \(\textbf{h}\) containing the eight unknowns and attempt to set up the matrix equation \(A\textbf{h} = \textbf{b}\). After setting \(b\) to be the vector of all the \((x', y')\) points, we are left to derive only the entries of \(A\). Accordingly, we focus on relating our givens – the \((x, y)\) and \((x', y')\) coordinates – using \(a, b, ..., h\).
             
-            <br /><br />
+                <br /><br />
             
-            It follows from the original homography equation that
+                It follows from the original homography equation that
             
-            <div class="mathjax-resize">
-                $$
-                ax + by + c = wx' \\
-                dx + ey + f = wy' \\
-                gx + hy + 1 = w
-                $$
-            </div>
+                <div class="mathjax-resize">
+                    $$
+                    ax + by + c = wx' \\
+                    dx + ey + f = wy' \\
+                    gx + hy + 1 = w
+                    $$
+                </div>
             
-            We can easily rearrange these equations into equalities for \(x'\) and \(y'\):
+                We can easily rearrange these equations into equalities for \(x'\) and \(y'\):
             
-            <div class="mathjax-resize">
-                $$
-                \rightarrow \: ax + by + c = (gx + hy + 1)x' \\
-                ax + by + c - gxx' - hx'y = x' \\~\\
+                <div class="mathjax-resize">
+                    $$
+                    \rightarrow \: ax + by + c = (gx + hy + 1)x' \\
+                    ax + by + c - gxx' - hx'y = x' \\~\\
             
-                \rightarrow \: dx + ey + f = (gx + hy + 1)y' \\
-                dx + ey + f - gxy' - hyy' = y'
-                $$
-            </div>
+                    \rightarrow \: dx + ey + f = (gx + hy + 1)y' \\
+                    dx + ey + f - gxy' - hyy' = y'
+                    $$
+                </div>
             
-            At this point, we can rewrite our equalities as a matrix equation that's more or less in the \(A\textbf{h} = \textbf{b}\) form we're looking for.
+                At this point, we can rewrite our equalities as a matrix equation that's more or less in the \(A\textbf{h} = \textbf{b}\) form we're looking for.
             
-            <div class="mathjax-resize">
-                $$
-                \begin{bmatrix}
-                x & y & 1 & 0 & 0 & 0 & -xx' & -x'y \\
-                0 & 0 & 0 & x & y & 1 & -xy' & -yy'
-                \end{bmatrix}
-                \begin{bmatrix}
-                a \\
-                b \\
-                c \\
-                d \\
-                e \\
-                f \\
-                g \\
-                h
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                x' \\
-                y'
-                \end{bmatrix}
-                $$
-            </div>
+                <div class="mathjax-resize">
+                    $$
+                    \begin{bmatrix}
+                    x & y & 1 & 0 & 0 & 0 & -xx' & -x'y \\
+                    0 & 0 & 0 & x & y & 1 & -xy' & -yy'
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    a \\
+                    b \\
+                    c \\
+                    d \\
+                    e \\
+                    f \\
+                    g \\
+                    h
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                    x' \\
+                    y'
+                    \end{bmatrix}
+                    $$
+                </div>
             
-            Then, through inspection of the above relationship, we are able to reach our final system of \(2n\) equations. (\(n\) is the number of point correspondences between the two images). Since we have eight unknowns, we need \(n \geq 4\) in order to successfully solve for \(\textbf{h}\). Meanwhile, for stability's sake we will ideally have more than four correspondences (i.e. an overdetermined linear system of equations), so we solve for \(\textbf{h}\) using least-squares.
+                Then, through inspection of the above relationship, we are able to reach our final system of \(2n\) equations. (\(n\) is the number of point correspondences between the two images). Since we have eight unknowns, we need \(n \geq 4\) in order to successfully solve for \(\textbf{h}\). Meanwhile, for stability's sake we will ideally have more than four correspondences (i.e. an overdetermined linear system of equations), so we solve for \(\textbf{h}\) using least-squares.
             
-            <div class="mathjax-resize">
-                $$
-                \begin{bmatrix}
-                x_1 & y_1 & 1 & 0 & 0 & 0 & -x_1x_1' & -x_1'y_1 \\
-                0 & 0 & 0 & x_1 & y_1 & 1 & -x_1y_1' & -y_1y_1' \\
-                x_2 & y_2 & 1 & 0 & 0 & 0 & -x_2x_2' & -x_2'y_2 \\
-                0 & 0 & 0 & x_2 & y_2 & 1 & -x_2y_2' & -y_2y_2' \\
-                \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-                x_n & y_n & 1 & 0 & 0 & 0 & -x_nx_n' & -x_n'y_n \\
-                0 & 0 & 0 & x_n & y_n & 1 & -x_ny_n' & -y_ny_n'
-                \end{bmatrix}
-                \begin{bmatrix}
-                a \\
-                b \\
-                c \\
-                d \\
-                e \\
-                f \\
-                g \\
-                h
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                x_1' \\
-                y_1' \\
-                x_2' \\
-                y_2' \\
-                \vdots \\
-                x_n' \\
-                y_n'
-                \end{bmatrix}
-                $$
-            </div>
+                <div class="mathjax-resize">
+                    $$
+                    \begin{bmatrix}
+                    x_1 & y_1 & 1 & 0 & 0 & 0 & -x_1x_1' & -x_1'y_1 \\
+                    0 & 0 & 0 & x_1 & y_1 & 1 & -x_1y_1' & -y_1y_1' \\
+                    x_2 & y_2 & 1 & 0 & 0 & 0 & -x_2x_2' & -x_2'y_2 \\
+                    0 & 0 & 0 & x_2 & y_2 & 1 & -x_2y_2' & -y_2y_2' \\
+                    \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+                    x_n & y_n & 1 & 0 & 0 & 0 & -x_nx_n' & -x_n'y_n \\
+                    0 & 0 & 0 & x_n & y_n & 1 & -x_ny_n' & -y_ny_n'
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    a \\
+                    b \\
+                    c \\
+                    d \\
+                    e \\
+                    f \\
+                    g \\
+                    h
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                    x_1' \\
+                    y_1' \\
+                    x_2' \\
+                    y_2' \\
+                    \vdots \\
+                    x_n' \\
+                    y_n'
+                    \end{bmatrix}
+                    $$
+                </div>
             
-            Dimensionally speaking, we have (a \(2n\) x 8 matrix) \(\cdot\) (an 8 x 1 vector) = (a \(2n\) x 1 vector). After we've solved for \(\textbf{h}\), we can turn it into a 9 x 1 vector by appending a 1 (that being the scaling factor) and reshape it into a 3 x 3 matrix to serve as our final homography transformation. To reiterate, this matrix can be used to warp points in the first image into the second image's coordinate system.
-        </p>
+                Dimensionally speaking, we have (a \(2n\) x 8 matrix) \(\cdot\) (an 8 x 1 vector) = (a \(2n\) x 1 vector). After we've solved for \(\textbf{h}\), we can turn it into a 9 x 1 vector by appending a 1 (that being the scaling factor) and reshape it into a 3 x 3 matrix to serve as our final homography transformation. Recall that this matrix can be used to warp points in the first image into the second image's coordinate system.
+            </p>
+        </fieldset>
         <br />
         
         
@@ -175,104 +386,106 @@
         
         
         <span class="anchor" id="applying-our-homography"></span>
-        <h2 style="margin-bottom: 0.3em">[2] Applying Our Homography</h2>
-        <p>
-            Let's go into a little more detail on that front. We're <em>warping</em> an image, which means we're taking the colors that were already in the image and moving them to different places.
+        <fieldset>
+            <legend><h2>&nbsp;[05] Applying Our Homography&nbsp;</h2></legend>
+            <p>
+                Let's go into a little more detail on that front. We're <em>warping</em> an image, which means we're taking the colors that were already in the image and moving them to different places.
             
-            <br /><br />
+                <br /><br />
             
-            However, in our case we actually want to make use of an <em>inverse</em> warp. An inverse warp asks, for every pixel location in the output shape, "which color from the input image should go here?" The answer to that is usually a <em>combination</em> of input colors, so we bilinearly interpolate across these in order to make sure we don't miss anything.
+                However, in our case we actually want to make use of an <em>inverse</em> warp. An inverse warp asks, for every pixel location in the output shape, "which color from the input image should go here?" The answer to that is usually a <em>combination</em> of input colors, so we bilinearly interpolate across these in order to make sure we don't miss anything.
             
-            <br /><br />
+                <br /><br />
             
-            Mathematically, of course, it's our homography that tells us the locations of the input colors to use. To derive the inverse warp, we begin again from our initial equation (but en masse): \(P' = HP\). This time, \(P\) is a 3 x \(n\) matrix containing all of the points from the input image (the one we're warping; the one whose colors we're moving around) in homogeneous coordinates. Likewise, \(P'\) is a 3 x \(n\) matrix containing scaled points from the image whose coordinate system we're warping to. \(H\), as before, is the homography matrix that converts \(P\)'s spatial domain into \(P'\)'s spatial domain.
+                Mathematically, of course, it's our homography that tells us the locations of the input colors to use. To derive the inverse warp, we begin again from our initial equation (but en masse): \(P' = HP\). This time, \(P\) is a 3 x \(n\) matrix containing all of the points from the input image (the one we're warping; the one whose colors we're moving around) in homogeneous coordinates. Likewise, \(P'\) is a 3 x \(n\) matrix containing scaled points from the image whose coordinate system we're warping to. \(H\), as before, is the homography matrix that converts \(P\)'s spatial domain into \(P'\)'s spatial domain.
             
-            <div class="mathjax-resize">
-                $$
-                P' = HP \\
-                \begin{bmatrix}
-                w_1x_1' & w_2x_2' & \cdots & w_nx_n' \\
-                w_1y_1' & w_2y_2' & \cdots & w_ny_n' \\
-                w_1 & w_2 & \cdots & w_n
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                a & b & c \\
-                d & e & f \\
-                g & h & 1
-                \end{bmatrix}
-                \begin{bmatrix}
-                x_1 & x_2 & \cdots & x_n \\
-                y_1 & y_2 & \cdots & y_n \\
-                1 & 1 & \cdots & 1
-                \end{bmatrix}
-                $$
-            </div>
+                <div class="mathjax-resize">
+                    $$
+                    P' = HP \\
+                    \begin{bmatrix}
+                    w_1x_1' & w_2x_2' & \cdots & w_nx_n' \\
+                    w_1y_1' & w_2y_2' & \cdots & w_ny_n' \\
+                    w_1 & w_2 & \cdots & w_n
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                    a & b & c \\
+                    d & e & f \\
+                    g & h & 1
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    x_1 & x_2 & \cdots & x_n \\
+                    y_1 & y_2 & \cdots & y_n \\
+                    1 & 1 & \cdots & 1
+                    \end{bmatrix}
+                    $$
+                </div>
             
-            We want the inverse warp, though, so we look for \(P\) in terms of \(P'\) – the input location corresponding to every output location. Once we have these, we can look up the colors around each of these input locations ("around" because the locations might be between pixels) and interpolate.
+                We want the inverse warp, though, so we look for \(P\) in terms of \(P'\) – the input location corresponding to every output location. Once we have these, we can look up the colors around each of these input locations ("around" because the locations might be between pixels) and interpolate.
             
-            <div class="mathjax-resize">
-                $$
-                P = H^{-1}P' \\
-                \begin{bmatrix}
-                x_1 & x_2 & \cdots & x_n \\
-                y_1 & y_2 & \cdots & y_n \\
-                1 & 1 & \cdots & 1
-                \end{bmatrix}
-                =
-                H^{-1}
-                \begin{bmatrix}
-                w_1x_1' & w_2x_2' & \cdots & w_nx_n' \\
-                w_1y_1' & w_2y_2' & \cdots & w_ny_n' \\
-                w_1 & w_2 & \cdots & w_n
-                \end{bmatrix}
-                $$
-            </div>
+                <div class="mathjax-resize">
+                    $$
+                    P = H^{-1}P' \\
+                    \begin{bmatrix}
+                    x_1 & x_2 & \cdots & x_n \\
+                    y_1 & y_2 & \cdots & y_n \\
+                    1 & 1 & \cdots & 1
+                    \end{bmatrix}
+                    =
+                    H^{-1}
+                    \begin{bmatrix}
+                    w_1x_1' & w_2x_2' & \cdots & w_nx_n' \\
+                    w_1y_1' & w_2y_2' & \cdots & w_ny_n' \\
+                    w_1 & w_2 & \cdots & w_n
+                    \end{bmatrix}
+                    $$
+                </div>
             
-            Equivalently (if, for example, a certain SciPy function requires that the image points be row vectors), we can use transpose properties to define
+                Equivalently (if, for example, a certain SciPy function requires that the image points be row vectors), we can use transpose properties to define
             
-            <div class="mathjax-resize">
-                $$
-                \begin{bmatrix}
-                x_1 & y_1 & 1 \\
-                x_2 & y_2 & 1 \\
-                \vdots & \vdots & \vdots \\
-                x_n & y_n & 1
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                w_1x_1' & w_1y_1' & w_1 \\
-                w_2x_2' & w_2y_2' & w_2 \\
-                \vdots & \vdots & \vdots \\
-                w_nx_n' & w_ny_n' & w_n
-                \end{bmatrix}
-                (H^{-1})^T
-                $$
-            </div>
+                <div class="mathjax-resize">
+                    $$
+                    \begin{bmatrix}
+                    x_1 & y_1 & 1 \\
+                    x_2 & y_2 & 1 \\
+                    \vdots & \vdots & \vdots \\
+                    x_n & y_n & 1
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                    w_1x_1' & w_1y_1' & w_1 \\
+                    w_2x_2' & w_2y_2' & w_2 \\
+                    \vdots & \vdots & \vdots \\
+                    w_nx_n' & w_ny_n' & w_n
+                    \end{bmatrix}
+                    (H^{-1})^T
+                    $$
+                </div>
             
-            Realistically, however, we won't know the \(w_i\) values ahead of time (for \(i \in [1 ... n]\)). What we'll actually compute is:
+                Realistically, however, we won't know the \(w_i\) values ahead of time (for \(i \in [1 ... n]\)). What we'll actually compute is:
             
-            <div class="mathjax-resize">
-                $$
-                \begin{bmatrix}
-                v_1x_1 & v_1y_1 & v_1 \\
-                v_2x_2 & v_2y_2 & v_2 \\
-                \vdots & \vdots & \vdots \\
-                v_nx_n & v_ny_n & v_n
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                x_1' & y_1' & 1 \\
-                x_2' & y_2' & 1 \\
-                \vdots & \vdots & \vdots \\
-                x_n' & y_n' & 1
-                \end{bmatrix}
-                (H^{-1})^T
-                $$
-            </div>
+                <div class="mathjax-resize">
+                    $$
+                    \begin{bmatrix}
+                    v_1x_1 & v_1y_1 & v_1 \\
+                    v_2x_2 & v_2y_2 & v_2 \\
+                    \vdots & \vdots & \vdots \\
+                    v_nx_n & v_ny_n & v_n
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                    x_1' & y_1' & 1 \\
+                    x_2' & y_2' & 1 \\
+                    \vdots & \vdots & \vdots \\
+                    x_n' & y_n' & 1
+                    \end{bmatrix}
+                    (H^{-1})^T
+                    $$
+                </div>
             
-            This isn't a problem, since we can simply renormalize each of the row vectors until the third coordinate is always 1. Anyway (as mentioned like three times), we can use the input image locations to complete our inverse warp via color interpolation! At this juncture, we're fully able to warp an image based on a pointwise projective transformation.
-        </p>
+                This isn't a problem, since we can simply renormalize each of the row vectors until the third coordinate is always 1. Anyway (as mentioned like three times), we can use the input image locations to complete our inverse warp via color interpolation! At this juncture, we're fully able to warp an image based on a pointwise projective transformation.
+            </p>
+        </fieldset>
         <br />
         
         
@@ -280,36 +493,37 @@
         
         
         <span class="anchor" id="rectifying-images"></span>
-        <h2 style="margin-bottom: 0.3em">[3] Rectifying Images</h2>
-        <p>
-            Enough math. Let's take what we've done so far and produce something visual! As a test of projective warp correctness, we attempt to rectify a couple of images. Specifically, we'll try to set up our warps so that planar surfaces are frontal-parallel in the output image.
+        <fieldset>
+            <legend><h2>&nbsp;[06] Rectifying Images&nbsp;</h2></legend>
+            <p>
+                Enough math. Let's take what we've done so far and produce something visual! As a test of projective warp correctness, we attempt to rectify a couple of images. Specifically, we'll try to set up our warps so that certain planar surfaces are frontal-parallel in the output image.
             
-            <br /><br />
+                <br /><br />
             
-            In the examples below, we select four input points over the corners of some planar surface, and then use the rectified version of those points as the corresponding \(P'\) coordinates.
+                In the examples below, we select four input points over the corners of some planar surface, and then use the rectified version of those points as the corresponding \(P'\) coordinates.
             
-            <table width="100%"><tr>
-                <td style="text-align: center" width="50%">
-                    <img src="images/sunset.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Sunset view from my apartment (11/11/16)</code></figcaption>
-                </td>
-                <td style="text-align: center" width="50%">
-                    <img src="images/sunset_rectified.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Rectified using sq. window as a basis</code></figcaption>
-                </td>
-            </tr></table>
-            
-            <table width="100%"><tr>
-                <td style="text-align: center" width="50%">
-                    <img src="images/familylife.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Assortment of rectangular objects</code></figcaption>
-                </td>
-                <td style="text-align: center" width="50%">
-                    <img src="images/familylife_rectified.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Rectified over <em>Family Life</em></code></figcaption>
-                </td>
-            </tr></table>
-        </p>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/sunset.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Sunset view from my apartment (11/11/16)</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/sunset_rectified.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Rectified using sq. window as a basis</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/familylife.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Assortment of rectangular objects</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/familylife_rectified.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Rectified over <em>Family Life</em></code></figcaption>
+                    </td>
+                </tr></table>
+            </p>
+        </fieldset>
         <br />
         
         
@@ -317,119 +531,466 @@
         
         
         <span class="anchor" id="producing-panoramic-mosaics"></span>
-        <h2 style="margin-bottom: 0.3em">[4] Producing Panoramic Mosaics</h2>
-        <p>
-            Here, we warp and blend a sequence of overlapping images together – creating, in expectation, a nicely stitched panorama. Given a set of photographs that don't span more than 180 degrees (faraway scenes work well, since we can then project everything onto a plane at infinity), we start by selecting a centrally positioned photograph to serve as the base panorama image. We then project and blend all other images one-by-one into this photograph's coordinate system, amassing a holistic panorama as we go.
+        <fieldset>
+            <legend><h2>&nbsp;[07] Producing Panoramic Mosaics&nbsp;</h2></legend>
+            <p>
+                Here, we warp and blend a sequence of overlapping images together – creating, in expectation, a nicely stitched panorama. Given a set of photographs that don't span more than 180 degrees (faraway scenes work well, since we can then project everything onto a plane at infinity), we start by selecting a centrally positioned photograph to serve as the base panorama image. We then project and blend all other images one-by-one into this photograph's coordinate system, amassing a holistic panorama as we go.
             
-            <br /><br />
+                <br /><br />
             
-            That's pretty much it!
+                That's pretty much it!
             
-            <br /><br />
+                <br /><br />
             
-            Since individual images are projected directly onto their correct coordinates in the overall panorama, we don't need to align anything after a warp. All we need to do is blend, which we handle through weighted averaging at every pixel. To facilitate this weighting, we maintain alpha values for each image's pixels that represent how far every pixel is from the unwarped image's center column, i.e. how important the pixel is to its source. We assign the alpha value for the center column to 1, and let this value fall off linearly as it approaches the sides (such that it is 0 at the edges).
+                Since individual images are projected directly onto their correct coordinates in the overall panorama, we don't need to align anything after a warp. All we need to do is blend, which we handle through weighted averaging at every pixel. To facilitate this weighting, we maintain alpha values for each image's pixels that represent how far every pixel is from the unwarped image's center column, i.e. how important the pixel is to its source. We assign the alpha value for the center column to 1, and let this value fall off linearly as it approaches the sides (such that it is 0 at the edges).
             
-            <br /><br />
+                <br /><br />
             
-            So... after warping, we compute the output pixels specific to the individual image, the output pixels specific to the growing panorama image, and the output pixels at which there is overlap. For the non-overlap pixels, we use the unmodified RGB values from their source images. For the overlap pixels, we normalize the alpha values so that they sum to 1 and then linearly interpolate between the color values of each image (using the normalized alphas as weights). Finally, we set the entire alpha channel to 1 in the output panorama at each stage in order to get rid of any residual fading effects.
+                Then, after warping, we compute the output pixels specific to the individual image, the output pixels specific to the growing panorama image, and the output pixels at which there is overlap. For the non-overlap pixels, we use the unmodified RGB values from their source images. For the overlap pixels, we normalize the alpha values so that they sum to 1 and then linearly interpolate between the color values of each image (using the normalized alphas as weights). Finally, we set the entire alpha channel to 1 in the output panorama at each stage in order to get rid of any residual fading effects.
             
-            <br /><br />
+                <br /><br />
             
-            Yeah... below we have some results. The photographs are from me biking up to Indian Rock and taking a bunch of pictures of the distance; they yielded some decent mosaics in my opinion (especially after cropping!).
+                Below we have some results. The photographs are from me biking up to Indian Rock and taking a bunch of pictures of the distance; they yielded some decent mosaics in my opinion (especially after cropping!). [<strong>Part B edit</strong>: The automatically stitched images have now been included above each of their manual counterparts.]
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/indian_auto_cropped.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Cropped view from a rock, pt. 1 <strong>(auto)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/indian_auto.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>View from a rock, pt. 1 <strong>(auto)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/indian_panorama_cropped.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Cropped view from a rock, pt. 1 <strong>(manual)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/indian_panorama.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>View from a rock, pt. 1 <strong>(manual)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/indian1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Left image</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/indian2.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Center image</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/indian3.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Right image</code></figcaption>
+                    </td>
+                </tr></table>
             
-            <table width="100%"><tr>
-                <td style="text-align: center" width="100%">
-                    <img src="images/indian_panorama_cropped.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Cropped view from a rock, pt. 1</code></figcaption>
-                </td>
-            </tr></table>
-            <table width="100%"><tr>
-                <td style="text-align: center" width="100%">
-                    <img src="images/indian_panorama.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>View from a rock, pt. 1</code></figcaption>
-                </td>
-            </tr></table>
-            <table width="100%"><tr>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/indian1.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Left image</code></figcaption>
-                </td>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/indian2.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Center image</code></figcaption>
-                </td>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/indian3.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Right image</code></figcaption>
-                </td>
-            </tr></table>
+                The second panorama also turned out all right. However, success was tempered by the fact that I – being an unprofessional panorama photographer – managed to capture a bunch of pesky and ephemerally present humans across the bottom of my photographs. Even after being blended into the final image, their ghosts can still be observed.
             
-            The second panorama also turned out all right. However, success was tempered by the fact that I – being an unprofessional panorama photographer – managed to capture a bunch of pesky and ephemerally present humans across the bottom of my photographs. Even after being blended into the final image, their ghosts can still be observed.
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/rock_auto_cropped.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Cropped view from a rock, pt. 2 <strong>(auto)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/rock_auto.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>View from a rock, pt. 2 <strong>(auto)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/rock_panorama_cropped.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Cropped view from a rock, pt. 2 <strong>(manual)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/rock_panorama.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>View from a rock, pt. 2 <strong>(manual)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/rock1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Left image</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/rock2.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Center image</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/rock3.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Right image</code></figcaption>
+                    </td>
+                </tr></table>
             
-            <br /><br />
+                Technically speaking, my third panorama was the least successful because it contained a lot of moving elements (in the form of automobiles) and also spanned more than 180 degrees of view. You can see from the top right corner that the third image's projection is beginning to warp out of control! You might also notice a car without its shadow, and a shadow without its car.
             
-            <table width="100%"><tr>
-                <td style="text-align: center" width="100%">
-                    <img src="images/rock_panorama_cropped.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Cropped view from a rock, pt. 2</code></figcaption>
-                </td>
-            </tr></table>
-            <table width="100%"><tr>
-                <td style="text-align: center" width="100%">
-                    <img src="images/rock_panorama.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>View from a rock, pt. 2</code></figcaption>
-                </td>
-            </tr></table>
-            <table width="100%"><tr>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/rock1.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Left image</code></figcaption>
-                </td>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/rock2.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Center image</code></figcaption>
-                </td>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/rock3.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Right image</code></figcaption>
-                </td>
-            </tr></table>
+                <br /><br />
             
-            Technically speaking, my third panorama was the least successful because it contained a lot of moving elements (in the form of automobiles) and also spanned more than 180 degrees of view. You can see from the top right corner that the third image's projection is beginning to warp out of control! You might also notice a car without its shadow, and a shadow without its car.
+                I think I also messed up somewhat on keeping my center of projection constant.
             
-            <br /><br />
-            
-            I think I also messed up somewhat on keeping my center of projection constant.
-            
-            <br /><br />
-            
-            <table width="100%"><tr>
-                <td style="text-align: center" width="100%">
-                    <img src="images/fountain_panorama_cropped.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>"The Circle", cropped</code></figcaption>
-                </td>
-            </tr></table>
-            <table width="100%"><tr>
-                <td style="text-align: center" width="100%">
-                    <img src="images/fountain_panorama.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>It's up north somewhere</code></figcaption>
-                </td>
-            </tr></table>
-            <table width="100%"><tr>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/fountain1.png" data-action="zoom" />
-                    <figcaption align="middle"><code>Left image</code></figcaption>
-                </td>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/fountain2.png" data-action="zoom" />
-                    <figcaption align="middle"><code>Center image</code></figcaption>
-                </td>
-                <td style="text-align: center" width="33.33%">
-                    <img src="images/fountain3.png" data-action="zoom" />
-                    <figcaption align="middle"><code>Right image</code></figcaption>
-                </td>
-            </tr></table>
-        </p>
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/fountain_auto_cropped.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>"The Circle", cropped <strong>(auto)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/fountain_auto.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>It's up north somewhere <strong>(auto)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/fountain_panorama_cropped.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>"The Circle", cropped <strong>(manual)</strong></code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/fountain_panorama.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code><strong>Manual</strong> feature selection</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/fountain1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Left image</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/fountain2.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Center image</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="33.33%">
+                        <img src="images/fountain3.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Right image</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                Two other panoramas I enjoyed (both were stitched automatically):
+                
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="47.7%">
+                        <img src="images/panorama_a2.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="52.3%">
+                        <img src="images/panorama_play2.jpg" data-action="zoom" />
+                    </td>
+                </tr></table>
+            </p>
+        </fieldset>
+        <br />
+        
+        
+        <!-- Bells and Whistles: Cylindrical Mapping -->
+        
+        
+        <span class="anchor" id="cylindrical-mapping"></span>
+        <fieldset>
+            <legend><h2>&nbsp;[08] Bells and Whistles: Cylindrical Mapping&nbsp;</h2></legend>
+            <p>
+                For non-planar (read: wide) fields of view, we'll want to utilize a cylindrical projection. Although this distorts the edges of the image, it's a worthwhile tradeoff when we're looking for a panorama with an exceedingly large horizontal dimension. As an added requirement, however, we need our input images to be horizontally aligned from the get-go; we're taking the homography out of the mix here.
+                
+                <br /><br />
+                
+                This time, we compute the inverse warping as follows:
+                <div class="mathjax-resize">
+                    $$
+                    \begin{array}{c c c}
+                    \theta = (x' - x_c) / f & \:\:\:\:\: \hat{x} = \sin{\theta} \:\:\:\:\: & x = f\hat{x} / \hat{z} + x_c \\
+                    h = (y' - y_c) / f & \:\:\:\:\: \hat{y} = h \:\:\:\:\: & y = f\hat{y} / \hat{z} + y_c \\
+                    & \:\:\:\:\: \hat{z} = \cos{\theta} \:\:\:\:\: &
+                    \end{array}
+                    $$
+                </div>
+                
+                In practice, this can be condensed to
+                
+                <div class="mathjax-resize">
+                    $$
+                    \begin{array}{c}
+                    x = f\tan{((x' - x_c) / f)} \\
+                    y = (y' - y_c) / \cos{((x' - x_c) / f)}
+                    \end{array}
+                    $$
+                </div>
+                
+                \(f\) is the focal length in pixels, which can be computed from the EXIF focal length and the camera CCD width (which is 6.08mm on my point-and-shoot) as specified <a href="http://phototour.cs.washington.edu/focal.html" target="_blank">here</a>. \(x\) and \(y\) are the coordinates in the source image, while \(x_c\) and \(y_c\) are the center coordinates of the unwrapped output image. Again, we're given \(x', y',\) and \(f\) and we want to determine the source coordinates \((x, y)\) from which to interpolate colors.
+                
+                <br /><br />
+                
+                Once we have our cylindrically warped images, the only thing we still need to do is compute the translation between adjacent components. (Note: it's merely a translation because we're essentially just sliding images back and forth along the lengthwise axis of the unwrapped cylinder.) Under the assumption that we're only stitching in the x-direction, we use as our translation the average horizontal difference between corresponding feature points. To obtain these feature points, we execute the same descriptor-matching procedure as before. We also reject outliers from the resulting set of differences before taking the mean.
+                
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/kav1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Input image</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/cyli_kav1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Cylindrically warped output</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                In order to generate a panorama with a cylindrical mapping scheme, we run two stages. The first stage involves warping all of the input images; the second involves aligning them and blending them all together. During the second stage, we loop in order to stitch the images one-by-one into a constantly growing base image.
+                
+                <br /><br />
+                
+                Here we have the output of the first stage.
+                
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="14.28%">
+                        <img src="images/c_kav1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>1</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="14.28%">
+                        <img src="images/c_kav2.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>2</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="14.28%">
+                        <img src="images/c_kav3.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>3</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="14.28%">
+                        <img src="images/c_kav4.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>4</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="14.28%">
+                        <img src="images/c_kav5.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>5</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="14.28%">
+                        <img src="images/c_kav6.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>6</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="14.28%">
+                        <img src="images/c_kav7.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>7</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                As an example, we can automatically combine the cylindrically warped images above into a single panorama. Regrettably, our panorama's most salient feature – the human subject's face – is slightly blurred. I'd like to hastily assign blame to said human subject for moving around between camera shots. (At the same time, he did an admirable job of keeping mostly still.)
+                
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/c_kav_panorama.jpg" data-action="zoom" />
+                    </td>
+                </tr></table>
+            </p>
+        </fieldset>
+        <br />
+        
+        
+        <!-- Bells and Whistles: 360° Panorama -->
+        
+        
+        <span class="anchor" id="360-panorama"></span>
+        <fieldset>
+            <legend><h2>&nbsp;[09] Bells and Whistles: 360&deg; Panorama&nbsp;</h2></legend>
+            <p>
+                Using our cylindrical warping technique, we can now put together a panorama spanning 360 degrees of view. We do this by using the same stitching algorithm as that of the previous section, while also making sure to merge the final image and the initial image at the end (so as to create a "true" 360 experience).
+                
+                <br /><br />
+                
+                The input images and final panorama can be seen below. Alignment wasn't perfect, but in examining the source images I've come to the conclusion that a perfect translational x-alignment doesn't exist anyway. To deal with the misalignment we'd probably have to do something more sophisticated (or take better pictures).
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>1</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond2.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>2</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond3.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>3</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond4.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>4</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond5.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>5</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond6.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>6</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond7.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>7</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond8.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>8</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="11.11%">
+                        <img src="images/c_almond9.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>9</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/almond_cropped.jpg" data-action="zoom" />
+                    </td>
+                </tr></table>
+                
+                We also have an interactive version (courtesy <a href="https://pannellum.org/" target="_blank">Pannellum</a>; they have some pretty high-quality demos if you want to see some real/spherical panoramas!). Click and drag in order to pan around the scene. You can also zoom in/out if you so desire. If the viewer doesn't work – although hopefully it will for a very long time – it probably means you're from the distant future and my Imgur source / Pannellum's CDNs have gone down. Or you need to enable JavaScript. One or the other.
+                
+                <br /><br />
+                
+                <div id="almond-panorama"></div>
+                <script>
+                pannellum.viewer('almond-panorama', {
+                    "type": "equirectangular",
+                    "minPitch": 0,
+                    "maxPitch": 0,
+                    "vaov": 60,
+                    "panorama": "https://i.imgur.com/G8CX9lq.jpg"
+                });
+                </script>
+            </p>
+        </fieldset>
+        <br />
+        
+        
+        <!-- Bells and Whistles: Rotation Invariance -->
+        
+        
+        <span class="anchor" id="rotation-invariance"></span>
+        <fieldset>
+            <legend><h2>&nbsp;[10] Bells and Whistles: Rotation Invariance&nbsp;</h2></legend>
+            <p>
+                As discussed in <a href="#descriptor-extraction-and-point-matching">one of the previous sections</a>, our feature descriptors are also invariant under rotation. This is nice, because even if we fail at photography and rotate the camera around a non-yaw axis, our automatically detected features can still be standardized and matched.
+                
+                <br /><br />
+                
+                You probably don't believe me, so I've prepared as proof a couple of demonstrations –
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/kavi1_norotr.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Kavi im1 feature detection (no rotation)</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/kavi2_norotr.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Kavi im2 feature detection (no rotation)</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/kavi1_rotr.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Kavi im1 feature detection (<strong>rotation</strong>)</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/kavi2_rotr.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Kavi im2 feature detection (<strong>rotation</strong>)</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                Seems like it still works! It's finding matching features, at least. As seen below, we can also run the full stitching algorithm on an arbitrarily rotated set of images. Here's hoping you aren't tired of Indian Rock scenery yet...
+                
+                <br /><br />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/indian1_rotl.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Indian Rock image 1 features</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/indian2_rotl.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Indian Rock image 2 features</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/indian_panorama_rotl.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Rotationally invariant panorama stitching</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                The sky-slicing vertical seam is likely an artifact caused by paint-bucketing transparent regions in the source PNG image.
+            </p>
+        </fieldset>
+        <br />
+        
+        
+        <!-- Bells and Whistles: Panorama Recognition -->
+        
+        
+        <span class="anchor" id="panorama-recognition"></span>
+        <fieldset>
+            <legend><h2>&nbsp;[11] Bells and Whistles: Panorama Recognition&nbsp;</h2></legend>
+            <p>
+                Here we implement an algorithm that, given an unordered list of images (some of which might match up), is able to automatically discover pairwise panoramas and stitch them together. It does this by extracting feature descriptors for every image and then exhaustively searching for every image's nearest neighbor via the SSD matching technique we've come to know and love. (The image with the most feature matches is our best guess for each image's neighbor.)
+                
+                <br /><br />
+                
+                Since not every image is guaranteed to have a panorama partner, we consider a subject to be isolated when, again emulating Lowe, the ratio between the match count with the 1-NN and the match count with the 2-NN is less than some threshold... say 4. If the 2-NN count is 0, we're willing to pair the image with its 1-NN as long as the 1-NN count is greater than 4. We also are forced to assume isolation if an image has less than four feature matches with its 1-NN (or RANSAC later leaves it with less than three inliers overall). Four is the absolute minimum number of feature pairings required, since that's how many correspondences we need in order to define a homography. 
+                
+                <br /><br />
+                
+                To test our discovery algorithm, we feed it the following five images in the following scrambled order and let it do its thing. We expect an output of two panoramas... and to our excitement, the algorithm delivers.
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="20%">
+                        <img src="images/rain2.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="20%">
+                        <img src="images/kavi1.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="20%">
+                        <img src="images/rain1.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="20%">
+                        <img src="images/house.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="20%">
+                        <img src="images/kavi2.jpg" data-action="zoom" />
+                    </td>
+                </tr></table>
+                
+                <hr />
+                
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/panorama0.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Output panorama #1 (raw)</code></figcaption>
+                    </td>
+                </tr></table>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/panorama1.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Output panorama #2 (raw)</code></figcaption>
+                    </td>
+                </tr></table>
+            </p>
+        </fieldset>
         <br />
         
         
@@ -437,39 +998,54 @@
         
         
         <span class="anchor" id="looking-back"></span>
-        <h2 style="margin-bottom: 0.3em">[5] Looking Back</h2>
-        <p>
-            First of all, I learned that planar mappings don't really work for > 180&deg; mosaics, as I spent an embarrassing amount of time trying to warp and merge two images that spanned an excessive view space.
+        <fieldset>
+            <legend><h2>&nbsp;[12] Looking Back&nbsp;</h2></legend>
+            <p>
+                First of all, I learned that planar mappings don't really work for > 180&deg; mosaics, as I spent an embarrassing amount of time trying to warp and merge two images that spanned an excessive view space.
             
-            <br /><br />
+                <br /><br />
             
-            However, I'm glad I got to experience the power of homographies / projective transformations. It was very exciting to be able to modify the perspective of my images in a specific way, and to be able to stitch multiple photographs into one! I never realized that it was possible to achieve these effects with just a 3 x 3 matrix and some blending.
+                However, I'm glad I got to experience the power of homographies / projective transformations. It was very exciting to be able to modify the perspective of my images in a specific way, and to be able to stitch multiple photographs into one! I never realized that it was possible to achieve these effects with just a 3 x 3 matrix and some blending.
             
-            <br /><br />
+                <br /><br />
+                
+                I leave you with a rectified image of my lunch. (Because I definitely ate all of these pizzas.) Thanks for reading! :)
             
-            Anyhow, I leave you with a rectified image of my lunch.<br />
-            Thanks for reading! :)
-            
-            <table width="100%"><tr>
-                <td style="text-align: center" width="50%">
-                    <img src="images/sliver.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Lunchtime carnage</code></figcaption>
-                </td>
-                <td style="text-align: center" width="50%">
-                    <img src="images/sliver_rectified.jpg" data-action="zoom" />
-                    <figcaption align="middle"><code>Rectified carnage</code></figcaption>
-                </td>
-            </tr></table>
-        </p>
+                <table width="100%"><tr>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/sliver.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Lunchtime carnage</code></figcaption>
+                    </td>
+                    <td style="text-align: center" width="50%">
+                        <img src="images/sliver_rectified.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Rectified carnage</code></figcaption>
+                    </td>
+                </tr></table>
+                
+                <strong>Part B edit</strong>: I was incredibly impressed by how well features could automatically be detected and matched; feats like this are what'll finally convince people to entrust their lives to self-driving cars.
+                
+                <br /><br />
+                
+                As a summary, I learned from this project that SSD is godlike and that I have a new post-processing option whenever I want to capture a widely sweeping scene over multiple photographs. It's great how easy it is to use after Part B; all I have to do is feed the program a list of filenames and there it is! A panorama...!
+            </p>
+        </fieldset>
+        <br />
     </div>
     
     <!-- Navigation -->
     <section id="navdots"><ul>
         <a href="#setting-the-scene"><li class title="Setting the Scene"></li></a>
+        <a href="#feature-detection"><li class title="Feature Detection"></li></a>
+        <a href="#descriptor-extraction-and-point-matching"><li class title="Descriptor Extraction and Point Matching"></li></a>
+        <a href="#ransac-for-homography-estimation"><li class title="RANSAC for Homography Estimation"></li></a>
         <a href="#solving-for-the-homography-matrix"><li class title="Solving for the Homography Matrix"></li></a>
         <a href="#applying-our-homography"><li class title="Applying Our Homography"></li></a>
         <a href="#rectifying-images"><li class title="Rectifying Images"></li></a>
         <a href="#producing-panoramic-mosaics"><li class title="Producing Panoramic Mosaics"></li></a>
+        <a href="#cylindrical-mapping"><li class title="Cylindrical Mapping"></li></a>
+        <a href="#360-panorama"><li class title="360&deg; Panorama"></li></a>
+        <a href="#rotation-invariance"><li class title="Rotation Invariance"></li></a>
+        <a href="#panorama-recognition"><li class title="Panorama Recognition"></li></a>
         <a href="#looking-back"><li class title="Looking Back"></li></a>
     </ul></section>
     
