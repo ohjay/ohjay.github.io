@@ -216,10 +216,10 @@ Define $n$ to be the length of the input list. How much memory does the followin
 
 \begin{lstlisting}
 def weighted_random_choice(lst):
-	temp = []
-	for i in range(len(lst)):
-		temp.extend([lst[i]] * (i + 1))
-	return random.choice(temp)
+    temp = []
+    for i in range(len(lst)):
+        temp.extend([lst[i]] * (i + 1))
+    return random.choice(temp)
 \end{lstlisting}
 ~\\
 \lstinline{_______________}
@@ -337,12 +337,12 @@ Let's assume that the operations of adding to, removing from, or checking contai
 \lstinline{_______________}
 
 \subq{1}
-Suppose that instead of having result be a set, we make it a list (so that it is initialized to \texttt{[]} and we use \texttt{.append} to add an item). What now is the worst-case time bound? You can assume that \texttt{.append} is a constant-time operation, and \texttt{.remove} and the \texttt{in} operator require time that is $\Theta(L)$ in the worst case, where $L$ is the length of the list operated on. Since we never add an item that is already in the list, each value appears at most once, just as for a Python set.
+Suppose that instead of having \texttt{result} be a set, we make it a list (so that it is initialized to \texttt{[]} and we use \texttt{.append} to add an item). What now is the worst-case time bound? You can assume that \texttt{.append} is a constant-time operation, and \texttt{.remove} and the \texttt{in} operator require time that is $\Theta(L)$ in the worst case, where $L$ is the length of the list operated on. Since we never add an item that is already in the list, each value appears at most once, just as for a Python set.
 ~\\\\
 \lstinline{_______________}
 
 \subq{1}
-Now suppose that we consider only cases where the number of different values in list $S$ is at most 100, and we again use a list for result. What is the worst-case time now?
+Now suppose that we consider only cases where the number of different values in list $S$ is at most 100, and we again use a list for \texttt{result}. What is the worst-case time now?
 ~\\\\
 \lstinline{_______________}
 \end{enumerate}
