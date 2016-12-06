@@ -172,7 +172,7 @@ def mystery14(m, n):
         while j <= n:
             result += j
             j += 1
-        return result
+    return result
 
 # Exercise 7
 # ----------
