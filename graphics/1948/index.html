@@ -1,0 +1,477 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Tour into the Picture / Video Textures | Owen Jow</title>
+    
+    <!-- Stylesheets and... stuff -->
+    <link href="css/style.min.css" rel="stylesheet">
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          CommonHTML: { linebreaks: { automatic: true } },
+          "HTML-CSS": { linebreaks: { automatic: true } },
+                 SVG: { linebreaks: { automatic: true } }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link href="css/zoom.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <h1 align="middle">Tour into the Picture / Video Textures</h1>
+        <h3 align="middle">CS 194-26 Final Project &nbsp;&middot;&nbsp; Owen Jow &nbsp;&middot;&nbsp; December 2016</h3>
+        <hr />
+        <br />
+        
+        
+        <!-- Tour into the Picture -->
+        
+        
+        <span class="anchor" id="tour-into-the-picture"></span>
+        <h2>&nbsp;[01] Part 1: Tour into the Picture&nbsp;</h2>
+        <p>
+            As project 1 (of 2), we implement a user interface capable of generating 3D scene models from a lone image (a process known as single view reconstruction). Following the techniques described in <a href="http://graphics.cs.cmu.edu/courses/15-463/2011_fall/Papers/TIP.pdf" target="_blank"><em>Tour into the Picture</em></a> by Horry et al., we represent our scene as an axis-parallel box with five faces:
+            
+            <table>
+                <tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/openbox.jpg" data-action="zoom" />
+                        <figcaption align="middle"><code>Figure 01: the interior of a cardboard box</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            
+        <p>
+            Accordingly, we have to limit our input to scenes that <em>can</em> be modeled with a box volume, i.e. scenes that have a similar structure to the content of Figure 1. We also require that our scenes be one-point perspective; that's actually going to be part of the user input for our program. Examples of valid input scenes are shown below:
+            
+            <table class="forced-caption-table">
+                <tr>
+                    <td style="text-align: center" width="18.4%">
+                        <img src="images/fancy.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="19.65%">
+                        <table width="100%" class="inner-table">
+                            <tr>
+                                <td style="text-align: center" width="100%">
+                                    <img src="images/museum.jpg" data-action="zoom" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center" width="100%">
+                                    <img src="images/room.jpg" data-action="zoom" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="text-align: center" width="19.15%">
+                        <img src="images/antechamber.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="19.4%">
+                        <img src="images/oxford.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="18.4%">
+                        <table width="100%" class="inner-table">
+                            <tr>
+                                <td style="text-align: center" width="100%">
+                                    <img src="images/warehouse.jpg" data-action="zoom" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center" width="100%">
+                                    <img src="images/sjerome.jpg" data-action="zoom" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="forced-caption-div">
+                <code>Figure 02: potential input imagery</code>
+            </div>
+            
+        <p>
+            Just a second ago we mentioned user input! Before our program can do anything, we require that the user specify certain constraints on the box-to-be. Specifically, he/she needs to indicate the vanishing point and the back wall of the box by selecting three locations: the vanishing point itself, the top-left corner of the back wall, and the bottom-right corner of the back wall.
+            
+        <p>
+            Once we have this information, we can get to work. The user has specified the 2D coordinates of the back wall vertices, but we still need to transform those into 3D. We also need to calculate the 3D coordinates of the remaining four vertices. After we've done so, we'll rectify the textures for each of the five planes (using the projective warping technique from <a href="http://owenjow.xyz/graphics/1947/#rectifying-images" target="_blank">the previous project</a>) and apply them to our 3D box. At this stage, we can move around inside of our box in order to look at the scene from different perspectives. Pretty neat!
+            
+        <p>
+            Possibly sacrificing efficiency for familiarity, we have written the code for this project in Python 2.7. In doing so, we've also created <a href="./starter.zip">potential starter code</a> for future Python users; the already-implemented portion is similar to that of the MATLAB version in the assignment spec. Note that for the 3D scene modeling and real-time walkthrough aspects of TIP, we use <a href="http://pyopengl.sourceforge.net/" target="_blank">PyOpenGL</a> and <a href="https://wxpython.org/" target="_blank">wxPython</a>.
+            
+        <p>
+            <h3>From 2D to 3D: Creating the Axis-Aligned Box</h3>
+        
+        <p>
+            After the user has labeled the vanishing point and back wall, we essentially have this (the blue region in the figure below):
+            
+            <table>
+                <tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/input.jpg" width="50%" data-action="zoom" />
+                        <figcaption align="middle"><code>Figure 03: user input</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+            
+        <p>
+            We want to recreate (in 3D) everything else within the image. To do so, we follow this diagram:
+            
+            <table class="forced-caption-table">
+                <tr>
+                    <td style="text-align: center" width="37.5%">
+                        <img src="images/frontal.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="62.5%">
+                        <img src="images/similartri.jpg" data-action="zoom" />
+                    </td>
+                </tr>
+            </table>
+            <div class="forced-caption-div">
+                <code>Figure 04: similar triangles are godlike</code>
+            </div>
+        
+        <p>
+            On the left, we have the labeled 2D image. \(V\) is the vanishing point, while \(A\) and \(B\) are – respectively – the bottom- and top-right corners of the back wall. In the other half of the figure, we have a depiction of the side view; if the left image describes the horizontal and vertical dimensions, then the right image describes the vertical and "depth" dimensions. (The vector from \(C\) to \(V\) would be pointing <em>into</em> the image.)  \(h_1\) and \(h_2\) are the top and bottom coordinates of the original photograph in a vertical sense, and \(C\) is the camera position (which we know to be level with the vanishing point \(V\)). \(B', V',\) and \(A'\) are the coordinates of \(B, V,\) and \(A\) in "actual" space, or at least that of the 3D box. Finally, \(f\) is the focal length.
+            
+        <p>
+            Put another way, \(B\) and \(A\) are (respectively) the top of the "top" segment and the bottom of the "bottom" segment shown below. Incidentally, if we consider the x-, y-, and z-dimensions to be width, height, and depth in that order, then Figure 5's crosshair center singles out the x- and y- coordinates of the "camera."
+            
+            <table>
+                <tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/ratio_segments.jpg" width="75%" data-action="zoom" />
+                        <figcaption align="middle"><code>Figure 05: ratio segments</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+        
+        <p>
+            Going back to Figure 4, we know (or can easily calculate) \(a\), \(b\), and \(f\). We also know the width and height of our box, since those will simply be set to the width and height of our back plane. Therefore, the only value remaining to determine is the depth of our box \(d\). To acquire it, we adhere to the following algorithm:
+            
+<pre>
+set h = h2 - V.y
+set l' = V.y - h1
+compute d_bottom as (h * f / a) - f
+compute d_top as (l' * f / b) - f
+
+repeat for d_right and d_left (using horizontal a', b', V, h1, and h2 values)
+set depth = max of d_bottom, d_top, d_right, d_left
+</pre>
+
+        <p>
+            We assert that \(d_{bottom}\) and \(d_{top}\) are equal to \((hf / a) - f\) and \((l'f / b) - f\) because of the properties of similar triangles. \(CVA\) and \(CV'A'\) are similar triangles, as are \(CVB\) and \(CV'B'\), and accordingly we can say that \(f / a = (d_{bottom} + f) / h\) and \(f / b = (d_{top} + f) / l'\).
+        
+        <p>
+            Anyway, we now have the height, width, and depth of our 3D box... along with the individual depths of each of the four side/top planes. That's all we need! To get actual 3D coordinates, we can simply position one of the vertices (or center the rectangular prism) at the origin and go from there. We also have to texture map the box; we do this by rectifying each of the "non-back plane" image fragments (into the shape specified by the width or height and the appropriate \(d\_\) value) and applying them to their corresponding box walls.
+        
+        <p>
+            <h3>Scene Walkthroughs</h3>
+        
+        <p>
+            Scene walkthroughs aren't conceptually complicated. We already have our 3D model; we just have to adjust the camera if we want to alter our perspective. For the purposes of this project, we add mouse and keyboard controls for six-DOF translation and four-DOF rotation.
+        
+        <p>
+            <h3>Results</h3>
+            
+            <iframe id="sjerome-iframe" src="https://www.youtube.com/embed/0lyFixtyvbs" frameborder="0" allowfullscreen></iframe>
+            
+        <p>
+            <table class="forced-caption-table">
+                <tr>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/oxford_resized.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/oxford1.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/oxford2.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/oxford3.jpg" data-action="zoom" />
+                    </td>
+                </tr>
+            </table>
+            <div class="forced-caption-div">
+                <code>Figure 06: oxford (original and novel views)</code>
+            </div>
+            
+            <table class="forced-caption-table">
+                <tr>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/royal.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/royal1.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/royal2.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/royal3.jpg" data-action="zoom" />
+                    </td>
+                </tr>
+            </table>
+            <div class="forced-caption-div">
+                <code>Figure 07: royal exhibition (original and novel views)</code>
+            </div>
+            
+            <table class="forced-caption-table">
+                <tr>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/scientology.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/scientology1.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/scientology2.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: center" width="25%">
+                        <img src="images/scientology3.jpg" data-action="zoom" />
+                    </td>
+                </tr>
+            </table>
+            <div class="forced-caption-div">
+                <code>Figure 08: scientology (original and novel views)</code>
+            </div>
+        
+        <p>
+            <h3>Additional Notes</h3>
+            
+        <p>
+            Resolution is extremely important here. TIP might seem magical at first glance, but it really only uses the information that's already in the picture. If we don't have many color values for our images, then the homographies will have a lot less to work with. That being the case, low-resolution images will usually result in stretched and uninformative surroundings... not so impressive!
+            
+        <p>
+            Also, it'd be nice to properly represent foreground objects (perhaps as a future extension). As it stands, they just get flattened into the side planes. To circumvent this, we would want to mask the elements out of the original image, create models for each of them (3D would be nice, but rectangles are fine if we don't know the dimensions), and then stick them back into the box at appropriate depths. If using rectangles, we'd be able to calculate the 3D coordinates as before – i.e. through similar triangles.
+            
+        <p>
+            <h3>Image Sources by Figure</h3>
+            
+            <table class="sources-table">
+                <tr>
+                    <th><code>Figure 01</code></th>
+                    <td><a href="http://img.freepik.com/free-photo/empty-box-top-view_1101-93.jpg?size=338&ext=jpg" target="_blank">(openbox)</a></td>
+                </tr>
+                <tr>
+                    <th><code>Figure 02</code></th>
+                    <td>
+                        <a href="https://s-media-cache-ak0.pinimg.com/236x/ac/a8/11/aca811bec2f192bcf1145dd9572c98b2.jpg" target="_blank">(fancy)</a> /
+                        <a href="http://www.19thc-artworldwide.org/images/stories/spring_13/reviews/nimm-hamm23.jpg" target="_blank">(museum)</a> /
+                        <a href="http://fashionconnery.com/wp-content/uploads/2016/01/polyvore-empty-rooms-home-1.jpg" target="_blank">(room)</a> /
+                        <a href="https://s-media-cache-ak0.pinimg.com/736x/d9/2c/af/d92cafb1ceed80afb485a5578d40a14f.jpg" target="_blank">(antechamber)</a> /
+                        <a href="http://inst.eecs.berkeley.edu/~cs194-26/fa16/hw/proj7-stitch/proj7g/code/Oxford.jpg" target="_blank">(oxford)</a> /
+                        <a href="https://archiscapes.files.wordpress.com/2014/10/empty-old-warehouse.jpg?w=556&h=372&crop=1" target="_blank">(warehouse)</a> /
+                        <a href="http://inst.eecs.berkeley.edu/~cs194-26/fa16/hw/proj7-stitch/proj7g/code/sjerome.jpg" target="_blank">(sjerome)</a></td>
+                </tr>
+                <tr>
+                    <th><code>Figure 03</code></th>
+                    <td><a href="http://inst.eecs.berkeley.edu/~cs194-26/fa16/Lectures/SingleView.pdf" target="_blank">(input)</a></td>
+                </tr>
+                <tr>
+                    <th><code>Figure 05</code></th>
+                    <td><a href="http://inst.eecs.berkeley.edu/~cs194-26/fa16/Lectures/SingleView.pdf" target="_blank">(ratio_segments)</a></td>
+                </tr>
+                <tr>
+                    <th><code>Figure 07</code></th>
+                    <td><a href="https://upload.wikimedia.org/wikipedia/commons/9/98/Royal_Exhibition_Building_inside2.JPG" target="_blank">(royal)</a></td>
+                </tr>
+                <tr>
+                    <th><code>Figure 08</code></th>
+                    <td><a href="http://i.dailymail.co.uk/i/pix/2015/10/20/23/2D8DC55300000578-3280329-The_futuristic_halls_of_the_super_power_building_where_followers-a-3_1445379072637.jpg" target="_blank">(scientology)</a></td>
+                </tr>
+            </table>
+        </p>
+        <br />
+        
+        
+        <!-- Video Textures -->
+        
+        
+        <span class="anchor" id="video-textures"></span>
+        <h2>&nbsp;[02] Part 2: Video Textures&nbsp;</h2>
+        <p>
+            In a similar vein to TIP, we're going to take the visual information we already have and transform it into an interesting new format. This time, however, we're going to do it with video. From the <a href="http://cpl.cc.gatech.edu/projects/videotexture/SIGGRAPH2000/videotex.pdf" target="_blank">original paper on the topic</a> (Schödl et al.), a video texture is a "continuous infinitely varying stream of images." It can be thought of as a dynamic video of some repetitive phenomenon that can loop into itself forever (and not just in the same way every time!). For this project, we focus on synthesizing our own arbitrary-length video textures by overusing the frames within short "training" videos.
+        
+        <p>
+            This means that we'll take all of the frames from our source video, compute the pairwise transition probabilities between each of them, and finally use those probabilities at runtime to continually determine which frame we'll jump to next (à la Markov). We define a transition probability \(Tr[i, j]\) to be the probability that frame \(j\) succeeds frame \(i\).
+        
+        <p>
+            Intuitively, the probability that a frame comes after another frame is related to how similar (in content) the proposed successor is to the frame's <em>actual</em> successor. Thus, we'll first compute the \(L_2\) distance between all pairs of frames – a lower value implies "more similar," of course – retaining these values in an \(n\) x \(n\) matrix \(D\) such that \(D_{ij} = \|im_i - im_j\|_2\). (Note that \(n\) is the total number of frames.) Then, in the process of obtaining \(Tr[i, j]\), we'll be able to easily reference the similarity between images \(i + 1\) and \(j\) (or any pair of images we like).
+            
+        <p>
+            However, this leaves us with a problem. Namely, if we only ever look at the similarity between two individual frames, we neglect to consider the dynamic context as a whole; the preservation of natural motion is not in any way guaranteed.
+            
+            <table>
+                <tr>
+                    <td style="text-align: center" width="100%">
+                        <img src="images/pendulum.jpg" width="75%" data-action="zoom" />
+                        <figcaption align="middle"><code>Figure 09: pendulum inaccuracy</code></figcaption>
+                    </td>
+                </tr>
+            </table>
+        
+        <p>
+            In Figure 9, frame \(i\) looks a lot like both \(j_1\) and \(j_2\). If we were trying to find a transition out of the \(i - 1\) image, our current scheme would think of both \(j_1\) and \(j_2\) as reasonable successors. Despite this, if we pay attention to the frames both before and after \(i\) we immediately realize that the pendulum is supposed to be moving to the left. Again looking at the frames' neighbors, it's clear that \(j_2\) has the pendulum moving to the left, but \(j_1\) comes from a sequence where the pendulum is moving to the right. We should say that \(j_2\) is a good successor, while \(j_1\) is by contrast a poor one. Since we are unable to make this call by comparing only individual images, we are forced to take into account <em>neighborhoods</em> (sequences) of frames instead, i.e. we think about the temporally adjacent frames in addition to the frames themselves.
+        
+        <p>
+            Mathematically, it comes together as follows:
+            
+            <div class="mathjax-resize">
+                $$D'_{ij} = \sum_{k = -m}^{m - 1}w_kD_{i + k, j + k}$$
+            </div>
+            
+        <p>
+            We are filtering our \(D\) matrix with a kernel of binomial weights \([w_{-m}, ..., w_{m - 1}]\). We use \(m = 2\).
+        
+        <p>
+            One last thing before we wrap everything up: we need to make sure we avoid transitions that lead to dead ends (i.e. the the last frame of the video; we have no information about the frame "after" the last one and therefore no transition out of it). To address such a problem, we need to broaden the scale at which we operate – we're still focusing too much on local comparisons of frames. Thus, we attempt to predict the "future cost" of selecting a transition by thinking about the transitions likely to come afterward. If the cost of a transition is high, we'll want to "jump out" early by <em>not</em> selecting it.
+            
+        <p>
+            In representing this, we'll create yet another matrix \(D''\). We define \(D''_{ij}\) as the expected average cost to result from selecting the transition from frame \(i\) to \(j\). These values are assigned through Q-learning:
+            
+            <div class="mathjax-resize">
+                $$D''_{ij} = (D'_{ij})^p + \alpha\min_{k}D''_{jk}$$
+            </div>
+            
+            <blockquote>\(p\) handles the tradeoff between following a single high-cost transition and following multiple low-cost transitions. A larger value of \(p\) signifies a greater propensity toward the latter. Meanwhile, \(\alpha\) \((0 < \alpha < 1)\) is the learning rate.</blockquote>
+            <br />
+        
+        <p>
+            For more efficient updates, we alter the order by which we modify the rows in \(D''\) – realizing that the best path usually involves a transition from a frame near the end of the overall sequence. Therefore, we compute updates from back to front (from the last row to the first) and propagate transition costs forward. We initialize \(D''\) and said costs as follows:
+            
+            <div class="mathjax-resize">
+                $$
+                D''_{ij} = (D'_{ij})^p \\
+                m_j = \min_{k}D''_{jk}
+                $$
+            </div>
+        
+        <p>
+            Then we perform updates as \(D''_{ij} = (D'_{ij})^p + \alpha m_j\), making sure to refresh the \(m_j\) values after every step.
+            
+        <p>
+            Let's tie it all together at last. To get a hard probability for \(Tr[i, j]\), we apply an exponential function and end up with \(Tr[i, j] = exp(-D''_{i + 1, j} / \sigma)\). To ensure that transition probabilities sum to \(1\) for each frame – as probabilities must – we'll also need to normalize the values within each row of \(Tr\).
+        
+            <blockquote>\(\sigma\) controls the amount of variety we allow in our transitions. If it's higher then there'll be more unpredictability (always a nice thing in life), but that would also mean we've opened the gates to transitions of worse quality. For our purposes, we set \(\sigma\) to be \(0.04\) times the average nonzero \(D''_{ij}\).</blockquote>
+            <br />
+        
+        <p>
+            <h3>The Algorithm</h3>
+            
+        <p>
+            Overall, the algorithm looks like this. Our implementation uses <a href="http://opencv.org/" target="_blank">OpenCV</a> (Python) for video processing.
+
+<pre>
+extract all frames from video
+
+# Construct the probability table (analysis)
+set D = a matrix where D_{ij} = ||equalized frame i - equalized frame j||
+set D' = a matrix where D'_{ij} = sum over k of w_k * D_{i + k, j + k}
+set D'' = a matrix where D''_{ij} = (D'_{ij})^p
+set m = a vector where m_j = min over k of D''_{jk}
+until the entries of D'' converge:
+    in order from the last row to the first row:
+        set D''_{ij} = (D'_{ij})^p + alpha * m_j (for all j in row i)
+        set m_i = min over j of D''_{ij}
+set Tr = a matrix where Tr[i, j] = exp(-D''_{i + 1, j} / sigma)
+prune [non-diagonal] transition probabilities that aren't local maxima
+normalize each row of Tr s.t. the values sum to 1
+
+# Generate the video texture (synthesis)
+write the third frame to our output video
+until we've generated the desired number of frames:
+    using Tr, randomly select a successor to the previous frame
+    write the successor to our output video
+</pre>
+
+        <p>
+            <h3>Results</h3>
+            
+            <div class="iframe-wrapper">
+                <iframe class="left-iframe" src="https://www.youtube.com/embed/j-LUcIcMyds" frameborder="0" allowfullscreen></iframe>
+                <iframe class="right-iframe" src="https://www.youtube.com/embed/_ZnsskNBOXY" frameborder="0" allowfullscreen></iframe>
+            </div>
+            
+            <table class="forced-caption-table">
+                <tr>
+                    <td style="text-align: left">
+                        <img width="98%" src="images/pendulum_d.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: left">
+                        <img width="98%" src="images/pendulum_dp.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: left">
+                        <img width="98%" src="images/pendulum_dpp.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: left">
+                        <img width="98%" src="images/pendulum_tr.jpg" data-action="zoom" />
+                    </td>
+                </tr>
+            </table>
+            <div class="forced-caption-div">
+                <code>Figure 10: pendulum, visualizations of D, D', D'', and Tr</code>
+            </div>
+            
+            <div class="iframe-wrapper">
+                <iframe class="left-iframe" src="https://www.youtube.com/embed/s6TIQLBWorw" frameborder="0" allowfullscreen></iframe>
+                <iframe class="right-iframe" src="https://www.youtube.com/embed/864awMD_2LE" frameborder="0" allowfullscreen></iframe>
+            </div>
+            
+            <table class="forced-caption-table">
+                <tr>
+                    <td style="text-align: left">
+                        <img width="98%" src="images/candle_d.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: left">
+                        <img width="98%" src="images/candle_dp.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: left">
+                        <img width="98%" src="images/candle_dpp.jpg" data-action="zoom" />
+                    </td>
+                    <td style="text-align: left">
+                        <img width="98%" src="images/candle_tr.jpg" data-action="zoom" />
+                    </td>
+                </tr>
+            </table>
+            <div class="forced-caption-div">
+                <code>Figure 11: mostly boring candle, visualizations again</code>
+            </div>
+        
+        <p>
+            <h3>Additional Notes</h3>
+            
+        <p>
+            We lose the first two frames and the final frame during the preservation of dynamics step (since the 4-tap filter doesn't have enough information to calculate transition values for them). On the bright side, the last frame is definitely a dead end so we never want to end up there anyway.
+        
+        <p>
+            Also, we don't allow frames to transition into themselves. If they try, we exercise veto power and run another random frame selection. We've got to be able to do better than that!
+      
+        <p>
+            <h3>Image and Video Sources</h3>
+        
+        <p>
+            The pendulum video and imagery are from <a href="http://cpl.cc.gatech.edu/projects/videotexture/SIGGRAPH2000/index.htm" target="_blank">the folks who did the video textures paper</a>. The candle video is from <a href="https://www.videezy.com/fire-and-smoke/3496-4k-candle-burning-against-black-background" target="_blank">Videezy</a>.
+        </p>
+    </div>
+    
+    <!-- Navigation -->
+    <section id="navdots"><ul>
+        <a href="#tour-into-the-picture"><li class title="Part 1: Tour into the Picture"></li></a>
+        <a href="#video-textures"><li class title="Part 2: Video Textures"></li></a>
+    </ul></section>
+    
+    <!-- Scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/zoom.min.js"></script>
+    <script src="js/transition.min.js"></script>
+    <script src="js/script.min.js"></script>
+</body>
+</html>
