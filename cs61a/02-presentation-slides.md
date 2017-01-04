@@ -74,4 +74,20 @@ permalink: /cs61a/presentation-slides/
         </tr>
         <tr><td colspan="2"><a href="http://owenjow.xyz/cs61a/fa16/oog_review/OoG%20Review%20[Owen;%20Fall%202016].pdf">OoG Review</a> (<a href="http://owenjow.xyz/cs61a/fa16/oog_review/worksheet.pdf">Worksheet</a>) (<a href="http://owenjow.xyz/cs61a/fa16/oog_review/presentation_code.py">Code</a>)</td></tr>
     </table>
+
+    <table class="nt">
+        <tr><th colspan="2">Spring 2017</th></tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%200.pdf">Discussion 00</a> (01/19)</td>
+            <td>Lost on the Moon</td>
+        </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%201.pdf">Discussion 01</a> (01/26)</td>
+            <td>Control and HOF</td>
+        </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%202.pdf">Discussion 02</a> (02/02)</td>
+            <td>Env. Diagrams / Recursion</td>
+        </tr>
+    </table>
 </div>

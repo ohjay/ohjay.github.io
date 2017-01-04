@@ -35,5 +35,8 @@ $(document).keypress(function(evt) {
         case 'p'.charCodeAt(): // portfolio
             document.location.href = base + '/portfolio';
             break;
+        case 'r'.charCodeAt(): // restricted
+            document.location.href = base + '/restricted';
+            break;
     }
 });

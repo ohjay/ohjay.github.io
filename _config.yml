@@ -12,13 +12,18 @@ baseurl:             ""
 # Assets
 sass:
   sass_dir:          sass
-  style:            :compressed
+  style:             :compressed
 
-# About/contact
+# About / contact
 author:
   name:              Owen Jow
   url:               http://owenjow.xyz
   email:             owenjow@berkeley.edu
-  
+
 # Gems
-gems: [jekyll-paginate]
+gems:                [jekyll-paginate]
+
+# Collections
+collections:
+  articles:
+    output:          true

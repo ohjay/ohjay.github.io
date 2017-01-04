@@ -20,7 +20,7 @@
                 <div class="below-mh-subtitle">: : : : : : : : : : : : : : : : : : : : : : : : : :</div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
                 <script type="text/javascript">
-                    function addColons(){var o=.65*parseInt($(".container").css("font-size"),10),e=$(".container").width();$(".below-mh-subtitle").text(": "+Array(Math.floor(e/o)).join(" :"))}addColons(),$(window).resize(function(){addColons()}),$(document).keypress(function(o){switch(base=document.location.origin,o.charCode){case"b".charCodeAt():document.location.href=base+"/blog";break;case"c".charCodeAt():document.location.href=base+"/cs61a";break;case"g".charCodeAt():document.location.href=base+"/graphics";break;case"i".charCodeAt():document.location.href=base;break;case"p".charCodeAt():document.location.href=base+"/portfolio"}});
+                    function addColons(){var o=.65*parseInt($(".container").css("font-size"),10),e=$(".container").width();$(".below-mh-subtitle").text(": "+Array(Math.floor(e/o)).join(" :"))}addColons(),$(window).resize(function(){addColons()}),$(document).keypress(function(o){switch(base=document.location.origin,o.charCode){case"b".charCodeAt():document.location.href=base+"/blog";break;case"c".charCodeAt():document.location.href=base+"/cs61a";break;case"g".charCodeAt():document.location.href=base+"/graphics";break;case"i".charCodeAt():document.location.href=base;break;case"p".charCodeAt():document.location.href=base+"/portfolio";break;case"r".charCodeAt():document.location.href=base+"/restricted"}});
                 </script>
                 {{ content }}
             </main>

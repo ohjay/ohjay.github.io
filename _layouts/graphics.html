@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Hi, I'm Owen. I do graphics in order to please my listless visual system. Here you can find a collection of my graphics-focused projects and articles." />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+
+    <title>{{ page.title }} | Owen Jow</title>
+
+    <link rel="stylesheet" href="/css/graphics.min.css" />
+    <link rel="stylesheet" href="/css/pygment_trac.css" />
+    <link rel="stylesheet" href="/css/zoom.min.css" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header -->
+        <header>
+            <h1 style="margin-bottom: 5px"><a href="/graphics">Owen Jow</a></h1>
+            <h3><em>Graphics & Image Processing</em></h3>
+            <br />
+            <ul id="articles">
+                {% assign articles_list = site.articles %}
+                {% for node in articles_list %}
+                    {% if node.category == "graphics" %}
+                        <li><a {% if page.url == node.url %}class="active"{% endif %} href="{{ node.url }}">{{ node.tags.first }}[{{ node.tags.last }}] - {{ node.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </header>
+        
+        <!-- Main content -->
+        <section>
+            {{ content }}
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/zoom.min.js"></script>
+    <script src="/js/transition.min.js"></script>
+    <script type="text/javascript">
+        // The secret page navigation option
+        $(document).keypress(function(evt) {
+            base = document.location.origin;
+            switch (evt.charCode) {
+                case 'b'.charCodeAt(): // blog
+                    document.location.href = base + '/blog';
+                    break;
+                case 'c'.charCodeAt(): // CS 61A
+                    document.location.href = base + '/cs61a';
+                    break;
+                case 'i'.charCodeAt(): // index
+                    document.location.href = base;
+                    break;
+                case 'p'.charCodeAt(): // portfolio
+                    document.location.href = base + '/portfolio';
+                    break;
+                case 'r'.charCodeAt(): // restricted
+                    document.location.href = base + '/restricted';
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
