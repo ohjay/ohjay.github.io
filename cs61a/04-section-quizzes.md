@@ -114,4 +114,14 @@ permalink: /cs61a/section-quizzes/
             <td>SQL</td>
         </tr>
     </table>
+    
+    <table class="qz">
+        <tr><th colspan="4">Spring 2017</th></tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz0/quiz0.pdf">Quiz 00</a></td>
+            <td>–</td>
+            <td>–</td>
+            <td>Introduction</td>
+        </tr>
+    </table>
 </div>

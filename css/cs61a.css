@@ -75,11 +75,11 @@ input[type=submit] {
     width: 100.15%;
     
     background-color: #202020;
-    -o-transition: background-color 0.15s linear;
-    -moz-transition: background-color 0.15s linear;
-    -webkit-transition: background-color 0.15s linear;
-    -ms-transition: background-color 0.15s linear;
-    transition: background-color 0.15s linear;
+    -o-transition: background-color 0.15s ease-in-out;
+    -moz-transition: background-color 0.15s ease-in-out;
+    -webkit-transition: background-color 0.15s ease-in-out;
+    -ms-transition: background-color 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
 }
 
 input[type=submit]:hover {

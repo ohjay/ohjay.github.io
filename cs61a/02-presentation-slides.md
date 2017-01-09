@@ -89,5 +89,9 @@ permalink: /cs61a/presentation-slides/
             <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%202.pdf">Discussion 02</a> (02/02)</td>
             <td>Env. Diagrams / Recursion</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%203.pdf">Discussion 03</a> (02/09)</td>
+            <td>Sequences and ADTs</td>
+        </tr>
     </table>
 </div>
