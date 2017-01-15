@@ -1,0 +1,108 @@
+\documentclass[twoside]{article}
+\usepackage{../quiz}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{}
+\rfoot{Solutions to these quizzes will be posted at \textbf{\href{http://owenjow.xyz/cs61a/section-quizzes/}{owenjow.xyz/cs61a/section-quizzes}}.}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+    escapeinside={<*}{*>},
+}
+
+\def\semester{Spring 2k17}
+\newcommand{\solution}[1]{{\color{red}#1}}
+
+%%% Actual, flexible content begins here %%%
+\title{\sc Midterm 1 is in XX days}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+%%% Q1 %%%
+\q{2}{Back to the Stone Age}
+
+Are these primitive expressions or call expressions? (Answer for each one individually.)
+\begin{enumerate}
+\item \texttt{5}
+\item \texttt{add(7, 7)}
+\item \texttt{print(3)}
+\item \texttt{4 + 5}
+\end{enumerate}
+
+%%% Q2 %%%
+\q{3}{Control Yourself}
+
+Imagine you have the boolean values \texttt{isRaining}, \texttt{fallsBehind}, \texttt{doesProcrastinate}, \texttt{numExamsTaken == 45}, and \texttt{addictedToCandy}. Using only these values and the operators \texttt{and}, \texttt{or}, and \texttt{not}, fill in the blank with a boolean expression that represents -- based on the following quote -- whether or not you will ace this class:
+
+\begin{quote}
+``I will ace this class if I keep up with the material, don't procrastinate, and take all the past exams$^*$. Even if I don't do that stuff, I will ace this class if it is raining. Conversely, I will fail this class if I eat too much candy."
+\end{quote}
+
+\hfill $^*$\textit{There are 45 past exams.}
+
+\begin{lstlisting}
+will_ace_this_class = \
+
+________________________________________________________________________ \
+
+__________________________________________________________________________
+\end{lstlisting}
+
+%%% Q3 %%%
+\q{5}{Functions of a Higher Order}
+
+Write a function that
+\begin{enumerate}
+\item takes a single function as input, and
+\item returns a function that does the same thing as the input function, but also prints ``\texttt{gr8 m8 i r8 8/8}" every eighth time the function is called.
+\end{enumerate}
+
+To deal with variability in the number of arguments to the input function, use \texttt{*args} as both your inner function's formal parameters and the input function's arguments. (\texttt{*args} packs an arbitrary number of arguments into a tuple in the first case, and unpacks all of them into separate positional arguments in the second case.)
+
+\textit{A function skeleton has been provided for you on the next page. Fill in your answer there.}
+
+\newpage
+
+\begin{lstlisting}
+def hof8(___________________):
+    """Returns a ver. of the input fn that trolls you upon every 8th call.
+    >>> f = hof8(max)
+    >>> f(1, 2) + f(f(f(f(f(f(3, 4), 5), 6), 7), 8), 9) # 7 calls
+    11
+    >>> f(10, 11) # 8th call
+    gr8 m8 i r8 8/8
+    11
+    >>> f(12, 13) # 9th call; message should not be printed
+    13
+    """
+    callCount = [0] # this is a list; update w/ callCount[0] = <whatever>
+    
+    ______________________________________________________________________
+
+    ______________________________________________________________________
+
+    ______________________________________________________________________
+
+    ______________________________________________________________________
+    
+    ______________________________________________________________________
+    
+    return _______________________________________________________________
+\end{lstlisting}
+
+---
+
+\textbf{Of note}: there is a reason I've made \texttt{callCount} a list and not just a number! If the line were instead \texttt{callCount = 0}, we would not be able to reassign \texttt{callCount} within an inner function -- \textit{because assignments are made within the current frame}, even if the relevant name is already defined inside a parent frame. This is important to understand.
+
+\end{enumerate}
+\end{document}
