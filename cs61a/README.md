@@ -119,7 +119,7 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
     <tr>
         <th>Week 00 [01/19/17]</th>
         <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%200.pdf">Slides</a></td>
-        <td><a href="sp17/quiz/quiz0/quiz0.pdf">Quiz</a></td>
+        <td><a href="sp17/quiz/quiz0/quiz0.pdf">Quiz</a> (<a href="sp17/quiz/quiz0/quiz0_sol.pdf">S</a>)</td>
     </tr>
     <tr>
         <th>Week 01 [01/26/17]</th>

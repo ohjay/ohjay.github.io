@@ -16,7 +16,7 @@ _site
 *.vi
 *~
 
-# OS or Editor folders
+# OS or editor folders
 .DS_Store
 ._*
 Thumbs.db
@@ -39,6 +39,7 @@ validation-status.json
 validation-report.json
 
 # Folders to ignore
+_drafts
 node_modules
 no-min
 
@@ -49,4 +50,8 @@ quiz/*.log
 __pycache__
 *.out
 
+# Misc.
 timeline.htm
+e.txt
+m.txt
+q.txt
