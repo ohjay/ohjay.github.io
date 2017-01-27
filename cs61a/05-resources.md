@@ -15,6 +15,5 @@ permalink: /cs61a/resources/
     >> <a href="http://pythontutor.com/composingprograms.html#mode=edit">Online Python Tutor</a> (your go-to for environment diagrams!)<br>
     >> <a href="https://docs.google.com/document/d/1bGxlxHAIEoRzAlWopkwna5KaalBxoW5MKsPixbygCHU/edit?usp=sharing">Rules for environment diagrams</a><br>
     >> <a href="https://www.ocf.berkeley.edu/~shidi/cs61a/wiki/Past_exams">A collection of past exams</a> (do ALL of them)<br>
-    >> <a href="http://keff.me/cs61a/">Kevin Chen's 61A website</a> (his quizzes are excellent)<br>
     >> <a href="http://scheme.cs61a.org/">Online Scheme interpreter</a>
 </div>
