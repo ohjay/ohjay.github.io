@@ -6,7 +6,7 @@ permalink: /cs61a/contact/
 
 Let me know how you're doing! You can email me at <a href="mailto:owenjow@berkeley.edu">owenjow@berkeley.edu</a> or submit a message via the form below.
 
-I also hold office hours every Thursday from 6:30-8:30pm on the second floor of <a href="http://www.berkeley.edu/map?cory" target="_blank">Cory</a>.
+I also hold office hours every Thursday from 6:30-8:30pm in <a href="http://www.berkeley.edu/map?cory" target="_blank">247 Cory</a>.
 
 <hr class="overarching" />
 

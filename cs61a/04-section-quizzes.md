@@ -135,5 +135,11 @@ permalink: /cs61a/section-quizzes/
             <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz2/quiz2.py">Python Script</a></td>
             <td>Environment Diagrams</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz3/quiz3.pdf">Quiz 03</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz3/quiz3_sol.pdf">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz3/quiz3.py">Python Script</a></td>
+            <td>Sequences</td>
+        </tr>
     </table>
 </div>
