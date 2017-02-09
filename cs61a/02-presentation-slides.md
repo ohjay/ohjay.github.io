@@ -87,11 +87,43 @@ permalink: /cs61a/presentation-slides/
         </tr>
         <tr>
             <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%202.pdf">Discussion 02</a> (02/02)</td>
-            <td>Env. Diagrams / Recursion</td>
+            <td>Recursion</td>
         </tr>
         <tr>
             <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%203.pdf">Discussion 03</a> (02/09)</td>
             <td>Sequences and ADTs</td>
+        </tr>
+        <tr>
+            <td><a class="disabled">Discussion 05</a> (02/23)</td>
+            <td>Recursive Data</td>
+        </tr>
+        <tr>
+            <td><a class="disabled">Discussion 06</a> (03/02)</td>
+            <td>OOP and Nonlocality</td>
+        </tr>
+        <tr>
+            <td><a class="disabled">Discussion 07</a> (03/09)</td>
+            <td>Orders of Growth</td>
+        </tr>
+        <tr>
+            <td><a class="disabled">Discussion 09</a> (03/23)</td>
+            <td>Scheme</td>
+        </tr>
+        <tr>
+            <td><a class="disabled">Discussion 10</a> (04/06)</td>
+            <td>Tail Calls / Interpreters</td>
+        </tr>
+        <tr>
+            <td><a class="disabled">Discussion 11</a> (04/13)</td>
+            <td>Iterators / Streams</td>
+        </tr>
+        <tr>
+            <td><a class="disabled">Discussion 12</a> (04/20)</td>
+            <td>SQL</td>
+        </tr>
+        <tr>
+            <td><a class="disabled">Discussion 13</a> (04/27)</td>
+            <td>Special Topics</td>
         </tr>
     </table>
 </div>
