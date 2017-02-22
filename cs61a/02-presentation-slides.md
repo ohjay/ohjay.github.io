@@ -95,11 +95,11 @@ permalink: /cs61a/presentation-slides/
         </tr>
         <tr>
             <td><a class="disabled">Discussion 05</a> (02/23)</td>
-            <td>Recursive Data</td>
+            <td>Mutation and OOP</td>
         </tr>
         <tr>
             <td><a class="disabled">Discussion 06</a> (03/02)</td>
-            <td>OOP and Nonlocality</td>
+            <td>Recursive Objects</td>
         </tr>
         <tr>
             <td><a class="disabled">Discussion 07</a> (03/09)</td>
