@@ -94,7 +94,7 @@ permalink: /cs61a/presentation-slides/
             <td>Sequences and ADTs</td>
         </tr>
         <tr>
-            <td><a class="disabled">Discussion 05</a> (02/23)</td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%205.pdf">Discussion 05</a> (02/23)</td>
             <td>Mutation and OOP</td>
         </tr>
         <tr>
