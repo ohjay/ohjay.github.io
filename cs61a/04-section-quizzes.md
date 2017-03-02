@@ -147,5 +147,11 @@ permalink: /cs61a/section-quizzes/
             <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz5/quiz5.py">Python Script</a></td>
             <td>OOP / Nonlocality</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz6/quiz6.pdf">Quiz 06</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz6/quiz6_sol.pdf">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz6/quiz6.py">Python Script</a></td>
+            <td>Generators</td>
+        </tr>
     </table>
 </div>

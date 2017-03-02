@@ -1,0 +1,99 @@
+\documentclass[twoside]{article}
+\usepackage{../quiz}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{}
+\rfoot{Solutions at \textbf{\href{http://owenjow.xyz/cs61a/section-quizzes/}{owenjow.xyz/cs61a/section-quizzes}}. Credit to Kristin Stephens-Martinez for the questions.}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+    escapeinside={<*}{*>},
+}
+
+\def\semester{Spring 2017}
+
+% \newcommand{\solution}[1]{{\color{red}#1}}
+\newcommand\solution[1]{}
+
+%%% Actual, flexible content begins here %%%
+\title{\sc Quiz 6 \solution{Solutions}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+%%% Q1 %%%
+\q{10}{I've had enough of foobar}
+
+For each row below, write the output displayed by the interactive Python
+interpreter when the expression is evaluated. Expressions are evaluated in
+order, and \textbf{expressions may affect later expressions}.
+
+If nothing is output, write {\sc Nothing}.
+If the interpreter would report an error, write {\sc Error}.
+You \emph{should} include any lines displayed before an error.
+Assume that you have started Python 3 and executed the following:
+\vspace{0.1in}
+
+\begin{lstlisting}
+class Foo:
+    def __init__(self, n):
+        self.n = n
+        self.curr = 0
+    def __next__(self):
+        self.curr = (self.curr + 1) % self.n
+        return self.curr
+    def __iter__(self):
+        return self
+    
+def fighters(m):
+    print('a')
+    it, x = Foo(4), 0
+    while x < m:
+        print('b')
+        yield x
+        print('c')
+        x += next(iter(it))
+\end{lstlisting}
+
+\begin{table}[h!]\large
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\begin{tabular}{cc}
+
+%%% Left table %%%
+\begin{tabular}[t]{|l|M{1.3675in}|}
+\hline
+\multicolumn{1}{|l|}{\bf Expression} & {\bf Interactive Output} \\
+\hline
+\lstinline$print('d')$ & \solution{\begin{tabular}{M{2.5cm}} \rule{0pt}{4.9ex} \\ \tt d\end{tabular}} \\ [8ex]
+\hline
+\lstinline$b = fighters(7)$ & \solution{\begin{tabular}{M{2.5cm}} \rule{0pt}{4.9ex} \\ \tt Nothing\end{tabular}} \\ [8ex]
+\hline
+\lstinline$print('e', next(b))$ & \solution{\begin{tabular}{M{2.5cm}} \rule{0pt}{2.85ex} \\ \tt a \\ \tt b \\ \tt e 0\end{tabular}} \\ [8ex]
+\hline
+\end{tabular}
+
+%%% Right table %%%
+\begin{tabular}[t]{|l|M{1.3675in}|}
+\hline
+\multicolumn{1}{|l|}{\bf Expression} & {\bf Interactive Output} \\
+\hline
+\lstinline$print('f', next(b))$ & \solution{\begin{tabular}{M{2.5cm}} \rule{0pt}{2.6ex} \\ \tt c \\ \tt b \\ \tt f 1\end{tabular}} \\ [8ex]
+\hline
+\lstinline$print([x for x in b])$ & \solution{\begin{tabular}{M{2.5cm}} \\ \tt c \\ \tt b \\ \tt c \\ \tt b \\ \tt c \\ \tt b \\ \tt c \\ \tt [3, 6, 6] \\ \\\end{tabular}} \\ [18.82ex]
+\hline
+\end{tabular}
+
+\end{tabular}
+\end{table}
+
+\end{enumerate}
+\end{document}

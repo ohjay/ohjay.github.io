@@ -99,7 +99,7 @@ permalink: /cs61a/presentation-slides/
         </tr>
         <tr>
             <td><a class="disabled">Discussion 06</a> (03/02)</td>
-            <td>Recursive Objects</td>
+            <td>Iterators / Generators</td>
         </tr>
         <tr>
             <td><a class="disabled">Discussion 07</a> (03/09)</td>
