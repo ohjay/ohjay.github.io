@@ -4,7 +4,7 @@ category: sp17-announcement
 title: Brief Overview of MT1 Topics
 ---
 
-Hello students! I know you've been looking forward to today's midterm and that you're probably swamped in all of the review material our course has accumulated over the years. In light of this, I've thrown together my own "last-minute" topical overview. Naturally, it is in no way superior to [really any] other resources you would have come across... and is indeed less useful in a good number of ways. In fact, given a choice between it and any other exam prep, I would choose the other exam prep 9 out of 9 times.
+Hello students! I know you've been looking forward to today's midterm and that you're probably swamped in all the review material our course has accumulated over the years. In light of this, I've thrown together my own "last-minute" topical overview. Naturally, it is in no way superior to [really any] other resources you would have come across... and is indeed less useful in a good number of ways. In fact, given a choice between it and any other exam prep, I would choose the other exam prep 9 out of 9 times.
 
 So why am I wasting your time with this? Well, perhaps you have already exhausted every alternative form of study material. Maybe you are simply bored of them. Conceivably you are insane. If any of these cases describe you, it won't hurt to skim my words.
 

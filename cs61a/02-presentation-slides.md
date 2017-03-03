@@ -98,7 +98,7 @@ permalink: /cs61a/presentation-slides/
             <td>Mutation and OOP</td>
         </tr>
         <tr>
-            <td><a class="disabled">Discussion 06</a> (03/02)</td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%206.pdf">Discussion 06</a> (03/02)</td>
             <td>Iterators / Generators</td>
         </tr>
         <tr>
@@ -115,7 +115,7 @@ permalink: /cs61a/presentation-slides/
         </tr>
         <tr>
             <td><a class="disabled">Discussion 11</a> (04/13)</td>
-            <td>Iterators / Streams</td>
+            <td>Streams</td>
         </tr>
         <tr>
             <td><a class="disabled">Discussion 12</a> (04/20)</td>
