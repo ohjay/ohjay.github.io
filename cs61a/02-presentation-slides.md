@@ -102,7 +102,7 @@ permalink: /cs61a/presentation-slides/
             <td>Iterators / Generators</td>
         </tr>
         <tr>
-            <td><a class="disabled">Discussion 07</a> (03/09)</td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%207.pdf">Discussion 07</a> (03/09)</td>
             <td>Orders of Growth</td>
         </tr>
         <tr>

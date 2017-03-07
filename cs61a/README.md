@@ -146,4 +146,9 @@ Hello! This is the GitHub repository for the [CS 61A section of my website](http
         <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%206.pdf">Slides</a></td>
         <td><a href="sp17/quiz/quiz6/quiz6.pdf">Quiz</a> (<a href="sp17/quiz/quiz6/quiz6_sol.pdf">S</a>)</td>
     </tr>
+    <tr>
+        <th>Week 07 [03/09/17]</th>
+        <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%207.pdf">Slides</a></td>
+        <td><a href="sp17/quiz/quiz7/quiz7.pdf">Quiz</a> (<a href="sp17/quiz/quiz7/quiz7_sol.pdf">S</a>)</td>
+    </tr>
 </table>
