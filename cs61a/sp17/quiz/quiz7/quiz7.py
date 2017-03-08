@@ -17,8 +17,8 @@ def f2(n):
 
 def all_paths(tree):
     if tree.is_leaf():
-        return [[tree.entry]]
+        return [[tree.label]]
     result = []
-    for branch in tree.children:
-        result += [[tree.entry] + path for path in all_paths(branch)]
+    for branch in tree.branches:
+        result += [[tree.label] + path for path in all_paths(branch)]
     return result
