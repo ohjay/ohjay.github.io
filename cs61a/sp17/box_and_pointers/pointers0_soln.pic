@@ -22,12 +22,12 @@ move to S + (sep, 0); right
 S0: lstcell(); space(); S1: lstcell(); space(); S2: lstcell(); space(); S3: lstcell()
 
 link(C, C0.w)
-link(C0.R, C1.w)
+link(C0.R, C1.ne - (0.2, -0.1) then to C3.nw - (0.1, -0.1) then to C3.w)
 link(C1.R, C1.R - (0.25, -0.25) then to C0.nw - (0.1, -0.1) then to C0.w)
 link(S, C2.w)
 link(C2.R, C3.w)
 link(C3.F, C3.sw - (0.1, 0.1) then to C0.sw - (0.1, 0.1) then to C0.w)
-null(C3.R)
+link(C3.R, C3.n - (0.1, -0.3) then to C1.nw - (0.2, -0.3) then to C1.w)
 
 .PE
 \box\graph
