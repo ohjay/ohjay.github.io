@@ -1,0 +1,29 @@
+\begin{minipage}{5in}
+.PS
+copy "box-utils.pic"
+
+; right
+space()
+A: var(A)
+B: var(B) at A + (0, -sep)
+
+move to A + (sep, 0); right
+A0: lstcell(0); space(); A1: lstcell(1); space(); A2: lstcell(2); space(); A3: lstcell(3)
+move to B + (sep, 0); right
+B0: lstcell(); space(); B1: lstcell(4); space(); B2: lstcell(5); space(); B3: lstcell(6)
+
+link(A, A0.w)
+link(A0.R, A1.w)
+link(A1.R, A2.w)
+link(A2.R, A3.w)
+link(A3.R, B3.nw - (0.15, 0) then to B3.w)
+link(B, B0.w)
+link(B0.F, A0.sw - (0.15, 0.15) then to A0.w)
+link(B0.R, B1.w)
+link(B1.R, B1.R + (sz, -sz) then to B3.F + (-sz, -sz) then to B3.w)
+link(B2.R, B3.w)
+link(B3.R, B3.R + (0, -sz * 1.2) then to B2.F + (-sz * 1.2, -sz * 1.2) then to B2.w)
+
+.PE
+\box\graph
+\end{minipage}

@@ -1,0 +1,141 @@
+\begin{minipage}{2.65in}
+\begin{verbatim}
+C = Link(1, Link(6))
+C.rest.rest = Link(C.first, \
+        Link(C.rest.first))
+S = C.rest.rest
+C.rest.rest = C.rest.rest.rest
+C.rest.rest.first = C.rest
+C, C.rest.rest = S.rest.first, C
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{5in}
+\expandafter\ifx\csname graph\endcsname\relax
+   \csname newbox\expandafter\endcsname\csname graph\endcsname
+\fi
+\ifx\graphtemp\undefined
+  \csname newdimen\endcsname\graphtemp
+\fi
+\expandafter\setbox\csname graph\endcsname
+ =\vtop{\vskip 0pt\hbox{%
+    \special{pn 8}%
+    \special{pa 0 300}%
+    \special{pa 300 300}%
+    \special{pa 300 0}%
+    \special{pa 0 0}%
+    \special{pa 0 300}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.150in
+    \rlap{\kern 0.000in\lower\graphtemp\hbox to 0pt{\hss C:~~}}%
+    \special{pa 0 750}%
+    \special{pa 300 750}%
+    \special{pa 300 450}%
+    \special{pa 0 450}%
+    \special{pa 0 750}%
+    \special{fp}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.600in
+    \rlap{\kern 0.000in\lower\graphtemp\hbox to 0pt{\hss S:~~}}%
+    \special{pa 600 300}%
+    \special{pa 900 300}%
+    \special{pa 900 0}%
+    \special{pa 600 0}%
+    \special{pa 600 300}%
+    \special{fp}%
+    \special{pa 900 300}%
+    \special{pa 1200 300}%
+    \special{pa 1200 0}%
+    \special{pa 900 0}%
+    \special{pa 900 300}%
+    \special{fp}%
+    \special{pa 1500 300}%
+    \special{pa 1800 300}%
+    \special{pa 1800 0}%
+    \special{pa 1500 0}%
+    \special{pa 1500 300}%
+    \special{fp}%
+    \special{pa 1800 300}%
+    \special{pa 2100 300}%
+    \special{pa 2100 0}%
+    \special{pa 1800 0}%
+    \special{pa 1800 300}%
+    \special{fp}%
+    \special{pa 2400 300}%
+    \special{pa 2700 300}%
+    \special{pa 2700 0}%
+    \special{pa 2400 0}%
+    \special{pa 2400 300}%
+    \special{fp}%
+    \special{pa 2700 300}%
+    \special{pa 3000 300}%
+    \special{pa 3000 0}%
+    \special{pa 2700 0}%
+    \special{pa 2700 300}%
+    \special{fp}%
+    \special{pa 3300 300}%
+    \special{pa 3600 300}%
+    \special{pa 3600 0}%
+    \special{pa 3300 0}%
+    \special{pa 3300 300}%
+    \special{fp}%
+    \special{pa 3600 300}%
+    \special{pa 3900 300}%
+    \special{pa 3900 0}%
+    \special{pa 3600 0}%
+    \special{pa 3600 300}%
+    \special{fp}%
+    \special{pa 600 750}%
+    \special{pa 900 750}%
+    \special{pa 900 450}%
+    \special{pa 600 450}%
+    \special{pa 600 750}%
+    \special{fp}%
+    \special{pa 900 750}%
+    \special{pa 1200 750}%
+    \special{pa 1200 450}%
+    \special{pa 900 450}%
+    \special{pa 900 750}%
+    \special{fp}%
+    \special{pa 1500 750}%
+    \special{pa 1800 750}%
+    \special{pa 1800 450}%
+    \special{pa 1500 450}%
+    \special{pa 1500 750}%
+    \special{fp}%
+    \special{pa 1800 750}%
+    \special{pa 2100 750}%
+    \special{pa 2100 450}%
+    \special{pa 1800 450}%
+    \special{pa 1800 750}%
+    \special{fp}%
+    \special{pa 2400 750}%
+    \special{pa 2700 750}%
+    \special{pa 2700 450}%
+    \special{pa 2400 450}%
+    \special{pa 2400 750}%
+    \special{fp}%
+    \special{pa 2700 750}%
+    \special{pa 3000 750}%
+    \special{pa 3000 450}%
+    \special{pa 2700 450}%
+    \special{pa 2700 750}%
+    \special{fp}%
+    \special{pa 3300 750}%
+    \special{pa 3600 750}%
+    \special{pa 3600 450}%
+    \special{pa 3300 450}%
+    \special{pa 3300 750}%
+    \special{fp}%
+    \special{pa 3600 750}%
+    \special{pa 3900 750}%
+    \special{pa 3900 450}%
+    \special{pa 3600 450}%
+    \special{pa 3600 750}%
+    \special{fp}%
+    \hbox{\vrule depth0.750in width0pt height 0pt}%
+    \kern 3.900in
+  }%
+}%
+\box\graph
+\end{minipage}

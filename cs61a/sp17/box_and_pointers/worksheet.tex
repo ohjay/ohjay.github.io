@@ -1,0 +1,147 @@
+\documentclass[twoside]{article}
+\usepackage{quiz}
+\usepackage{forest}
+
+\pagestyle{myheadings}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+}
+
+\def\semester{Spring 2017}
+
+%%% Showing solutions %%%
+
+\def\doshow{1}
+\ifx\doshow\showsolution
+\newcommand{\solution}[1]{{\color{red}#1}}
+\newcommand{\solutioncircle}[1]{{\color{red}#1}}
+\newcommand{\solutionimage}[2]{#2} % first arg is question, second is solution
+\newcommand{\solutionblank}[2]{\hbox to #2{\color{red}#1}}
+\else
+\newcommand\solution[1]{} % excludes
+\newcommand{\solutioncircle}[1]{#1} % don't color text but still display it
+\newcommand{\solutionimage}[2]{#1} % first arg is question, second is solution
+\newcommand{\solutionblank}[2]{{\rule{0pt}{2em}\underline{\hbox to #2{}}}}
+\fi
+\usepackage{multicol}
+
+%%% Actual content begins here %%%
+\title{\sc Box and Pointers Review}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\begin{enumerate}
+%%% Q1: In-Lab Review Questions %%%
+\q{5}{In-Lab Review Questions}
+
+For each of the following code fragments, add arrows and values to the object skeletons to the right to show the final state of the program.  Single boxes are variables that contain pointers.  Double boxes are \lstinline/Links/. Not all boxes will necessarily be used. (Note: I suggest doing it on scratch paper before filling in the boxes.)
+
+\vspace{0.2in}
+
+\solutionimage{\input{pointers0}}{\input{pointers0_soln}}
+
+\vspace{0.2in}
+
+Fill in the code to create the linked lists below. No multiple assignment allowed.
+
+\vspace{0.2in}
+
+\input{pointers1}
+
+\vspace{0.2in}
+
+\begin{lstlisting}
+A = Link(0, Link(1, Link(2, Link(3))))
+
+B = ______________________________________________________________________
+
+B._______________________________ = ______________________________________
+
+B._______________________________ = ______________________________________
+\end{lstlisting}
+
+%%% Q2: More Linked Lists %%%
+\q{5}{More Linked Lists}
+
+Here are some more code fragments involving linked lists. Your job is to draw the associated box-and-pointer diagrams. Creating skeletons is too much work, so just sketch them in yourself. (If you can draw the diagrams \textit{without} the skeletons, then you can definitely draw the diagrams with the skeletons.)
+
+\begin{verbatim}
+R = Link(Link(1, Link(Link(2))), Link(3))
+E = R
+S = E
+T = Link(R, Link(E, S))
+\end{verbatim}
+
+\vspace{1in}
+
+\begin{verbatim}
+F = Link(4, Link(5, Link(6)))
+I = Link(7, Link(8))
+R = Link(9)
+I.rest = Link(I)
+I.rest.rest = I
+R.rest = F.rest.rest
+F.rest.rest = Link.empty
+I.rest.first.rest.first = I.rest.rest
+F.rest.first = F.first
+\end{verbatim}
+
+\vspace{2.5in}
+
+\begin{verbatim}
+def mystery1(M):
+    if M is Link.empty:
+        return M
+    elif M.rest is Link.empty:
+        M.rest = Link(M.first)
+    else:
+        M.rest = Link(M.first, mystery1(M.rest.rest))
+    return M
+
+def mystery2(N):
+    return Link(mystery1(N), mystery1(N.rest.rest.rest))
+
+P = Link(7, Link(8, Link(9)))
+Q = mystery2(P)
+\end{verbatim}
+
+\vspace{1.5in}
+
+\newpage
+
+For reference, here is the \lstinline{Link} class.
+
+\begin{verbatim}
+class Link:
+    """A linked list, defined here for your convenience.
+
+    >>> s = Link(1, Link(2, Link(3)))
+    >>> s.first
+    1
+    >>> s.rest
+    Link(2, Link(3))
+    """
+    empty = ()
+
+    def __init__(self, first, rest=empty):
+        assert rest is Link.empty or isinstance(rest, Link)
+        self.first = first
+        self.rest = rest
+
+    def __repr__(self):
+        if self.rest is Link.empty:
+            return 'Link({})'.format(self.first)
+        else:
+            return 'Link({}, {})'.format(self.first, repr(self.rest))
+\end{verbatim}
+
+\end{enumerate}
+\end{document}
