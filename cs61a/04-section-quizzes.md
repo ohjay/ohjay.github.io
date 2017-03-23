@@ -162,7 +162,7 @@ permalink: /cs61a/section-quizzes/
         <tr>
             <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz8/quiz8.pdf">Quiz 08</a></td>
             <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz8/quiz8_sol.pdf">Solution</a></td>
-            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz8/quiz8.py">Python Script</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz8/quiz8.scm">Scheme File</a></td>
             <td>Scheme</td>
         </tr>
     </table>
