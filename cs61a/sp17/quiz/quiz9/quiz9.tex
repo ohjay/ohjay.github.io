@@ -1,0 +1,93 @@
+\documentclass[twoside]{article}
+\usepackage{../quiz}
+
+\pagestyle{myheadings}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+}
+
+\def\semester{Spring 2017}
+
+% \newcommand{\solution}[1]{{\color{red}#1}}
+\newcommand\solution[1]{}
+
+%%% Actual content begins here %%%
+\title{\sc Discussion Quiz 9 \solution{Solutions}}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\begin{enumerate}
+%%% Question 1: Pin the Tail %%%
+\q{3}{Pin the Tail}
+
+Identify whether or not each of the following procedures uses a constant amount of space in a tail-recursive Scheme implementation (i.e. whether \textbf{every} recursive call is a tail call).
+
+%%% Q1a %%%
+\begin{lstlisting}
+(define (copy lst result)
+    (if (null? lst) result
+        ((lambda (copy) copy) (copy (cdr lst)
+                                    (append result (list (car lst)))))))
+\end{lstlisting}
+
+(Remember that {\tt append} takes zero or more lists and constructs a new list with all of the lists' elements.)
+\begin{lstlisting}
+
+__________________________________________________________________________
+\end{lstlisting}
+
+%%% Q1b %%%
+\begin{lstlisting}
+(define (broken lst) (broken (broken lst)))
+\end{lstlisting}
+\vspace{0.21cm}
+\begin{lstlisting}
+__________________________________________________________________________
+\end{lstlisting}
+
+%%% Q1c %%%
+\begin{lstlisting}
+(define (is-ascending lst last-num)
+    (if (null? lst) #t
+        (and (is-ascending (cdr lst) (car lst)) (> (car lst) last-num))))
+\end{lstlisting}
+
+(Assume that this procedure is always called with a {\tt last-num} that is less than all of the elements in the list.)
+\begin{lstlisting}
+
+__________________________________________________________________________
+\end{lstlisting}
+
+%%% Question 2: Hail Recursion %%%
+\q{4}{Hail Recursion}
+
+Write a \emph{tail-recursive} version of {\tt hailstone}. This procedure accepts a positive integer {\tt n} and returns a list that contains the hailstone sequence starting at {\tt n}. For instance, {\tt (hailstone 5)} would return {\tt (5 16 8 4 2 1)}.
+
+\begin{lstlisting}
+(define (hailstone n)
+  (define (hs-helper n lst)
+  
+  ________________________________________________________________________
+  
+  ________________________________________________________________________
+    
+  ________________________________________________________________________)
+  
+  ________________________________________________________________________)
+\end{lstlisting}
+
+%%% Question 3: Humans Need Not Apply %%%
+\q{3}{Humans Need Not Apply}
+
+What does {\tt eval} do, in the context of an interpreter? What does {\tt apply} do?
+
+\end{enumerate}
+\end{document}
