@@ -110,7 +110,7 @@ permalink: /cs61a/presentation-slides/
             <td>Scheme</td>
         </tr>
         <tr>
-            <td><a class="disabled">Discussion 09</a> (04/06)</td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%209.pdf">Discussion 09</a> (04/06)</td>
             <td>Tail Calls / Interpreters</td>
         </tr>
         <tr>
