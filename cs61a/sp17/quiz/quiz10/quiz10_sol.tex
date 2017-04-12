@@ -1,0 +1,95 @@
+\documentclass[twoside]{article}
+\usepackage{../quiz}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{}
+\rfoot{Solutions at \textbf{\href{http://owenjow.xyz/cs61a/section-quizzes/}{owenjow.xyz/cs61a/section-quizzes}}. Credit to Brian Hou for question material.}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    showstringspaces=false
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+    escapeinside={<*}{*>},
+    moredelim=**[is][\color{red}]{@}{@},
+}
+
+\def\semester{Spring 2017}
+\newcommand{\solution}[1]{{\color{red}#1}}
+
+%%% Actual, flexible content begins here %%%
+\title{\sc Discussion Quiz 10 \solution{Solutions}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+%%% Q1 %%%
+\q{5}{Extreme Stream Supreme (translated from Scheme)}
+
+What are the first four values of the stream \lstinline{s}?
+\vspace{0.1in}
+
+\begin{lstlisting}
+def sweet(dreams):
+    return Stream(Link(dreams), lambda: sweet(Link(dreams)))
+
+def mix(tape):
+    pre = match(lambda x: x.rest, tape.rest)
+    temp = pre
+    while temp.rest is not Link.empty:
+        temp = temp.rest
+    temp.rest = Link(tape.first.rest)
+    return Stream(tape.first.first, lambda: mix(pre))
+
+def match(dot, com):
+    if com is Link.empty:
+        return com
+    return Link(dot(com.first), match(dot, com.rest))
+
+s = mix(match(sweet, Link(1, Link(2, Link(3)))))
+\end{lstlisting}
+
+\:
+\solution{\lstinline{Link(1), Link(Link(2)), Link(Link(Link(3))), Link(Link(Link(Link(1))))}}
+
+\newpage
+
+%%% Q2 %%%
+\q{5}{Tree Traversal}
+
+Make \lstinline{BinTree}s iterable! such that if the tree were a binary \textit{search} tree, we would iterate over the values in order of least to greatest. In other words, we want to perform an \textit{inorder traversal}, in which we iterate over the labels on the \lstinline{left}... followed by the current node's label... followed by the labels on the \lstinline{right}.
+
+What method(s) do we need to implement?
+\vspace{0.1in}
+
+\begin{lstlisting}
+class BinTree:
+    empty = ()
+    def __init__(self, label, left=empty, right=empty):
+        self.label = label
+        self.left = left
+        self.right = right
+
+    @def __iter__(self):
+        yield from self.left
+        yield self.label
+        yield from self.right
+        
+    Or, equivalently:
+    
+    def __iter__(self):
+        for l_label in self.left:
+            yield l_label
+        yield self.label
+        for r_label in self.right:
+            yield r_label@
+\end{lstlisting}
+
+\end{enumerate}
+\end{document}

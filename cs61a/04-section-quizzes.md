@@ -171,5 +171,11 @@ permalink: /cs61a/section-quizzes/
             <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz9/quiz9.scm">Scheme File</a></td>
             <td>Tail Calls / Interpreters</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz10/quiz10.pdf">Quiz 10</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz10/quiz10_sol.pdf">Solution</a></td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz10/quiz10.py">Python Script</a></td>
+            <td>Streams / Binary Trees</td>
+        </tr>
     </table>
 </div>
