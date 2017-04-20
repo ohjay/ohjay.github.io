@@ -118,7 +118,7 @@ permalink: /cs61a/presentation-slides/
             <td>Streams</td>
         </tr>
         <tr>
-            <td><a class="disabled">Discussion 11</a> (04/20)</td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%2011.pdf">Discussion 11</a> (04/20)</td>
             <td>SQL</td>
         </tr>
         <tr>
