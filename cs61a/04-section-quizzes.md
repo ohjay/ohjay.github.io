@@ -183,5 +183,11 @@ permalink: /cs61a/section-quizzes/
             <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz11/quiz11.sql">SQL File</a></td>
             <td>SQL</td>
         </tr>
+        <tr>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/quiz/quiz12/quiz12.pdf">Quiz 12</a></td>
+            <td><a href="http://faculty.uml.edu/jpropp/srat-A.html">Solution</a></td>
+            <td>–</td>
+            <td>Fun</td>
+        </tr>
     </table>
 </div>

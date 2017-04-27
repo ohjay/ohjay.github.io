@@ -122,7 +122,7 @@ permalink: /cs61a/presentation-slides/
             <td>SQL</td>
         </tr>
         <tr>
-            <td><a class="disabled">Discussion 12</a> (04/27)</td>
+            <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%2012.pdf">Discussion 12</a> (04/27)</td>
             <td>Special Topics</td>
         </tr>
     </table>
