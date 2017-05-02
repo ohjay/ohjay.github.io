@@ -125,5 +125,6 @@ permalink: /cs61a/presentation-slides/
             <td><a href="http://owenjow.xyz/cs61a/sp17/disc/[SP17]%20CS%2061A%20Discussion%2012.pdf">Discussion 12</a> (04/27)</td>
             <td>Special Topics</td>
         </tr>
+        <tr><td colspan="2"><a href="/cs61a/sp17/oog_review/[SP17]%20Orders%20of%20Growth%20Review.pdf">OoG Review</a> (<a href="/cs61a/sp17/oog_review/worksheet.pdf">Worksheet</a>) (<a href="/cs61a/sp17/oog_review/questions.py">Code</a>)</td></tr>
     </table>
 </div>
