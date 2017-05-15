@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var typed = '';
-    var hash = 'k2U2FsdGVkX1+cBoCEYZoj9dMWVmR1cxPbMaU0dMfPrUlbzeAif9y8B0dKhkzPlXpjDgLIh8ILL/QcjX5O9OG/fg==';
+    var hash = 'U2FsdGVkX1/0yqSyURFbIDOIvJ5TuGPskR76xBbrDEXCBnoXnUTxmVdsmgHS3Hiqef/CdbAi11/P4T4Z7SJObw==';
     var numAttempts = 0;
     var result = null;
                     
