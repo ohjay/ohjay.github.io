@@ -1,6 +1,6 @@
 const HASHES = [
     'U2FsdGVkX1+E3ye2WKz2JfO33ZjtmQx09FeN5v7hL2JGdG0zB5WeTQ6FOnaR93oKEWlqFzwpDY9Qkt45Ls+2xA=='
-]
+];
 const NUM_HASHES = HASHES.length;
 
 function verify(id, accessCode) {
@@ -27,7 +27,8 @@ $(document).ready(function() {
 
     $('#access-panel').on('submit', function(evt) {
         evt.preventDefault();
-        if (numAttempts < 10) {
+        if (!state && numAttempts < 10) {
+            state = true;
             document.getElementById("lit-header").className = "power-on";
             document.getElementById("go").className = "";
             document.getElementById("go").value = "Verifying...";
@@ -35,6 +36,7 @@ $(document).ready(function() {
             numAttempts += 1;
             setTimeout(function() {
                 verify($('#name').val(), $('#password').val());
+                state = false;
             }, 2000);
         }
     });
