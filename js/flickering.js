@@ -1,6 +1,3 @@
-const HASHES = [
-    'U2FsdGVkX1+E3ye2WKz2JfO33ZjtmQx09FeN5v7hL2JGdG0zB5WeTQ6FOnaR93oKEWlqFzwpDY9Qkt45Ls+2xA=='
-];
 const NUM_HASHES = HASHES.length;
 
 function verify(id, accessCode) {
