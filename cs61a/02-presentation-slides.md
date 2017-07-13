@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Presentation Slides
+categories: [cs61a]
 permalink: /cs61a/presentation-slides/
 ---
 

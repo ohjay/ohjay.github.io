@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Exam Review
+categories: [cs61a]
 permalink: /cs61a/exam-review/
 ---
 

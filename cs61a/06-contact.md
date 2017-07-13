@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Contact
+categories: [cs61a]
 permalink: /cs61a/contact/
 ---
 

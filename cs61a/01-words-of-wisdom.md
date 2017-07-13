@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Words of Wisdom (?)
+categories: [cs61a]
 permalink: /cs61a/words-of-wisdom/
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Resources
+categories: [cs61a]
 permalink: /cs61a/resources/
 ---
 

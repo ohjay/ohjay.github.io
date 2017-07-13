@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Section Quizzes
+categories: [cs61a]
 permalink: /cs61a/section-quizzes/
 ---
 
