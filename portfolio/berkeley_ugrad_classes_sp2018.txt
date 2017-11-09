@@ -1,0 +1,6 @@
+CS 194-28       - Computational Design and Fabrication
+CS 194-129      - Designing, Visualizing and Understanding Deep Neural Networks
+CS 280          - Computer Vision
+EE 126          - Probability and Random Processes
+Linguistics 106 - Metaphor
+English 198     - UC Hogwarts: The Wizarding World of Harry Potter

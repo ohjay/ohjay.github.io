@@ -51,7 +51,7 @@
         
         <span class="anchor" id="setting-the-scene"></span>
         <fieldset>
-            <legend><h2>&nbsp;[00] Setting the Scene&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[00] Setting the Scene&nbsp;</h2></legend>
             <p>
                 For this project, we produce seamlessly stitched mosaics by shooting overlapped photographs with an identical center of projection, computing projective transformations between those photographs, warping them toward whichever is selected as a base image, and finally blending all of the processed photographs into one big panorama.
             
@@ -68,7 +68,7 @@
         
         <span class="anchor" id="feature-detection"></span>
         <fieldset>
-            <legend><h2>&nbsp;[01] Feature Detection&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[01] Feature Detection&nbsp;</h2></legend>
             <p>
                 In selecting corresponding points, we have two options: manually click on high-profile feature points within the overlap across each of the two images, or let the computer find all the features itself. The first option is a <code>ginput</code> call – we have to do all the thinking, so it's easy for the computer and hard for us. On the other hand, the second option is hard for the computer and easy for us. We obviously invented computers so we could enslave them and make them do all the difficult things in life, so everyone's preference here should be a no-brainer.
                 
@@ -163,7 +163,7 @@
         
         <span class="anchor" id="descriptor-extraction-and-point-matching"></span>
         <fieldset>
-            <legend><h2>&nbsp;[02] Descriptor Extraction and Point Matching&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[02] Descriptor Extraction and Point Matching&nbsp;</h2></legend>
             <p>
                 After we obtain our feature points, we have to match them. Our plan of attack: extract feature descriptors for each point and then match those instead. Said descriptors characterize the immediate region around every feature point. Accordingly, every such descriptor will be represented for us as a normalized local patch of size 8 x 8 – downsampled, that is, from 40 x 40. We make our descriptors invariant under rotation in order to increase robustness.
                 
@@ -236,7 +236,7 @@
         
         <span class="anchor" id="ransac-for-homography-estimation"></span>
         <fieldset>
-            <legend><h2>&nbsp;[03] RANSAC for Homography Estimation&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[03] RANSAC for Homography Estimation&nbsp;</h2></legend>
             <p>
                 It looks good, but we're not necessarily out of the tunnel yet. We need to be <em>dead sure</em> that there are no homography-ruining outliers in our set of feature matches. (By "dead sure," I actually mean "almost" dead sure because nothing in life is certain.)
                 
@@ -263,7 +263,7 @@
         
         <span class="anchor" id="solving-for-the-homography-matrix"></span>
         <fieldset>
-            <legend><h2>&nbsp;[04] Solving for the Homography Matrix&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[04] Solving for the Homography Matrix&nbsp;</h2></legend>
             <p>
                 In order to identify the transformation between any two of our images, we need to compute the homography matrix \(H\). We can relate a pair of corresponding points through the equation \(\textbf{p}' = H\textbf{p}\), where \(\textbf{p}\) is an \(\begin{bmatrix}x & y & 1\end{bmatrix}^T\) vector representing a point in the first image and \(\textbf{p}'\) is a \(\begin{bmatrix}wx' & wy' & w\end{bmatrix}^T\) representing a scaled point in the second image. \(H\), incidentally, is what we're solving for and exists as a 3 x 3 matrix with eight degrees of freedom.
             
@@ -387,7 +387,7 @@
         
         <span class="anchor" id="applying-our-homography"></span>
         <fieldset>
-            <legend><h2>&nbsp;[05] Applying Our Homography&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[05] Applying Our Homography&nbsp;</h2></legend>
             <p>
                 Let's go into a little more detail on that front. We're <em>warping</em> an image, which means we're taking the colors that were already in the image and moving them to different places.
             
@@ -494,7 +494,7 @@
         
         <span class="anchor" id="rectifying-images"></span>
         <fieldset>
-            <legend><h2>&nbsp;[06] Rectifying Images&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[06] Rectifying Images&nbsp;</h2></legend>
             <p>
                 Enough math. Let's take what we've done so far and produce something visual! As a test of projective warp correctness, we attempt to rectify a couple of images. Specifically, we'll try to set up our warps so that certain planar surfaces are frontal-parallel in the output image.
             
@@ -532,7 +532,7 @@
         
         <span class="anchor" id="producing-panoramic-mosaics"></span>
         <fieldset>
-            <legend><h2>&nbsp;[07] Producing Panoramic Mosaics&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[07] Producing Panoramic Mosaics&nbsp;</h2></legend>
             <p>
                 Here, we warp and blend a sequence of overlapping images together – creating, in expectation, a nicely stitched panorama. Given a set of photographs that don't span more than 180 degrees (faraway scenes work well, since we can then project everything onto a plane at infinity), we start by selecting a centrally positioned photograph to serve as the base panorama image. We then project and blend all other images one-by-one into this photograph's coordinate system, amassing a holistic panorama as we go.
             
@@ -703,7 +703,7 @@
         
         <span class="anchor" id="cylindrical-mapping"></span>
         <fieldset>
-            <legend><h2>&nbsp;[08] Bells and Whistles: Cylindrical Mapping&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[08] Bells and Whistles: Cylindrical Mapping&nbsp;</h2></legend>
             <p>
                 For non-planar (read: wide) fields of view, we'll want to utilize a cylindrical projection. Although this distorts the edges of the image, it's a worthwhile tradeoff when we're looking for a panorama with an exceedingly large horizontal dimension. As an added requirement, however, we need our input images to be horizontally aligned from the get-go; we're taking the homography out of the mix here.
                 
@@ -808,7 +808,7 @@
         
         <span class="anchor" id="360-panorama"></span>
         <fieldset>
-            <legend><h2>&nbsp;[09] Bells and Whistles: 360&deg; Panorama&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[09] Bells and Whistles: 360&deg; Panorama&nbsp;</h2></legend>
             <p>
                 Using our cylindrical warping technique, we can now put together a panorama spanning 360 degrees of view. We do this by using the same stitching algorithm as that of the previous section, while also making sure to merge the final image and the initial image at the end (so as to create a "true" 360 experience).
                 
@@ -884,7 +884,7 @@
         
         <span class="anchor" id="rotation-invariance"></span>
         <fieldset>
-            <legend><h2>&nbsp;[10] Bells and Whistles: Rotation Invariance&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[10] Bells and Whistles: Rotation Invariance&nbsp;</h2></legend>
             <p>
                 As discussed in <a href="#descriptor-extraction-and-point-matching">one of the previous sections</a>, our feature descriptors are also invariant under rotation. This is nice, because even if we fail at photography and rotate the camera around a non-yaw axis, our automatically detected features can still be standardized and matched.
                 
@@ -945,7 +945,7 @@
         
         <span class="anchor" id="panorama-recognition"></span>
         <fieldset>
-            <legend><h2>&nbsp;[11] Bells and Whistles: Panorama Recognition&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[11] Bells and Whistles: Panorama Recognition&nbsp;</h2></legend>
             <p>
                 Here we implement an algorithm that, given an unordered list of images (some of which might match up), is able to automatically discover pairwise panoramas and stitch them together. It does this by extracting feature descriptors for every image and then exhaustively searching for every image's nearest neighbor via the SSD matching technique we've come to know and love. (The image with the most feature matches is our best guess for each image's neighbor.)
                 
@@ -999,7 +999,7 @@
         
         <span class="anchor" id="looking-back"></span>
         <fieldset>
-            <legend><h2>&nbsp;[12] Looking Back&nbsp;</h2></legend>
+            <legend><h2 class="no-margin">&nbsp;[12] Looking Back&nbsp;</h2></legend>
             <p>
                 First of all, I learned that planar mappings don't really work for > 180&deg; mosaics, as I spent an embarrassing amount of time trying to warp and merge two images that spanned an excessive view space.
             
