@@ -22,7 +22,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <div class="navbar-brand">
-                        <a href="#main" id="logo" style="text-decoration: none" class="smoothScroll">OWEN JOW</a>
+                        <a href="#main" id="logo" style="text-decoration: none" data-scroll>OWEN JOW</a>
                     </div>
                 
                     <!-- Burger menu for mobile browsers -->
@@ -37,11 +37,11 @@
                 <!-- Collapsible (/main) sections -->
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                        <li><a href="#about" class="smoothScroll">About</a></li>
-                        <li><a href="#exploits" class="smoothScroll">Exploits</a></li>
-                        <li><a href="#education" class="smoothScroll">Education</a></li>
-                        <li><a href="#interests" class="smoothScroll">Interests</a></li>
-                        <li><a href="#contact" class="smoothScroll">Contact</a></li>
+                        <li><a href="#about" data-scroll>About</a></li>
+                        <li><a href="#exploits" data-scroll>Exploits</a></li>
+                        <li><a href="#education" data-scroll>Education</a></li>
+                        <li><a href="#interests" data-scroll>Interests</a></li>
+                        <li><a href="#contact" data-scroll>Contact</a></li>
                     </ul>
                 </div>
             
@@ -64,7 +64,7 @@
                 <p class="teaser-subtext">
                     He's barely a man. He's hardly a myth. He's certainly not a legend.
                 </p>
-                <h1 id="teaser-main"><a href=#about style="text-decoration: none" class="smoothScroll">OWEN JOW</a></h1>
+                <h1 id="teaser-main"><a href=#about style="text-decoration: none" data-scroll>OWEN JOW</a></h1>
                 <p class="teaser-subtext">But he can still do some pretty cool things.<sup id="superscript0">*</sup></p>
                 <p id="hidden-footnote">(...at least in his opinion!)</p>
             </div>
@@ -87,11 +87,11 @@
                     <div class="info-text">
                         <div class="col-lg-12">
                             <div class="transp-box-hidden">
-                                <p>tl;dr Me! I'm a third-year computer science major at UC Berkeley with a veritable grab-bag of <a href="#exploits" style="text-decoration: none" class="smoothScroll">talents</a>.
+                                <p>tl;dr Me! I'm a third-year computer science major at UC Berkeley with a veritable grab-bag of <a href="#exploits" style="text-decoration: none" data-scroll>talents</a>.
                                 <br><br>
-                                Although I was originally enamored by the concept of embedded systems, my studies haven't yet taken me further than a couple of basic Arduino projects. Instead, I've busied myself by learning a bit of everything: <a href="#education" style="text-decoration: none" class="smoothScroll">computer architecture, data structures, animation</a>... I can't quite say "you name it" yet, but I think I'm getting there! While I may not have the deepest experience with any particular facet of computer science, I've acquired a relatively broad set of abilities and I really do believe I have the base skillset to accomplish just about anything. <b>Summer 2016 update</b>: For the present (/the foreseeable future), I've selected graphics and AI as my fields of concentration.
+                                Although I was originally enamored by the concept of embedded systems, my studies haven't yet taken me further than a couple of basic Arduino projects. Instead, I've busied myself by learning a bit of everything: <a href="#education" style="text-decoration: none" data-scroll>computer architecture, data structures, animation</a>... I can't quite say "you name it" yet, but I think I'm getting there! While I may not have the deepest experience with any particular facet of computer science, I've acquired a relatively broad set of abilities and I really do believe I have the base skillset to accomplish just about anything. <b>Summer 2016 update</b>: For the present (/the foreseeable future), I've selected graphics and AI as my fields of concentration.
                                 <br><br>
-                                The best part is that I'm far from done: the learning never stops. If you have something for me to put my mind to, please <a href="#contact" style="text-decoration: none" class="smoothScroll">let me know</a>. I'm game for anything, as long as it doesn't involve criminal activities or supermarket bagels.</p>
+                                The best part is that I'm far from done: the learning never stops. If you have something for me to put my mind to, please <a href="#contact" style="text-decoration: none" data-scroll>let me know</a>. I'm game for anything, as long as it doesn't involve criminal activities or supermarket bagels.</p>
                             </div><!-- /transp-box-hidden -->
                         </div><!-- /col-lg-12 -->
                     </div><!-- /info-text -->
@@ -422,9 +422,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script> if (!window.jQuery) { document.write('<script src="/js/jquery.min.js"><\/script>'); } </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="/js/smoothscroll.js"></script>
+    <script src="/js/smooth-scroll.polyfills.min.js"></script>
     <script src="/js/portfolio.min.js"></script>
     <script type="text/javascript">
+        // Smooth scroll
+        var scroll = new SmoothScroll('a[href*="#"]');
+
         // The secret page navigation option
         $(document).keypress(function(evt) {
             base = document.location.origin;
