@@ -4,4 +4,3 @@ CS 280          - Computer Vision
 EE 126          - Probability and Random Processes
 Linguistics 106 - Metaphor
 English 198     - UC Hogwarts: The Wizarding World of Harry Potter
-IB 198          - Neurozoology: Animal Behavior & the Environment
