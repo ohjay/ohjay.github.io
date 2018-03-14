@@ -11,7 +11,7 @@ function verify(id, accessCode) {
     }
     
     // Display denial
-    document.getElementById("lit-header").className = "";
+    $("#lit-header").removeClass("power-on");
     document.getElementById("go").className = "denied";
     document.getElementById("go").value = "Access Denied";
     
@@ -26,7 +26,7 @@ $(document).ready(function() {
         evt.preventDefault();
         if (!state && numAttempts < 10) {
             state = true;
-            document.getElementById("lit-header").className = "power-on";
+            $("#lit-header").addClass("power-on");
             document.getElementById("go").className = "";
             document.getElementById("go").value = "Verifying...";
             
