@@ -5,7 +5,7 @@ CS 61C     - Great Ideas in Computer Architecture
 CS 70      - Discrete Mathematics and Probability Theory
 CS 98      - 3D Modeling and Animation
 CS 162     - Operating Systems and Systems Programming
-CS 168     - The Internet: Architecture and Protocol
+CS 168     - The Internet: Architecture and Protocols
 CS 170     - Efficient Algorithms and Intractable Problems
 CS 184     - Computer Graphics
 CS 186     - Database Systems
