@@ -1,0 +1,189 @@
+%% Requires compilation with XeLaTeX or LuaLaTeX
+\documentclass[10pt, xcolor={table, dvipsnames}, t]{beamer}
+\usetheme{UCBerkeley}
+\graphicspath{{figures/}}
+
+\title{CS 170 Section 10}
+\subtitle{Search Problems and Intractability}
+\author{Owen Jow\vspace{-1.5ex}}
+\institute{owenjow@berkeley.edu\vspace{1.5ex}}
+\date{4/04 Algorithm Not Found}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Overview}
+
+% -------
+\begin{frame}{Search Problem}
+
+\begin{itemize}
+\item Find a solution $S$ to the problem instance $I$.
+\item A solution can be verified in polynomial time by the algorithm $C(I, S)$.
+\end{itemize}
+
+\begin{block}{Examples}
+\textbf{SAT:} find a satisfying truth assignment for a Boolean formula. \\
+\textbf{TSP:} find a tour \footnote{a cycle that passes through every vertex exactly once \vspace{7mm}} of total distance $b$ or less.
+\end{block}
+
+\end{frame}
+
+% -------
+\begin{frame}{Optimization Problem}
+
+\begin{itemize}
+\item Find the \textbf{best} solution $S$ to the problem instance $I$.
+\item "Best" should be quantified by some objective function.
+\end{itemize}
+
+\begin{block}{Examples}
+\textbf{MAX-SAT:} find the max number of clauses that can be simultaneously true. \\
+\textbf{TSP-OPT:} find a tour of minimum distance.
+\end{block}
+
+\end{frame}
+
+% -------
+\begin{frame}{Search vs Optimization}
+
+\begin{itemize}
+\item Search and optimization formulations are of equal difficulty.
+\item Why? \textit{Each reduces to the other.}
+\end{itemize}
+
+$$\textbf{TSP}\ \longleftrightarrow\ \textbf{TSP-OPT}$$
+
+\end{frame}
+
+% -------
+\begin{frame}{P vs NP}
+
+\begin{itemize}
+\item \textbf{P:} all search problems that can be solved in polynomial time
+\item \textbf{NP:} all search problems (i.e. ``verifiable in polynomial time")
+\item \textbf{NP-complete:} the problems to which all search problems reduce
+\item \textbf{NP-hard:} ``at least as hard as the NP-complete problems"
+\end{itemize}
+
+\epigraph{I know an NP-complete joke, but once you've heard one you've heard them all.}{\textit{jason}, Stack Overflow}
+
+\end{frame}
+
+% -------
+\begin{frame}
+
+\vspace{3mm}
+\includegraphics[width=\textwidth]{np}
+
+\end{frame}
+
+% -------
+\smallframetitle
+\begin{frame}{Examples}
+
+\begin{table}
+\centering
+\begin{tabular}{l r}
+\tableheadrow
+\tableheadcol{NP-complete} & \tableheadcol{P} \\
+\texttt{3SAT} & \texttt{HORN SAT} \\
+\texttt{TSP} & \texttt{MST} \\
+\texttt{ILP} & \texttt{LP} \\
+\texttt{RUDRATA PATH} & \texttt{EULER PATH} \\
+\texttt{BALANCED CUT} & \texttt{MINIMUM CUT} \\
+\texttt{LONGEST PATH} & \texttt{SHORTEST PATH}
+\end{tabular}
+\caption{``Hard" versus ``easy" search problems.}
+\end{table}
+
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Exercises}
+
+% -------
+\normalframetitle
+\begin{frame}
+\frametitle{A Faulty Reduction}
+
+\begin{itemize}
+\item \textbf{Rudrata path:} find a path that goes through each vertex exactly once.
+  \begin{itemize}
+  \item This is also known as the \textit{Hamiltonian path} problem.
+  \end{itemize}
+\item \textbf{Longest path:} find a simple path of length $\geq g$ [search formulation].
+  \begin{itemize}
+  \item \textit{Simple}: cannot pass through any vertex more than once.
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\includegraphics[width=0.4\textwidth, right]{hamiltonian}
+\end{figure}
+
+\end{frame}
+
+% -------
+\begin{frame}
+\frametitle{A Faulty Reduction}
+\begin{columns}[T]
+
+% col1
+\begin{column}{0.48\textwidth}
+\small
+\textbf{Undirected\texttt{ RUDRATA PATH }can be reduced to\texttt{ LONGEST PATH }in a DAG.}
+\newline
+
+Given a graph $G = (V, E)$, we can create a DAG as a directed DFS tree. If the longest path in this DAG has $|V| - 1$ edges, then there is a Rudrata path in $G$ (since a simple path with $|V| - 1$ edges visits every vertex).
+\end{column}
+
+% col2
+\begin{column}{0.48\textwidth}
+\small
+\begin{itemize}
+\item What is wrong with the given justification for our reduction?
+\end{itemize}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+% -------
+\begin{frame}
+\frametitle{A Faulty Reduction {\color{red} Solution}}
+\begin{columns}[T]
+
+% col1
+\begin{column}{0.48\textwidth}
+\small
+\textbf{Undirected\texttt{ RUDRATA PATH }can be reduced to\texttt{ LONGEST PATH }in a DAG.}
+\newline
+
+Given a graph $G = (V, E)$, we can create a DAG as a directed DFS tree. If the longest path in this DAG has $|V| - 1$ edges, then there is a Rudrata path in $G$ (since a simple path with $|V| - 1$ edges visits every vertex).
+\end{column}
+
+% col2
+\begin{column}{0.48\textwidth}
+\small
+\begin{itemize}
+\item What is wrong with the given justification for our reduction?
+
+{
+  \color{red}
+  To fully justify a reduction, we need to prove that an original problem instance $I$ has a solution \textbf{iff} reduced problem instance $I'$ has a solution.
+  \begin{itemize}
+  \item {\color{red} It is possible to produce a DAG without a length $|V| - 1$ path in cases where $G$ \textit{does} have a Rudrata path.}   
+  \end{itemize}
+}
+\end{itemize}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+\end{document}
