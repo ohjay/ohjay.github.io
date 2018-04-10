@@ -1,0 +1,303 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage[export]{adjustbox}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\graphicspath{{figures/}}
+
+\title{CS 170 Section 11}
+\subtitle{Approximation Algorithms}
+\date{April 11, 2018}
+\author{Owen Jow}
+\institute{University of California, Berkeley}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of Contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Reduction Review}
+
+% -------
+\begin{frame}[fragile]{Dominating Set}
+
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{domination}
+  \caption{\textbf{dominating set.} A subset of vertices that either includes or touches (via an edge) every vertex in the graph.}
+\end{figure}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Minimal Dominating Set}
+
+\begin{columns}[T, onlytextwidth]
+  \column{0.6\textwidth}
+  \begin{block}{Minimal dominating set}
+    A dominating set with $\leq k$ vertices.
+  \end{block}
+
+  Let $k = 2$:
+
+  \begin{alertblock}{(a)}
+    Not a minimal dominating set.
+  \end{alertblock}
+
+  \begin{exampleblock}{(b), (c)}
+    Minimal dominating sets.
+  \end{exampleblock}
+
+  \column{0.4\textwidth}
+  \includegraphics[width=0.9\textwidth]{mds}
+\end{columns}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Proving NP-Hardness}
+
+To prove that something is NP-hard, reduce a known NP-complete problem to it.
+
+Recall:
+\begin{itemize}
+\item \textbf{NP-hard:} at least as hard as the NP-complete problems.
+\item Difficulty flows in the direction of the reduction. If we reduce $A$ to $B$, then $B$ is at least as hard as $A$.
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Some NP-Complete Problems}
+
+\begin{columns}[T, onlytextwidth]
+  \column{0.4\textwidth}
+  \begin{table}
+    \begin{tabular}{lr}
+    \toprule
+    Vertex cover & Subset sum \\
+    Set cover & Longest path \\
+    ZOE & Rudrata cycle \\
+    MAX-2SAT & Dominating set \\
+    SAT & Independent set \\
+    Battleship & 3D matching \\
+    Knapsack & Balanced cut \\
+    Clique & Verbal arithmetic \\
+    TSP & Optimal Rubik's cube \\
+    ILP & Steiner tree (decision) \\
+    \bottomrule
+    \end{tabular}
+  \end{table}
+
+  \column{0.6\textwidth}
+  \includegraphics[width=0.707\textwidth, right]{pneqnp}
+\end{columns}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 1}
+
+Argue that the \textit{minimal dominating set} problem is NP-hard.
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 1 {\color{red} Solution}}
+
+Argue that the \textit{minimal dominating set} problem is NP-hard.
+
+{\color{red} We can reduce \textit{minimal set cover} to minimal dominating set.}
+
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Randomization for Approximation}
+
+% -------
+\begin{frame}[fragile]{Exposition}
+
+NP-complete (and NP-hard) problems are everywhere. They're the shadows in the evening, the corruption in the government, the flyer people on Sproul.
+
+What can be done? Assuming P $\neq$ NP, an optimal solution cannot be found in polynomial time.
+
+So we must rely on alternatives. Intelligent exponential search is one of these. \textit{Approximation algorithms} are another.
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Approximation Algorithms}
+
+An \textbf{approximation algorithm} finds a solution with some guarantee of closeness to the optimum. Notably, it is \textit{efficient} (of polynomial time).
+
+There are many ways to approximate (think of all the efficient problem-solving strategies you've learned so far!). Greedy and randomized approaches are popular, as they tend to be easy to formulate.
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 2a}
+
+Devise a randomized approximation algorithm for MAX-3SAT. It should achieve an approximation factor of $\frac{7}{8}$ in expectation.
+
+Feel free to assume that each clause contains three distinct variables.
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 2a {\color{red} Solution}}
+
+{\color{red}
+Randomly assign each variable a value. Let $X_i$ (for $i = 1, ..., n$) be a random variable that is $1$ if clause $i$ is satisfied and $0$ otherwise. Then
+$$\mathbb{E}[X_i] = \left(0\right)\left(\frac{1}{8}\right) + \left(1\right)\left(\frac{7}{8}\right) = \frac{7}{8}$$
+Let $X = \sum_{i = 1}^n X_i$ be the total number of clauses that are satisfied.
+$$\mathbb{E}[X] = \mathbb{E}\left[\sum_{i = 1}^n X_i\right] = \sum_{i = 1}^n \mathbb{E}[X_i] = \sum_{i = 1}^n \frac{7}{8} = \frac{7}{8}n$$
+Let $d^*$ be the optimal number of satisfied clauses. We have that $n \geq d^*$. Therefore, a random assignment is expected to satisfy $\frac{7}{8}n \geq \frac{7}{8}d^*$ clauses.
+}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 2b}
+
+The fact that $\mathbb{E}[X] = \frac{7}{8}n$ tells us something about every instance of MAX-3SAT.
+
+Namely...?
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 2b {\color{red} Solution}}
+
+The fact that $\mathbb{E}[X] = \frac{7}{8}n$ tells us something about every instance of MAX-3SAT.
+
+Namely...?
+
+{\color{red} There always exists an assignment for which at least $\frac{7}{8}$ of all clauses are satisfied. Otherwise the expectation could not be $\frac{7}{8}$ of all clauses.}
+
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Fermat's Little Theorem as a Primality Test}
+
+% -------
+\begin{frame}{Fermat's Little Theorem}
+
+\textbf{Fermat's little theorem:}
+
+If $p$ is prime and $a$ is coprime with $p$, then $a^{p - 1} \equiv 1$ (mod $p$).
+
+\begin{columns}[T, onlytextwidth]
+  \column{0.5\textwidth}
+  \column{0.5\textwidth}
+  \metroset{block=fill}
+  \begin{block}{$a, b$ coprime}
+    The GCD of $a$ and $b$ is $1$.
+  \end{block}
+\end{columns}
+
+\end{frame}
+
+% -------
+\begin{frame}{Fermat's Little Theorem as a Primality Test}
+
+Say we want to determine whether $n$ is prime. We might think to use FLT as a primality test, i.e.
+\begin{itemize}
+\item Pick an arbitrary $a \in [1, n - 1]$ and compute $a^{n - 1}$ (mod $n$).
+\item If this is equal to $1$, declare $n$ prime. Else declare $n$ composite.
+\end{itemize}
+
+\textit{But does this really work?} Spoilers: no.
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 3a}
+
+\begin{enumerate}[(i)]
+\item Find an $a$ that will trick us into thinking that $15$ is prime.
+\item Find an $a$ that will correctly identify $15$ as composite.
+\end{enumerate}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 3a {\color{red} Solution}}
+
+\begin{enumerate}[(i)]
+\item Find an $a$ that will trick us into thinking that $15$ is prime. \\
+{\color{red} $4$ will work for this. Note: when $n$ is composite but \\
+$a^{n - 1} \equiv 1$ (mod $n$), we call $n$ a \textit{Fermat pseudoprime} to base $a$.}
+\item Find an $a$ that will correctly identify $15$ as composite. {\color{red} 7.}
+\end{enumerate}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 3b}
+
+By FLT, primes will always be identified.
+
+The problem is \textit{false positives} -- composite $n$ that masquerade as primes. There's one silver lining, though: if $a^{n - 1} \not\equiv 1$ (mod $n$) for some $a$ coprime to $n$, then \textbf{this must hold for at least half of the possible values of $a$}.
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 3b}
+
+Suppose there exists some $a$ in (mod $n$) s.t. $a^{n - 1} \not\equiv 1$ (mod $n$), where \\
+$a$ is coprime with $n$. Show that $n$ is \textbf{not} Fermat-pseudoprime to at least half of the numbers in (mod $n$).
+
+How can we use this to make our algorithm more effective?
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 3b {\color{red} Solution}}
+
+{\color{red}
+For every $b$ s.t. $b^{n - 1} \equiv 1$ (mod $n$),
+$$(ab)^{n - 1} = a^{n - 1}b^{n - 1} \not\equiv 1 \text{ (mod }n\text{)}$$
+Since $a$ and $n$ are coprime, $a$ has an inverse modulo $n$. \\
+Thus $ab$ is unique for every unique choice of $b$
+($ab_1 \not\equiv ab_2$ iff $b_1 \not\equiv b_2$). \\
+By extension, for every $b$ to which $n$ \textbf{is} Fermat-pseudoprime,
+there is a unique $ab$ to which $n$ is \textbf{not} Fermat-pseudoprime.
+
+\textit{We can make our algorithm more effective by checking a bunch of $a$ (not just one). The chance of being wrong $k$ times in a row is at most $\frac{1}{2^k}$.}
+}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 3c}
+
+Even with the improvement from (b), why might our algorithm still fail to be a good primality test?
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 3c {\color{red} Solution}}
+
+Even with the improvement from (b), why might our algorithm still fail to be a good primality test?
+
+{\color{red}
+In order to correctly identify composite $n$, we need an $a$ coprime with $n$ s.t. $a^{n - 1} \not\equiv 1$ (mod $n$). But there is no guarantee that such an $a$ exists!
+
+(Such composite $n$, which pass the FLT primality test for all $a$, are called \textit{Carmichael numbers}.)
+}
+
+\end{frame}
+
+\end{document}

@@ -3,6 +3,8 @@ figures/
 *.nav
 *.snm
 *.toc
+*.vrb
 blueslope.pdf
 berkeleylogo.png
-beamerthemeUCBerkeley.sty
+beamer*.sty
+pgfplotsthemetol.sty
