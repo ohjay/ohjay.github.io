@@ -1,0 +1,114 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage[export]{adjustbox}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\graphicspath{{figures/}}
+
+\title{CS 170 Section 12}
+\subtitle{Hashing, Streaming}
+\date{April 18, 2018}
+\author{Owen Jow}
+\institute{University of California, Berkeley}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of Contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Hashing Intro}
+
+% -------
+\begin{frame}[fragile]{Exposition}
+
+\begin{itemize}
+\item Have: a bunch of data items from a large universe $U$
+\item Want: storage scheme allowing for $O(1)$ lookup, insertion, etc.
+\item Solution: \textbf{chained hash table}
+\item Need: a hash function that distributes items evenly into buckets
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Chained Hash Table}
+
+\begin{figure}
+  \includegraphics[width=0.61\textwidth]{hashtable}
+  \caption{\textbf{hash table.} An item $x \in U$ hashes to a bucket $\{1, ..., m\}$ through some hash function $h(x)$, which takes an item and outputs a bucket index.}
+\end{figure}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Hash Function}
+
+$$h: U \mapsto \{1, ..., m\}$$
+\begin{itemize}
+\item Observation: \textit{no hash function performs well for all possible datasets}
+\item So choose one randomly from a universal family $\mathcal{H}$ of hash functions
+\item Most $h \in \mathcal{H}$ should perform well for any given dataset
+\item Why would this be good?
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Universal Family}
+
+\textbf{Universal family $\mathcal{H}$ of hash functions}:
+\begin{itemize}
+\item For $y \neq z$ and a hash function $h$ selected randomly from $\mathcal{H}$,
+$$P(h(y) = h(z)) <= \frac{1}{m}$$
+i.e. $\leq \frac{|\mathcal{H}|}{m}$ of all $h \in \mathcal{H}$ map $y$ and $z$ to the same bucket
+\end{itemize}
+
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Streaming Intro}
+
+% -------
+\begin{frame}[fragile]{Exposition}
+
+\begin{itemize}
+\item Have: a sequence of incoming data $x_1, ..., x_n$
+\item Want: to compute features of the sequence without storing it all
+  \begin{itemize}
+  \item e.g. heavy hitters, \# distinct values, sum of squares of frequencies $F_2$
+  \item $\approx O(\log{n})$ bits of memory?
+  \end{itemize}
+\item \textit{Use randomized algorithms that provide approximate solutions}
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{CS 70 Strikes Again}
+
+\begin{itemize}
+\item In dealing with randomized algorithms, we'll want to perform probabilistic analysis. Here's a bound that will come in handy...
+\end{itemize}
+
+Prove the Markov inequality
+$$P(X \geq a) \leq \frac{\mathbb{E}[X]}{a}$$
+
+\textit{Hint}: start with the definition of expectation
+$$\mathbb{E}[X] = \sum_xxP(X = x)$$
+
+\end{frame}
+
+\end{document}
