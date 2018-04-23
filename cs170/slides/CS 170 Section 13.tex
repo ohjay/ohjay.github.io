@@ -1,0 +1,233 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage[export]{adjustbox}
+\usepackage{algorithm, algorithmic}
+\usepackage{epigraph}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\graphicspath{{figures/}}
+
+\title{CS 170 Section 13}
+\subtitle{Multiplicative Updates}
+\date{April 25, 2018}
+\author{Owen Jow}
+\institute{University of California, Berkeley}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of Contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Multiplicative Updates Intro}
+
+% -------
+\begin{frame}[fragile]{The Experts Problem}
+
+\begin{itemize}
+\item Every day, \\
+you enter a transaction in which you lose between 0 and 1 dollars
+  \begin{itemize}
+  \item Life is hard
+  \end{itemize}
+\item There are $n$ experts, each of whom gives different advice
+\item Instead of making your own decisions,
+you choose an expert every day and follow his advice
+\item The next day you find out how all the experts performed,
+and you can choose another expert if you wish
+\item \textbf{Goal:} minimize regret
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Terminology}
+
+\begin{itemize}
+\item There are $n$ experts
+\item There are $T$ days ($T$ is very large)
+\item The $i$th expert on day $t$ costs you $c_i^t \in [0, 1]$
+\item You choose expert $i(t)$ on day $t$
+\item $R$ is your regret
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Regret}
+
+\begin{figure}
+  \includegraphics[width=0.61\textwidth]{regret}
+  \caption{we would like to minimize our \textbf{regret} $R$.}
+\end{figure}
+\vspace*{-5mm}
+$$R = \frac{1}{T}\left(\sum_{t = 1}^T c_{i(t)}^t - \min_i\sum_{t = 1}^T c_i^t\right)$$
+\vspace*{-6mm}
+\begin{center}
+i.e. on average $(($how you did$) - ($how the best expert did$))$
+\end{center}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Goal Reframed}
+
+\begin{itemize}
+\item More specifically, you would like an algorithm for choosing experts with the result that $R \approx 0$ no matter what $c_i^t$s the environment throws at you (i.e. even in the worst case)
+\item For this you can use \textbf{multiplicative weight updates}
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Notes}
+
+\begin{itemize}
+\item You want your algorithm to do as well as the one that picks the best expert from the start and sticks with him
+\item Regret is defined at the end (how did you do in comparison to how you'd have done if you chose the best expert at the start and followed him every day?)
+\item It is impossible to match the best expert on a day-to-day basis, but it is possible to match the best (single) expert throughout
+\item The adversary is the environment, which throws cost values at you
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Multiplicative Weight Updates}
+
+MWU is a randomized algorithm. \\
+It chooses expert $i$ on day $t$ with weight $w_i^t > 0$.
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\STATE Initialize all weights to $w_i^0 = 1$.
+\FOR{$i = 1$ to $T$}
+  \STATE Choose expert $i$ with probability $\frac{w_i}{\sum_jw_j}$
+  \STATE Update weights: $w_i^{t + 1} = w_i^t \cdot (1 - \epsilon)^{c_i^t}$
+\ENDFOR
+\end{algorithmic}
+\caption{Multiplicative Weight Updates}
+\label{alg:mwu}
+\end{algorithm}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Multiplicative Weight Updates}
+
+\begin{itemize}
+\item $(1 - \epsilon)^{c_i^t}$ will be smaller than $1$. It will be \textit{much} smaller than $1$ if the expert ruined you; the bigger $c_i^t$ is, the more you punish the expert.
+  \begin{itemize}
+  \item In the words of a certain theoretical computer scientist, \\
+  ``$c_i^T$ is the amount of money this bastard made you pay."
+  \end{itemize}
+\item Weights ``absorb" all past performances of experts
+\item Experts who perform the best end up with the highest weights
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Multiplicative Weight Updates}
+
+\begin{itemize}
+\item This algorithm can be proven to give almost zero regret.
+\item The proof is left as an exercise.
+\item Just kidding. For the proof, see the \href{https://inst.eecs.berkeley.edu/~cs170/fa16/MWUCS170.pdf}{\textbf{notes}}.
+\end{itemize}
+$$R = \frac{1}{T}(\text{MWU} - \text{OPT}) \leq 2\sqrt{\frac{\ln{n}}{T}}$$
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Notes}
+
+\begin{itemize}
+\item With this algorithm, higher $T$ means smaller regret.
+\item MWU punishes bad experts exponentially severely. By the crushing weight of exponentiation, if an expert is the best you'll be choosing him all the time.
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Life Advice}
+
+\epigraph{If you want zero regret in life, notice what works in a very conservative fashion -- by giving it a little more weight every time. In the long run, this means perfection.}{A theoretical computer scientist}
+
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Follow the Regularized Leader}
+
+% -------
+\begin{frame}[fragile]{Exercise 1a}
+
+\begin{itemize}
+\item You are playing $T$ rounds of a game
+\item At round $t$ you pick strategy $i \in \{1, ..., n\}$ and receive payoff $A(t, i) \in [0, 1]$
+\item What happens if you choose at each round the strategy which has given the highest average payoff so far? (\textit{Even though you throw in your lot with one strategy, you get to observe how all of them do.})
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 1b}
+
+\begin{itemize}
+\item The problem: if you choose strategies deterministically, an adversarial environment can design payoffs to ruin you
+\item So let's try a randomized strategy
+  \begin{itemize}
+  \item To the adversary: good luck outplaying randomness
+  \end{itemize}
+\item Pick each strategy at random from a distribution $D_t$
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 1b}
+
+\begin{itemize}
+\item $D_t$ assigns a probability $p_t(i)$ to each strategy $i$
+\item At round $t$, ``follow the leader" will approximately maximize
+$$\sum_{i = 1}^n \left(p_t(i) \cdot \sum_{\tau \in \{1, ..., t - 1\}}A(\tau, i)\right)$$
+\item Why is this no better than before?
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 1c}
+
+\begin{itemize}
+\item Let's add an entropy regularizer, now maximizing at time step $t$
+$$\sum_{i = 1}^n \left[\left(p_t(i) \cdot \sum_{\tau \in \{1, ..., t - 1\}}A(\tau, i)\right) - \eta p_t(i)\ln{p_t(i)}\right]$$
+\item Suddenly, ``follow the regularized leader" is the same as MWU.
+\item Show that for any distribution $p_t$, our objective is at most
+$$\eta \ln{\left(\sum_{i = 1}^n e^{\sum_{\tau \in \{1, ..., t - 1\}}\frac{A(\tau, i)}{\eta}}\right)}$$
+\end{itemize}
+
+\end{frame}
+
+% -------
+\begin{frame}[fragile]{Exercise 1d}
+
+When computing $p_t$ using multiplicative weight updates, we can say for some choice of $\epsilon$ (dependent on $\eta$) that the objective
+$$\sum_{i = 1}^n \left[\left(p_t(i) \cdot \sum_{\tau \in \{1, ..., t - 1\}}A(\tau, i)\right) - \eta p_t(i)\ln{p_t(i)}\right]$$
+is equal to
+$$\eta \ln{\left(\sum_{i = 1}^n e^{\sum_{\tau \in \{1, ..., t - 1\}}\frac{A(\tau, i)}{\eta}}\right)}$$
+Show this. Also, how does $\epsilon$ depend on $\eta$?
+
+\end{frame}
+
+\end{document}
