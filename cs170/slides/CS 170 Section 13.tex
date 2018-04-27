@@ -97,8 +97,8 @@ i.e. on average $(($how you did$) - ($how the best expert did$))$
 \begin{itemize}
 \item You want your algorithm to do as well as the one that picks the best expert from the start and sticks with him
 \item Regret is defined at the end (how did you do in comparison to how you'd have done if you chose the best expert at the start and followed him every day?)
-\item It is impossible to match the best expert on a day-to-day basis, but it is possible to match the best (single) expert throughout
-\item The adversary is the environment, which throws cost values at you
+\item It is impossible to match the best expert on a day-to-day basis, but it is possible to match the single best expert throughout
+\item The adversary is the environment, which provides the cost values
 \end{itemize}
 
 \end{frame}
@@ -113,7 +113,7 @@ It chooses expert $i$ on day $t$ with weight $w_i^t > 0$.
 \STATE Initialize all weights to $w_i^0 = 1$.
 \FOR{$i = 1$ to $T$}
   \STATE Choose expert $i$ with probability $\frac{w_i}{\sum_jw_j}$
-  \STATE Update weights: $w_i^{t + 1} = w_i^t \cdot (1 - \epsilon)^{c_i^t}$
+  \STATE Update weights for all experts: $w_i^{t + 1} = w_i^t \cdot (1 - \epsilon)^{c_i^t}$
 \ENDFOR
 \end{algorithmic}
 \caption{Multiplicative Weight Updates}
@@ -126,7 +126,8 @@ It chooses expert $i$ on day $t$ with weight $w_i^t > 0$.
 \begin{frame}[fragile]{Multiplicative Weight Updates}
 
 \begin{itemize}
-\item $(1 - \epsilon)^{c_i^t}$ will be smaller than $1$. It will be \textit{much} smaller than $1$ if the expert ruined you; the bigger $c_i^t$ is, the more you punish the expert.
+\item $(1 - \epsilon)^{c_i^t}$ will be less than or equal to $1$. It'll be much less than $1$ if the expert ruined you; the bigger $c_i^t$ is, the more you punish expert $i$.
+  \vspace*{-4mm}
   \begin{itemize}
   \item In the words of a certain theoretical computer scientist, \\
   ``$c_i^T$ is the amount of money this bastard made you pay."
@@ -145,7 +146,11 @@ It chooses expert $i$ on day $t$ with weight $w_i^t > 0$.
 \item The proof is left as an exercise.
 \item Just kidding. For the proof, see the \href{https://inst.eecs.berkeley.edu/~cs170/fa16/MWUCS170.pdf}{\textbf{notes}}.
 \end{itemize}
-$$R = \frac{1}{T}(\text{MWU} - \text{OPT}) \leq 2\sqrt{\frac{\ln{n}}{T}}$$
+\begin{align*}
+R = \frac{1}{T}(\text{MWU} - \text{OPT}) &\leq \frac{\ln{n}}{\epsilon T} + \epsilon\frac{\text{OPT}}{T} \\
+&\leq \frac{\ln{n}}{\epsilon T} + \epsilon \\
+&\leq 2\sqrt{\frac{\ln{n}}{T}}
+\end{align*}
 
 \end{frame}
 
