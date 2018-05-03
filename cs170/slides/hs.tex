@@ -1,0 +1,214 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage[export]{adjustbox}
+\usepackage{algorithm, algorithmic}
+\usepackage{epigraph}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\graphicspath{{figures/}}
+
+\title{CS 170}
+\subtitle{Hashing and Streaming}
+\date{}
+\author{}
+\institute{}
+
+\begin{document}
+
+\maketitle
+
+% -----------------------------------------------------------------------
+\section{Hashing}
+
+\begin{frame}{Refresher}
+
+\begin{itemize}
+\item \textbf{Hash function:}
+$$h: U \to \{0, ..., m - 1\}$$
+\item \textbf{Universal hash family $\mathcal{H}$:}
+$$\forall~k_1 \neq k_2 \in U,\:\:\: \Pr_{h \in \mathcal{H}}[h(k) = h(k')] \leq \frac{1}{m}$$
+\item \textbf{Perfect hashing:} \\
+use universal hashing in two layer scheme to achieve zero collisions
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Hashing 1}
+
+Suppose a hash function
+$h: \{0, 1, \ldots, m - 1\} \to \{0, 1, \ldots, m - 1\}$
+is chosen from a universal hash family. Then
+$$\Pr[h(2) = 2 \cdot h(1) \mod m] = \text{ ?}$$
+
+\end{frame}
+
+\begin{frame}{Hashing 1 {\color{gray} Solution}}
+
+Suppose a hash function
+$h: \{0, 1, \ldots, m - 1\} \to \{0, 1, \ldots, m - 1\}$
+is chosen from a universal hash family. Then
+$$\Pr[h(2) = 2 \cdot h(1) \mod m] = {\color{blue} \frac{1}{m}}$$
+
+\end{frame}
+
+\begin{frame}{Hashing 2}
+
+Let $\mathcal{H}$ be the set of all functions
+$h: \{0, 1, \ldots, m - 1\} \to \{0, 1, \ldots, m - 1\}$.
+
+\begin{enumerate}[(a)]
+\item Is $\mathcal{H}$ universal?
+\item How many random bits are needed to sample a function from $\mathcal{H}$?
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Hashing 2 {\color{gray} Solution}}
+
+Let $\mathcal{H}$ be the set of all functions
+$h: \{0, 1, \ldots, m - 1\} \to \{0, 1, \ldots, m - 1\}$.
+
+\begin{enumerate}[(a)]
+\item Is $\mathcal{H}$ universal?
+
+{\color{blue}
+Since $\Pr[h(x) = h(y)] = \sum_{i = 0}^{m - 1} \frac{1}{m^2}
+= \frac{1}{m}$ (for $x \neq y)$, $\mathcal{H}$ is universal.}
+
+\item How many random bits are needed to sample a function from $\mathcal{H}$?
+
+{\color{blue}
+The size of $\mathcal{H}$ is $m^m$, so we need $m \log m$ bits to sample a function.}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Hashing 3}
+
+Given a prime $p$ and $a, b \in \{0, \dots, p-1\}$, define the function
+$h_{a, b}(x) = ax + b \bmod p$ where $x \in \{0, \dots, p - 1\}$.
+\textbf{Show that $\mathcal{H} = \{h_{a, b}\}_{a, b \in \{0, \dots, p - 1\}}$
+is a pairwise independent hash function family}, i.e. show that for
+every $x \neq y$ and $c, d \in \{0, \dots, p - 1\}$,
+\[
+\Pr_{h_{a, b} \gets \mathcal{H}}\Big[\,h_{a, b}(x) = c \wedge h_{a, b}(y) = d\,\Big] = \frac{1}{p^2}
+\enspace.
+\]
+The notation $h_{a, b} \gets \mathcal{H}$ means that $h_{a, b}$ is chosen uniformly
+at random from $\mathcal{H}$ (in other words, $a$ and $b$ are chosen independently
+uniformly at random from $\{0, \dots, p-1\}$).
+
+\end{frame}
+
+\begin{frame}{Hashing 3 {\color{gray} Solution}}
+
+{\color{blue}
+\textit{All equations are $\bmod~p$.}
+
+$h(x) = c$ and $h(y) = d$ iff $ax + b = c$ and $ay + b = d$.
+This is true iff $a, b$ solve the system of equations
+\begin{align*}
+ax + b &= c \\
+ay + b &= d
+\end{align*}
+Solving this, we have
+\begin{align*}
+a &= (c - d)(x - y)^{-1} \\
+b &= (cy - dx)(y - x)^{-1}
+\end{align*}
+We are guaranteed that the multiplicative inverses exist because $p$ is prime,
+and we know $x \neq y$. Thus there is only one value of $a$ and one value of $b$
+that satisfy these equations. Since $a$ and $b$ are chosen independently at random,
+the probability of this occurring is $1 / p^2$.
+}
+
+\end{frame}
+
+% -----------------------------------------------------------------------
+\section{Streaming}
+
+\begin{frame}{Refresher}
+
+\begin{itemize}
+\item Have data stream $S = \{x_1, ..., x_m\}$ of unknown length
+\item \textbf{Streaming algorithms} process streams $\rightarrow$ give useful information
+  \begin{itemize}
+  \item Should be single-pass and use a small amount of space
+  \item Three components: \textit{initialization}, \textit{processing}, and \textit{output}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Stream Sampling}
+
+Given a stream of integers of unknown length, how do you pick one at random
+while using no more than two integers' worth of storage?
+
+Every data point should have a $1 / N$ chance of being selected,
+where $N$ is the total length of the stream.
+
+\end{frame}
+
+\begin{frame}{Stream Sampling {\color{gray} Solution}}
+
+Given a stream of integers of unknown length, how do you pick one at random
+while using no more than two integers' worth of storage?
+
+Every data point should have a $1 / N$ chance of being selected,
+where $N$ is the total length of the stream.
+
+{\color{blue}
+Store two integers, $x$ (the result) and $n$ (the length of the stream so far).
+For each new data point $x_i$, set $x$ to $x_i$ with probability $1 / n$. At the end of the day, return $x$.
+
+The probability of item $i$ surviving through the $n$th time step (for $i \leq n$) is
+$$\left(\frac{1}{i}\right)
+\cdot \left(\frac{i}{i + 1}\right)
+\cdot \left(\frac{i + 1}{i + 2}\right)
+\cdots \left(\frac{n - 2}{n - 1}\right)
+\cdot \left(\frac{n - 1}{n}\right) = \frac{1}{n} \enspace.$$
+}
+
+\end{frame}
+
+\begin{frame}{Document Comparison}
+
+You are given a document $A$ and then a document $B$, both as streams of words.
+Find a streaming algorithm that returns the degree of similarity $\frac{|I|}{|U|}$ between
+the words in the documents, where $I$ is the set of words that occur in both $A$ and $B$,
+and $U$ is the set of words that occur in either $A$ or $B$.
+
+Clearly explain your algorithm and briefly justify its correctness and memory usage
+(at most $O(\log (|A| + |B|))$. How accurate is its output?
+
+\end{frame}
+
+\begin{frame}{Document Comparison {\color{gray} Solution}}
+
+{\color{blue}
+Simply use the $F_0$ streaming algorithm on $A$, $B$, and $C := A \cup B$
+(for this third stream, process words in $A$ and words in $B$). Let $|A|, |B|,$ and $|C|$
+be the output of the algorithm on the corresponding set (our estimate for the number
+of distinct words in it). Then our estimate for $|I| / |U|$ is $(|A| + |B| - |C|) / |C|$.
+
+Memory usage is logarithmic in the length of the documents, as we're using a constant
+number (three) copies of the streaming algorithm shown in class, which used logarithmic
+memory. Correctness flows from the correctness of the streaming algorithm for $F_0$,
+combined with the set theory axiom $|A \cap B| = |A| + |B| - |A \cup B|$.
+
+The accuracy of the underlying $F_0$ algorithm (and by extension our algorithm)
+can be boosted to any level we desire.
+}
+
+\end{frame}
+
+\end{document}
