@@ -1,0 +1,306 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{tabu}
+\usepackage{pgfplots}
+\usepackage{epigraph}
+\graphicspath{{figures/}}
+
+\setlength\parindent{0pt}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  filecolor=magenta,
+  urlcolor=blue,
+}
+\textheight=9in
+\textwidth=6.5in
+\topmargin=-0.75in
+\oddsidemargin=0.25in
+\evensidemargin=0.25in
+
+% Header information
+\title{Notes on Hashing}
+\author{Owen Jow $\cdot$ Last updated May 05, 2018}
+\date{}
+
+\begin{document}
+\maketitle
+
+{\parskip=\baselineskip
+This document is intended to give a high-level overview of hashing, approximately at the level I'd imagine you need to know for the CS 170 final. As a disclaimer, I have not referred to the final in terms of its hashing content and accordingly am not sure what you \textit{actually} need to know. This is just a guess.
+
+As another disclaimer, this note is no substitute for watching lecture, doing homework, or reviewing section worksheets. It's meant as more of a refresher, something to help organize your thoughts.
+}
+
+\section*{Overview}
+
+\subsection*{Hashing}
+
+Generally, we have studied hashing in the context of search queries. Under this setup, we are given $n$ key-value pairs $(k_1, v_1), ..., (k_n, v_n)$ [for distinct keys $k_i$] and would like to construct a data structure that we can later use to perform the operation $\texttt{query(}k_i\texttt{)} \rightarrow v_i$ in constant time.
+
+{\parskip=\baselineskip
+Naively, we could store all of the $(k_i, v_i)$ tuples in an array, sort them by their $k_i$ components, and later perform binary search to find the key we're looking for. However, each query would then take $O(\log n)$ time (because binary search). This sounds good, but it's actually bad. For one because queries are going to happen all the time, and for another \textit{because we can do better}.
+
+How? With hash functions. A hash function follows the form
+$$h: U \to [m]$$
+where $U$ is the universe (a set of all possible keys) and $[m]$ (shorthand for $\{1, ..., m\}$, or $\{0, ..., m - 1\}$ depending on indexing) is one of $m$ ``slot" indices. Computing $h(k_i)$ is known as ``hashing" $k_i$.
+
+Here is a basic hashing scheme:
+
+\textbf{Initialization:}
+}
+\begin{enumerate}
+\item Allocate an array of size $m$.
+\item Store each $(k_i, v_i)$ tuple in slot $h(k_i) \in [m]$.
+\end{enumerate}
+
+\textbf{Access:}
+\begin{enumerate}
+\item Hash key $k_i$; get a slot $h(k_i) \in [m]$.
+\item Go to the slot, get the value, and go home.
+\end{enumerate}
+
+\newpage
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{hashing0}
+\caption{basic hashing. In each slot we store a linked list of $(k_i, v_i)$ tuples.}
+\end{figure}
+
+{\parskip=\baselineskip
+In this scheme, each access time consists of \textit{the time it takes to evaluate $h(k_i)$} plus \textit{the time it takes to find $(k_i, v_i)$ at slot $h(k_i)$}. The former should be $O(1)$. The latter depends on how many items are at slot $h(k_i)$, which in turn depends on the collisions our hash function creates.
+
+In order to assert a $O(1)$ access time, we need to spread the data out as much as possible! Unfortunately, the following lemma exists:
+}
+
+\begin{flushright}
+\textit{For every hash function, there exists a set of keys that are all mapped to the same slot.}
+\end{flushright}
+
+Note: this is assuming that the universe is sufficiently large. But it usually will be.
+
+{\parskip=\baselineskip
+So on average, our hash function might do pretty well. However, by this lemma there's always an input that will make our hashing scheme useless (no better than storing everything in a list). And we want our search query algorithm to have guarantees for \textit{all} inputs, not just random inputs.
+
+Thus, instead of hardcoding some $h$ and using it, we will pick $h$ at random as part of the algorithm. Specifically, we will pick $h$ from a family of hash functions $\mathcal{H}$. Assuming each $h \in \mathcal{H}$ performs well for \textit{most} inputs, we will then have a good probability of getting a good $h$ for the data we receive.
+
+\begin{algorithm}
+\caption{No randomization}
+\begin{algorithmic}[1]
+\Procedure{h}{k}
+\State Use black magic to turn $k$ into a number from $1$ to $m$
+\EndProcedure
+\Procedure{initialize}{$(k_1, v_1), ..., (k_n, v_n)$}
+\State Allocate an array of size $m$
+\State Store each $(k_i, v_i)$ tuple in slot $h(k_i) \in [m]$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Randomization}
+\begin{algorithmic}[1]
+\Procedure{initialize}{$(k_1, v_1), ..., (k_n, v_n)$}
+\State $h \gets \text{random $h \in \mathcal{H}$}$
+\State Allocate an array of size $m$
+\State Store each $(k_i, v_i)$ tuple in slot $h(k_i) \in [m]$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+}
+
+{\parskip=\baselineskip
+\textit{Without} randomization, there is surely an input (i.e. a bunch of $(k_i, v_i)$ pairs) that will defeat us.
+\textit{With} randomization, there is no such input.
+
+As it happens, if the probability of a collision between any two distinct keys is $\leq \frac{1}{m}$ (for a hash function chosen uniformly randomly from $\mathcal{H}$), the expected number of collisions per slot is $\leq \frac{n}{m}$.
+}
+
+\begin{flushright}
+$n$: the number of $(k_i, v_i)$ pairs we're hashing \\
+$m$: the number of slots we're hashing to
+\end{flushright}
+
+This is a great result -- if $n = m$ the expected number of collisions per slot is $1$ (i.e. constant!) -- so let's choose a hash family that meets this condition. Such a hash family is called \textbf{universal}.
+
+\subsection*{Universal Hashing}
+
+Formally, a family of hash functions $\mathcal{H}$ is \textbf{universal} if for all $k_1 \neq k_2 \in U$,
+$$\Pr_{h \in \mathcal{H}}[h(k_1) = h(k_2)] \leq \frac{1}{m}$$
+Note: a simple universal hash family is the set of all functions from $U$ to $[m]$. However, to store a generic random function from $U$ to $[m]$ would require $|U| \log m$ bits (because we would have to encode all of the mappings). Furthermore, to sample one of these functions we would have to randomize $|U| \log m$ bits.
+
+{\parskip=\baselineskip
+Since $|U|$ is probably massive, this is just too expensive. We should find a smaller universal hash family to sample from.
+}
+
+\begin{flushright}
+\textit{For example, the family of key-indexed inner product functions seen in lecture.}
+\end{flushright}
+
+Our hashing scheme has now become
+
+\begin{algorithm}
+\caption{Universal Hashing}
+\begin{algorithmic}[1]
+\State $h \gets \texttt{null}$
+\Procedure{initialize}{$(k_1, v_1), ..., (k_n, v_n)$}
+\State $h \gets \text{random $h$ from universal hash family $\mathcal{H}$}$
+\State Allocate an array of size $m$
+\State Store each $(k_i, v_i)$ tuple in slot $h(k_i) \in [m]$
+\EndProcedure
+\Procedure{query}{$k_i$}
+\State Go to slot $h(k_i)$ and find $(k_i, v_i)$
+\State Return $v_i$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+With universal hashing, in expectation we will have a constant number of collisions in each slot -- and therefore an expected constant access time overall! Best of all, this will work for all data (hence the ``universal" moniker).
+
+{\parskip=\baselineskip
+Still, maybe we would like a stronger guarantee than just expectation. How about a worst-case guarantee? This is where perfect hashing comes in.
+}
+
+\subsection*{Perfect Hashing}
+
+In perfect hashing, we guarantee zero collisions and thus constant access time in the \textit{worst} case. There are multiple ways to achieve perfect hashing; I'll cover the one we discussed in class.
+
+{\parskip=\baselineskip
+During the initialization step of our current universal hashing algorithm, $(k_i, v_i)$ pairs are distributed over a hash table in the following fashion (to give an example):
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{perfect0}
+\caption{basic hashing re-illustrated.}
+\end{figure}
+\vspace*{-5mm}
+
+Instead of laying collisions out into a list, perfect hashing invokes another hash function which maps the elements into a second-level array. If the first-layer hash function maps $l_i$ elements into slot $i$, then the second-layer hash function $h_i: U \to [l_i^2]$ for slot $i$ will map these $l_i$ elements into an array of size $l_i^2$. Why $l_i^2$? Because the probability of collision will be low.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{perfect1}
+\caption{perfect hashing. The length of each hash table is the square of the length of the original linked list at its slot. All hash functions are sampled from universal families. (The figure is not drawn proportionally; my apologies.)}
+\end{figure}
+\vspace*{-5mm}
+
+The total size of the hash table (I haven't explicitly said it, but that's the name of the data structure we're storing everything in) will then be $\sum_{i = 1}^m l_i^2$, since we expand each of $m$ slots to a size that is the square of the number of elements that are originally mapped into it. We would like $\sum_{i = 1}^m l_i^2$ to be on the order $O(n)$.
+
+Overall, the algorithm comes together as follows:
+
+\begin{algorithm}
+\caption{Perfect Hashing}
+\begin{algorithmic}[1]
+\Procedure{initialize}{$(k_1, v_1), ..., (k_n, v_n)$}
+\State $h \gets \text{random $h$ from universal hash family $\mathcal{H}$}$
+\State Hash each of the $k_i$'s; get a distribution $l_1, ..., l_m$
+\State \indent (Check that $\sum_{i = 1}^m l_i^2 < 100 \cdot n$; if not, resample $h$ and hash again)
+\For{each slot $j = 1, ..., m$}
+  \State $h_j \gets \text{random $h$ from universal hash family $\mathcal{H}_j$}$
+  \State Use $h_j$ to hash every $k_i$ originally mapped to slot $j$
+  \State \indent (Check that there are no collisions; if there are, resample $h_j$ and hash again)
+  \State Store each $v_i$ in slot $h_j(k_i)$ in the second-layer table
+\EndFor
+\EndProcedure
+\Procedure{query}{$k_i$}
+\State Return the value at $h_{h(k_i)}(k_i)$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Note that if we do end up with collisions, we resample the hash function and try again. We continue in this way until we have zero collisions. Therefore zero collisions is guaranteed.
+
+The only question is ``how long does it take to find hash functions that work?" But since we're using universal hash functions and second-layer arrays of length $l_i^2$, it shouldn't take \textit{too} long; the probability of zero collisions on each round is greater than $\frac{1}{2}$.
+
+\textit{Perfect hashing uses randomness to find good (indeed perfect) hash functions for the given data.}
+}
+
+\section*{Common Confusions}
+
+\subsection*{Hashing}
+
+\begin{itemize}
+\item \textit{Why can't we just map elements to the indices $1, 2, 3, ...$ in order?}
+  \begin{itemize}
+  \item This spreads the items out, but doesn't address the issue of search queries. Once items are stored, how do we access them again in constant time? How do you know which element goes with which index?
+  \item If your answer is ``use a dictionary," that doesn't help since dictionaries \textit{are} hash maps. You'd only end up adding a layer of indirection on top of the already-proposed solution.
+  \end{itemize}
+
+\item \textit{Do we sample a different hash function every time we hash something?}
+  \begin{itemize}
+  \item We only sample the hash function once. Once we start mapping things, we need the mappings to stay the same -- otherwise we might lose track of where the items are.
+  \end{itemize}
+
+\item \textit{Does the hash function map all of the keys at once?}
+  \begin{itemize}
+  \item No, a hash function only maps one element at a time. In case you are confused by the notation $h: \{1, ..., p\} \to \{1, ..., m\}$, it means we're mapping a single element in the set $\{1, ..., p\}$ to a single element in the set $\{1, ..., m\}$.
+  \end{itemize}
+\end{itemize}
+
+\subsection*{Universal Hashing}
+
+\begin{itemize}
+\item \textit{If a hash family consists of functions that take $[m]$ to $[m - 1]$, aren't we mapping a larger space to a smaller space? How can such a family be universal?}
+  \begin{itemize}
+  \item First of all, $[m]$ is the universe, not the actual elements we're hashing. We might be hashing anywhere from $0$ to $m$ elements, meaning collisions aren't necessarily guaranteed in the first place. (Note: in general the universe \textit{will} be much larger than our hash table.)
+  \item Second, universality is defined in terms of \textit{pairwise} collision probabilities between distinct keys. The condition for universality says ``what's the probability that two different keys are mapped to the same slot?" The total number of collisions is irrelevant.
+  \end{itemize}
+
+\item \textit{Is the randomness in choosing a hash function included in the $\frac{1}{m}$ probability calculation?}
+  \begin{itemize}
+  \item Yes, intrinsically; it is where the randomness comes from. It's the reason we have a probability at all. That's why the probability is ``over a choice of hash function."
+  \end{itemize}
+\end{itemize}
+
+\subsection*{Perfect Hashing}
+
+\begin{itemize}
+\item \textit{Why do we use extra space for the second layer? Why not have the length of each secondary table be the number of elements in the slot?}
+  \begin{itemize}
+  \item Mainly because we're using randomly sampled hash functions to map elements to the second-layer arrays. We want the probability of collisions to be low, so we should hash to as large as a space as we reasonably can.
+  \item We're using hash functions for the same reasons as the original problem. Also, once again it doesn't make sense to just map elements to slots $1, 2, 3, ...$ (see the hashing FAQ).
+  \end{itemize}
+
+\item \textit{Are each of the second-layer arrays the same size as the first-layer array?}
+  \begin{itemize}
+  \item No, they are not. The array for slot $i$ has length $l_i^2$ (the square of the number of elements that were originally mapped to slot $i$), so most will probably be different lengths, and they definitely won't all be the same length as the first layer.
+  \end{itemize}
+\end{itemize}
+
+\newpage
+
+\section*{Appendix}
+
+\subsection*{Proofs}
+
+\begin{itemize}
+\item If $\mathcal{H}$ is a universal hash family, then $\forall k_1, ..., k_n \in U$ we have
+$$\mathbb{E}_{h \in \mathcal{H}}[\text{\# collisions in any slot}] \leq \frac{n}{m}$$
+
+\textit{Proof.} Let $I_{ij} =
+\begin{cases}
+1 & \text{if $h(k_i) = h(k_j)$} \\
+0 & \text{otherwise.}
+\end{cases}$
+
+Then
+\begin{align*}
+\mathbb{E}_{h \in \mathcal{H}}[\text{\# collisions in any slot}] &= \mathbb{E}_{h \in \mathcal{H}}[I_{12} + I_{13} + ... + I_{1n}] \\
+&= \sum_{i = 2}^n \mathbb{E}_{h \in \mathcal{H}}[I_{1i}] \\
+&\leq \sum_{i = 2}^n \frac{1}{m} \\
+&\leq \frac{n}{m}
+\end{align*}
+\end{itemize}
+
+\end{document}
