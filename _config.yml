@@ -4,7 +4,7 @@ permalink:           /:categories/:title/
 # Setup
 title:               Owen Jow
 tagline:             Just your everyday writer
-url:                 http://owenjow.xyz
+url:                 https://owenjow.xyz
 paginate:            15
 paginate_path:       "/blog/:num"
 baseurl:             ""
@@ -17,7 +17,7 @@ sass:
 # About / contact
 author:
   name:              Owen Jow
-  url:               http://owenjow.xyz
+  url:               https://owenjow.xyz
   email:             owenjow@berkeley.edu
 
 # Gems

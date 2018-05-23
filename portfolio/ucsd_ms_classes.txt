@@ -1,0 +1,28 @@
+Fall 2018
+-----------
+CSE 252A - Computer Vision I (STAFF)
+CSE 274  - Selected Topics in Graphics (Ramamoorthi)
+CSE 167  - Computer Graphics (Schulze)
+CSE 599  - Teaching Methods in CSE (Porter)
+
+Winter 2019
+-----------
+CSE 252B - Computer Vision II (STAFF)
+CSE 291  - Recent Advances in Computer Vision (Chandraker)
+CSE 291  - Machine Learning for 3D Data (Su)
+
+Spring 2019
+-----------
+CSE 252C - Selected Topics in Vision and Learning (Chandraker)
+CSE 237D - Embedded System Design
+CSE 163  - Advanced Computer Graphics (STAFF)
+COGS 260 - Image Recognition (Tu)
+
+2019-2020
+-----------
+CSE 203A - Advanced Algorithms
+CSE 290  - CSE Seminar (Chandraker)
+CSE 165  - 3D User Interfaces
+CSE 169  - Computer Animation
+CSE 272  - Advanced Image Synthesis
+(+ 20 units of CSE 298: Independent Research)
