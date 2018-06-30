@@ -1,7 +1,7 @@
 Fall 2018
 -----------
-CSE 252A - Computer Vision I (STAFF)
-CSE 274  - Selected Topics in Graphics (Ramamoorthi)
+CSE 252A - Computer Vision I (Kriegman)
+CSE 274  - Sampling and Reconstruction of Visual Appearance (Ramamoorthi)
 CSE 167  - Computer Graphics (Schulze)
 CSE 599  - Teaching Methods in CSE (Porter)
 
@@ -23,6 +23,7 @@ COGS 260 - Image Recognition (Tu)
 CSE 203A - Advanced Algorithms
 CSE 290  - CSE Seminar (Chandraker)
 CSE 165  - 3D User Interfaces
+CSE 166  - Image Processing
 CSE 169  - Computer Animation
 CSE 272  - Advanced Image Synthesis
 (+ 20 units of CSE 298: Independent Research)
