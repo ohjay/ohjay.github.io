@@ -56,5 +56,31 @@
     
     <hr />
     &copy; 2018. All lefts reserved.
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        // The secret page navigation option
+        $(document).keypress(function(evt) {
+            base = document.location.origin;
+            switch (evt.charCode) {
+                case 'b'.charCodeAt(): // blog
+                    document.location.href = base + '/blog';
+                    break;
+                case 'g'.charCodeAt(): // graphics
+                    document.location.href = base + '/graphics';
+                    break;
+                case 'i'.charCodeAt(): // index
+                    document.location.href = base;
+                    break;
+                case 'p'.charCodeAt(): // portfolio
+                    document.location.href = base + '/portfolio';
+                    break;
+                case 'r'.charCodeAt(): // restricted
+                    document.location.href = base + '/restricted';
+                    break;
+            }
+        });
+    </script>
 </body>
 </html>
