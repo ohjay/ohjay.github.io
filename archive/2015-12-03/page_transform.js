@@ -6,7 +6,7 @@ $(document).ready(function() {
                       + "Hi! Bad news: you've arrived at the landing page for Owen Jow's website. "
                       + "Since that probably wasn't your intended destination, I've constructed "
                       + "this as a buffer against the gruesome remainder of this site's contents. "
-                      + "If you possess any vestige of control over your mental facilities, you'll turn back now.<br><br>"
+                      + "If you possess any vestige of control over your mental faculties, you'll turn back now.<br><br>"
                       + "That was your final warning.<br><br>"
                       + '<a href="portfolio" id="portfolio">Portfolio</a>&nbsp;&nbsp;|&nbsp;&nbsp;'
                       + '<a href="blog" id="blog">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;'
