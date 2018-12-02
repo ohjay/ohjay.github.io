@@ -55,7 +55,8 @@ We can replace two of the portrait subjects with [a video of Relno's Fox](https:
 
 <br />
 
-<img class="gfyitem" data-id="CarefreeGentleBonobo" />
+<div style="position: relative; padding-bottom: 70.80%"><iframe src="https://gfycat.com/ifr/CarefreeGentleBonobo" frameborder="0" scrolling="no" width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe></div>
+<!-- <img class="gfyitem" data-id="CarefreeGentleBonobo" /> -->
 
 <br />
 
@@ -164,4 +165,4 @@ pannellum.viewer('almond-panorama', {
 </script>
 
 <!-- Extra scripts -->
-<script type="text/javascript" src="https://assets.gfycat.com/gfycat.js"></script>
+<!-- <script type="text/javascript" src="https://assets.gfycat.com/gfycat.js"></script> -->

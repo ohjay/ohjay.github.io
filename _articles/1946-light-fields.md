@@ -20,7 +20,8 @@ Using **light fields**, we are able to focus pictures after they are taken. We d
 
 <br />
 
-<img class="gfyitem" data-id="NeglectedBriskGoldfish" />
+<div style="position: relative; padding-bottom: 70.80%"><iframe src="https://gfycat.com/ifr/NeglectedBriskGoldfish" frameborder="0" scrolling="no" width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe></div>
+<!-- <img class="gfyitem" data-id="NeglectedBriskGoldfish" /> -->
 
 <br />
 
@@ -28,7 +29,8 @@ We can also adjust the aperture size – i.e. the depth of field in a practical 
 
 <br />
 
-<img class="gfyitem" data-id="SnoopyThunderousHapuku" />
+<div style="position: relative; padding-bottom: 70.80%"><iframe src="https://gfycat.com/ifr/SnoopyThunderousHapuku" frameborder="0" scrolling="no" width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe></div>
+<!-- <img class="gfyitem" data-id="SnoopyThunderousHapuku" /> -->
 
 <!-- Extra scripts -->
-<script type="text/javascript" src="https://assets.gfycat.com/gfycat.js"></script>
+<!-- <script type="text/javascript" src="https://assets.gfycat.com/gfycat.js"></script> -->

@@ -28,7 +28,8 @@ Using this program, we can easily create fun morphing sequences by varying our i
 
 <br />
 
-<img class="gfyitem" data-id="PoisedFlamboyantHellbender" />
+<div style="position: relative; padding-bottom: 70.80%"><iframe src="https://gfycat.com/ifr/PoisedFlamboyantHellbender" frameborder="0" scrolling="no" width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe></div>
+<!-- <img class="gfyitem" data-id="PoisedFlamboyantHellbender" /> -->
 
 <br />
 
@@ -53,14 +54,15 @@ We're also able to "alter people's ethnicity" by morphing a subject into the ave
 
 <br />
 
-<table><tr>
+<div style="position: relative; padding-bottom: 70.80%"><iframe src="https://gfycat.com/ifr/PastelFriendlyIndianpalmsquirrel" frameborder="0" scrolling="no" width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe></div>
+<!-- <table><tr>
     <td style="text-align: center" width="50%">
         <img src="/graphics/1945/images/japanese_oliver.jpg" data-action="zoom" />
     </td>
     <td style="text-align: center" width="50%">
         <img class="gfyitem" data-id="PastelFriendlyIndianpalmsquirrel" />
     </td>
-</tr></table>
+</tr></table> -->
 
 <!-- Extra scripts -->
-<script type="text/javascript" src="https://assets.gfycat.com/gfycat.js"></script>
+<!-- <script type="text/javascript" src="https://assets.gfycat.com/gfycat.js"></script> -->

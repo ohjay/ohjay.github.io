@@ -2,14 +2,13 @@ Fall 2018
 -----------
 CSE 252A - Computer Vision I (Kriegman)
 CSE 274  - Sampling and Reconstruction of Visual Appearance (Ramamoorthi)
-CSE 167  - Computer Graphics (Schulze)
 CSE 599  - Teaching Methods in CSE (Porter)
 
 Winter 2019
 -----------
-CSE 252B - Computer Vision II (STAFF)
-CSE 291  - Recent Advances in Computer Vision (Chandraker)
-CSE 291  - Machine Learning for 3D Data (Su)
+CSE 252B - Computer Vision II (Ochoa)
+CSE 291  - Advances in 3D Reconstruction (Chandraker)
+CSE 291  - Machine Learning on Geometrical Data (Su)
 
 Spring 2019
 -----------
