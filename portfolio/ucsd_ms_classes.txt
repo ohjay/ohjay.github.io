@@ -20,9 +20,9 @@ COGS 260 - Image Recognition (Tu)
 2019-2020
 -----------
 CSE 203A - Advanced Algorithms
-CSE 290  - CSE Seminar (Chandraker)
 CSE 165  - 3D User Interfaces
 CSE 166  - Image Processing
 CSE 169  - Computer Animation
+CSE 190  - Virtual Reality Technology
 CSE 272  - Advanced Image Synthesis
 (+ 20 units of CSE 298: Independent Research)
