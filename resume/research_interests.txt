@@ -1,6 +1,0 @@
-My current research interests are in 3D reconstruction
-and deep reinforcement learning.
-
-In general, I aim to apply learning methods to computer systems
-in order to enable them to process dynamic visual data
-and make intelligent judgments.
