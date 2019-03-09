@@ -23,7 +23,7 @@ permalink: /cs61a/resources/
     
     <table class="nt">
         <tr><th>A couple of much greater websites</th></tr>
-        <tr><td><a href="http://tmmydngyn.com/cs61a/">Tammy's website</a></td></tr>
+        <tr><td><a href="http://www.tmmydngyn.me/cs61a/">Tammy's website</a></td></tr>
         <tr><td><a href="http://albertwu.org/cs61a/">Albert's website</a></td></tr>
     </table>
 </div>

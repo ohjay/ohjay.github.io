@@ -13,13 +13,14 @@ CSE 291  - Machine Learning on Geometrical Data (Su)
 Spring 2019
 -----------
 CSE 252C - Selected Topics in Vision and Learning (Chandraker)
-CSE 237D - Embedded System Design
-CSE 163  - Advanced Computer Graphics (STAFF)
-COGS 260 - Image Recognition (Tu)
+CSE 254  - Deep Unsupervised Learning (Dasgupta)
 
 2019-2020
 -----------
 CSE 203A - Advanced Algorithms
+CSE 237D - Embedded System Design
+CSE 163  - Advanced Computer Graphics (STAFF)
+COGS 260 - Image Recognition (Tu)
 CSE 165  - 3D User Interfaces
 CSE 166  - Image Processing
 CSE 169  - Computer Animation
