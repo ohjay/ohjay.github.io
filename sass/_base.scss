@@ -45,6 +45,9 @@ a {
   &:hover,
   &:focus {
     text-decoration: none;
+    color: green !important;
+    transition: all 0.075s ease-in-out;
+    font-weight: bold;
   }
 
   strong {
@@ -80,4 +83,8 @@ th {
 tbody tr:nth-child(odd) td,
 tbody tr:nth-child(odd) th {
   background-color: #f9f9f9;
+}
+
+h1.post-title {
+  font-weight: 400;
 }
