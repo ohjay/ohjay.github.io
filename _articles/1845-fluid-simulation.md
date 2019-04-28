@@ -24,4 +24,4 @@ This project was completed in a lamentably brief amount of time with [Arissa Won
 
 <br />
 
-<img src="/images/landing3.jpg" data-action="zoom" />
+<div style="position: relative; padding-bottom: 70.80%"><iframe src="https://gfycat.com/ifr/GiftedConsciousIbex" frameborder="0" scrolling="no" width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe></div>
