@@ -16,7 +16,7 @@ tags:
 
 <br />
 
-In this project we implemented a physically-based **renderer**, or a program that produces photorealistic imagery from 3D scene descriptions. The photorealism is brought about by tracing light rays from the eye into the environment and representing the objects they hit as output pixels.
+In this project, we implemented a physically-based renderer – a program that produces photorealistic images from scene descriptions by modeling the transport of light. Put shallowly, the renderer traces rays from the eye into the environment and represents the objects they hit as output pixels.
 
 <br />
 

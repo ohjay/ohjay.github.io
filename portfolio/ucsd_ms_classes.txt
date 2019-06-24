@@ -19,6 +19,7 @@ Fall 2019 (tentative)
 ---------------------
 ECE 285 - GPU Programming
 ECE 188 - Machine Learning for the Arts
+CSE 290 - Pixel Cafe
 CSE 298 - Independent Research
 
 Winter 2020 (tentative)
