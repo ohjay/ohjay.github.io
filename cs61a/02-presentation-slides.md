@@ -6,7 +6,7 @@ permalink: /cs61a/presentation-slides/
 ---
 
 <p>
-    Consider yourself lucky if you missed the actual presentation!
+    For anyone who was mysteriously absent during the actual presentation. :)
 </p>
 
 <hr class="overarching" />

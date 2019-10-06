@@ -15,21 +15,18 @@ Spring 2019
 CSE 252C - Advanced Computer Vision (Chandraker)
 CSE 254  - Deep Unsupervised Learning (Dasgupta)
 
-Fall 2019 (tentative)
----------------------
-ECE 285 - GPU Programming
-ECE 188 - Machine Learning for the Arts
-CSE 290 - Pixel Cafe
-CSE 298 - Independent Research
+Fall 2019
+---------
+ECE 188  - Machine Learning for the Arts
+CSE 293  - Research
 
 Winter 2020 (tentative)
 -----------------------
 CSE 203B - Convex Optimization
-CSE 165  - 3D User Interfaces
-CSE 298  - Independent Research
+CSE 298  - Research
 
 Spring 2020 (tentative)
 -----------------------
 CSE 237D - Embedded System Design
 CSE 163  - Advanced Computer Graphics
-CSE 298  - Independent Research
+CSE 298  - Research
