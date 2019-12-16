@@ -20,10 +20,11 @@ Fall 2019
 ECE 188  - Machine Learning for the Arts
 CSE 293  - Research
 
-Winter 2020 (tentative)
------------------------
+Winter 2020
+-----------
 CSE 203B - Convex Optimization
-CSE 298  - Research
+CSE 169  - Computer Animation
+CSE 293  - Research
 
 Spring 2020 (tentative)
 -----------------------

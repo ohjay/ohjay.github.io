@@ -50,10 +50,6 @@ $(document).ready(function() {
     
     /* Fun for the whole family */
     // Reveal hidden text upon superscript click
-    $('#superscript0').click(function() {
-        $('#hidden-footnote').addClass('fadeIn');
-    });
-
     $('#superscript1').click(function() {
         $('#replace1').text(' (every once in a while)');
     });
