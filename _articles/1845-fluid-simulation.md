@@ -25,3 +25,28 @@ This project was completed in a lamentably brief amount of time with [Arissa Won
 <br />
 
 <div style="position: relative; padding-bottom: 70.80%"><iframe src="https://gfycat.com/ifr/GiftedConsciousIbex" frameborder="0" scrolling="no" width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe></div>
+
+<br />
+
+**Update (March 2020): here are some GIFs from my new and improved particle-based fluid simulation project.**
+
+<br />
+
+<div style="position: relative; padding-bottom: calc(70.80% + 44px)">
+  <iframe src="https://gfycat.com/ifr/pastelgentleglassfrog" frameborder="0" scrolling="no" allowfullscreen
+  width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe>
+</div>
+
+<br />
+
+<div style="position: relative; padding-bottom: calc(70.80% + 44px)">
+  <iframe src="https://gfycat.com/ifr/quarterlyshallowallosaurus" frameborder="0" scrolling="no" allowfullscreen
+  width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe>
+</div>
+
+<br />
+
+<div style="position: relative; padding-bottom: calc(70.80% + 44px)">
+  <iframe src="https://gfycat.com/ifr/fabulousmelodiclacewing" frameborder="0" scrolling="no" allowfullscreen
+  width="100%" height="100%" style="position: absolute; top: 0; left: 0" allowfullscreen></iframe>
+</div>
