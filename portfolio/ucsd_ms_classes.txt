@@ -1,5 +1,5 @@
 Fall 2018
------------
+---------
 CSE 252A - Computer Vision I (Kriegman)
 CSE 274  - Sampling and Reconstruction of Visual Appearance (Ramamoorthi)
 CSE 599  - Teaching Methods in CSE (Porter)
@@ -17,17 +17,17 @@ CSE 254  - Deep Unsupervised Learning (Dasgupta)
 
 Fall 2019
 ---------
-ECE 188  - Machine Learning for the Arts
-CSE 293  - Research
+ECE 188  - Machine Learning for the Arts (Twomey)
+CSE 293  - Research (Ramamoorthi)
 
 Winter 2020
 -----------
-CSE 203B - Convex Optimization
-CSE 169  - Computer Animation
-CSE 293  - Research
+CSE 203B - Convex Optimization (Cheng)
+CSE 169  - Computer Animation (Rotenberg)
+CSE 293  - Research (Ramamoorthi)
 
-Spring 2020 (tentative)
------------------------
-CSE 237D - Embedded System Design
-CSE 163  - Advanced Computer Graphics
-CSE 298  - Research
+Spring 2020
+-----------
+CSE 237D - Embedded System Design (Kastner)
+CSE 291  - Computational Photography (Ochoa)
+CSE 218  - Advanced Software Engineering (Griswold)

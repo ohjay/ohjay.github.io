@@ -222,26 +222,6 @@ set depth = max of d_bottom, d_top, d_right, d_left
             <div class="forced-caption-div">
                 <code>Figure 07: royal exhibition (original and novel views)</code>
             </div>
-            
-            <table class="forced-caption-table">
-                <tr>
-                    <td style="text-align: center" width="25%">
-                        <img src="images/scientology.jpg" data-action="zoom" />
-                    </td>
-                    <td style="text-align: center" width="25%">
-                        <img src="images/scientology1.jpg" data-action="zoom" />
-                    </td>
-                    <td style="text-align: center" width="25%">
-                        <img src="images/scientology2.jpg" data-action="zoom" />
-                    </td>
-                    <td style="text-align: center" width="25%">
-                        <img src="images/scientology3.jpg" data-action="zoom" />
-                    </td>
-                </tr>
-            </table>
-            <div class="forced-caption-div">
-                <code>Figure 08: scientology (original and novel views)</code>
-            </div>
         
         <p>
             <h3>Additional Notes</h3>
@@ -283,10 +263,6 @@ set depth = max of d_bottom, d_top, d_right, d_left
                     <th><code>Figure 07</code></th>
                     <td><a href="https://upload.wikimedia.org/wikipedia/commons/9/98/Royal_Exhibition_Building_inside2.JPG" target="_blank">(royal)</a></td>
                 </tr>
-                <tr>
-                    <th><code>Figure 08</code></th>
-                    <td><a href="http://i.dailymail.co.uk/i/pix/2015/10/20/23/2D8DC55300000578-3280329-The_futuristic_halls_of_the_super_power_building_where_followers-a-3_1445379072637.jpg" target="_blank">(scientology)</a></td>
-                </tr>
             </table>
         </p>
         <br />
@@ -313,13 +289,13 @@ set depth = max of d_bottom, d_top, d_right, d_left
                 <tr>
                     <td style="text-align: center" width="100%">
                         <img src="images/pendulum.jpg" width="75%" data-action="zoom" />
-                        <figcaption align="middle"><code>Figure 09: pendulum inaccuracy</code></figcaption>
+                        <figcaption align="middle"><code>Figure 08: pendulum inaccuracy</code></figcaption>
                     </td>
                 </tr>
             </table>
         
         <p>
-            In Figure 9, frame \(i\) looks a lot like both \(j_1\) and \(j_2\). If we were trying to find a transition out of the \(i - 1\) image, our current scheme would think of both \(j_1\) and \(j_2\) as reasonable successors. Despite this, if we pay attention to the frames both before and after \(i\) we immediately realize that the pendulum is supposed to be moving to the left. Again looking at the frames' neighbors, it's clear that \(j_2\) has the pendulum moving to the left, but \(j_1\) comes from a sequence where the pendulum is moving to the right. We should say that \(j_2\) is a good successor, while \(j_1\) is by contrast a poor one. Since we are unable to make this call by comparing only individual images, we are forced to take into account <em>neighborhoods</em> (sequences) of frames instead, i.e. we think about the temporally adjacent frames in addition to the frames themselves.
+            In Figure 8, frame \(i\) looks a lot like both \(j_1\) and \(j_2\). If we were trying to find a transition out of the \(i - 1\) image, our current scheme would think of both \(j_1\) and \(j_2\) as reasonable successors. Despite this, if we pay attention to the frames both before and after \(i\) we immediately realize that the pendulum is supposed to be moving to the left. Again looking at the frames' neighbors, it's clear that \(j_2\) has the pendulum moving to the left, but \(j_1\) comes from a sequence where the pendulum is moving to the right. We should say that \(j_2\) is a good successor, while \(j_1\) is by contrast a poor one. Since we are unable to make this call by comparing only individual images, we are forced to take into account <em>neighborhoods</em> (sequences) of frames instead, i.e. we think about the temporally adjacent frames in addition to the frames themselves.
         
         <p>
             Mathematically, it comes together as follows:
@@ -417,7 +393,7 @@ until we've generated the desired number of frames:
                 </tr>
             </table>
             <div class="forced-caption-div">
-                <code>Figure 10: pendulum, visualizations of D, D', D'', and Tr</code>
+                <code>Figure 09: pendulum, visualizations of D, D', D'', and Tr</code>
             </div>
             
             <div class="iframe-wrapper">
@@ -442,7 +418,7 @@ until we've generated the desired number of frames:
                 </tr>
             </table>
             <div class="forced-caption-div">
-                <code>Figure 11: mostly boring candle, visualizations again</code>
+                <code>Figure 10: mostly boring candle, visualizations again</code>
             </div>
         
         <p>
